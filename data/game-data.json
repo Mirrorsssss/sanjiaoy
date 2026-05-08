@@ -1,13 +1,7 @@
 {
-  "_comment": "三角洲行动游戏数据 - v3.1 更新数据源",
+  "_comment": "三角洲行动游戏数据 - 三角眼战备工具站",
   "_lastUpdate": "2026-05-08",
-  "_dataSources": [
-    "https://sjz.jbskins.com - 武器、防具数据（备用源）",
-    "https://orzice.com - 武器改枪码、配件、消耗品、子弹实时价格（主数据源）",
-    "https://m.ali213.net - 子弹价格排名（S9赛季）"
-  ],
-  "_version": "3.1.0",
-  "_note": "sjiaoy.top 已失效，替换为 orzice.com (三角洲数据帝)",
+  "_version": "4.0.0",
   
   "weapons": {
     "pistol": {
@@ -341,20 +335,45 @@
   },
 
   "keys": {
-    "name": "钥匙",
+    "name": "钥匙卡",
     "items": [
-      { "id": "iron_ticket", "name": "铁脊车站售票室", "price": 35700, "level": 3, "grid": "1×1" },
-      { "id": "ranch_manage", "name": "牧场管理房", "price": 42000, "level": 3, "grid": "1×1" },
-      { "id": "checkpoint_storage", "name": "检查站库房", "price": 226800, "level": 3, "grid": "1×1" },
-      { "id": "radar_side_door", "name": "雷达侧门钥匙", "price": 190000, "level": 3, "grid": "1×1" },
-      { "id": "old_bath_restaurant", "name": "老浴场餐厅", "price": 413178, "level": 4, "grid": "1×1" },
-      { "id": "east_building_bedroom", "name": "东城民宅卧室", "price": 313403, "level": 4, "grid": "1×1" },
-      { "id": "west_building_bedroom", "name": "西城民宅卧室", "price": 220136, "level": 4, "grid": "1×1" },
-      { "id": "hotel_staff_room", "name": "旅店员工休息室", "price": 317154, "level": 4, "grid": "1×1" },
-      { "id": "town_restaurant", "name": "小镇餐厅", "price": 555841, "level": 4, "grid": "1×1" },
-      { "id": "east_building_grocery", "name": "东楼杂货间", "price": 0, "level": 3, "grid": "1×1", "note": "价格待定" },
-      { "id": "west_building_medical", "name": "西楼医务室", "price": 117600, "level": 3, "grid": "1×1" },
-      { "id": "power_station_dorm", "name": "变电站宿舍", "price": 35700, "level": 3, "grid": "1×1" }
+      { "id": "lab_office", "name": "实验楼办公室", "level": 4, "trend_30d": 7.69 },
+      { "id": "cement_office", "name": "水泥厂办公室", "level": 4, "trend_30d": 0 },
+      { "id": "hotel_dining", "name": "旅店用餐间", "level": 5, "trend_30d": -16.67 },
+      { "id": "west_monitor", "name": "西楼监视室", "level": 4, "trend_30d": 8.34 },
+      { "id": "prison_interrogate", "name": "监狱审讯室", "level": 6, "trend_30d": 36.84 },
+      { "id": "museum_exhibit", "name": "博物馆废弃展厅", "level": 5, "trend_30d": 7.69 },
+      { "id": "doll_room", "name": "人偶影印室", "level": 6, "trend_30d": 42.86 },
+      { "id": "relink_surgery", "name": "Relink植入手术室", "level": 5, "trend_30d": -16.67 },
+      { "id": "radar_control", "name": "雷达站控制室", "level": 4, "trend_30d": 14.29 },
+      { "id": "radar_data", "name": "雷达站数据中心", "level": 5, "trend_30d": 21.43 },
+      { "id": "iron_ticket", "name": "铁脊车站售票室", "level": 3 },
+      { "id": "ranch_manage", "name": "牧场管理房", "level": 3 },
+      { "id": "checkpoint_storage", "name": "检查站库房", "level": 3 },
+      { "id": "radar_side_door", "name": "雷达侧门钥匙", "level": 3 },
+      { "id": "old_bath_restaurant", "name": "老浴场餐厅", "level": 4 },
+      { "id": "east_building_bedroom", "name": "东城民宅卧室", "level": 4 },
+      { "id": "west_building_bedroom", "name": "西城民宅卧室", "level": 4 },
+      { "id": "hotel_staff_room", "name": "旅店员工休息室", "level": 4 },
+      { "id": "town_restaurant", "name": "小镇餐厅", "level": 4 },
+      { "id": "west_building_medical", "name": "西楼医务室", "level": 3 },
+      { "id": "power_station_dorm", "name": "变电站宿舍", "level": 3 }
+    ]
+  },
+
+  "collectibles": {
+    "name": "收集品",
+    "items": [
+      { "id": "poker_10", "name": "扑克牌-10", "tier": 6, "trend_7d": 1307.69 },
+      { "id": "soy_protein", "name": "大豆蛋白粉包", "tier": 5, "trend_7d": 331.68, "trend_30d": 526.5 },
+      { "id": "candy_ginger", "name": "小糖人姜饼人", "tier": 5, "trend_7d": 481.77, "trend_30d": 445.28 },
+      { "id": "solar_panel", "name": "太阳能板", "tier": 4, "trend_7d": 18.23, "trend_30d": 36.96 },
+      { "id": "raven_pendant", "name": "渡鸦项坠", "tier": 4, "trend_7d": 10, "trend_30d": 43.5 },
+      { "id": "usb_drive", "name": "U盘", "tier": 3, "trend_7d": 4.36, "trend_30d": 14.31 },
+      { "id": "telepathy_cube", "name": "心灵感应.魔方", "tier": 4, "trend_7d": 20.01, "trend_30d": 9.1 },
+      { "id": "guard_ring", "name": "卫队金扳指", "tier": 4, "trend_7d": 20.85, "trend_30d": -12.13 },
+      { "id": "iv_tools", "name": "输液工具", "tier": 3, "trend_7d": 4.77, "trend_30d": 10.02 },
+      { "id": "mosaic_lamp", "name": "马赛克灯台", "tier": 3, "trend_7d": 13.34 }
     ]
   },
 
@@ -364,6 +383,7 @@
       {
         "id": "craft_556",
         "name": "5.56mm NATO弹药",
+        "category": "弹药制造",
         "materials": [
           { "name": "黄铜", "count": 2 },
           { "name": "火药", "count": 1 }
@@ -376,6 +396,7 @@
       {
         "id": "craft_762",
         "name": "7.62×39mm弹药",
+        "category": "弹药制造",
         "materials": [
           { "name": "黄铜", "count": 2 },
           { "name": "火药", "count": 1 }
@@ -388,6 +409,7 @@
       {
         "id": "craft_127",
         "name": "12.7×55mm弹药",
+        "category": "弹药制造",
         "materials": [
           { "name": "黄铜", "count": 4 },
           { "name": "火药", "count": 2 }
@@ -396,14 +418,183 @@
         "sell_price": 28000,
         "profit": 13000,
         "profit_rate": 87
+      },
+      {
+        "id": "craft_medical",
+        "name": "简易手术包",
+        "category": "医疗制造",
+        "materials": [
+          { "name": "绷带", "count": 2 },
+          { "name": "酒精", "count": 1 }
+        ],
+        "cost": 1500,
+        "sell_price": 2365,
+        "profit": 865,
+        "profit_rate": 58
+      },
+      {
+        "id": "craft_bandage",
+        "name": "弹力绷带",
+        "category": "医疗制造",
+        "materials": [
+          { "name": "绷带", "count": 1 },
+          { "name": "布料", "count": 1 }
+        ],
+        "cost": 800,
+        "sell_price": 1050,
+        "profit": 250,
+        "profit_rate": 31
+      },
+      {
+        "id": "craft_syringe",
+        "name": "车载急救包",
+        "category": "医疗制造",
+        "materials": [
+          { "name": "绷带", "count": 2 },
+          { "name": "针管", "count": 1 },
+          { "name": "药物", "count": 1 }
+        ],
+        "cost": 2500,
+        "sell_price": 3067,
+        "profit": 567,
+        "profit_rate": 23
+      },
+      {
+        "id": "craft_armor_low",
+        "name": "自制护甲维修包",
+        "category": "防具制造",
+        "materials": [
+          { "name": "布料", "count": 3 },
+          { "name": "金属片", "count": 2 }
+        ],
+        "cost": 12000,
+        "sell_price": 20418,
+        "profit": 8418,
+        "profit_rate": 70
+      },
+      {
+        "id": "craft_armor_mid",
+        "name": "精密护甲维修包",
+        "category": "防具制造",
+        "materials": [
+          { "name": "凯夫拉", "count": 4 },
+          { "name": "金属片", "count": 3 },
+          { "name": "工具包", "count": 1 }
+        ],
+        "cost": 180000,
+        "sell_price": 242445,
+        "profit": 62445,
+        "profit_rate": 35
+      },
+      {
+        "id": "craft_ammo_box",
+        "name": "弹药箱",
+        "category": "弹药制造",
+        "materials": [
+          { "name": "黄铜", "count": 10 },
+          { "name": "火药", "count": 5 },
+          { "name": "金属片", "count": 2 }
+        ],
+        "cost": 35000,
+        "sell_price": 55000,
+        "profit": 20000,
+        "profit_rate": 57
+      }
+    ]
+  },
+
+  "weaponStats": {
+    "name": "武器属性",
+    "items": {
+      "g17": { "damage": 28, "penetration": 15, "fireRate": 450, "range": 15, "recoil": 25, "control": 70 },
+      "93r": { "damage": 35, "penetration": 18, "fireRate": 600, "range": 18, "recoil": 35, "control": 55 },
+      "g18": { "damage": 26, "penetration": 14, "fireRate": 500, "range": 14, "recoil": 22, "control": 75 },
+      "mp7": { "damage": 30, "penetration": 22, "fireRate": 950, "range": 20, "recoil": 43, "control": 86 },
+      "mp5": { "damage": 32, "penetration": 25, "fireRate": 800, "range": 22, "recoil": 35, "control": 80 },
+      "ak12": { "damage": 45, "penetration": 35, "fireRate": 600, "range": 45, "recoil": 55, "control": 60 },
+      "m4a1": { "damage": 38, "penetration": 32, "fireRate": 700, "range": 48, "recoil": 40, "control": 72 },
+      "k416": { "damage": 40, "penetration": 33, "fireRate": 750, "range": 46, "recoil": 42, "control": 70 },
+      "scarh": { "damage": 48, "penetration": 40, "fireRate": 550, "range": 55, "recoil": 60, "control": 58 },
+      "m249": { "damage": 42, "penetration": 38, "fireRate": 858, "range": 40, "recoil": 62, "control": 38 },
+      "awm": { "damage": 100, "penetration": 95, "fireRate": 50, "range": 200, "recoil": 80, "control": 25 },
+      "m82": { "damage": 100, "penetration": 95, "fireRate": 100, "range": 260, "recoil": 90, "control": 7 },
+      "m700": { "damage": 85, "penetration": 88, "fireRate": 60, "range": 180, "recoil": 65, "control": 40 }
+    }
+  },
+
+  "gunBuilds": {
+    "name": "改枪码配置",
+    "items": [
+      {
+        "id": "ar57_full",
+        "weapon": "AR57",
+        "name": "52W满改",
+        "author": "米尔Miru",
+        "value": "52W",
+        "stats": { "flesh": 30, "armor": 31, "fireRate": 900, "range": 39, "recoil": 72, "control": 49, "stability": 46, "hipfire": 40 },
+        "mods": ["战术枪管", "重型枪托", "垂直握把", "扩容弹匣", "红点瞄准镜"]
+      },
+      {
+        "id": "mp7_gold",
+        "weapon": "MP7",
+        "name": "28W金枪客",
+        "author": "李思南",
+        "value": "28W",
+        "stats": { "flesh": 32, "armor": 28, "fireRate": 950, "range": 20, "recoil": 43, "control": 86, "stability": 40, "hipfire": 71 },
+        "mods": ["轻型枪管", "战术枪托", "轻量握把", "标准弹匣"]
+      },
+      {
+        "id": "m249_gold",
+        "weapon": "M249",
+        "name": "36W金枪客",
+        "author": "李思南",
+        "value": "36W",
+        "stats": { "flesh": 30, "armor": 38, "fireRate": 858, "range": 40, "recoil": 62, "control": 38, "stability": 62, "hipfire": 84 },
+        "mods": ["重型枪管", "稳定枪托", "双脚架", "链锯弹鼓"]
+      },
+      {
+        "id": "ar57_budget",
+        "weapon": "AR57",
+        "name": "21W性价比",
+        "author": "乾宇欧巴",
+        "value": "21W",
+        "stats": { "flesh": 30, "armor": 31, "fireRate": 900, "range": 35, "recoil": 34, "control": 70, "stability": 37, "hipfire": 100 },
+        "mods": ["标准枪管", "基础枪托", "斜角握把", "标准弹匣"]
+      },
+      {
+        "id": "m4a1_profit",
+        "weapon": "M4A1",
+        "name": "30W性价比",
+        "author": "李思南",
+        "value": "30W",
+        "stats": { "flesh": 31, "armor": 33, "fireRate": 800, "range": 47, "recoil": 54, "control": 50, "stability": 59, "hipfire": 43 },
+        "mods": ["竞技枪管", "缓冲枪托", "垂直握把", "30发弹匣", "全息瞄准镜"]
+      },
+      {
+        "id": "qcq171_god",
+        "weapon": "QCQ171",
+        "name": "41W神器",
+        "author": "米粒酱",
+        "value": "41W",
+        "stats": { "flesh": 36, "armor": 33, "fireRate": 763, "range": 26, "recoil": 66, "control": 60, "stability": 46, "hipfire": 46 },
+        "mods": ["战术枪管", "重型枪托", "激光瞄具", "45发弹筒"]
+      },
+      {
+        "id": "m82_long",
+        "weapon": "M82",
+        "name": "78W高控远距",
+        "author": "乾宇欧巴",
+        "value": "78W",
+        "stats": { "flesh": 100, "armor": 20, "fireRate": 100, "range": 260, "recoil": 7, "control": 7, "stability": 80, "hipfire": 35 },
+        "mods": ["狙击枪管", "重型枪托", "两脚架", "10发弹匣", "8倍瞄准镜"]
       }
     ]
   },
 
   "meta": {
-    "lastUpdate": "2026-05-08T21:20:00+08:00",
+    "lastUpdate": "2026-05-08T22:30:00+08:00",
     "nextScheduledUpdate": "2026-05-09T08:00:00+08:00",
-    "dataVersion": "3.0.0",
+    "dataVersion": "4.0.0",
     "gameVersion": "S9赛季",
     "stats": {
       "totalWeapons": 42,
@@ -411,7 +602,10 @@
       "totalBullets": 15,
       "totalConsumables": 30,
       "totalArmor": 16,
-      "totalKeys": 12
+      "totalKeys": 21,
+      "totalCollectibles": 50,
+      "totalWorkshop": 9,
+      "totalGunBuilds": 7
     }
   }
 }
