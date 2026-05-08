@@ -1151,11 +1151,11 @@
                         <p>跑刀零成本积累财富，详细路线规划、必抢物资点位、撤离时机判断。实战经验总结，持续更新中。</p>
                         <div class="tool-card-footer" style="color: var(--text-muted)">🔥 即将上线</div>
                     </div>
-                    <div class="tool-card" style="cursor:default">
+                    <div class="tool-card" onclick="openModal('gear')">
                         <div class="tool-icon blue">⚙️</div>
                         <h3>改枪配件搭配大全</h3>
                         <p>每把枪的最优配件组合，按模式分类推荐。不再纠结装什么，直接抄作业。</p>
-                        <div class="tool-card-footer" style="color: var(--text-muted)">🔥 即将上线</div>
+                        <div class="tool-card-footer">开始搭配 → <span class="arrow">→</span></div>
                     </div>
                 </div>
             </div>
@@ -1372,6 +1372,42 @@
         </div>
     </div>
 
+    <!-- Modal: Gear Guide -->
+    <div class="modal-overlay" id="modal-gear">
+        <div class="modal" style="max-width: 900px;">
+            <div class="modal-header">
+                <div>
+                    <h3>⚙️ 改枪配件搭配大全</h3>
+                    <p>主流武器最优配件组合，按模式分类推荐</p>
+                </div>
+                <button class="modal-close" onclick="closeModal('gear')">✕</button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label>选择模式</label>
+                    <select id="gear-mode" onchange="showGearBuilds()">
+                        <option value="raid">烽火地带</option>
+                        <option value="battle">全面战场</option>
+                        <option value="ranked">竞技排位</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>选择武器</label>
+                    <select id="gear-weapon" onchange="showGearBuilds()">
+                        <option value="">— 选择武器 —</option>
+                        <option value="m4">M4A1</option>
+                        <option value="ak">AKM</option>
+                        <option value="vector">Vector</option>
+                        <option value="qbz">QBZ</option>
+                        <option value="scar">SCAR-L</option>
+                        <option value="mp5">MP5</option>
+                    </select>
+                </div>
+                <div id="gear-result"></div>
+            </div>
+        </div>
+    </div>
+
     <script>
         // ==================== Ticker ====================
         const tickerData = [
@@ -1403,6 +1439,452 @@
             wrap.innerHTML = html + html;
         }
         initTicker();
+
+        // ==================== Gear Guide ====================
+        const gearData = {
+            m4: {
+                name: 'M4A1',
+                icon: '🔫',
+                builds: {
+                    raid: {
+                        budget: {
+                            title: 'M4 烽火跑刀经济套',
+                            desc: '低成本高效率，跑刀捡枪后的最优改法',
+                            parts: [
+                                { slot: '枪口', name: '消音器（蓝）', cost: '0.8万' },
+                                { slot: '护木', name: '轻量化护木', cost: '0.3万' },
+                                { slot: '瞄准镜', name: '红点瞄准镜', cost: '0.5万' },
+                                { slot: '枪托', name: '折叠枪托', cost: '0.2万' },
+                            ],
+                            total: '1.8万',
+                            tip: '适合捡到枪后快速改好出门，机动性强'
+                        },
+                        standard: {
+                            title: 'M4 烽火小康稳扎套',
+                            desc: '攻防平衡，适合中等投入玩家',
+                            parts: [
+                                { slot: '枪口', name: '消音器（紫）', cost: '3.5万' },
+                                { slot: '护木', name: '战术护木', cost: '1.2万' },
+                                { slot: '瞄准镜', name: '全息瞄准镜', cost: '1.8万' },
+                                { slot: '枪托', name: '专业枪托', cost: '1.5万' },
+                                { slot: '弹匣', name: '加长弹匣', cost: '0.8万' },
+                            ],
+                            total: '8.8万',
+                            tip: '稳定性大幅提升，中距离对枪优势明显'
+                        },
+                        full: {
+                            title: 'M4 烽火大佬满改套',
+                            desc: '极致性能，撤离必备',
+                            parts: [
+                                { slot: '枪口', name: '专属消音器', cost: '8万' },
+                                { slot: '护木', name: '重装护木', cost: '3万' },
+                                { slot: '瞄准镜', name: '高倍瞄准镜', cost: '5万' },
+                                { slot: '枪托', name: '顶级枪托', cost: '4万' },
+                                { slot: '弹匣', name: '快速弹匣', cost: '2万' },
+                                { slot: '握把', name: '战术握把', cost: '2.5万' },
+                            ],
+                            total: '24.5万',
+                            tip: '全能配置，近中远皆可一战'
+                        }
+                    },
+                    battle: {
+                        standard: {
+                            title: 'M4 战场冲锋套',
+                            desc: '高射速，高机动性',
+                            parts: [
+                                { slot: '枪口', name: '冲锋枪抑径器', cost: '2万' },
+                                { slot: '护木', name: '轻型护木', cost: '1万' },
+                                { slot: '瞄准镜', name: '红点', cost: '0.8万' },
+                                { slot: '枪托', name: '无托', cost: '0.5万' },
+                            ],
+                            total: '4.3万',
+                            tip: '适合抢占据点，快速击杀'
+                        },
+                        full: {
+                            title: 'M4 战场占点套',
+                            desc: '守点固守首选',
+                            parts: [
+                                { slot: '枪口', name: '枪口制退器', cost: '4万' },
+                                { slot: '护木', name: '重型护木', cost: '2.5万' },
+                                { slot: '瞄准镜', name: '全息', cost: '2万' },
+                                { slot: '枪托', name: '稳托', cost: '2万' },
+                                { slot: '弹匣', name: '加弹', cost: '1.5万' },
+                            ],
+                            total: '12万',
+                            tip: '后坐力低，守点神器'
+                        }
+                    },
+                    ranked: {
+                        standard: {
+                            title: 'M4 排位标准套',
+                            desc: '竞技首选，稳定性优先',
+                            parts: [
+                                { slot: '枪口', name: '消音器', cost: '3万' },
+                                { slot: '护木', name: '战术护木', cost: '1.5万' },
+                                { slot: '瞄准镜', name: '全息', cost: '2万' },
+                                { slot: '枪托', name: '专业枪托', cost: '2万' },
+                                { slot: '握把', name: '垂直握把', cost: '1万' },
+                            ],
+                            total: '9.5万',
+                            tip: '竞技场必备配置'
+                        }
+                    }
+                }
+            },
+            ak: {
+                name: 'AKM',
+                icon: '🔫',
+                builds: {
+                    raid: {
+                        budget: {
+                            title: 'AKM 烽火跑刀套',
+                            desc: '伤害高，配件少',
+                            parts: [
+                                { slot: '枪口', name: 'AK枪口', cost: '0.5万' },
+                                { slot: '瞄准镜', name: '红点', cost: '0.5万' },
+                                { slot: '护木', name: '轻护木', cost: '0.2万' },
+                            ],
+                            total: '1.2万',
+                            tip: '简单粗暴，近距离秒杀'
+                        },
+                        standard: {
+                            title: 'AKM 烽火小康套',
+                            desc: '伤害与稳定兼顾',
+                            parts: [
+                                { slot: '枪口', name: '制退器', cost: '2万' },
+                                { slot: '护木', name: '战术护木', cost: '1.2万' },
+                                { slot: '瞄准镜', name: '全息', cost: '1.5万' },
+                                { slot: '枪托', name: '折叠枪托', cost: '1万' },
+                                { slot: '弹匣', name: '加弹', cost: '0.8万' },
+                            ],
+                            total: '6.5万',
+                            tip: 'AK爆头伤害极高，练好定位很关键'
+                        }
+                    },
+                    battle: {
+                        standard: {
+                            title: 'AKM 战场冲锋套',
+                            desc: '近距离绞肉机',
+                            parts: [
+                                { slot: '枪口', name: '冲锋枪消音', cost: '1.5万' },
+                                { slot: '护木', name: '轻型护木', cost: '0.8万' },
+                                { slot: '瞄准镜', name: '红点', cost: '0.6万' },
+                            ],
+                            total: '2.9万',
+                            tip: 'AK近距离贴脸超强'
+                        }
+                    },
+                    ranked: {
+                        standard: {
+                            title: 'AKM 排位爆破套',
+                            desc: '一枪头，爆破神器',
+                            parts: [
+                                { slot: '枪口', name: '消音器', cost: '4万' },
+                                { slot: '护木', name: '战术护木', cost: '2万' },
+                                { slot: '瞄准镜', name: '全息', cost: '2.5万' },
+                                { slot: '枪托', name: '稳托', cost: '2万' },
+                                { slot: '握把', name: 'AK握把', cost: '1.5万' },
+                            ],
+                            total: '12万',
+                            tip: '排位遇到会玩AK的对手很头疼'
+                        }
+                    }
+                }
+            },
+            vector: {
+                name: 'Vector',
+                icon: '⚡',
+                builds: {
+                    raid: {
+                        budget: {
+                            title: 'Vector 跑刀冲锋套',
+                            desc: '射速极快，近身无敌',
+                            parts: [
+                                { slot: '枪口', name: '冲锋消音', cost: '0.6万' },
+                                { slot: '瞄准镜', name: '红点', cost: '0.5万' },
+                                { slot: '护木', name: '轻型护木', cost: '0.3万' },
+                            ],
+                            total: '1.4万',
+                            tip: '高射速弥补伤害，适合贴脸输出'
+                        },
+                        standard: {
+                            title: 'Vector 稳扎冲锋套',
+                            desc: '高配冲锋枪',
+                            parts: [
+                                { slot: '枪口', name: '冲锋消音', cost: '1.5万' },
+                                { slot: '护木', name: '战术护木', cost: '1万' },
+                                { slot: '瞄准镜', name: '红点', cost: '0.8万' },
+                                { slot: '枪托', name: '折叠托', cost: '0.8万' },
+                                { slot: '弹匣', name: '加弹', cost: '1万' },
+                            ],
+                            total: '5.1万',
+                            tip: '高射速+高伤害，近战T0'
+                        }
+                    },
+                    battle: {
+                        standard: {
+                            title: 'Vector 战场rush套',
+                            desc: '快速占点',
+                            parts: [
+                                { slot: '枪口', name: '冲锋消音', cost: '1.2万' },
+                                { slot: '护木', name: '轻型', cost: '0.8万' },
+                                { slot: '弹匣', name: '加弹', cost: '0.8万' },
+                                { slot: '枪托', name: '无托', cost: '0.5万' },
+                            ],
+                            total: '3.3万',
+                            tip: 'rush神器，攻守皆宜'
+                        }
+                    },
+                    ranked: {
+                        standard: {
+                            title: 'Vector 排位近战套',
+                            desc: '近距离绞肉',
+                            parts: [
+                                { slot: '枪口', name: '消音', cost: '2万' },
+                                { slot: '护木', name: '战术护木', cost: '1.5万' },
+                                { slot: '弹匣', name: '快速弹匣', cost: '1.5万' },
+                                { slot: '枪托', name: '稳托', cost: '1.2万' },
+                                { slot: '瞄准镜', name: '红点', cost: '1万' },
+                            ],
+                            total: '7.2万',
+                            tip: '排位守点配合高射速极强'
+                        }
+                    }
+                }
+            },
+            qbz: {
+                name: 'QBZ',
+                icon: '🔫',
+                builds: {
+                    raid: {
+                        budget: {
+                            title: 'QBZ 烽火跑刀套',
+                            desc: '国产枪，后坐力适中',
+                            parts: [
+                                { slot: '枪口', name: 'QBZ枪口', cost: '0.4万' },
+                                { slot: '瞄准镜', name: '红点', cost: '0.5万' },
+                                { slot: '护木', name: '轻护木', cost: '0.2万' },
+                            ],
+                            total: '1.1万',
+                            tip: '入手简单，适合新手'
+                        },
+                        standard: {
+                            title: 'QBZ 烽火小康套',
+                            desc: '稳中求胜',
+                            parts: [
+                                { slot: '枪口', name: '消音器', cost: '1.5万' },
+                                { slot: '护木', name: '战术护木', cost: '1万' },
+                                { slot: '瞄准镜', name: '全息', cost: '1.2万' },
+                                { slot: '枪托', name: '折叠托', cost: '0.8万' },
+                                { slot: '弹匣', name: '加弹', cost: '0.6万' },
+                            ],
+                            total: '5.1万',
+                            tip: '综合性能优秀，新手友好'
+                        }
+                    },
+                    battle: {
+                        standard: {
+                            title: 'QBZ 战场中距离套',
+                            desc: '中距离对枪强',
+                            parts: [
+                                { slot: '枪口', name: '制退器', cost: '1.5万' },
+                                { slot: '护木', name: '战术护木', cost: '1万' },
+                                { slot: '瞄准镜', name: '全息', cost: '1万' },
+                                { slot: '枪托', name: '稳托', cost: '1万' },
+                            ],
+                            total: '4.5万',
+                            tip: '中距离稳定输出'
+                        }
+                    },
+                    ranked: {
+                        standard: {
+                            title: 'QBZ 排位中距离套',
+                            desc: '竞技中距离首选',
+                            parts: [
+                                { slot: '枪口', name: '消音', cost: '2.5万' },
+                                { slot: '护木', name: '战术护木', cost: '1.5万' },
+                                { slot: '瞄准镜', name: '全息', cost: '1.8万' },
+                                { slot: '枪托', name: '专业枪托', cost: '1.5万' },
+                                { slot: '握把', name: '垂直握把', cost: '1万' },
+                            ],
+                            total: '8.3万',
+                            tip: '中距离对枪稳定'
+                        }
+                    }
+                }
+            },
+            scar: {
+                name: 'SCAR-L',
+                icon: '🔫',
+                builds: {
+                    raid: {
+                        standard: {
+                            title: 'SCAR-L 烽火小康套',
+                            desc: '高伤害，可靠稳定',
+                            parts: [
+                                { slot: '枪口', name: '消音器', cost: '2万' },
+                                { slot: '护木', name: '战术护木', cost: '1.5万' },
+                                { slot: '瞄准镜', name: '全息', cost: '1.5万' },
+                                { slot: '枪托', name: '专业枪托', cost: '1.2万' },
+                                { slot: '弹匣', name: '加弹', cost: '0.8万' },
+                            ],
+                            total: '7万',
+                            tip: '综合性能强，万金油配置'
+                        }
+                    },
+                    battle: {
+                        standard: {
+                            title: 'SCAR 战场中远套',
+                            desc: '中远距离优秀',
+                            parts: [
+                                { slot: '枪口', name: '制退器', cost: '2万' },
+                                { slot: '护木', name: '重型护木', cost: '1.5万' },
+                                { slot: '瞄准镜', name: '全息', cost: '1.2万' },
+                                { slot: '枪托', name: '稳托', cost: '1.5万' },
+                            ],
+                            total: '6.2万',
+                            tip: 'SCAR远距离精度极高'
+                        }
+                    },
+                    ranked: {
+                        standard: {
+                            title: 'SCAR 排位全能套',
+                            desc: '竞技万金油',
+                            parts: [
+                                { slot: '枪口', name: '消音', cost: '3.5万' },
+                                { slot: '护木', name: '战术护木', cost: '2万' },
+                                { slot: '瞄准镜', name: '全息', cost: '2.5万' },
+                                { slot: '枪托', name: '专业枪托', cost: '2万' },
+                                { slot: '握把', name: '战术握把', cost: '1.5万' },
+                            ],
+                            total: '11.5万',
+                            tip: '比赛常客，稳定性极佳'
+                        }
+                    }
+                }
+            },
+            mp5: {
+                name: 'MP5',
+                icon: '⚡',
+                builds: {
+                    raid: {
+                        budget: {
+                            title: 'MP5 跑刀冲锋套',
+                            desc: '经典冲锋枪',
+                            parts: [
+                                { slot: '枪口', name: '冲锋消音', cost: '0.5万' },
+                                { slot: '瞄准镜', name: '红点', cost: '0.5万' },
+                                { slot: '护木', name: '轻型护木', cost: '0.3万' },
+                            ],
+                            total: '1.3万',
+                            tip: '配件需求低，效果好'
+                        },
+                        standard: {
+                            title: 'MP5 稳扎冲锋套',
+                            desc: '近距离无敌',
+                            parts: [
+                                { slot: '枪口', name: '冲锋消音', cost: '1.2万' },
+                                { slot: '护木', name: '战术护木', cost: '0.8万' },
+                                { slot: '瞄准镜', name: '红点', cost: '0.6万' },
+                                { slot: '枪托', name: '折叠托', cost: '0.6万' },
+                                { slot: '弹匣', name: '加弹', cost: '0.8万' },
+                            ],
+                            total: '4万',
+                            tip: '近距离射速极快'
+                        }
+                    },
+                    battle: {
+                        standard: {
+                            title: 'MP5 战场突击套',
+                            desc: '快速突击',
+                            parts: [
+                                { slot: '枪口', name: '冲锋消音', cost: '1万' },
+                                { slot: '护木', name: '轻型护木', cost: '0.8万' },
+                                { slot: '弹匣', name: '加弹', cost: '0.6万' },
+                            ],
+                            total: '2.4万',
+                            tip: '突击点位首选'
+                        }
+                    },
+                    ranked: {
+                        standard: {
+                            title: 'MP5 排位近战套',
+                            desc: '近距离对枪王',
+                            parts: [
+                                { slot: '枪口', name: '消音', cost: '1.8万' },
+                                { slot: '护木', name: '战术护木', cost: '1.2万' },
+                                { slot: '弹匣', name: '快速弹匣', cost: '1.2万' },
+                                { slot: '枪托', name: '稳托', cost: '1万' },
+                                { slot: '瞄准镜', name: '红点', cost: '0.8万' },
+                            ],
+                            total: '6万',
+                            tip: '近距离对枪必胜'
+                        }
+                    }
+                }
+            }
+        };
+
+        function showGearBuilds() {
+            const mode = document.getElementById('gear-mode').value;
+            const weapon = document.getElementById('gear-weapon').value;
+            const resultDiv = document.getElementById('gear-result');
+            
+            if (!weapon || !gearData[weapon]) {
+                resultDiv.innerHTML = '<p style="color: var(--text-secondary); text-align: center;">请选择武器查看推荐配置</p>';
+                return;
+            }
+            
+            const weaponData = gearData[weapon];
+            const modeBuilds = weaponData.builds[mode];
+            
+            if (!modeBuilds) {
+                resultDiv.innerHTML = '<p style="color: var(--text-secondary); text-align: center;">该模式暂无配置数据</p>';
+                return;
+            }
+            
+            let html = `<div style="margin-top: 20px;">
+                <h4 style="color: var(--accent); margin-bottom: 16px;">${weaponData.icon} ${weaponData.name} - ${mode === 'raid' ? '烽火地带' : mode === 'battle' ? '全面战场' : '竞技排位'}</h4>`;
+            
+            const tierNames = { budget: '经济型', standard: '标准型', full: '满改型' };
+            const tierColors = { budget: 'var(--green)', standard: 'var(--yellow)', full: 'var(--accent)' };
+            
+            for (const [tier, build] of Object.entries(modeBuilds)) {
+                html += `
+                <div style="background: var(--bg-card); border-radius: 12px; padding: 16px; margin-bottom: 16px; border: 1px solid var(--border);">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
+                        <h5 style="color: ${tierColors[tier]}; font-size: 14px;">${tierNames[tier] || tier}</h5>
+                        <span style="background: ${tierColors[tier]}22; color: ${tierColors[tier]}; padding: 4px 10px; border-radius: 20px; font-size: 12px;">总花费: ${build.total}</span>
+                    </div>
+                    <h6 style="color: var(--text-primary); margin-bottom: 4px;">${build.title}</h6>
+                    <p style="color: var(--text-secondary); font-size: 13px; margin-bottom: 12px;">${build.desc}</p>
+                    <table style="width: 100%; border-collapse: collapse; font-size: 13px;">
+                        <thead>
+                            <tr style="border-bottom: 1px solid var(--border);">
+                                <th style="text-align: left; padding: 8px 0; color: var(--text-muted);">槽位</th>
+                                <th style="text-align: left; padding: 8px 0; color: var(--text-muted);">配件</th>
+                                <th style="text-align: right; padding: 8px 0; color: var(--text-muted);">参考价</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            ${build.parts.map(part => `
+                            <tr style="border-bottom: 1px solid rgba(42,54,84,0.5);">
+                                <td style="padding: 8px 0; color: var(--text-secondary);">${part.slot}</td>
+                                <td style="padding: 8px 0; color: var(--text-primary);">${part.name}</td>
+                                <td style="padding: 8px 0; text-align: right; color: var(--green);">${part.cost}</td>
+                            </tr>
+                            `).join('')}
+                        </tbody>
+                    </table>
+                    <div style="margin-top: 12px; padding: 10px; background: rgba(255,107,53,0.1); border-radius: 8px; font-size: 12px; color: var(--text-secondary);">
+                        💡 ${build.tip}
+                    </div>
+                </div>`;
+            }
+            
+            html += '</div>';
+            resultDiv.innerHTML = html;
+        }
 
         // ==================== Modals ====================
         function openModal(name) {
