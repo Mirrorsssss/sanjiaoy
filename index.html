@@ -1631,6 +1631,7 @@
                         <h3>DIY战备计算器</h3>
                         <p>自己搭配装备组合，实时计算总花费。支持保存配置，一键清空重选。</p>
                         <div class="tool-card-footer">开始配置 → <span class="arrow">→</span></div>
+<<<<<<< HEAD
                     </div>
                     <div class="tool-card" onclick="openModal('guide-sniper')">
                         <div class="tool-icon yellow">🎯</div>
@@ -1643,6 +1644,8 @@
                         <h3>团队配合技巧</h3>
                         <p>语音沟通、战术配合、阵容搭配。教你从野王进化成团队核心。</p>
                         <div class="tool-card-footer">提升配合 → <span class="arrow">→</span></div>
+=======
+>>>>>>> be02de3c11b9ed0d34e974bdd39a50981b9ebbcf
                     </div>
                 </div>
             </div>
@@ -1916,12 +1919,19 @@
                         <option value="qbz">QBZ</option>
                         <option value="scar">SCAR-L</option>
                         <option value="mp5">MP5</option>
+<<<<<<< HEAD
                         <option value="p90">P90</option>
                         <option value="m249">M249</option>
                         <option value="aug">AUG</option>
                         <option value="deagle">Deagle</option>
                         <option value="sniper_bolt">狙击枪（栓动）</option>
                         <option value="sniper_auto">狙击枪（半自动）</option>
+=======
+                        <option value="sniper">狙击枪</option>
+                        <option value="m249">M249</option>
+                        <option value="aug">AUG</option>
+                        <option value="deagle">Deagle</option>
+>>>>>>> be02de3c11b9ed0d34e974bdd39a50981b9ebbcf
                     </select>
                 </div>
                 <div id="gear-result"></div>
@@ -1967,13 +1977,21 @@
                         <div class="diy-items" id="diy-grenades"></div>
                     </div>
                 </div>
+<<<<<<< HEAD
 
+=======
+                
+>>>>>>> be02de3c11b9ed0d34e974bdd39a50981b9ebbcf
                 <!-- 已选装备 -->
                 <div class="diy-selected">
                     <h4>📦 已选装备 (<span id="diy-count">0</span>件)</h4>
                     <div id="diy-selected-list"></div>
                 </div>
+<<<<<<< HEAD
 
+=======
+                
+>>>>>>> be02de3c11b9ed0d34e974bdd39a50981b9ebbcf
                 <!-- 总计 -->
                 <div class="diy-total">
                     <div class="diy-total-item">
@@ -1985,7 +2003,11 @@
                         <span id="diy-item-count">0件</span>
                     </div>
                 </div>
+<<<<<<< HEAD
 
+=======
+                
+>>>>>>> be02de3c11b9ed0d34e974bdd39a50981b9ebbcf
                 <div class="diy-actions">
                     <button class="btn-secondary" onclick="clearDiyBuild()">🗑 清空全部</button>
                     <button class="btn-primary" onclick="saveDiyBuild()">💾 保存配置</button>
@@ -1995,6 +2017,7 @@
         </div>
     </div>
 
+<<<<<<< HEAD
     <!-- Modal: Evacuation Map -->
     <div class="modal-overlay" id="modal-evac">
         <div class="modal" style="max-width: 800px;">
@@ -2261,6 +2284,8 @@
     <!-- Toast -->
     <div class="toast" id="toast"></div>
 
+=======
+>>>>>>> be02de3c11b9ed0d34e974bdd39a50981b9ebbcf
     <script>
         // ==================== Theme Toggle ====================
         function initTheme() {
@@ -2725,8 +2750,13 @@
                     }
                 }
             },
+<<<<<<< HEAD
             sniper_bolt: {
                 name: '狙击枪（栓动）',
+=======
+            sniper: {
+                name: '狙击枪',
+>>>>>>> be02de3c11b9ed0d34e974bdd39a50981b9ebbcf
                 icon: '🎯',
                 builds: {
                     raid: {
@@ -2974,6 +3004,7 @@
             }
         };
 
+<<<<<<< HEAD
         // 添加P90数据
         gearData.p90 = {
             name: 'P90',
@@ -3092,6 +3123,8 @@
             }
         };
 
+=======
+>>>>>>> be02de3c11b9ed0d34e974bdd39a50981b9ebbcf
         // ==================== DIY Build Calculator ====================
         const diyData = {
             weapons: [
@@ -3105,12 +3138,17 @@
                 { id: 'qbz_full', name: 'QBZ（满改）', cost: 12, icon: '🔫' },
                 { id: 'scar_full', name: 'SCAR-L（满改）', cost: 22, icon: '🔫' },
                 { id: 'mp5_full', name: 'MP5（满改）', cost: 10, icon: '⚡' },
+<<<<<<< HEAD
                 { id: 'p90_full', name: 'P90（满改）', cost: 12, icon: '⚡' },
                 { id: 'sniper_bolt_basic', name: '栓动狙（裸枪）', cost: 15, icon: '🎯' },
                 { id: 'sniper_bolt_full', name: '栓动狙（满改）', cost: 55, icon: '🎯' },
                 { id: 'sniper_auto', name: '半自动狙（满改）', cost: 45, icon: '🎯' },
                 { id: 'm249_full', name: 'M249（满改）', cost: 40, icon: '🔫' },
                 { id: 'aug_full', name: 'AUG（满改）', cost: 20, icon: '🔫' },
+=======
+                { id: 'sniper_basic', name: '狙击枪（裸枪）', cost: 15, icon: '🎯' },
+                { id: 'sniper_full', name: '狙击枪（满改）', cost: 55, icon: '🎯' },
+>>>>>>> be02de3c11b9ed0d34e974bdd39a50981b9ebbcf
                 { id: 'knife', name: '战术匕首', cost: 0, icon: '🗡' },
             ],
             armors: [
