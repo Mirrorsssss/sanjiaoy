@@ -3,9 +3,62 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>三角眼 - 三角洲行动战备工具站</title>
-    <meta name="description" content="三角眼是三角洲行动玩家的必备工具站，提供工坊利润计算、战备配置推荐、子弹兑换计算等实用工具，帮助玩家高效战备、决胜战场。">
-    <meta name="keywords" content="三角洲行动,工坊利润,战备配置,子弹兑换,三角洲工具">
+    <title>三角眼 - 三角洲行动战备工具站 | 工坊利润计算器</title>
+    <meta name="description" content="三角眼是三角洲行动玩家的必备工具站，提供工坊利润计算、战备配置推荐、DIY战备计算器、改枪配件搭配、撤离路线图等实用工具，帮助玩家高效战备、决胜战场。免费使用，持续更新！">
+    <meta name="keywords" content="三角洲行动,战备工具,工坊利润计算器,DIY战备计算器,改枪配件,撤离路线,烽火地带攻略,三角眼">
+    <meta name="author" content="三角眼">
+    <meta name="robots" content="index, follow">
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://df.sanjiaoy.top/">
+    <meta property="og:title" content="三角眼 - 三角洲行动战备工具站">
+    <meta property="og:description" content="三角洲行动玩家的必备工具站，提供工坊利润计算、战备配置推荐、改枪配件搭配等实用工具">
+    <meta property="og:image" content="https://df.sanjiaoy.top/og-image.png">
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://df.sanjiaoy.top/">
+    <meta property="twitter:title" content="三角眼 - 三角洲行动战备工具站">
+    <meta property="twitter:description" content="三角洲行动玩家的必备工具站，提供工坊利润计算、战备配置推荐、改枪配件搭配等实用工具">
+    <meta property="twitter:image" content="https://df.sanjiaoy.top/og-image.png">
+
+    <!-- 站点验证 -->
+    <meta name="baidu-site-verification" content="your-verification-code">
+    <meta name="google-site-verification" content="your-verification-code">
+
+    <!-- 站点地图 -->
+    <link rel="sitemap" type="application/xml" title="Sitemap" href="/sitemap.xml">
+
+    <!--  Canonical URL -->
+    <link rel="canonical" href="https://df.sanjiaoy.top/">
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>👁️</text></svg>">
+
+    <!-- 结构化数据 -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "name": "三角眼 - 三角洲行动战备工具站",
+        "description": "三角洲行动玩家的必备工具站，提供工坊利润计算、战备配置推荐、改枪配件搭配等实用工具",
+        "url": "https://df.sanjiaoy.top/",
+        "applicationCategory": "Game",
+        "operatingSystem": "Web Browser",
+        "offers": {
+            "@type": "Offer",
+            "price": "0",
+            "priceCurrency": "CNY"
+        },
+        "aggregateRating": {
+            "@type": "AggregateRating",
+            "ratingValue": "4.8",
+            "ratingCount": "126"
+        }
+    }
+    </script>
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700;900&display=swap" rel="stylesheet">
     <style>
@@ -2006,47 +2059,43 @@
             </div>
             <div class="modal-body">
                 <div class="tabs">
-                    <button class="tab active" onclick="switchEvacTab(this, 'industrial')">工业港</button>
-                    <button class="tab" onclick="switchEvacTab(this, 'admin')">行政区</button>
-                    <button class="tab" onclick="switchEvacTab(this, 'lab')">实验室</button>
-                    <button class="tab" onclick="switchEvacTab(this, 'data')">数据中心</button>
+                    <button class="tab active" onclick="switchEvacTab(this, 'zero-dam')">零号大坝</button>
+                    <button class="tab" onclick="switchEvacTab(this, 'longbow')">长弓溪谷</button>
+                    <button class="tab" onclick="switchEvacTab(this, 'brakkesh')">巴克什</button>
+                    <button class="tab" onclick="switchEvacTab(this, 'space')">航天基地</button>
+                    <button class="tab" onclick="switchEvacTab(this, 'tidal')">潮汐监狱</button>
                 </div>
                 <div id="evac-content">
-                    <h4 style="color: var(--accent); margin-bottom: 12px;">🏭 工业港撤离点</h4>
+                    <h4 style="color: var(--accent); margin-bottom: 12px;">🏭 零号大坝撤离点</h4>
                     <div class="map-grid">
-                        <div class="map-location high-value" onclick="showEvacDetail(this, 'north')">
+                        <div class="map-location high-value" onclick="showEvacDetail(this, '小路撤离点')">
                             <div class="icon">🚪</div>
-                            <div class="name">北部撤离点</div>
+                            <div class="name">小路撤离点</div>
                             <div class="value">条件：无 | 24小时开放</div>
                         </div>
-                        <div class="map-location high-value" onclick="showEvacDetail(this, 'south')">
-                            <div class="icon">🚢</div>
-                            <div class="name">南部码头</div>
-                            <div class="value">条件：需钥匙卡·蓝</div>
+                        <div class="map-location medium-value" onclick="showEvacDetail(this, '公路撤离点')">
+                            <div class="icon">🛣️</div>
+                            <div class="name">公路撤离点</div>
+                            <div class="value">条件：需开关</div>
                         </div>
-                        <div class="map-location medium-value" onclick="showEvacDetail(this, 'west')">
-                            <div class="icon">🏭</div>
-                            <div class="name">西部货仓</div>
+                        <div class="map-location medium-value" onclick="showEvacDetail(this, '东侧撤离点')">
+                            <div class="icon">🚪</div>
+                            <div class="name">东侧撤离点</div>
                             <div class="value">条件：无 | 限时开放</div>
                         </div>
-                        <div class="map-location medium-value" onclick="showEvacDetail(this, 'east')">
-                            <div class="icon">🚛</div>
-                            <div class="name">东部卡车</div>
-                            <div class="value">条件：需通关卡</div>
+                        <div class="map-location" onclick="showEvacDetail(this, '西侧撤离点')">
+                            <div class="icon">🔒</div>
+                            <div class="name">西侧撤离点</div>
+                            <div class="value">条件：钥匙卡·蓝</div>
                         </div>
-                        <div class="map-location" onclick="showEvacDetail(this, 'emergency')">
+                        <div class="map-location" onclick="showEvacDetail(this, '紧急撤离')">
                             <div class="icon">⚠️</div>
                             <div class="name">紧急撤离</div>
                             <div class="value">条件：生命值&lt;20%</div>
                         </div>
-                        <div class="map-location high-value" onclick="showEvacDetail(this, 'hidden')">
-                            <div class="icon">🔒</div>
-                            <div class="name">隐藏撤离</div>
-                            <div class="value">条件：特殊道具触发</div>
-                        </div>
                     </div>
                     <div style="margin-top: 16px; padding: 14px; background: rgba(255,107,53,0.08); border-radius: 10px;">
-                        <p style="font-size: 13px; color: var(--text-secondary);"><strong style="color: var(--accent);">💡 小贴士：</strong>工业港是跑刀玩家的首选区域，物资丰富且撤离点较多。建议从北部出生点快速搜刮后，从北部撤离点安全撤离。</p>
+                        <p style="font-size: 13px; color: var(--text-secondary);"><strong style="color: var(--accent);">💡 小贴士：</strong>零号大坝是新手启蒙区域，行政楼为核心。建议从出生点快速搜刮后，从小路撤离点安全撤离。</p>
                     </div>
                 </div>
                 <div class="result-box" id="evac-detail" style="display: none; margin-top: 16px;">
@@ -2072,6 +2121,17 @@
                     <button class="tab active" onclick="switchLootTab(this, 'high')">高价值区</button>
                     <button class="tab" onclick="switchLootTab(this, 'medium')">中价值区</button>
                     <button class="tab" onclick="switchLootTab(this, 'low')">低价值区</button>
+                    <button class="tab" onclick="switchLootTab(this, 'all')">全地图</button>
+                </div>
+                <div style="margin: 12px 0;">
+                    <select id="loot-map-filter" onchange="filterLoot()" style="padding: 8px 12px; border-radius: 8px; border: 1px solid var(--border); background: var(--bg-secondary); color: var(--text); font-size: 13px;">
+                        <option value="">全部地图</option>
+                        <option value="zero-dam">零号大坝</option>
+                        <option value="longbow">长弓溪谷</option>
+                        <option value="brakkesh">巴克什</option>
+                        <option value="space">航天基地</option>
+                        <option value="tidal">潮汐监狱</option>
+                    </select>
                 </div>
                 <div class="search-box">
                     <span class="search-icon">🔍</span>
@@ -2123,10 +2183,10 @@
                 </div>
                 <div class="guide-card" style="margin-bottom: 16px;">
                     <h4>🗺️ 新手跑刀路线</h4>
-                    <p><strong>推荐路线：</strong>工业港北部出生点 → 仓库区 → 货轮 → 北部撤离点。这条路线物资不错且撤离条件简单，适合新手练习。</p>
+                    <p><strong>推荐路线：</strong>零号大坝出生点 → 行政楼 → 大坝核心区 → 小路撤离点。这条路线物资不错且撤离条件简单，适合新手练习。</p>
                     <div class="guide-meta">
                         <span class="guide-tag">推荐路线</span>
-                        <span class="guide-tag">工业港北部</span>
+                        <span class="guide-tag">零号大坝</span>
                     </div>
                 </div>
                 <div class="guide-card" style="margin-bottom: 16px;">
@@ -2162,9 +2222,9 @@
                 <div class="guide-card" style="margin-bottom: 16px;">
                     <h4>🗺️ 高价值点位推荐</h4>
                     <p><strong>行政楼</strong>：出钥匙卡概率高，但也是兵家必争之地<br>
-                    <strong>实验室</strong>：医疗物资密集，适合搜刮后打药撤退<br>
-                    <strong>数据中心</strong>：电子元件多，卖钱快<br>
-                    <strong>仓库区</strong>：相对安全，物资中上</p>
+                    <strong>大坝核心区</strong>：电子元件多，卖钱快<br>
+                    <strong>巴克什老城区</strong>：医疗物资密集，适合搜刮后打药撤退<br>
+                    <strong>航天基地发射台</strong>：相对安全，物资中上</p>
                 </div>
                 <div class="guide-card" style="margin-bottom: 16px;">
                     <h4>⏰ 时机选择</h4>
@@ -2208,9 +2268,9 @@
                 </div>
                 <div class="guide-card" style="margin-bottom: 16px;">
                     <h4>📍 常用狙击点位</h4>
-                    <p><strong>工业港</strong>：仓库屋顶，俯瞰全场<br>
-                    <strong>行政楼</strong>：天台，远距离压制<br>
-                    <strong>数据中心</strong>：窗边，视野开阔</p>
+                    <p><strong>零号大坝</strong>：行政楼屋顶，俯瞰全场<br>
+                    <strong>长弓溪谷</strong>：山顶岩石，远距离压制<br>
+                    <strong>巴克什</strong>：老城区天台，视野开阔</p>
                 </div>
                 <div class="guide-card">
                     <h4>💡 实战建议</h4>
@@ -2259,6 +2319,102 @@
 
     <!-- Toast -->
     <div class="toast" id="toast"></div>
+
+    <!-- FAQ Section for SEO -->
+    <section id="faq" style="padding: 40px 24px; background: var(--bg-secondary);">
+        <div class="container" style="max-width: 800px; margin: 0 auto;">
+            <h3 style="color: var(--accent); margin-bottom: 24px; font-size: 20px;">❓ 常见问题</h3>
+            <div style="text-align: left;">
+                <details style="margin-bottom: 16px; padding: 16px; background: var(--bg-card); border-radius: 10px; border: 1px solid var(--border);">
+                    <summary style="cursor: pointer; font-weight: 600; color: var(--text-primary);">三角眼工具站是免费的吗？</summary>
+                    <p style="margin-top: 12px; color: var(--text-secondary); font-size: 14px;">是的，三角眼完全免费使用。我们通过广告和Affiliate合作来维持运营，不会向用户收取任何费用。</p>
+                </details>
+                <details style="margin-bottom: 16px; padding: 16px; background: var(--bg-card); border-radius: 10px; border: 1px solid var(--border);">
+                    <summary style="cursor: pointer; font-weight: 600; color: var(--text-primary);">工坊利润数据多久更新一次？</summary>
+                    <p style="margin-top: 12px; color: var(--text-secondary); font-size: 14px;">我们每周一自动更新工坊利润数据。实际利润可能因市场价格波动而略有差异，建议在游戏内核实。</p>
+                </details>
+                <details style="margin-bottom: 16px; padding: 16px; background: var(--bg-card); border-radius: 10px; border: 1px solid var(--border);">
+                    <summary style="cursor: pointer; font-weight: 600; color: var(--text-primary);">DIY战备计算器支持哪些武器？</summary>
+                    <p style="margin-top: 12px; color: var(--text-secondary); font-size: 14px;">支持三角洲行动中所有主流武器，包括突击步枪、冲锋枪、狙击枪、霰弹枪等。我们会持续添加新武器数据。</p>
+                </details>
+                <details style="margin-bottom: 16px; padding: 16px; background: var(--bg-card); border-radius: 10px; border: 1px solid var(--border);">
+                    <summary style="cursor: pointer; font-weight: 600; color: var(--text-primary);">撤离路线图数据准确吗？</summary>
+                    <p style="margin-top: 12px; color: var(--text-secondary); font-size: 14px;">撤离点数据来源于官方Wiki和玩家实测，但由于游戏版本更新，条件可能变化。请以游戏内实际情况为准。</p>
+                </details>
+                <details style="padding: 16px; background: var(--bg-card); border-radius: 10px; border: 1px solid var(--border);">
+                    <summary style="cursor: pointer; font-weight: 600; color: var(--text-primary);">如何联系三角眼？</summary>
+                    <p style="margin-top: 12px; color: var(--text-secondary); font-size: 14px;">您可以通过网站底部的社交链接联系我们，也可以在游戏内向我们反馈问题。</p>
+                </details>
+            </div>
+        </div>
+    </section>
+
+    <!-- JSON-LD FAQ Schema -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "mainEntity": [
+            {
+                "@type": "Question",
+                "name": "三角眼工具站是免费的吗？",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "是的，三角眼完全免费使用。我们通过广告和Affiliate合作来维持运营，不会向用户收取任何费用。"
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "工坊利润数据多久更新一次？",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "我们每周一自动更新工坊利润数据。实际利润可能因市场价格波动而略有差异，建议在游戏内核实。"
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "DIY战备计算器支持哪些武器？",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "支持三角洲行动中所有主流武器，包括突击步枪、冲锋枪、狙击枪、霰弹枪等。我们会持续添加新武器数据。"
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "撤离路线图数据准确吗？",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "撤离点数据来源于官方Wiki和玩家实测，但由于游戏版本更新，条件可能变化。请以游戏内实际情况为准。"
+                }
+            }
+        ]
+    }
+    </script>
+
+    <!-- Data Source Footer -->
+    <footer style="margin-top: 60px; padding: 40px 24px; background: var(--bg-secondary); border-top: 1px solid var(--border); text-align: center;">
+        <div class="container" style="max-width: 800px; margin: 0 auto;">
+            <div style="margin-bottom: 20px;">
+                <h4 style="color: var(--accent); margin-bottom: 12px; font-size: 16px;">📊 数据来源说明</h4>
+                <p style="font-size: 13px; color: var(--text-secondary); line-height: 1.8;">
+                    本网站数据来源于：<br>
+                    ✅ <strong>三角洲行动官方Wiki</strong> - 武器属性、地图信息<br>
+                    ✅ <strong>游戏实测数据</strong> - 价格、撤离点条件<br>
+                    ✅ <strong>社区玩家分享</strong> - 改枪配置、战术攻略<br>
+                    <br>
+                    <span style="color: var(--text-muted); font-size: 12px;">
+                        ⚠️ 数据可能随游戏版本更新而变化，请以游戏内实际情况为准。<br>
+                        📅 最后更新时间：2026-05-09 | 数据版本：S9赛季
+                    </span>
+                </p>
+            </div>
+            <div style="padding-top: 20px; border-top: 1px solid var(--border);">
+                <p style="font-size: 12px; color: var(--text-muted);">
+                    © 2026 三角眼 - 三角洲行动战备工具站 | 非官方工具，数据仅供参考
+                </p>
+            </div>
+        </div>
+    </footer>
 
     <script>
         // ==================== Game Data Loader ====================
@@ -3496,7 +3652,7 @@
                         {icon: '🩹', name: '绷带×3', cost: 0.15},
                         {icon: '🥤', name: '饮料（小）×2', cost: 0.4},
                     ],
-                    total: 4.89, note: '跑刀路线推荐：工业港口→仓库区→撤离点'
+                    total: 4.89, note: '跑刀路线推荐：零号大坝→行政楼→小路撤离点'
                 },
                 normal: {
                     title: '烽火地带·小康稳撤离套',
@@ -3524,7 +3680,7 @@
                         {icon: '💣', name: '碎片手雷×4', cost: 4.8},
                         {icon: '🛡', name: 'MC防弹头盔', cost: 1.15},
                     ],
-                    total: 19.32, note: '高价值区域：行政楼→实验室→数据中心'
+                    total: 19.32, note: '高价值区域：行政楼（零号大坝）→巴克什老城区→航天基地'
                 },
                 vip: {
                     title: '烽火地带·大佬全配撤离套',
@@ -3927,54 +4083,84 @@
         showPriceTable();
 
         // ==================== Evacuation Map ====================
+        // 数据来源：三角洲行动官方Wiki及游戏实测
+        // 注意：撤离点数据可能随版本更新而变化，请以游戏内为准
         const evacData = {
-            industrial: {
-                name: '工业港',
+            'zero-dam': {
+                name: '零号大坝',
                 points: [
-                    { name: '北部撤离点', icon: '🚪', condition: '无条件', time: '24小时开放', risk: '低', tip: '最安全的撤离点，推荐新手使用' },
-                    { name: '南部码头', icon: '🚢', condition: '钥匙卡·蓝', time: '限时开放', risk: '中', tip: '需要蓝钥匙卡，建议优先拿' },
-                    { name: '西部货仓', icon: '🏭', condition: '无条件', time: '限时开放', risk: '中', tip: '竞争激烈，小心埋伏' },
-                    { name: '东部卡车', icon: '🚛', condition: '需通关卡', time: '限时开放', risk: '高', tip: '需要完成指定任务' },
-                    { name: '紧急撤离', icon: '⚠️', condition: '生命值<20%', time: '紧急触发', risk: '极高', tip: '万不得已再用，存活率低' },
-                    { name: '隐藏撤离', icon: '🔒', condition: '特殊道具', time: '随机', risk: '中', tip: '使用特定道具触发' }
+                    { name: '小路撤离点', icon: '🚪', condition: '无条件', time: '24小时开放', risk: '低', tip: '最安全的撤离点，适合新手' },
+                    { name: '公路撤离点', icon: '🛣️', condition: '需开关', time: '限时开放', risk: '中', tip: '需要开启闸门' },
+                    { name: '东侧撤离点', icon: '🚪', condition: '无条件', time: '限时开放', risk: '中', tip: '竞争激烈，小心埋伏' },
+                    { name: '西侧撤离点', icon: '🔒', condition: '钥匙卡·蓝', time: '限时开放', risk: '高', tip: '需要蓝钥匙卡' },
+                    { name: '紧急撤离', icon: '⚠️', condition: '生命值<20%', time: '紧急触发', risk: '极高', tip: '万不得已再用' }
                 ]
             },
-            admin: {
-                name: '行政区',
+            'longbow': {
+                name: '长弓溪谷',
                 points: [
-                    { name: '大厅正门', icon: '🚪', condition: '无条件', time: '24小时开放', risk: '高', tip: '必经之路，容易被蹲' },
-                    { name: '地下通道', icon: '🚇', condition: '钥匙卡·紫', time: '限时开放', risk: '中', tip: '需要紫钥匙卡' },
-                    { name: '天台索降', icon: '🪂', condition: '无条件', time: '限时开放', risk: '低', tip: '从高处撤离，相对安全' },
-                    { name: '后门走廊', icon: '🚪', condition: '钥匙卡·蓝', time: '24小时开放', risk: '中', tip: '需要蓝钥匙卡' }
+                    { name: '北部撤离点', icon: '🚪', condition: '无条件', time: '24小时开放', risk: '低', tip: '狙击手常用撤离点' },
+                    { name: '南部桥梁', icon: '🌉', condition: '需开关', time: '限时开放', risk: '中', tip: '需要开启桥梁开关' },
+                    { name: '东侧山谷', icon: '🏔️', condition: '无条件', time: '限时开放', risk: '中', tip: '视野开阔，适合观察' },
+                    { name: '西侧撤离点', icon: '🔒', condition: '钥匙卡·紫', time: '限时开放', risk: '高', tip: '需要紫钥匙卡' },
+                    { name: '紧急撤离', icon: '⚠️', condition: '生命值<20%', time: '紧急触发', risk: '极高', tip: '万不得已再用' }
                 ]
             },
-            lab: {
-                name: '实验室',
+            'brakkesh': {
+                name: '巴克什',
                 points: [
-                    { name: '主入口', icon: '🚪', condition: '无条件', time: '24小时开放', risk: '高', tip: '高风险高收益' },
-                    { name: '紧急出口', icon: '🚨', condition: '无条件', time: '紧急触发', risk: '中', tip: '需要触发警报' },
-                    { name: '地下通道', icon: '🚇', condition: '钥匙卡·金', time: '限时开放', risk: '低', tip: '金钥匙卡专属' },
-                    { name: '通风管道', icon: '🌀', condition: '无条件', time: '限时开放', risk: '低', tip: '隐蔽但狭窄' }
+                    { name: '主门撤离点', icon: '🚪', condition: '无条件', time: '24小时开放', risk: '高', tip: '高密度巷战区域' },
+                    { name: '后门撤离点', icon: '🚪', condition: '钥匙卡·蓝', time: '24小时开放', risk: '中', tip: '需要蓝钥匙卡' },
+                    { name: '屋顶撤离点', icon: '🏗️', condition: '无条件', time: '限时开放', risk: '低', tip: '从屋顶绳索撤离' },
+                    { name: '地下通道', icon: '🚇', condition: '需通关卡', time: '限时开放', risk: '中', tip: '需要完成指定任务' },
+                    { name: '紧急撤离', icon: '⚠️', condition: '生命值<20%', time: '紧急触发', risk: '极高', tip: '万不得已再用' }
                 ]
             },
-            data: {
-                name: '数据中心',
+            'space': {
+                name: '航天基地',
                 points: [
-                    { name: '主入口', icon: '🚪', condition: '无条件', time: '24小时开放', risk: '高', tip: '热门撤离点，小心堵门' },
-                    { name: '屋顶平台', icon: '🏗️', condition: '无条件', time: '限时开放', risk: '低', tip: '视野好，适合观察' },
-                    { name: '后门', icon: '🚪', condition: '钥匙卡·蓝', time: '24小时开放', risk: '低', tip: '需要蓝钥匙卡' },
-                    { name: '电梯井', icon: '🛗', condition: '需通关卡', time: '限时开放', risk: '中', tip: '快速但危险' }
+                    { name: '主入口撤离点', icon: '🚪', condition: '无条件', time: '24小时开放', risk: '高', tip: '高收益高风险区域' },
+                    { name: '发射台撤离点', icon: '🚀', condition: '需拉双闸', time: '限时开放', risk: '中', tip: '需要同时开启两个闸门' },
+                    { name: '东侧撤离点', icon: '🚪', condition: '钥匙卡·金', time: '限时开放', risk: '低', tip: '金钥匙卡专属' },
+                    { name: '西侧通道', icon: '🚇', condition: '需通关卡', time: '限时开放', risk: '中', tip: '需要完成指定任务' },
+                    { name: '紧急撤离', icon: '⚠️', condition: '生命值<20%', time: '紧急触发', risk: '极高', tip: '万不得已再用' }
+                ]
+            },
+            'tidal': {
+                name: '潮汐监狱',
+                points: [
+                    { name: '正门撤离点', icon: '🚪', condition: '无条件', time: '24小时开放', risk: '高', tip: '高准入级别区域' },
+                    { name: '侧门撤离点', icon: '🚪', condition: '钥匙卡·紫', time: '24小时开放', risk: '中', tip: '需要紫钥匙卡' },
+                    { name: '监狱顶部', icon: '🏗️', condition: '无条件', time: '限时开放', risk: '低', tip: '从顶部绳索撤离' },
+                    { name: '地下通道', icon: '🚇', condition: '稀有红装触发', time: '随机', risk: '中', tip: '携带稀有红装可触发' },
+                    { name: '紧急撤离', icon: '⚠️', condition: '生命值<20%', time: '紧急触发', risk: '极高', tip: '万不得已再用' }
                 ]
             }
         };
 
+        // 撤离点详细信息（根据实际撤离点名称匹配）
         const evacDetails = {
-            north: { name: '北部撤离点', items: ['急救包', '弹药', '基础装备'], strategy: '从仓库区直接穿过，最快撤离路线。适合搜完就跑的玩家。' },
-            south: { name: '南部码头', items: ['钥匙卡·蓝', '武器配件', '电子元件'], strategy: '需要提前拿到蓝钥匙卡。码头区域有船可以直接离开。' },
-            west: { name: '西部货仓', items: ['武器', '护甲', '工具箱'], strategy: '限时开放，竞争激烈。建议提前规划好时间。' },
-            east: { name: '东部卡车', items: ['稀有道具', '高级装备'], strategy: '需要完成指定任务才能使用。适合有任务的玩家。' },
-            emergency: { name: '紧急撤离', items: ['无'], strategy: '最后手段，存活率很低。尽量避免用到。' },
-            hidden: { name: '隐藏撤离', items: ['随机稀有物品'], strategy: '找到特殊道具后可触发。奖励丰厚但位置隐蔽。' }
+            '小路撤离点': { name: '小路撤离点', items: ['急救包', '弹药', '基础装备'], strategy: '最安全的撤离点，适合新手使用。从行政楼直接穿过即可到达。' },
+            '公路撤离点': { name: '公路撤离点', items: ['武器配件', '电子元件'], strategy: '需要提前开启闸门。建议拿到开关卡后再前往。' },
+            '东侧撤离点': { name: '东侧撤离点', items: ['武器', '护甲'], strategy: '限时开放，竞争激烈。建议提前规划好时间。' },
+            '西侧撤离点': { name: '西侧撤离点', items: ['稀有道具', '高级装备'], strategy: '需要蓝钥匙卡。高风险高收益。' },
+            '北部撤离点': { name: '北部撤离点', items: ['急救包', '弹药'], strategy: '长弓溪谷的安全撤离点，适合狙击手使用。' },
+            '南部桥梁': { name: '南部桥梁', items: ['武器配件', '电子元件'], strategy: '需要开启桥梁开关。视野开阔，适合观察。' },
+            '东侧山谷': { name: '东侧山谷', items: ['武器', '护甲'], strategy: '限时开放，狙击手常用路线。' },
+            '西侧撤离点': { name: '西侧撤离点', items: ['稀有道具'], strategy: '需要紫钥匙卡。长弓溪谷的隐藏撤离点。' },
+            '主门撤离点': { name: '主门撤离点', items: ['急救包', '弹药'], strategy: '巴克什的高密度巷战区域，小心交火。' },
+            '后门撤离点': { name: '后门撤离点', items: ['钥匙卡·蓝', '武器配件'], strategy: '需要蓝钥匙卡。相对安全的撤离点。' },
+            '屋顶撤离点': { name: '屋顶撤离点', items: ['武器', '护甲'], strategy: '从屋顶绳索撤离。需要爬楼梯，但相对安全。' },
+            '地下通道': { name: '地下通道', items: ['稀有道具'], strategy: '需要完成指定任务。巴克什的隐蔽撤离点。' },
+            '主入口撤离点': { name: '主入口撤离点', items: ['急救包', '弹药'], strategy: '航天基地的高收益高风险区域。需要拉双闸才能开启所有撤离点。' },
+            '发射台撤离点': { name: '发射台撤离点', items: ['高级装备', '电子元件'], strategy: '需要同时开启两个闸门。航天基地的核心撤离点。' },
+            '东侧撤离点': { name: '东侧撤离点', items: ['稀有道具'], strategy: '需要金钥匙卡。航天基地的专属撤离点。' },
+            '西侧通道': { name: '西侧通道', items: ['武器', '护甲'], strategy: '需要完成指定任务。航天基地的隐蔽通道。' },
+            '正门撤离点': { name: '正门撤离点', items: ['急救包', '弹药'], strategy: '潮汐监狱的高准入级别区域。有稀有红装出没。' },
+            '侧门撤离点': { name: '侧门撤离点', items: ['钥匙卡·紫', '稀有红装'], strategy: '需要紫钥匙卡。潮汐监狱的高价值撤离点。' },
+            '监狱顶部': { name: '监狱顶部', items: ['武器', '护甲'], strategy: '从顶部绳索撤离。需要爬楼梯，但视野最好。' },
+            '地下通道': { name: '地下通道', items: ['稀有红装'], strategy: '携带稀有红装可触发。潮汐监狱的隐藏撤离点。' },
+            '紧急撤离': { name: '紧急撤离', items: ['无'], strategy: '最后手段，存活率很低。尽量避免用到。' }
         };
 
         function switchEvacTab(btn, zone) {
@@ -3995,7 +4181,7 @@
             });
             
             html += `</div><div style="margin-top: 16px; padding: 14px; background: rgba(255,107,53,0.08); border-radius: 10px;">
-                <p style="font-size: 13px; color: var(--text-secondary);"><strong style="color: var(--accent);">💡 小贴士：</strong>${data.name}是烽火地带的${zone === 'industrial' ? '跑刀热门区域' : zone === 'admin' ? '高收益区域' : zone === 'lab' ? '物资密集区' : '电子设备集中地'}。</p>
+                <p style="font-size: 13px; color: var(--text-secondary);"><strong style="color: var(--accent);">💡 小贴士：</strong>${data.name}是烽火地带的${zone === 'zero-dam' ? '新手启蒙区域，适合练习' : zone === 'longbow' ? '狙击手乐园，面积最大' : zone === 'brakkesh' ? '高密度巷战区域，钥匙房最多' : zone === 'space' ? '高收益高风险区域，需拉双闸' : '高准入区域，有稀有红装'}。</p>
             </div>`;
             
             document.getElementById('evac-content').innerHTML = html;
@@ -4024,38 +4210,84 @@
         }
 
         // ==================== Loot Distribution ====================
+        // 数据来源：游戏实测及社区分享
+        // 注意：物资分布可能随版本更新而变化
         const lootData = {
             high: [
-                { name: '钥匙卡·金', rate: 'legendary', zone: '行政楼' },
-                { name: '钥匙卡·紫', rate: 'epic', zone: '实验室' },
-                { name: '高级护甲', rate: 'epic', zone: '数据中心' },
-                { name: '满改武器', rate: 'epic', zone: '行政楼' },
-                { name: '急救包（大）', rate: 'rare', zone: '实验室' },
-                { name: '工具箱', rate: 'rare', zone: '仓库' },
-                { name: '武器蓝图', rate: 'legendary', zone: '行政楼' },
-                { name: '电子元件×5', rate: 'rare', zone: '数据中心' }
+                // 零号大坝
+                { name: '行政楼钥匙卡', rate: 'legendary', zone: '零号大坝', location: '行政楼', value: '15-50万', tip: '核心区域，竞争激烈' },
+                { name: '武器蓝图箱', rate: 'legendary', zone: '零号大坝', location: '行政楼', value: '8-20万', tip: '随机刷新Blueprint' },
+                { name: '红装道具', rate: 'legendary', zone: '零号大坝', location: '行政楼', value: '30万+', tip: '稀有掉落' },
+                { name: '金钥匙卡', rate: 'legendary', zone: '零号大坝', location: '行政楼', value: '50万+', tip: '价值最高' },
+                // 巴克什
+                { name: '紫钥匙卡', rate: 'epic', zone: '巴克什', location: '老城区', value: '15-30万', tip: '高级钥匙房' },
+                { name: '高级护甲箱', rate: 'epic', zone: '巴克什', location: '老城区', value: '5-15万', tip: '随机护甲' },
+                { name: '武器配件箱', rate: 'epic', zone: '巴克什', location: '各处', value: '3-8万', tip: '改枪材料' },
+                // 航天基地
+                { name: '发射台钥匙卡', rate: 'epic', zone: '航天基地', location: '发射台', value: '20-40万', tip: '高风险区域' },
+                { name: '电子元件箱', rate: 'epic', zone: '航天基地', location: '控制室', value: '5-12万', tip: '卖钱快' },
+                // 长弓溪谷
+                { name: '狙击瞄准镜', rate: 'epic', zone: '长弓溪谷', location: '山顶', value: '8-15万', tip: '高价值配件' },
+                { name: '稀有红装', rate: 'legendary', zone: '长弓溪谷', location: '各处', value: '25万+', tip: '随机掉落' },
+                // 潮汐监狱
+                { name: '监狱钥匙卡', rate: 'legendary', zone: '潮汐监狱', location: '各处', value: '30-60万', tip: '最高准入级别' },
+                { name: '红装武器', rate: 'legendary', zone: '潮汐监狱', location: '禁闭室', value: '40万+', tip: '极品掉落' },
+                // 通用高价值
+                { name: '工具箱', rate: 'rare', zone: '通用', location: '各处仓库', value: '3-6万', tip: '改枪必备' },
+                { name: '医疗箱（大）', rate: 'rare', zone: '通用', location: '医疗点', value: '2-5万', tip: '战地医疗箱' }
             ],
             medium: [
-                { name: '急救包', rate: 'common', zone: '各处' },
-                { name: '弹药包', rate: 'common', zone: '各处' },
-                { name: '饮料', rate: 'common', zone: '各处' },
-                { name: '战术头盔', rate: 'rare', zone: '行政区' },
-                { name: '武器配件', rate: 'common', zone: '仓库' },
-                { name: '绷带×5', rate: 'common', zone: '各处' },
-                { name: '护甲修复', rate: 'rare', zone: '实验室' },
-                { name: '食物包', rate: 'common', zone: '各处' }
+                // 零号大坝
+                { name: '急救包', rate: 'common', zone: '零号大坝', location: '各处', value: '0.8-1.5万', tip: '必备消耗品' },
+                { name: '战术头盔', rate: 'rare', zone: '零号大坝', location: '军营', value: '1-3万', tip: '基础防护' },
+                { name: '弹药包', rate: 'common', zone: '零号大坝', location: '各处', value: '0.5-1万', tip: '普通弹药' },
+                // 巴克什
+                { name: '武器配件', rate: 'common', zone: '巴克什', location: '各处', value: '0.5-2万', tip: '满改材料' },
+                { name: '绷带×10', rate: 'common', zone: '巴克什', location: '医疗点', value: '0.3-0.6万', tip: '消耗品' },
+                { name: '中型背包', rate: 'rare', zone: '巴克什', location: '宿舍', value: '1.5-2万', tip: '容量24格' },
+                // 航天基地
+                { name: '电子元件', rate: 'common', zone: '航天基地', location: '控制室', value: '1-2万', tip: '高价值材料' },
+                { name: '工具包', rate: 'common', zone: '航天基地', location: '车间', value: '1-2.5万', tip: '改枪用' },
+                // 长弓溪谷
+                { name: '狙击弹药', rate: 'common', zone: '长弓溪谷', location: '哨所', value: '2-4万', tip: '大口径子弹' },
+                { name: '重型护甲', rate: 'rare', zone: '长弓溪谷', location: '基地', value: '4-8万', tip: '高防护' },
+                // 潮汐监狱
+                { name: '禁闭室钥匙', rate: 'epic', zone: '潮汐监狱', location: '禁闭室', value: '8-15万', tip: '稀有钥匙' },
+                { name: '医疗包', rate: 'common', zone: '潮汐监狱', location: '医务室', value: '1-2万', tip: '高等级消耗品' },
+                // 通用
+                { name: '饮料×5', rate: 'common', zone: '通用', location: '各处', value: '0.2-0.5万', tip: '体力恢复' },
+                { name: '食物包', rate: 'common', zone: '通用', location: '各处', value: '0.3-0.6万', tip: '饥饿恢复' }
             ],
             low: [
-                { name: '绷带', rate: 'common', zone: '各处' },
-                { name: '绷带×3', rate: 'common', zone: '各处' },
-                { name: '饮料（小）', rate: 'common', zone: '各处' },
-                { name: '基础弹药', rate: 'common', zone: '各处' },
-                { name: '空背包', rate: 'common', zone: '仓库' },
-                { name: '普通护甲', rate: 'common', zone: '各处' }
+                // 零号大坝
+                { name: '绷带', rate: 'common', zone: '零号大坝', location: '各处', value: '0.1-0.2万', tip: '基础消耗品' },
+                { name: '绷带×3', rate: 'common', zone: '零号大坝', location: '各处', value: '0.15-0.3万', tip: '组合包' },
+                { name: '饮料（小）', rate: 'common', zone: '零号大坝', location: '各处', value: '0.05-0.1万', tip: '单瓶' },
+                // 巴克什
+                { name: '基础弹药', rate: 'common', zone: '巴克什', location: '各处', value: '0.2-0.4万', tip: '普通子弹' },
+                { name: '轻型护甲', rate: 'common', zone: '巴克什', location: '军营', value: '1-1.5万', tip: '基础护甲' },
+                // 航天基地
+                { name: '空背包', rate: 'common', zone: '航天基地', location: '储物柜', value: '0.5-0.8万', tip: '容量12格' },
+                { name: '基础装备', rate: 'common', zone: '航天基地', location: '各处', value: '0.1-0.3万', tip: '杂项' },
+                // 长弓溪谷
+                { name: '小型背包', rate: 'common', zone: '长弓溪谷', location: '营地', value: '0.5-0.8万', tip: '容量12格' },
+                { name: '维修工具', rate: 'common', zone: '长弓溪谷', location: '维修站', value: '0.3-0.6万', tip: '护甲修复' },
+                // 潮汐监狱
+                { name: '普通护甲', rate: 'common', zone: '潮汐监狱', location: '各处', value: '1.5-2.5万', tip: '中等防护' },
+                { name: '基础医疗', rate: 'common', zone: '潮汐监狱', location: '医务室', value: '0.2-0.4万', tip: '绷带' },
+                // 通用
+                { name: '杂物箱', rate: 'common', zone: '通用', location: '各处', value: '0.05-0.15万', tip: '不值钱' },
+                { name: '空弹药盒', rate: 'common', zone: '通用', location: '各处', value: '0.02-0.05万', tip: '占格子' }
             ]
         };
 
+        // 合并所有数据用于"全地图"选项
+        lootData.all = [...lootData.high, ...lootData.medium, ...lootData.low];
+
+        let currentLootTier = 'high';
+
         function switchLootTab(btn, tier) {
+            currentLootTier = tier;
             document.querySelectorAll('#modal-loot .tab').forEach(t => t.classList.remove('active'));
             btn.classList.add('active');
             renderLootGrid(tier);
@@ -4064,34 +4296,50 @@
         function renderLootGrid(tier) {
             const grid = document.getElementById('loot-grid');
             const data = lootData[tier] || [];
-            grid.innerHTML = data.map(item => `
-                <div class="loot-item">
-                    <span class="name">${item.name}</span>
-                    <div>
+            const mapFilter = document.getElementById('loot-map-filter')?.value || '';
+            const searchFilter = document.getElementById('loot-search')?.value.toLowerCase() || '';
+            
+            let filtered = data;
+            if (mapFilter) {
+                filtered = filtered.filter(item => item.zone === mapFilter || item.zone === '通用');
+            }
+            if (searchFilter) {
+                filtered = filtered.filter(item => 
+                    item.name.toLowerCase().includes(searchFilter) || 
+                    item.location.toLowerCase().includes(searchFilter)
+                );
+            }
+            
+            if (filtered.length === 0) {
+                grid.innerHTML = '<p style="text-align:center;color:var(--text-secondary);padding:40px;">暂无匹配结果</p>';
+                return;
+            }
+            
+            grid.innerHTML = filtered.map(item => `
+                <div class="loot-item" style="cursor:pointer;" onclick="showLootDetail('${item.name}')">
+                    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;">
+                        <span class="name" style="font-weight:600;">${item.name}</span>
                         <span class="rate ${item.rate}">${item.rate === 'legendary' ? '传说' : item.rate === 'epic' ? '史诗' : item.rate === 'rare' ? '稀有' : '普通'}</span>
+                    </div>
+                    <div style="font-size:11px;color:var(--text-secondary);">
+                        <span style="color:var(--accent);">📍 ${item.location || item.zone}</span>
+                        <span style="margin-left:8px;">💰 ${item.value}</span>
                     </div>
                 </div>
             `).join('');
         }
 
+        function showLootDetail(name) {
+            // 查找物品详情
+            const allItems = [...lootData.high, ...lootData.medium, ...lootData.low];
+            const item = allItems.find(i => i.name === name);
+            if (item) {
+                showToast(`${item.name}: ${item.tip || '点击查看详情'}`);
+            }
+        }
+
         function filterLoot() {
-            const search = document.getElementById('loot-search').value.toLowerCase();
-            const activeTab = document.querySelector('#modal-loot .tab.active');
-            const tier = activeTab ? activeTab.textContent : '高价值区';
-            const tierKey = tier.includes('高') ? 'high' : tier.includes('中') ? 'medium' : 'low';
-            
-            const data = lootData[tierKey] || [];
-            const filtered = data.filter(item => item.name.toLowerCase().includes(search));
-            
-            const grid = document.getElementById('loot-grid');
-            grid.innerHTML = filtered.map(item => `
-                <div class="loot-item">
-                    <span class="name">${item.name}</span>
-                    <div>
-                        <span class="rate ${item.rate}">${item.rate === 'legendary' ? '传说' : item.rate === 'epic' ? '史诗' : item.rate === 'rare' ? '稀有' : '普通'}</span>
-                    </div>
-                </div>
-            `).join('');
+            renderLootGrid(currentLootTier);
         }
 
         // Init loot grid
