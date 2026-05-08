@@ -10,6 +10,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700;900&display=swap" rel="stylesheet">
     <style>
         :root {
+            /* Dark Theme (Default) */
             --bg-primary: #0a0e17;
             --bg-secondary: #111827;
             --bg-card: #1a2235;
@@ -25,6 +26,28 @@
             --red: #ef4444;
             --yellow: #f59e0b;
             --blue: #3b82f6;
+            --nav-bg: rgba(10, 14, 23, 0.85);
+            --modal-bg: #1a2235;
+            --shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+            --ticker-bg: rgba(17, 24, 39, 0.95);
+        }
+
+        [data-theme="light"] {
+            --bg-primary: #f5f7fa;
+            --bg-secondary: #ffffff;
+            --bg-card: #ffffff;
+            --bg-card-hover: #f0f4ff;
+            --border: #e2e8f0;
+            --text-primary: #1a202c;
+            --text-secondary: #4a5568;
+            --text-muted: #a0aec0;
+            --accent: #e85d2c;
+            --accent-light: #ff7b4a;
+            --accent-glow: rgba(232, 93, 44, 0.15);
+            --nav-bg: rgba(255, 255, 255, 0.9);
+            --modal-bg: #ffffff;
+            --shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            --ticker-bg: rgba(255, 255, 255, 0.95);
         }
 
         * {
@@ -41,7 +64,40 @@
             overflow-x: hidden;
         }
 
-        /* Background Effects */
+        [data-theme="light"] .bg-grid {
+            background-image:
+                linear-gradient(rgba(232, 93, 44, 0.05) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(232, 93, 44, 0.05) 1px, transparent 1px);
+        }
+
+        [data-theme="light"] .bg-glow {
+            opacity: 0.08;
+        }
+
+        /* Theme Toggle Button */
+        .theme-toggle {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            color: var(--text-primary);
+            padding: 8px 16px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            transition: all 0.3s;
+        }
+
+        .theme-toggle:hover {
+            background: var(--accent);
+            border-color: var(--accent);
+        }
+
+        [data-theme="light"] .theme-toggle {
+            background: #fff;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
         .bg-grid {
             position: fixed;
             top: 0;
@@ -627,6 +683,166 @@
         .trend-up { color: var(--green); }
         .trend-down { color: var(--red); }
 
+        /* DIY Build Calculator */
+        .diy-sections {
+            margin-bottom: 20px;
+        }
+
+        .diy-section {
+            margin-bottom: 12px;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            overflow: hidden;
+        }
+
+        .diy-section h4 {
+            padding: 14px 16px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: var(--bg-card-hover);
+            transition: background 0.2s;
+        }
+
+        .diy-section h4:hover {
+            background: var(--accent);
+            background-opacity: 0.1;
+        }
+
+        .diy-toggle {
+            transition: transform 0.2s;
+            font-size: 12px;
+        }
+
+        .diy-section.collapsed .diy-toggle {
+            transform: rotate(-90deg);
+        }
+
+        .diy-section.collapsed .diy-items {
+            display: none;
+        }
+
+        .diy-items {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            padding: 12px;
+        }
+
+        .diy-item {
+            background: var(--bg-primary);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 8px 12px;
+            font-size: 13px;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .diy-item:hover {
+            border-color: var(--accent);
+            background: var(--bg-card-hover);
+        }
+
+        .diy-item.selected {
+            background: var(--accent);
+            border-color: var(--accent);
+            color: white;
+        }
+
+        .diy-item .cost {
+            font-size: 11px;
+            opacity: 0.8;
+        }
+
+        .diy-item.selected .cost {
+            color: rgba(255,255,255,0.8);
+        }
+
+        .diy-selected {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 16px;
+            margin-bottom: 16px;
+            max-height: 200px;
+            overflow-y: auto;
+        }
+
+        .diy-selected h4 {
+            margin-bottom: 12px;
+            color: var(--accent);
+        }
+
+        .diy-selected-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 8px 0;
+            border-bottom: 1px solid var(--border);
+            font-size: 14px;
+        }
+
+        .diy-selected-item:last-child {
+            border-bottom: none;
+        }
+
+        .diy-selected-item .remove-btn {
+            color: var(--red);
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        .diy-selected-item .remove-btn:hover {
+            opacity: 0.7;
+        }
+
+        .diy-total {
+            background: linear-gradient(135deg, var(--accent-glow), rgba(59,130,246,0.1));
+            border: 1px solid var(--accent);
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 16px;
+        }
+
+        .diy-total-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 8px 0;
+        }
+
+        .diy-total-item:first-child {
+            border-bottom: 1px solid var(--border);
+            margin-bottom: 8px;
+            padding-bottom: 12px;
+        }
+
+        .diy-total-value {
+            font-size: 28px;
+            font-weight: 900;
+            color: var(--accent);
+        }
+
+        .diy-actions {
+            display: flex;
+            gap: 12px;
+            justify-content: center;
+        }
+
+        [data-theme="light"] .diy-item {
+            background: #f8fafc;
+        }
+
+        [data-theme="light"] .diy-section h4:hover {
+            background: rgba(232, 93, 44, 0.1);
+        }
+
         /* Affiliate Section */
         .affiliate-section {
             background: linear-gradient(135deg, rgba(255,107,53,0.08), rgba(59,130,246,0.08));
@@ -1026,6 +1242,7 @@
             <li><a href="#profit">工坊利润</a></li>
             <li><a href="#guides">攻略</a></li>
             <li><a href="#affiliate" class="nav-cta">省钱找我</a></li>
+            <li><button class="theme-toggle" onclick="toggleTheme()" id="themeBtn">🌙 深色</button></li>
         </ul>
         <button class="mobile-menu-btn" onclick="document.querySelector('.nav-links').classList.toggle('show')">☰</button>
     </nav>
@@ -1156,6 +1373,12 @@
                         <h3>改枪配件搭配大全</h3>
                         <p>每把枪的最优配件组合，按模式分类推荐。不再纠结装什么，直接抄作业。</p>
                         <div class="tool-card-footer">开始搭配 → <span class="arrow">→</span></div>
+                    </div>
+                    <div class="tool-card" onclick="openModal('diy')">
+                        <div class="tool-icon green">🎒</div>
+                        <h3>DIY战备计算器</h3>
+                        <p>自己搭配装备组合，实时计算总花费。支持保存配置，一键清空重选。</p>
+                        <div class="tool-card-footer">开始配置 → <span class="arrow">→</span></div>
                     </div>
                 </div>
             </div>
@@ -1401,6 +1624,10 @@
                         <option value="qbz">QBZ</option>
                         <option value="scar">SCAR-L</option>
                         <option value="mp5">MP5</option>
+                        <option value="sniper">狙击枪</option>
+                        <option value="m249">M249</option>
+                        <option value="aug">AUG</option>
+                        <option value="deagle">Deagle</option>
                     </select>
                 </div>
                 <div id="gear-result"></div>
@@ -1408,7 +1635,99 @@
         </div>
     </div>
 
+    <!-- Modal: DIY Build -->
+    <div class="modal-overlay" id="modal-diy">
+        <div class="modal" style="max-width: 700px;">
+            <div class="modal-header">
+                <div>
+                    <h3>🎒 DIY战备计算器</h3>
+                    <p>自由搭配装备，实时计算总花费</p>
+                </div>
+                <button class="modal-close" onclick="closeModal('diy')">✕</button>
+            </div>
+            <div class="modal-body">
+                <div class="diy-sections">
+                    <!-- 武器 -->
+                    <div class="diy-section">
+                        <h4 onclick="toggleDiySection(this)">🔫 武器 <span class="diy-toggle">▼</span></h4>
+                        <div class="diy-items" id="diy-weapons"></div>
+                    </div>
+                    <!-- 防具 -->
+                    <div class="diy-section">
+                        <h4 onclick="toggleDiySection(this)">🛡 防具 <span class="diy-toggle">▼</span></h4>
+                        <div class="diy-items" id="diy-armors"></div>
+                    </div>
+                    <!-- 消耗品 -->
+                    <div class="diy-section">
+                        <h4 onclick="toggleDiySection(this)">💊 消耗品 <span class="diy-toggle">▼</span></h4>
+                        <div class="diy-items" id="diy-consumables"></div>
+                    </div>
+                    <!-- 背包 -->
+                    <div class="diy-section">
+                        <h4 onclick="toggleDiySection(this)">🎒 背包 <span class="diy-toggle">▼</span></h4>
+                        <div class="diy-items" id="diy-bags"></div>
+                    </div>
+                    <!-- 投掷物 -->
+                    <div class="diy-section">
+                        <h4 onclick="toggleDiySection(this)">💣 投掷物 <span class="diy-toggle">▼</span></h4>
+                        <div class="diy-items" id="diy-grenades"></div>
+                    </div>
+                </div>
+                
+                <!-- 已选装备 -->
+                <div class="diy-selected">
+                    <h4>📦 已选装备 (<span id="diy-count">0</span>件)</h4>
+                    <div id="diy-selected-list"></div>
+                </div>
+                
+                <!-- 总计 -->
+                <div class="diy-total">
+                    <div class="diy-total-item">
+                        <span>总花费</span>
+                        <span class="diy-total-value" id="diy-total">0万</span>
+                    </div>
+                    <div class="diy-total-item">
+                        <span>物品数量</span>
+                        <span id="diy-item-count">0件</span>
+                    </div>
+                </div>
+                
+                <div class="diy-actions">
+                    <button class="btn-secondary" onclick="clearDiyBuild()">🗑 清空全部</button>
+                    <button class="btn-primary" onclick="saveDiyBuild()">💾 保存配置</button>
+                    <button class="btn-secondary" onclick="loadDiyBuild()">📂 加载配置</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <script>
+        // ==================== Theme Toggle ====================
+        function initTheme() {
+            const saved = localStorage.getItem('theme');
+            const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+            const theme = saved || (prefersDark ? 'dark' : 'light');
+            document.documentElement.setAttribute('data-theme', theme);
+            updateThemeBtn(theme);
+        }
+
+        function toggleTheme() {
+            const current = document.documentElement.getAttribute('data-theme') || 'dark';
+            const newTheme = current === 'dark' ? 'light' : 'dark';
+            document.documentElement.setAttribute('data-theme', newTheme);
+            localStorage.setItem('theme', newTheme);
+            updateThemeBtn(newTheme);
+        }
+
+        function updateThemeBtn(theme) {
+            const btn = document.getElementById('themeBtn');
+            if (btn) {
+                btn.textContent = theme === 'dark' ? '🌙 深色' : '☀️ 浅色';
+            }
+        }
+
+        initTheme();
+
         // ==================== Ticker ====================
         const tickerData = [
             {name: '急救包', price: '0.82万', trend: 'up'},
@@ -1822,7 +2141,410 @@
                         }
                     }
                 }
+            },
+            sniper: {
+                name: '狙击枪',
+                icon: '🎯',
+                builds: {
+                    raid: {
+                        budget: {
+                            title: '狙击枪 烽火跑刀瞄具套',
+                            desc: '捡到狙后的最简配置',
+                            parts: [
+                                { slot: '瞄准镜', name: '4倍瞄准镜', cost: '2万' },
+                                { slot: '枪口', name: '狙击枪制退器', cost: '1.5万' },
+                            ],
+                            total: '3.5万',
+                            tip: '简单配置，远距离秒杀'
+                        },
+                        standard: {
+                            title: '狙击枪 烽火小康套',
+                            desc: '精准打击配置',
+                            parts: [
+                                { slot: '枪口', name: '狙击消音器', cost: '5万' },
+                                { slot: '瞄准镜', name: '高倍镜', cost: '8万' },
+                                { slot: '枪托', name: '狙击枪托', cost: '3万' },
+                                { slot: '弹匣', name: '加弹', cost: '1.5万' },
+                            ],
+                            total: '17.5万',
+                            tip: '远距离作战首选'
+                        },
+                        full: {
+                            title: '狙击枪 烽火满改套',
+                            desc: '狙击手终极配置',
+                            parts: [
+                                { slot: '枪口', name: '专属消音', cost: '10万' },
+                                { slot: '瞄准镜', name: '8倍光学瞄准镜', cost: '15万' },
+                                { slot: '枪托', name: '顶级枪托', cost: '5万' },
+                                { slot: '弹匣', name: '快速弹匣', cost: '3万' },
+                                { slot: '握把', name: '狙击握把', cost: '2万' },
+                            ],
+                            total: '35万',
+                            tip: '一枪一个小朋友'
+                        }
+                    },
+                    battle: {
+                        standard: {
+                            title: '狙击枪 战场狙击套',
+                            desc: '占领高地，一击必杀',
+                            parts: [
+                                { slot: '枪口', name: '消音器', cost: '4万' },
+                                { slot: '瞄准镜', name: '6倍镜', cost: '6万' },
+                                { slot: '枪托', name: '稳托', cost: '2万' },
+                            ],
+                            total: '12万',
+                            tip: '占点战狙击手必备'
+                        }
+                    },
+                    ranked: {
+                        standard: {
+                            title: '狙击枪 排位爆破套',
+                            desc: '爆破模式狙神配置',
+                            parts: [
+                                { slot: '枪口', name: '消音', cost: '6万' },
+                                { slot: '瞄准镜', name: '高倍镜', cost: '10万' },
+                                { slot: '枪托', name: '专业枪托', cost: '4万' },
+                                { slot: '弹匣', name: '加弹', cost: '2万' },
+                                { slot: '握把', name: '稳握把', cost: '2万' },
+                            ],
+                            total: '24万',
+                            tip: '排位遇到好狙真的很爽'
+                        }
+                    }
+                }
+            },
+            m249: {
+                name: 'M249',
+                icon: '🔫',
+                builds: {
+                    raid: {
+                        standard: {
+                            title: 'M249 烽火火力压制套',
+                            desc: '近距离火力之王',
+                            parts: [
+                                { slot: '枪口', name: '重枪口', cost: '2万' },
+                                { slot: '瞄准镜', name: '红点', cost: '0.8万' },
+                                { slot: '枪托', name: '重型枪托', cost: '1.5万' },
+                                { slot: '弹匣', name: '加弹', cost: '1万' },
+                            ],
+                            total: '5.3万',
+                            tip: '火力压制，近距离无敌'
+                        },
+                        full: {
+                            title: 'M249 烽火满改套',
+                            desc: '移动火力平台',
+                            parts: [
+                                { slot: '枪口', name: '专属制退', cost: '5万' },
+                                { slot: '瞄准镜', name: '全息', cost: '2万' },
+                                { slot: '枪托', name: '顶级枪托', cost: '3万' },
+                                { slot: '弹匣', name: '加长弹', cost: '2万' },
+                                { slot: '握把', name: '重型握把', cost: '1.5万' },
+                            ],
+                            total: '13.5万',
+                            tip: '扫车神器，谁用谁知道'
+                        }
+                    },
+                    battle: {
+                        standard: {
+                            title: 'M249 战场据点套',
+                            desc: '防守据点首选',
+                            parts: [
+                                { slot: '枪口', name: '制退器', cost: '3万' },
+                                { slot: '瞄准镜', name: '红点', cost: '1万' },
+                                { slot: '枪托', name: '稳托', cost: '2万' },
+                            ],
+                            total: '6万',
+                            tip: '架枪防守，一夫当关'
+                        }
+                    },
+                    ranked: {
+                        standard: {
+                            title: 'M249 排位火力套',
+                            desc: '推进掩护神器',
+                            parts: [
+                                { slot: '枪口', name: '消音', cost: '4万' },
+                                { slot: '瞄准镜', name: '全息', cost: '2.5万' },
+                                { slot: '枪托', name: '专业枪托', cost: '2.5万' },
+                                { slot: '弹匣', name: '加弹', cost: '1.5万' },
+                                { slot: '握把', name: '战术握把', cost: '1万' },
+                            ],
+                            total: '11.5万',
+                            tip: '掩护队友推进必备'
+                        }
+                    }
+                }
+            },
+            aug: {
+                name: 'AUG',
+                icon: '🔫',
+                builds: {
+                    raid: {
+                        budget: {
+                            title: 'AUG 烽火跑刀套',
+                            desc: '高科技步枪',
+                            parts: [
+                                { slot: '枪口', name: '消音器', cost: '1.5万' },
+                                { slot: '瞄准镜', name: '红点', cost: '0.8万' },
+                                { slot: '护木', name: '战术护木', cost: '0.8万' },
+                            ],
+                            total: '3.1万',
+                            tip: '射速稳定，上手快'
+                        },
+                        standard: {
+                            title: 'AUG 烽火小康套',
+                            desc: '综合性能优秀',
+                            parts: [
+                                { slot: '枪口', name: '消音器', cost: '3万' },
+                                { slot: '护木', name: '战术护木', cost: '1.5万' },
+                                { slot: '瞄准镜', name: '全息', cost: '1.8万' },
+                                { slot: '枪托', name: '折叠枪托', cost: '1.2万' },
+                                { slot: '弹匣', name: '加弹', cost: '0.8万' },
+                            ],
+                            total: '8.3万',
+                            tip: '中远距离全能'
+                        }
+                    },
+                    battle: {
+                        standard: {
+                            title: 'AUG 战场冲锋套',
+                            desc: '高射速突击',
+                            parts: [
+                                { slot: '枪口', name: '冲锋消音', cost: '1.8万' },
+                                { slot: '护木', name: '轻型护木', cost: '1万' },
+                                { slot: '瞄准镜', name: '红点', cost: '0.8万' },
+                                { slot: '枪托', name: '无托', cost: '0.5万' },
+                            ],
+                            total: '4.1万',
+                            tip: '突击模式冲锋首选'
+                        }
+                    },
+                    ranked: {
+                        standard: {
+                            title: 'AUG 排位全能套',
+                            desc: '竞技万金油',
+                            parts: [
+                                { slot: '枪口', name: '消音', cost: '3.5万' },
+                                { slot: '护木', name: '战术护木', cost: '1.8万' },
+                                { slot: '瞄准镜', name: '全息', cost: '2.5万' },
+                                { slot: '枪托', name: '专业枪托', cost: '1.8万' },
+                                { slot: '握把', name: '垂直握把', cost: '1.2万' },
+                            ],
+                            total: '10.8万',
+                            tip: '比赛常客，近中远皆可'
+                        }
+                    }
+                }
+            },
+            deagle: {
+                name: 'Deagle',
+                icon: '🔫',
+                builds: {
+                    raid: {
+                        budget: {
+                            title: 'Deagle 跑刀副武器套',
+                            desc: '一枪一个小朋友',
+                            parts: [
+                                { slot: '枪口', name: '手枪消音', cost: '0.3万' },
+                                { slot: '瞄准镜', name: '红点', cost: '0.5万' },
+                            ],
+                            total: '0.8万',
+                            tip: '近距离秒杀，副武器首选'
+                        },
+                        standard: {
+                            title: 'Deagle 满改套',
+                            desc: '精准射击',
+                            parts: [
+                                { slot: '枪口', name: '消音', cost: '0.8万' },
+                                { slot: '瞄准镜', name: '红点', cost: '0.8万' },
+                                { slot: '枪托', name: '手枪托', cost: '0.5万' },
+                            ],
+                            total: '2.1万',
+                            tip: 'Deagle虽然射速慢但伤害爆炸'
+                        }
+                    },
+                    battle: {
+                        standard: {
+                            title: 'Deagle 战场爆发套',
+                            desc: '高伤害副武器',
+                            parts: [
+                                { slot: '枪口', name: '消音', cost: '0.5万' },
+                                { slot: '瞄准镜', name: '红点', cost: '0.6万' },
+                            ],
+                            total: '1.1万',
+                            tip: '主武器没子弹时的杀手锏'
+                        }
+                    },
+                    ranked: {
+                        standard: {
+                            title: 'Deagle 排位爆发套',
+                            desc: '近距离秒杀手枪',
+                            parts: [
+                                { slot: '枪口', name: '消音', cost: '0.8万' },
+                                { slot: '瞄准镜', name: '红点', cost: '0.8万' },
+                                { slot: '枪托', name: '稳托', cost: '0.6万' },
+                            ],
+                            total: '2.2万',
+                            tip: '竞技副武器首选'
+                        }
+                    }
+                }
             }
+        };
+
+        // ==================== DIY Build Calculator ====================
+        const diyData = {
+            weapons: [
+                { id: 'm4_basic', name: 'M4A1（基础改）', cost: 5, icon: '🔫' },
+                { id: 'm4_full', name: 'M4A1（满改）', cost: 25, icon: '🔫' },
+                { id: 'ak_basic', name: 'AKM（裸枪）', cost: 2, icon: '🔫' },
+                { id: 'ak_full', name: 'AKM（满改）', cost: 30, icon: '🔫' },
+                { id: 'vector_basic', name: 'Vector（基础）', cost: 3, icon: '⚡' },
+                { id: 'vector_full', name: 'Vector（满改）', cost: 15, icon: '⚡' },
+                { id: 'qbz_basic', name: 'QBZ（裸枪）', cost: 0.5, icon: '🔫' },
+                { id: 'qbz_full', name: 'QBZ（满改）', cost: 12, icon: '🔫' },
+                { id: 'scar_full', name: 'SCAR-L（满改）', cost: 22, icon: '🔫' },
+                { id: 'mp5_full', name: 'MP5（满改）', cost: 10, icon: '⚡' },
+                { id: 'sniper_basic', name: '狙击枪（裸枪）', cost: 15, icon: '🎯' },
+                { id: 'sniper_full', name: '狙击枪（满改）', cost: 55, icon: '🎯' },
+                { id: 'knife', name: '战术匕首', cost: 0, icon: '🗡' },
+            ],
+            armors: [
+                { id: 'armor_1', name: '一级护甲', cost: 5, icon: '🛡' },
+                { id: 'armor_2', name: '二级护甲', cost: 15, icon: '🛡' },
+                { id: 'armor_3', name: '三级护甲', cost: 35, icon: '🛡' },
+                { id: 'helmet_1', name: '战术头盔', cost: 3, icon: '⛑' },
+                { id: 'helmet_2', name: '二级头盔', cost: 8, icon: '⛑' },
+                { id: 'helmet_3', name: '三级头盔', cost: 18, icon: '⛑' },
+                { id: 'face_shield', name: '面部护甲', cost: 12, icon: '🛡' },
+            ],
+            consumables: [
+                { id: 'medkit', name: '急救包', cost: 0.82, icon: '💊', qty: 1 },
+                { id: 'medkit_x2', name: '急救包×2', cost: 1.64, icon: '💊', qty: 2 },
+                { id: 'medkit_x3', name: '急救包×3', cost: 2.46, icon: '💊', qty: 3 },
+                { id: 'medkit_x4', name: '急救包×4', cost: 3.28, icon: '💊', qty: 4 },
+                { id: 'bandage', name: '绷带×3', cost: 0.3, icon: '🩹' },
+                { id: 'bandage_x5', name: '绷带×5', cost: 0.5, icon: '🩹' },
+                { id: 'drink_m', name: '饮料（中）', cost: 0.45, icon: '🥤' },
+                { id: 'drink_m_x2', name: '饮料（中）×2', cost: 0.9, icon: '🥤' },
+                { id: 'drink_l', name: '饮料（大）', cost: 0.7, icon: '🥤' },
+                { id: 'food_m', name: '食物包（中）', cost: 0.38, icon: '🍖' },
+            ],
+            bags: [
+                { id: 'bag_s', name: '背包（小）', cost: 0.3, icon: '🎒' },
+                { id: 'bag_m', name: '背包（中）', cost: 1.2, icon: '🎒' },
+                { id: 'bag_l', name: '背包（大）', cost: 3.5, icon: '🎒' },
+                { id: 'bag_xl', name: '背包（超大）', cost: 8, icon: '🎒' },
+            ],
+            grenades: [
+                { id: 'frag_x2', name: '碎片手雷×2', cost: 2.4, icon: '💣' },
+                { id: 'frag_x3', name: '碎片手雷×3', cost: 3.6, icon: '💣' },
+                { id: 'frag_x4', name: '碎片手雷×4', cost: 4.8, icon: '💣' },
+                { id: 'frag_x5', name: '碎片手雷×5', cost: 6, icon: '💣' },
+                { id: 'flash_x2', name: '闪光弹×2', cost: 1.1, icon: '💥' },
+                { id: 'smoke', name: '烟雾弹', cost: 0.8, icon: '💨' },
+                { id: 'sticky_x2', name: '粘性雷×2', cost: 1, icon: '💣' },
+                { id: 'sticky_x3', name: '粘性雷×3', cost: 1.5, icon: '💣' },
+            ]
+        };
+
+        let selectedItems = [];
+
+        function initDIY() {
+            // 渲染各分类物品
+            ['weapons', 'armors', 'consumables', 'bags', 'grenades'].forEach(cat => {
+                const container = document.getElementById('diy-' + cat);
+                if (!container) return;
+                container.innerHTML = diyData[cat].map(item => `
+                    <div class="diy-item ${selectedItems.find(s => s.id === item.id) ? 'selected' : ''}" 
+                         onclick="toggleDiyItem('${item.id}', '${item.name}', ${item.cost}, '${item.icon}', '${cat}')">
+                        ${item.icon} ${item.name} <span class="cost">${item.cost}万</span>
+                    </div>
+                `).join('');
+            });
+            updateDiyDisplay();
+        }
+
+        function toggleDiySection(header) {
+            header.parentElement.classList.toggle('collapsed');
+        }
+
+        function toggleDiyItem(id, name, cost, icon, category) {
+            const index = selectedItems.findIndex(s => s.id === id);
+            if (index > -1) {
+                selectedItems.splice(index, 1);
+            } else {
+                selectedItems.push({ id, name, cost, icon, category });
+            }
+            initDIY();
+        }
+
+        function updateDiyDisplay() {
+            const total = selectedItems.reduce((sum, item) => sum + item.cost, 0);
+            document.getElementById('diy-total').textContent = total.toFixed(1) + '万';
+            document.getElementById('diy-count').textContent = selectedItems.length;
+            document.getElementById('diy-item-count').textContent = selectedItems.length + '件';
+            
+            const list = document.getElementById('diy-selected-list');
+            if (selectedItems.length === 0) {
+                list.innerHTML = '<p style="color: var(--text-muted); text-align: center;">还没选择任何装备</p>';
+            } else {
+                list.innerHTML = selectedItems.map(item => `
+                    <div class="diy-selected-item">
+                        <span>${item.icon} ${item.name}</span>
+                        <div>
+                            <span style="color: var(--green);">${item.cost}万</span>
+                            <span class="remove-btn" onclick="toggleDiyItem('${item.id}', '${item.name}', ${item.cost}, '${item.icon}', '${item.category}')"> ✕</span>
+                        </div>
+                    </div>
+                `).join('');
+            }
+        }
+
+        function clearDiyBuild() {
+            if (selectedItems.length === 0) return;
+            if (confirm('确定要清空所有已选装备吗？')) {
+                selectedItems = [];
+                initDIY();
+            }
+        }
+
+        function saveDiyBuild() {
+            if (selectedItems.length === 0) {
+                alert('请先选择装备！');
+                return;
+            }
+            const name = prompt('请输入配置名称：', '我的战备配置');
+            if (name) {
+                const builds = JSON.parse(localStorage.getItem('diyBuilds') || '[]');
+                builds.push({ name, items: selectedItems, total: selectedItems.reduce((s, i) => s + i.cost, 0), date: new Date().toISOString() });
+                localStorage.setItem('diyBuilds', JSON.stringify(builds));
+                alert(`✅ 已保存配置「${name}」！`);
+            }
+        }
+
+        function loadDiyBuild() {
+            const builds = JSON.parse(localStorage.getItem('diyBuilds') || '[]');
+            if (builds.length === 0) {
+                alert('暂无保存的配置！');
+                return;
+            }
+            const options = builds.map((b, i) => `${i + 1}. ${b.name} (${b.total}万)`).join('\n');
+            const choice = prompt(`已保存的配置：\n${options}\n\n请输入编号加载配置：`);
+            const idx = parseInt(choice) - 1;
+            if (idx >= 0 && idx < builds.length) {
+                selectedItems = [...builds[idx].items];
+                initDIY();
+                alert(`✅ 已加载「${builds[idx].name}」！`);
+            }
+        }
+
+        // 覆盖openModal函数，初始化DIY
+        const originalOpenModal = window.openModal;
+        window.openModal = function(name) {
+            document.getElementById('modal-' + name).classList.add('active');
+            document.body.style.overflow = 'hidden';
+            if (name === 'price') showPriceTable();
+            if (name === 'diy') initDIY();
         };
 
         function showGearBuilds() {
