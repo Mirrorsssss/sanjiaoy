@@ -1,0 +1,417 @@
+{
+  "_comment": "三角洲行动游戏数据 - v3.1 更新数据源",
+  "_lastUpdate": "2026-05-08",
+  "_dataSources": [
+    "https://sjz.jbskins.com - 武器、防具数据（备用源）",
+    "https://orzice.com - 武器改枪码、配件、消耗品、子弹实时价格（主数据源）",
+    "https://m.ali213.net - 子弹价格排名（S9赛季）"
+  ],
+  "_version": "3.1.0",
+  "_note": "sjiaoy.top 已失效，替换为 orzice.com (三角洲数据帝)",
+  
+  "weapons": {
+    "pistol": {
+      "name": "手枪",
+      "items": [
+        { "id": "g17", "name": "G17", "price": 4799, "level": 0, "grid": "2×1", "param": 1.98 },
+        { "id": "93r", "name": "93R", "price": 15636, "level": 0, "grid": "2×1", "param": 2.07 },
+        { "id": "g18", "name": "G18", "price": 19111, "level": 0, "grid": "2×1", "param": 1.89 },
+        { "id": "desert_eagle", "name": "沙漠之鹰", "price": 15810, "level": 0, "grid": "2×1", "param": 2.31 },
+        { "id": "357_revolver", "name": ".357左轮", "price": 13899, "level": 0, "grid": "2×1", "param": 2.18 },
+        { "id": "qsz92g", "name": "QSZ92G", "price": 4799, "level": 0, "grid": "2×1", "param": 2.10 }
+      ]
+    },
+    "smg": {
+      "name": "冲锋枪",
+      "items": [
+        { "id": "mp7", "name": "MP7", "price": 7869, "level": 0, "grid": "4×2", "param": 3.60, "ammo": "4.6×30mm" },
+        { "id": "mp5", "name": "MP5", "price": 53832, "level": 0, "grid": "4×2", "param": 2.70, "ammo": "9×19mm" },
+        { "id": "uzi", "name": "UZI", "price": 12054, "level": 0, "grid": "3×2", "param": 2.20, "ammo": "9×19mm" },
+        { "id": "bizon", "name": "野牛冲锋枪", "price": 12100, "level": 0, "grid": "4×2", "param": 2.10, "ammo": "9×18mm" },
+        { "id": "smg45", "name": "SMG-45", "price": 51806, "level": 0, "grid": "4×2", "param": 3.00, "ammo": ".45 ACP" },
+        { "id": "vector", "name": "Vector", "price": 119935, "level": 0, "grid": "4×2", "param": 2.90, "ammo": ".45 ACP" },
+        { "id": "p90", "name": "P90", "price": 100605, "level": 0, "grid": "4×2", "param": 2.87, "ammo": "5.7×28mm" },
+        { "id": "sr3m", "name": "SR-3M", "price": 133263, "level": 0, "grid": "4×2", "param": 4.15, "ammo": "9×39mm" },
+        { "id": "warrior", "name": "勇士冲锋枪", "price": 51760, "level": 0, "grid": "4×2", "param": 3.44 }
+      ]
+    },
+    "rifle": {
+      "name": "突击步枪",
+      "items": [
+        { "id": "m16a4", "name": "M16A4", "price": 12281, "level": 0, "grid": "5×2", "param": 3.97, "ammo": "5.56×45mm" },
+        { "id": "car15", "name": "CAR-15", "price": 12303, "level": 0, "grid": "5×2", "param": 3.43, "ammo": "5.56×45mm" },
+        { "id": "ptr32", "name": "PTR-32", "price": 47408, "level": 0, "grid": "5×2", "param": 5.49, "ammo": "7.62×39mm" },
+        { "id": "g3", "name": "G3", "price": 51577, "level": 0, "grid": "5×2", "param": 4.38, "ammo": "7.62×51mm" },
+        { "id": "sg552", "name": "SG552", "price": 48449, "level": 0, "grid": "5×2", "param": 4.47, "ammo": "5.56×45mm" },
+        { "id": "ak12", "name": "AK-12", "price": 87387, "level": 0, "grid": "5×2", "param": 4.10, "ammo": "5.45×39mm" },
+        { "id": "scarh", "name": "SCAR-H", "price": 102330, "level": 0, "grid": "5×2", "param": 4.29, "ammo": "7.62×51mm" },
+        { "id": "m7", "name": "M7", "price": 170944, "level": 0, "grid": "5×2", "param": 4.30, "ammo": "6.8×51mm" },
+        { "id": "k416", "name": "K416", "price": 164514, "level": 0, "grid": "5×2", "param": 4.00, "ammo": "5.56×45mm" },
+        { "id": "asval", "name": "AS Val", "price": 157151, "level": 0, "grid": "5×2", "param": 4.70, "ammo": "9×39mm" },
+        { "id": "aug", "name": "AUG", "price": 134554, "level": 0, "grid": "4×2", "param": 3.60, "ammo": "5.56×45mm" },
+        { "id": "ash12", "name": "ASh-12", "price": 127971, "level": 0, "grid": "5×2", "param": 4.20, "ammo": "12.7×55mm" }
+      ]
+    },
+    "dmr": {
+      "name": "精确射手步枪",
+      "items": [
+        { "id": "mini14", "name": "Mini-14", "price": 36928, "level": 0, "grid": "5×2", "param": 4.19, "ammo": "5.56×45mm" },
+        { "id": "sks", "name": "SKS", "price": 42570, "level": 0, "grid": "5×2", "param": 4.57, "ammo": "7.62×39mm" },
+        { "id": "vss", "name": "VSS", "price": 50163, "level": 0, "grid": "5×2", "param": 4.39, "ammo": "9×39mm" },
+        { "id": "svd", "name": "SVD", "price": 89100, "level": 0, "grid": "5×2", "param": 4.73, "ammo": "7.62×54R" },
+        { "id": "m14", "name": "M14", "price": 137125, "level": 0, "grid": "5×2", "param": 4.20, "ammo": "7.62×51mm" },
+        { "id": "psg1", "name": "PSG-1", "price": 116100, "level": 0, "grid": "5×2", "param": 1.50, "ammo": "7.62×51mm" },
+        { "id": "sr25", "name": "SR-25", "price": 145703, "level": 0, "grid": "6×2", "param": 4.88, "ammo": "7.62×51mm" }
+      ]
+    },
+    "sniper": {
+      "name": "狙击步枪",
+      "items": [
+        { "id": "sv98", "name": "SV-98", "price": 69895, "level": 0, "grid": "6×1", "param": 5.81, "ammo": "7.62×54R" },
+        { "id": "r93", "name": "R93", "price": 72935, "level": 0, "grid": "5×1", "param": 5.22, "ammo": "12.7×99mm" },
+        { "id": "m700", "name": "M700", "price": 105000, "level": 0, "grid": "5×1", "param": 5.11, "ammo": "7.62×51mm" },
+        { "id": "awm", "name": "AWM", "price": 563879, "level": 0, "grid": "6×1", "param": 6.90, "ammo": ".300 Win Mag" }
+      ]
+    },
+    "lmg": {
+      "name": "轻机枪",
+      "items": [
+        { "id": "m249", "name": "M249", "price": 57868, "level": 0, "grid": "6×2", "param": 6.50, "ammo": "5.56×45mm" },
+        { "id": "pkm", "name": "PKM", "price": 115513, "level": 0, "grid": "6×2", "param": 5.50, "ammo": "7.62×54R" }
+      ]
+    },
+    "shotgun": {
+      "name": "霰弹枪",
+      "items": [
+        { "id": "m870", "name": "M870", "price": 5000, "level": 0, "grid": "5×1", "param": 3.41, "ammo": "12号霰弹" },
+        { "id": "m1014", "name": "M1014", "price": 36173, "level": 0, "grid": "5×2", "param": 3.62, "ammo": "12号霰弹" },
+        { "id": "s12k", "name": "S12K", "price": 43435, "level": 0, "grid": "5×2", "param": 3.96, "ammo": "12号霰弹" }
+      ]
+    }
+  },
+
+  "attachments": {
+    "muzzle": {
+      "name": "枪口",
+      "items": [
+        { "id": "pistol_silencer", "name": "净化手枪消音器", "price": 7776, "level": 2 },
+        { "id": "pistol_compensator", "name": "精英手枪制退器", "price": 10107, "level": 2 },
+        { "id": "pistol_flash", "name": "实用手枪消焰器", "price": 4307, "level": 2 },
+        { "id": "shotgun_choke", "name": "实用霰弹收束器", "price": 1411, "level": 2 },
+        { "id": "birdcage_flash", "name": "鸟笼消焰器", "price": 5297, "level": 2 },
+        { "id": "喇叭口消焰器", "name": "喇叭口消焰器", "price": 5335, "level": 2 },
+        { "id": "通用消焰器", "name": "实用消焰器", "price": 3525, "level": 2 },
+        { "id": "ops_silencer", "name": "OPS消音器", "price": 13296, "level": 3 },
+        { "id": "ak_compensator", "name": "AK实用补偿器", "price": 11356, "level": 3 },
+        { "id": "steel_muzzle", "name": "钢制膛口制退器", "price": 14629, "level": 3 },
+        { "id": "universal_silencer", "name": "实用消音器", "price": 16579, "level": 3 },
+        { "id": "dtk_compensator", "name": "DTK制退器", "price": 24317, "level": 4 }
+      ]
+    },
+    "optic": {
+      "name": "瞄准镜",
+      "items": [
+        { "id": "ap5000", "name": "AP5000反射式瞄准镜", "price": 5668, "level": 2, "grid": "1×1" },
+        { "id": "pso_8x", "name": "PSO狙击8倍瞄准镜", "price": 11996, "level": 2, "grid": "2×1" },
+        { "id": "holo_2", "name": "全息二型瞄准镜", "price": 5644, "level": 2, "grid": "1×1" },
+        { "id": "red_dot_basic", "name": "反射式瞄准镜", "price": 5665, "level": 2, "grid": "1×1" },
+        { "id": "russian_collimator", "name": "俄式准直二倍瞄准镜", "price": 12425, "level": 2, "grid": "1×1" },
+        { "id": "holo_basic", "name": "全息瞄准镜", "price": 5664, "level": 2, "grid": "1×1" },
+        { "id": "tactical_rail", "name": "多用途战术增高架", "price": 24960, "level": 3, "grid": "1×1" },
+        { "id": "micro_rail", "name": "微型瞄具增高架", "price": 24960, "level": 3, "grid": "1×1" },
+        { "id": "acog_6x", "name": "ACOG精准六倍镜", "price": 45373, "level": 3, "grid": "2×1" },
+        { "id": "osight_micro", "name": "Osight微型瞄准镜", "price": 28262, "level": 3, "grid": "1×1" },
+        { "id": "cobra", "name": "Cobra准直式瞄准镜", "price": 14343, "level": 3, "grid": "1×1" },
+        { "id": "combat_reddot", "name": "战斗红点瞄准镜", "price": 21569, "level": 3, "grid": "1×1" }
+      ]
+    },
+    "stock": {
+      "name": "枪托",
+      "items": [
+        { "id": "ak_stock_pad", "name": "AK枪托缓冲垫", "price": 2275, "level": 2, "grid": "1×1" },
+        { "id": "mp5_folding", "name": "MP5伸缩枪托", "price": 19408, "level": 2, "grid": "2×1" },
+        { "id": "g3_stable", "name": "G3稳定枪托", "price": 17073, "level": 2, "grid": "2×1" },
+        { "id": "m4_buffer", "name": "M4缓冲托芯", "price": 5639, "level": 2, "grid": "1×1" },
+        { "id": "revolver_tactical", "name": ".357左轮逐风者枪托", "price": 7127, "level": 2, "grid": "2×1" },
+        { "id": "ak_tail", "name": "AK枪托尾盖", "price": 1784, "level": 2, "grid": "1×1" },
+        { "id": "m249_tail", "name": "M249尾盖", "price": 5667, "level": 2, "grid": "2×1" },
+        { "id": "uzi_stock", "name": "UZI枪托", "price": 4143, "level": 2, "grid": "2×1" },
+        { "id": "mp5k_folding", "name": "MP5K折叠枪托", "price": 16501, "level": 2, "grid": "2×1" },
+        { "id": "g3_folding", "name": "G3伸缩枪托", "price": 3551, "level": 2, "grid": "2×1" },
+        { "id": "mp5_tail", "name": "MP5尾盖", "price": 3625, "level": 2, "grid": "1×1" },
+        { "id": "ak_skeleton", "name": "AK骨架枪托", "price": 3523, "level": 2, "grid": "2×1" }
+      ]
+    },
+    "grip_rear": {
+      "name": "后握把",
+      "items": [
+        { "id": "revolver_grip", "name": ".357左轮逐风者后握把", "price": 6860, "level": 2, "grid": "1×1" },
+        { "id": "m9_flesh_grip", "name": "M9肉色操控后握", "price": 5119, "level": 2, "grid": "1×1" },
+        { "id": "m9_wood_grip", "name": "M9木色稳定后握", "price": 5133, "level": 2, "grid": "1×1" },
+        { "id": "m9_black_grip", "name": "M9黑色均衡后握", "price": 5139, "level": 2, "grid": "1×1" },
+        { "id": "deagle_competitive", "name": "沙鹰竞技后握", "price": 5691, "level": 2, "grid": "1×1" },
+        { "id": "xk_rubber_grip", "name": "XK橡胶套后握", "price": 10128, "level": 2, "grid": "1×1" },
+        { "id": "xk_anti_slip", "name": "XK防滑纹后握", "price": 13147, "level": 2, "grid": "1×1" },
+        { "id": "m7_stable_grip", "name": "M7稳定后握把", "price": 3549, "level": 2, "grid": "1×1" },
+        { "id": "416_utility_grip", "name": "416实用后握把", "price": 3540, "level": 2, "grid": "1×1" },
+        { "id": "revolver_sniper_grip", "name": "左轮狙击后握", "price": 3476, "level": 2, "grid": "1×1" },
+        { "id": "psg1_pistol_grip", "name": "PSG-1后握把", "price": 14931, "level": 3, "grid": "1×1" },
+        { "id": "xk_competitive", "name": "XK竞技后握", "price": 26591, "level": 3, "grid": "1×1" }
+      ]
+    },
+    "grip_fore": {
+      "name": "前握把",
+      "items": [
+        { "id": "zfgs_tactical", "name": "ZFSG战术握把", "price": 3545, "level": 2, "grid": "1×1" },
+        { "id": "mini_bolt", "name": "迷你阻手器", "price": 3557, "level": 2, "grid": "1×1" },
+        { "id": "utility_vertical", "name": "实用垂直握把", "price": 3554, "level": 2, "grid": "1×1" },
+        { "id": "folding_grip", "name": "折叠握把", "price": 13621, "level": 3, "grid": "1×1" },
+        { "id": "vfg_knight", "name": "VFG骑士前握把", "price": 13232, "level": 3, "grid": "1×1" },
+        { "id": "dawn_tri_light", "name": "黎明三角手电握把", "price": 39138, "level": 4, "grid": "1×1" },
+        { "id": "dawn_vertical_light", "name": "破晓垂直手电握把", "price": 19158, "level": 4, "grid": "1×1" },
+        { "id": "cr_prism", "name": "CR棱镜阻手器", "price": 36765, "level": 4, "grid": "1×1" },
+        { "id": "resonance_2", "name": "共振二代前握把", "price": 75169, "level": 4, "grid": "1×1" },
+        { "id": "telescopic_bipod", "name": "伸缩脚架握把", "price": 20225, "level": 4, "grid": "1×1" },
+        { "id": "k1_elite", "name": "K1精英斜角握把", "price": 19237, "level": 4, "grid": "1×1" },
+        { "id": "x25u_fight", "name": "X25U斜侧战斗握把", "price": 31839, "level": 4, "grid": "1×1" }
+      ]
+    },
+    "grip": {
+      "name": "握把",
+      "items": [
+        { "id": "vertical_grip", "name": "垂直握把", "price": 3000, "level": 1, "grid": "1×1" },
+        { "id": "tactical_grip", "name": "战术握把", "price": 10000, "level": 2, "grid": "1×1" },
+        { "id": "light_grip", "name": "轻型握把", "price": 2000, "level": 1, "grid": "1×1" },
+        { "id": "angled_grip", "name": "斜角握把", "price": 8000, "level": 2, "grid": "1×1" }
+      ]
+    },
+    "magazine": {
+      "name": "弹匣",
+      "items": [
+        { "id": "58_30rd", "name": "5.8新式30发弹匣", "price": 7266, "level": 2, "grid": "1×2" },
+        { "id": "aks74u_30rd", "name": "AKS74U 30发弹匣", "price": 3532, "level": 2, "grid": "1×2" },
+        { "id": "sg552_30rd", "name": "SG552 30发弹匣", "price": 3615, "level": 2, "grid": "1×2" },
+        { "id": "akm_30rd", "name": "AKM30发聚合物弹匣", "price": 3545, "level": 2, "grid": "1×1" },
+        { "id": "93r_24rd", "name": "93R 24发弹匣", "price": 5342, "level": 2, "grid": "1×1" },
+        { "id": "93r_18rd", "name": "93R 18发弹匣", "price": 3896, "level": 2, "grid": "1×1" },
+        { "id": "deagle_13rd", "name": "沙鹰13发弹匣", "price": 5694, "level": 2, "grid": "1×2" },
+        { "id": "g_33rd", "name": "G系手枪33发弹匣", "price": 13142, "level": 2, "grid": "1×2" },
+        { "id": "g_25rd", "name": "G系手枪25发弹匣", "price": 4800, "level": 2, "grid": "1×2" },
+        { "id": "s12k_10rd", "name": "S12K扩容10发弹匣", "price": 6125, "level": 2, "grid": "1×2" },
+        { "id": "bizon_64rd", "name": "野牛 64发弹筒", "price": 9683, "level": 2, "grid": "1×2" },
+        { "id": "uzi_45rd", "name": "UZI 45发弹匣", "price": 14880, "level": 2, "grid": "1×2" }
+      ]
+    },
+    "foregrip": {
+      "name": "护木",
+      "items": [
+        { "id": "m870_rail", "name": "M870导轨护木", "price": 1716, "level": 1, "grid": "2×1" },
+        { "id": "bizon_carbon", "name": "野牛碳纤维护木", "price": 21796, "level": 2, "grid": "2×1" },
+        { "id": "uzi_rail", "name": "UZI导轨护木", "price": 31124, "level": 2, "grid": "2×1" },
+        { "id": "m1014_rail", "name": "M1014导轨护木", "price": 9738, "level": 2, "grid": "2×1" },
+        { "id": "mini14_poly_stock", "name": "Mini-14聚合物一体枪托", "price": 20358, "level": 2, "grid": "2×1" },
+        { "id": "mini14_poly", "name": "Mini-14聚合物枪托", "price": 13161, "level": 2, "grid": "2×1" },
+        { "id": "aks74u_rail_top", "name": "AKS74U导轨上护木", "price": 31133, "level": 3, "grid": "1×1" },
+        { "id": "aks74u_rail_bottom", "name": "AKS74U导轨下护木", "price": 6457, "level": 3, "grid": "1×1" },
+        { "id": "m700_advanced", "name": "M700先进枪身系统", "price": 17913, "level": 3, "grid": "2×1" },
+        { "id": "m700_stable_stock", "name": "M700稳定一体枪托", "price": 16855, "level": 3, "grid": "2×1" },
+        { "id": "m700_black_stock", "name": "M700黑色一体枪托", "price": 13883, "level": 3, "grid": "2×1" },
+        { "id": "uzi_performance", "name": "UZI性能护木", "price": 24101, "level": 3, "grid": "2×1" }
+      ]
+    }
+  },
+
+  "bullets": {
+    "name": "子弹价格表",
+    "items": [
+      { "id": "127x55mm", "name": "12.7×55mm", "price": 4823, "for_weapon": "ASh-12", "tier": 1 },
+      { "id": "68x51mm", "name": "6.8×51mm", "price": 4050, "for_weapon": "M250、M7", "tier": 1 },
+      { "id": "762x51mm", "name": "7.62×51mm NATO", "price": 3900, "for_weapon": "M14、SR-25、PSG-1、G3、SCAR-H", "tier": 1 },
+      { "id": "58x42mm", "name": "5.8×42mm", "price": 3888, "for_weapon": "腾龙突击步枪", "tier": 1 },
+      { "id": "300blk", "name": ".300 BLK", "price": 3754, "for_weapon": "K437", "tier": 1 },
+      { "id": "762x54r", "name": "7.62×54R", "price": 3705, "for_weapon": "PMK、SV-98、SVD", "tier": 1 },
+      { "id": "9x29mm", "name": "9×29mm", "price": 3664, "for_weapon": "SM-3R、AS Val、SR-3M", "tier": 1 },
+      { "id": "57x28mm", "name": "5.7×28mm", "price": 3605, "for_weapon": "P90、MP7", "tier": 1 },
+      { "id": "556x45mm", "name": "5.56×45mm NATO", "price": 3482, "for_weapon": "K416、AUG、M16A4、CAR-15、SG552、M249", "tier": 1 },
+      { "id": "545x39mm", "name": "5.45×39mm", "price": 3300, "for_weapon": "AK-12、AKS74U", "tier": 1 },
+      { "id": "762x39mm", "name": "7.62×39mm", "price": 3100, "for_weapon": "AKM、PTR-32、SKS", "tier": 1 },
+      { "id": "9x19mm", "name": "9×19mm", "price": 2800, "for_weapon": "MP5、G18、93R、UZI、野牛", "tier": 1 },
+      { "id": "45acp", "name": ".45 ACP", "price": 2600, "for_weapon": "Vector、SMG-45、沙漠之鹰", "tier": 1 },
+      { "id": "357mag", "name": ".357 Magnum", "price": 2400, "for_weapon": ".357左轮", "tier": 1 },
+      { "id": "12gauge", "name": "12号霰弹", "price": 800, "for_weapon": "M870、M1014、S12K", "tier": 1 }
+    ]
+  },
+
+  "consumables": {
+    "name": "消耗品",
+    "medical": {
+      "name": "医疗用品",
+      "items": [
+        { "id": "medic_box_1", "name": "战地医疗箱", "price": 161496, "durability": 800, "hp_per_sec": 30, "cast_time": 3.5 },
+        { "id": "medic_box_2", "name": "户外医疗箱", "price": 50505, "durability": 350, "hp_per_sec": 20, "cast_time": 4 },
+        { "id": "medic_bag", "name": "野战急救包", "price": 13486, "durability": 220, "hp_per_sec": 20, "cast_time": 6 },
+        { "id": "syringe_1", "name": "强效注射器", "price": 6905, "durability": 60, "hp_per_sec": 12, "cast_time": 3 },
+        { "id": "syringe_2", "name": "车载急救包", "price": 3067, "durability": 90, "hp_per_sec": 6, "cast_time": 5 },
+        { "id": "syringe_3", "name": "简易注射器", "price": 1593, "durability": 30, "hp_per_sec": 5, "cast_time": 3.5 }
+      ]
+    },
+    "surgery": {
+      "name": "手术包",
+      "items": [
+        { "id": "surgery_1", "name": "DEK野战手术包", "price": 26250, "uses": 7, "effect": "修复1个部位上所有异常状态" },
+        { "id": "surgery_2", "name": "战术快拆手术包", "price": 8943, "uses": 4, "effect": "修复1个部位上所有异常状态" },
+        { "id": "surgery_3", "name": "简易手术包", "price": 2365, "uses": 2, "effect": "修复1处受伤部位", "cast_time": 10 }
+      ]
+    },
+    "bandage": {
+      "name": "止血用品",
+      "items": [
+        { "id": "bandage_1", "name": "CAT止血带", "price": 2520, "uses": 4, "effect": "治疗1处伤口", "cast_time": 2.5 },
+        { "id": "bandage_2", "name": "弹力绷带", "price": 1050, "uses": 2, "effect": "治疗1处伤口", "cast_time": 3 }
+      ]
+    },
+    "painkiller": {
+      "name": "止痛药",
+      "items": [
+        { "id": "painkiller_1", "name": "DVE止疼片", "price": 23541, "duration": 360 },
+        { "id": "painkiller_2", "name": "瓶装抗生素", "price": 6680, "duration": 240 },
+        { "id": "painkiller_3", "name": "缓释止痛片", "price": 1970, "duration": 200 }
+      ]
+    },
+    "enhancement": {
+      "name": "增强注射剂",
+      "items": [
+        { "id": "enhance_1", "name": "体能强化剂", "price": 59755, "effect": "提升体力上限+体力恢复速度", "duration": 300 },
+        { "id": "enhance_2", "name": "感知强化剂", "price": 43500, "effect": "提升听力范围", "duration": 300 },
+        { "id": "enhance_3", "name": "M2肌肉注射剂", "price": 36250, "effect": "提升负重能力", "duration": 300 },
+        { "id": "enhance_4", "name": "OE2战斗兴奋剂", "price": 35483, "effect": "短时间回复大量体力" },
+        { "id": "enhance_5", "name": "体能激活针", "price": 24245, "effect": "提升体力上限+体力恢复速度", "duration": 180 },
+        { "id": "enhance_6", "name": "感知激活针", "price": 18450, "effect": "提升听力范围", "duration": 180 },
+        { "id": "enhance_7", "name": "M1肌肉强化针", "price": 9000, "effect": "提升负重能力", "duration": 180 },
+        { "id": "enhance_8", "name": "去甲肾上腺素", "price": 4400, "effect": "提升体力上限", "duration": 120 }
+      ]
+    },
+    "repair": {
+      "name": "维修工具",
+      "items": [
+        { "id": "repair_helmet_high", "name": "高级头盔维修组合", "price": 598660, "level": 6, "for": "头盔" },
+        { "id": "repair_vest_high", "name": "高级护甲维修组合", "price": 652800, "level": 6, "for": "护甲" },
+        { "id": "repair_helmet_mid", "name": "精密头盔维修包", "price": 165285, "level": 5, "for": "头盔" },
+        { "id": "repair_vest_mid", "name": "精密护甲维修包", "price": 242445, "level": 5, "for": "护甲" },
+        { "id": "repair_helmet_low", "name": "标准头盔维修包", "price": 57950, "level": 4, "for": "头盔" },
+        { "id": "repair_vest_low", "name": "标准护甲维修包", "price": 84600, "level": 4, "for": "护甲" },
+        { "id": "repair_helmet_craft", "name": "自制头盔维修包", "price": 16428, "level": 3, "for": "头盔" },
+        { "id": "repair_vest_craft", "name": "自制护甲维修包", "price": 20418, "level": 3, "for": "护甲" }
+      ]
+    }
+  },
+
+  "armor": {
+    "helmet": {
+      "name": "头盔",
+      "items": [
+        { "id": "baseball_cap", "name": "户外棒球帽", "price": 8207, "level": 1, "durability": 0.41, "grid": "2×2" },
+        { "id": "beret", "name": "奔尼帽", "price": 1519, "level": 1, "durability": 0.37, "grid": "2×2" },
+        { "id": "security_helmet", "name": "安保头盔", "price": 1858, "level": 1, "durability": 0.55, "grid": "2×2" },
+        { "id": "steel_helmet", "name": "老式钢盔", "price": 1147, "level": 1, "durability": 1.01, "grid": "2×2" },
+        { "id": "mc_helmet", "name": "MC防弹头盔", "price": 11498, "level": 2, "durability": 1.69, "grid": "2×2" },
+        { "id": "dro_tactical", "name": "DRO战术头盔", "price": 5855, "level": 2, "durability": 1.54, "grid": "2×2" },
+        { "id": "h01_tactical", "name": "H01战术头盔", "price": 7967, "level": 2, "durability": 0.75, "grid": "2×2" },
+        { "id": "moto_helmet", "name": "复古摩托头盔", "price": 5550, "level": 2, "durability": 1.63, "grid": "2×2" },
+        { "id": "h07_tactical", "name": "H07战术头盔", "price": 19034, "level": 3, "durability": 0.90, "grid": "2×2" },
+        { "id": "riot_helmet", "name": "防暴头盔", "price": 24337, "level": 3, "durability": 1.88, "grid": "2×2" }
+      ]
+    },
+    "vest": {
+      "name": "护甲",
+      "items": [
+        { "id": "light_vest", "name": "轻型护甲", "price": 15000, "level": 1, "durability": 50, "grid": "3×2" },
+        { "id": "medium_vest", "name": "中型护甲", "price": 35000, "level": 2, "durability": 70, "grid": "3×2" },
+        { "id": "heavy_vest", "name": "重型护甲", "price": 80000, "level": 3, "durability": 100, "grid": "3×2" }
+      ]
+    },
+    "backpack": {
+      "name": "背包",
+      "items": [
+        { "id": "small_pack", "name": "小型背包", "price": 5000, "level": 1, "slots": 12, "grid": "3×2" },
+        { "id": "medium_pack", "name": "中型背包", "price": 15000, "level": 2, "slots": 24, "grid": "4×3" },
+        { "id": "large_pack", "name": "大型背包", "price": 40000, "level": 3, "slots": 36, "grid": "5×4" }
+      ]
+    }
+  },
+
+  "keys": {
+    "name": "钥匙",
+    "items": [
+      { "id": "iron_ticket", "name": "铁脊车站售票室", "price": 35700, "level": 3, "grid": "1×1" },
+      { "id": "ranch_manage", "name": "牧场管理房", "price": 42000, "level": 3, "grid": "1×1" },
+      { "id": "checkpoint_storage", "name": "检查站库房", "price": 226800, "level": 3, "grid": "1×1" },
+      { "id": "radar_side_door", "name": "雷达侧门钥匙", "price": 190000, "level": 3, "grid": "1×1" },
+      { "id": "old_bath_restaurant", "name": "老浴场餐厅", "price": 413178, "level": 4, "grid": "1×1" },
+      { "id": "east_building_bedroom", "name": "东城民宅卧室", "price": 313403, "level": 4, "grid": "1×1" },
+      { "id": "west_building_bedroom", "name": "西城民宅卧室", "price": 220136, "level": 4, "grid": "1×1" },
+      { "id": "hotel_staff_room", "name": "旅店员工休息室", "price": 317154, "level": 4, "grid": "1×1" },
+      { "id": "town_restaurant", "name": "小镇餐厅", "price": 555841, "level": 4, "grid": "1×1" },
+      { "id": "east_building_grocery", "name": "东楼杂货间", "price": 0, "level": 3, "grid": "1×1", "note": "价格待定" },
+      { "id": "west_building_medical", "name": "西楼医务室", "price": 117600, "level": 3, "grid": "1×1" },
+      { "id": "power_station_dorm", "name": "变电站宿舍", "price": 35700, "level": 3, "grid": "1×1" }
+    ]
+  },
+
+  "workshop": {
+    "name": "工坊制造",
+    "items": [
+      {
+        "id": "craft_556",
+        "name": "5.56mm NATO弹药",
+        "materials": [
+          { "name": "黄铜", "count": 2 },
+          { "name": "火药", "count": 1 }
+        ],
+        "cost": 5000,
+        "sell_price": 8000,
+        "profit": 3000,
+        "profit_rate": 60
+      },
+      {
+        "id": "craft_762",
+        "name": "7.62×39mm弹药",
+        "materials": [
+          { "name": "黄铜", "count": 2 },
+          { "name": "火药", "count": 1 }
+        ],
+        "cost": 6000,
+        "sell_price": 9500,
+        "profit": 3500,
+        "profit_rate": 58
+      },
+      {
+        "id": "craft_127",
+        "name": "12.7×55mm弹药",
+        "materials": [
+          { "name": "黄铜", "count": 4 },
+          { "name": "火药", "count": 2 }
+        ],
+        "cost": 15000,
+        "sell_price": 28000,
+        "profit": 13000,
+        "profit_rate": 87
+      }
+    ]
+  },
+
+  "meta": {
+    "lastUpdate": "2026-05-08T21:20:00+08:00",
+    "nextScheduledUpdate": "2026-05-09T08:00:00+08:00",
+    "dataVersion": "3.0.0",
+    "gameVersion": "S9赛季",
+    "stats": {
+      "totalWeapons": 42,
+      "totalAttachments": 84,
+      "totalBullets": 15,
+      "totalConsumables": 30,
+      "totalArmor": 16,
+      "totalKeys": 12
+    }
+  }
+}

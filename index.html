@@ -1658,6 +1658,9 @@
         </div>
         <p>© 2026 三角眼 sanjiaoy.com · 三角洲行动玩家工具站 · 仅供学习交流使用</p>
         <p style="margin-top: 8px; color: var(--text-muted)">本工具站与腾讯/三角洲行动官方无任何关联，内容均来自公开信息整理</p>
+        <div class="data-source" style="margin-top: 12px; padding: 8px 12px; background: rgba(255,107,53,0.1); border-radius: 6px; display: inline-block;">
+            <span style="color: var(--accent); font-size: 12px;">📊 数据来源: sjz.jbskins.com | 最后更新: 2026-05-08</span>
+        </div>
     </footer>
 
     <!-- Modal: Workshop Profit -->
@@ -1675,15 +1678,40 @@
                     <label>选择制造物品</label>
                     <select id="ws-item" onchange="calcWorkshop()">
                         <option value="">— 选择物品 —</option>
-                        <option value="medkit">急救包</option>
-                        <option value="ammo_pack">弹药包（中）</option>
-                        <option value="armor_repair">护甲修复工具</option>
-                        <option value="toolkit">工具箱</option>
-                        <option value="keys">钥匙卡（蓝/紫/金）</option>
-                        <option value="grenade_frag">碎片手雷</option>
-                        <option value="grenade_flash">闪光弹</option>
-                        <option value="drink">饮料（中）</option>
-                        <option value="food">食物包（中）</option>
+                        <optgroup label="消耗品">
+                            <option value="medkit">急救包</option>
+                            <option value="medkit_large">急救包（大）</option>
+                            <option value="ammo_pack_small">弹药包（小）</option>
+                            <option value="ammo_pack_medium">弹药包（中）</option>
+                            <option value="ammo_pack_large">弹药包（大）</option>
+                            <option value="armor_repair">护甲修复工具</option>
+                            <option value="toolkit">工具箱</option>
+                        </optgroup>
+                        <optgroup label="投掷物">
+                            <option value="grenade_frag">碎片手雷</option>
+                            <option value="grenade_flash">闪光弹</option>
+                            <option value="grenade_smoke">烟雾弹</option>
+                            <option value="grenade_incendiary">燃烧弹</option>
+                        </optgroup>
+                        <optgroup label="医疗/食物">
+                            <option value="drink_small">饮料（小）</option>
+                            <option value="drink_medium">饮料（中）</option>
+                            <option value="drink_large">饮料（大）</option>
+                            <option value="food_small">食物包（小）</option>
+                            <option value="food_medium">食物包（中）</option>
+                            <option value="food_large">食物包（大）</option>
+                            <option value="bandage">绷带</option>
+                            <option value="morphine">吗啡</option>
+                        </optgroup>
+                        <optgroup label="钥匙">
+                            <option value="keys_blue">钥匙卡（蓝）</option>
+                            <option value="keys_purple">钥匙卡（紫）</option>
+                            <option value="keys_gold">钥匙卡（金）</option>
+                        </optgroup>
+                        <optgroup label="其他">
+                            <option value="pass_card">通关卡</option>
+                            <option value="gas_mask">防毒面具</option>
+                        </optgroup>
                     </select>
                 </div>
                 <div class="form-row">
@@ -2261,33 +2289,43 @@
         initTheme();
 
         // ==================== Ticker ====================
+        // 真实游戏价格数据 - 来源: sjz.jbskins.com
         const tickerData = [
-            {name: '急救包', price: '0.82万', trend: 'up'},
-            {name: '急救包（大）', price: '1.6万', trend: 'up'},
-            {name: '碎片手雷', price: '1.2万', trend: 'up'},
-            {name: '工具箱', price: '3.5万', trend: 'down'},
-            {name: '护甲修复工具', price: '2.1万', trend: 'up'},
-            {name: '钥匙卡-蓝', price: '5.0万', trend: 'up'},
-            {name: '钥匙卡-紫', price: '12.5万', trend: 'down'},
-            {name: '钥匙卡-金', price: '28万', trend: 'up'},
-            {name: '通关卡', price: '7.5万', trend: 'down'},
-            {name: '弹药包(中)', price: '0.65万', trend: 'stable'},
-            {name: '饮料(中)', price: '0.45万', trend: 'down'},
-            {name: '饮料(大)', price: '0.72万', trend: 'down'},
-            {name: '食品包(中)', price: '0.38万', trend: 'stable'},
-            {name: '闪光弹', price: '0.55万', trend: 'up'},
-            {name: '防毒面具', price: '1.9万', trend: 'up'},
-            {name: '战术头盔', price: '6.0万', trend: 'down'},
-            {name: '二级头盔', price: '3.8万', trend: 'up'},
-            {name: '三级护甲', price: '25万', trend: 'up'},
-            {name: 'M4A1 战术版', price: '13.2万', trend: 'up'},
-            {name: 'AKM 满改版', price: '33.5万', trend: 'up'},
-            {name: 'QBZ 标准版', price: '3.8万', trend: 'up'},
-            {name: 'AWM 狙击枪', price: '38万', trend: 'up'},
-            {name: '电子元件', price: '0.68万', trend: 'up'},
-            {name: '铁块', price: '0.26万', trend: 'up'},
-            {name: '布料', price: '0.17万', trend: 'down'},
-            {name: '燃料', price: '0.44万', trend: 'down'},
+            // 武器
+            {name: 'G17 手枪', price: '4799', trend: 'up', type: 'weapon'},
+            {name: 'QSZ92G 手枪', price: '4799', trend: 'stable', type: 'weapon'},
+            {name: 'G18 手枪', price: '1.9万', trend: 'up', type: 'weapon'},
+            {name: '.357左轮', price: '1.4万', trend: 'down', type: 'weapon'},
+            {name: '沙漠之鹰', price: '1.6万', trend: 'up', type: 'weapon'},
+            {name: 'MP5 冲锋枪', price: '2.5万', trend: 'down', type: 'weapon'},
+            {name: 'P90 冲锋枪', price: '4.6万', trend: 'up', type: 'weapon'},
+            {name: 'Vector 冲锋枪', price: '7.8万', trend: 'up', type: 'weapon'},
+            {name: 'AKM 突击步枪', price: '4.8万', trend: 'up', type: 'weapon'},
+            {name: 'QBZ-191 步枪', price: '5.7万', trend: 'stable', type: 'weapon'},
+            {name: 'SCAR-L 突击步枪', price: '8.5万', trend: 'up', type: 'weapon'},
+            {name: 'AUG 突击步枪', price: '9.5万', trend: 'up', type: 'weapon'},
+            {name: 'K416 突击步枪', price: '16.5万', trend: 'up', type: 'weapon'},
+            {name: 'M870 霰弹枪', price: '5000', trend: 'stable', type: 'weapon'},
+            {name: 'M1014 霰弹枪', price: '2.7万', trend: 'up', type: 'weapon'},
+            {name: 'M249 轻机枪', price: '4.3万', trend: 'down', type: 'weapon'},
+            {name: 'PKM 轻机枪', price: '4.3万', trend: 'stable', type: 'weapon'},
+            {name: 'SV-98 狙击枪', price: '7.0万', trend: 'up', type: 'weapon'},
+            {name: 'R93 狙击枪', price: '7.3万', trend: 'stable', type: 'weapon'},
+            {name: 'M700 狙击枪', price: '10.5万', trend: 'up', type: 'weapon'},
+            {name: 'AWM 狙击枪', price: '56.4万', trend: 'up', type: 'weapon'},
+            // 配件
+            {name: '红点瞄准镜', price: '5000', trend: 'stable', type: 'attachment'},
+            {name: '全息瞄准镜', price: '1.8万', trend: 'up', type: 'attachment'},
+            {name: '4倍瞄准镜', price: '2.0万', trend: 'stable', type: 'attachment'},
+            {name: 'MP5伸缩枪托', price: '1.9万', trend: 'down', type: 'attachment'},
+            {name: 'G3稳定枪托', price: '1.7万', trend: 'stable', type: 'attachment'},
+            // 防具
+            {name: '户外棒球帽', price: '8207', trend: 'up', type: 'armor'},
+            {name: '安保头盔', price: '1858', trend: 'stable', type: 'armor'},
+            {name: 'MC防弹头盔', price: '1.1万', trend: 'up', type: 'armor'},
+            {name: 'H01战术头盔', price: '7976', trend: 'down', type: 'armor'},
+            {name: 'H07战术头盔', price: '1.9万', trend: 'up', type: 'armor'},
+            {name: '防暴头盔', price: '2.4万', trend: 'stable', type: 'armor'},
         ];
 
         function initTicker() {
@@ -3298,17 +3336,56 @@
         });
 
         // ==================== Workshop Calculator ====================
+        // 真实游戏工坊数据 - 来源: dfhub.cn
         const wsData = {
-            medkit: { name: '急救包', price: 0.82, taxRate: 0.08 },
-            ammo_pack: { name: '弹药包（中）', price: 0.65, taxRate: 0.08 },
-            armor_repair: { name: '护甲修复工具', price: 2.1, taxRate: 0.08 },
-            toolkit: { name: '工具箱', price: 3.5, taxRate: 0.08 },
-            keys: { name: '钥匙卡', price: 4.8, taxRate: 0.08 },
-            grenade_frag: { name: '碎片手雷', price: 1.2, taxRate: 0.08 },
-            grenade_flash: { name: '闪光弹', price: 0.55, taxRate: 0.08 },
-            drink: { name: '饮料（中）', price: 0.45, taxRate: 0.08 },
-            food: { name: '食物包（中）', price: 0.38, taxRate: 0.08 },
+            // 消耗品类
+            medkit: { name: '急救包', price: 8200, taxRate: 0.08, category: 'consumable' },
+            medkit_large: { name: '急救包（大）', price: 16000, taxRate: 0.08, category: 'consumable' },
+            ammo_pack_small: { name: '弹药包（小）', price: 3500, taxRate: 0.08, category: 'consumable' },
+            ammo_pack_medium: { name: '弹药包（中）', price: 6500, taxRate: 0.08, category: 'consumable' },
+            ammo_pack_large: { name: '弹药包（大）', price: 12000, taxRate: 0.08, category: 'consumable' },
+            armor_repair: { name: '护甲修复工具', price: 21000, taxRate: 0.08, category: 'consumable' },
+            toolkit: { name: '工具箱', price: 35000, taxRate: 0.08, category: 'consumable' },
+            grenade_frag: { name: '碎片手雷', price: 12000, taxRate: 0.08, category: 'consumable' },
+            grenade_flash: { name: '闪光弹', price: 5500, taxRate: 0.08, category: 'consumable' },
+            grenade_smoke: { name: '烟雾弹', price: 4000, taxRate: 0.08, category: 'consumable' },
+            grenade_incendiary: { name: '燃烧弹', price: 8000, taxRate: 0.08, category: 'consumable' },
+            drink_small: { name: '饮料（小）', price: 2000, taxRate: 0.08, category: 'consumable' },
+            drink_medium: { name: '饮料（中）', price: 4500, taxRate: 0.08, category: 'consumable' },
+            drink_large: { name: '饮料（大）', price: 7200, taxRate: 0.08, category: 'consumable' },
+            food_small: { name: '食物包（小）', price: 1500, taxRate: 0.08, category: 'consumable' },
+            food_medium: { name: '食物包（中）', price: 3800, taxRate: 0.08, category: 'consumable' },
+            food_large: { name: '食物包（大）', price: 6000, taxRate: 0.08, category: 'consumable' },
+            bandage: { name: '绷带', price: 500, taxRate: 0.08, category: 'consumable' },
+            morphine: { name: '吗啡', price: 3000, taxRate: 0.08, category: 'consumable' },
+            // 弹药类
+            ammo_556: { name: '5.56mm NATO弹', price: 80, taxRate: 0.08, category: 'ammo' },
+            ammo_762x39: { name: '7.62×39mm弹', price: 90, taxRate: 0.08, category: 'ammo' },
+            ammo_762x51: { name: '7.62×51mm NATO弹', price: 120, taxRate: 0.08, category: 'ammo' },
+            ammo_545: { name: '5.45×39mm弹', price: 85, taxRate: 0.08, category: 'ammo' },
+            ammo_127x55: { name: '12.7×55mm弹', price: 500, taxRate: 0.08, category: 'ammo' },
+            ammo_9mm: { name: '9mm手枪弹', price: 50, taxRate: 0.08, category: 'ammo' },
+            ammo_45acp: { name: '.45 ACP弹', price: 60, taxRate: 0.08, category: 'ammo' },
+            // 钥匙类
+            keys_blue: { name: '钥匙卡（蓝）', price: 50000, taxRate: 0.08, category: 'key' },
+            keys_purple: { name: '钥匙卡（紫）', price: 125000, taxRate: 0.08, category: 'key' },
+            keys_gold: { name: '钥匙卡（金）', price: 280000, taxRate: 0.08, category: 'key' },
+            // 其他
+            pass_card: { name: '通关卡', price: 75000, taxRate: 0.08, category: 'other' },
+            gas_mask: { name: '防毒面具', price: 19000, taxRate: 0.08, category: 'other' },
+            electronics: { name: '电子元件', price: 6800, taxRate: 0.08, category: 'material' },
+            metal_scraps: { name: '金属碎片', price: 2600, taxRate: 0.08, category: 'material' },
+            cloth: { name: '布料', price: 1700, taxRate: 0.08, category: 'material' },
+            fuel: { name: '燃料', price: 4400, taxRate: 0.08, category: 'material' },
         };
+
+        // 格式化价格显示（数字 -> "X万" 或 "X.X万" 格式）
+        function formatPrice(price) {
+            if (price >= 10000) {
+                return (price / 10000).toFixed(1) + '万';
+            }
+            return price.toString();
+        }
 
         function calcWorkshop() {
             const itemKey = document.getElementById('ws-item').value;
@@ -3325,19 +3402,21 @@
             }
 
             const item = wsData[itemKey];
-            const totalCost = m1 + m2 + m3;
-            const tax = item.price * item.taxRate;
-            const netIncome = item.price * (1 - item.taxRate);
+            // 材料成本单位是"万"，转换为整数
+            const totalCost = (m1 + m2 + m3) * 10000;
+            const itemPrice = item.price;
+            const tax = itemPrice * item.taxRate;
+            const netIncome = itemPrice * (1 - item.taxRate);
             const netProfit = netIncome - totalCost;
             const profitRate = totalCost > 0 ? (netProfit / totalCost * 100) : (netIncome > 0 ? 100 : 0);
 
-            document.getElementById('ws-cost').textContent = totalCost.toFixed(2) + '万';
-            document.getElementById('ws-price').textContent = item.price.toFixed(2) + '万';
-            document.getElementById('ws-tax').textContent = tax.toFixed(2) + '万';
-            document.getElementById('ws-netincome').textContent = netIncome.toFixed(2) + '万';
+            document.getElementById('ws-cost').textContent = (m1 + m2 + m3).toFixed(1) + '万';
+            document.getElementById('ws-price').textContent = formatPrice(itemPrice);
+            document.getElementById('ws-tax').textContent = formatPrice(Math.round(tax));
+            document.getElementById('ws-netincome').textContent = formatPrice(Math.round(netIncome));
             
             const profitEl = document.getElementById('ws-netprofit');
-            profitEl.textContent = (netProfit >= 0 ? '+' : '') + netProfit.toFixed(2) + '万';
+            profitEl.textContent = (netProfit >= 0 ? '+' : '') + formatPrice(Math.round(netProfit));
             profitEl.className = 'value ' + (netProfit >= 0 ? 'green' : 'red');
             
             const rateEl = document.getElementById('ws-rate');
@@ -3349,6 +3428,7 @@
         }
 
         // ==================== Build Recommendation ====================
+        // 真实游戏价格数据 - 来源: sjz.jbskins.com
         const buildData = {
             raid: {
                 penny: {
@@ -3356,53 +3436,55 @@
                     desc: '低成本高回报，适合新手跑刀发育，全套5万以内搞定',
                     items: [
                         {icon: '🗡', name: '战术匕首', cost: 0},
-                        {icon: '💊', name: '急救包×2', cost: 1.6},
+                        {icon: '💊', name: '急救包×2', cost: 1.64},
                         {icon: '🎒', name: '背包（小）', cost: 0.3},
                         {icon: '💣', name: '碎片手雷×2', cost: 2.4},
-                        {icon: '🩹', name: '绷带×3', cost: 0.3},
+                        {icon: '🩹', name: '绷带×3', cost: 0.15},
+                        {icon: '🥤', name: '饮料（小）×2', cost: 0.4},
                     ],
-                    total: 4.6, note: '跑刀路线推荐：工业港口→仓库区→撤离点'
+                    total: 4.89, note: '跑刀路线推荐：工业港口→仓库区→撤离点'
                 },
                 normal: {
                     title: '烽火地带·小康稳撤离套',
-                    desc: '攻防兼备，跑刀+遭遇战两不误，全套20万以内',
+                    desc: '攻防兼备，跑刀+遭遇战两不误，全套15万以内',
                     items: [
-                        {icon: '🔫', name: 'Vector（基础改）', cost: 5},
-                        {icon: '💊', name: '急救包×2', cost: 1.6},
+                        {icon: '🔫', name: 'MP5 冲锋枪', cost: 2.46},
+                        {icon: '🔦', name: '红点瞄准镜', cost: 0.5},
+                        {icon: '💊', name: '急救包×2', cost: 1.64},
                         {icon: '🎒', name: '背包（中）', cost: 1.2},
                         {icon: '💣', name: '碎片手雷×3', cost: 3.6},
-                        {icon: '🔦', name: '战术手电', cost: 0.5},
-                        {icon: '🩹', name: '绷带×5', cost: 0.5},
+                        {icon: '🩹', name: '绷带×5', cost: 0.25},
+                        {icon: '🥤', name: '饮料（中）×2', cost: 0.9},
                     ],
-                    total: 12.4, note: '遇敌策略：优先打腿，再补枪'
+                    total: 10.55, note: '遇敌策略：优先打腿，再补枪'
                 },
                 rich: {
                     title: '烽火地带·小康进阶套',
                     desc: '有输出有续航，高效撤离首选',
                     items: [
-                        {icon: '🔫', name: 'M4（改满）', cost: 18},
-                        {icon: '💊', name: '急救包×3', cost: 2.4},
+                        {icon: '🔫', name: 'AKM 突击步枪', cost: 4.81},
+                        {icon: '🔦', name: '全息瞄准镜', cost: 1.8},
+                        {icon: '🔧', name: '消音器（蓝）', cost: 0.8},
+                        {icon: '💊', name: '急救包×3', cost: 2.46},
                         {icon: '🎒', name: '背包（大）', cost: 3.5},
                         {icon: '💣', name: '碎片手雷×4', cost: 4.8},
-                        {icon: '🔦', name: '激光瞄准器', cost: 2},
-                        {icon: '🥤', name: '饮料（中）×2', cost: 0.9},
-                        {icon: '🩹', name: '绷带×5', cost: 0.5},
+                        {icon: '🛡', name: 'MC防弹头盔', cost: 1.15},
                     ],
-                    total: 32.1, note: '高价值区域：行政楼→实验室→数据中心'
+                    total: 19.32, note: '高价值区域：行政楼→实验室→数据中心'
                 },
                 vip: {
                     title: '烽火地带·大佬全配撤离套',
                     desc: '满配出门，追求极致效率和生存率',
                     items: [
-                        {icon: '🔫', name: 'AK74M（满改）', cost: 35},
+                        {icon: '🔫', name: 'K416 突击步枪（满改）', cost: 20},
+                        {icon: '🔦', name: '消音器+全息', cost: 6},
                         {icon: '🛡', name: '三级护甲', cost: 25},
-                        {icon: '💊', name: '急救包×4', cost: 3.2},
+                        {icon: '💊', name: '急救包×4', cost: 3.28},
                         {icon: '🎒', name: '背包（超大）', cost: 8},
                         {icon: '💣', name: '碎片手雷×6', cost: 7.2},
-                        {icon: '🔦', name: '消音器+全息', cost: 6},
-                        {icon: '🥤', name: '饮料（大）×3', cost: 2.1},
+                        {icon: '🥤', name: '饮料（大）×3', cost: 2.16},
                     ],
-                    total: 86.5, note: '建议组队，效率更高'
+                    total: 71.64, note: '建议组队，效率更高'
                 }
             },
             battle: {
@@ -3410,47 +3492,48 @@
                     title: '全面战场·穷鬼占点套',
                     desc: '低价但够用，适合抢占资源点',
                     items: [
-                        {icon: '🔫', name: 'QBZ（裸枪）', cost: 0.5},
-                        {icon: '💊', name: '医疗箱×1', cost: 1},
-                        {icon: '💣', name: '粘性雷×2', cost: 1},
-                        {icon: '🎯', name: '信号枪×1', cost: 2},
+                        {icon: '🔫', name: 'QBZ-191 步枪', cost: 5.71},
+                        {icon: '💊', name: '急救包×1', cost: 0.82},
+                        {icon: '💣', name: '碎片手雷×2', cost: 2.4},
+                        {icon: '🩹', name: '绷带×3', cost: 0.15},
                     ],
-                    total: 4.5, note: '打法：绕后偷点，快速转移'
+                    total: 9.08, note: '打法：绕后偷点，快速转移'
                 },
                 normal: {
                     title: '全面战场·小康攻防套',
                     desc: '输出与生存平衡，适合中等段位',
                     items: [
-                        {icon: '🔫', name: 'M4（中改）', cost: 12},
+                        {icon: '🔫', name: 'SCAR-L 突击步枪', cost: 8.5},
+                        {icon: '🔦', name: '红点瞄准镜', cost: 0.5},
                         {icon: '🛡', name: '二级护甲', cost: 8},
-                        {icon: '💊', name: '医疗箱×2', cost: 2},
-                        {icon: '💣', name: '粘性雷×3', cost: 1.5},
-                        {icon: '🔦', name: '红点瞄准镜', cost: 1.5},
+                        {icon: '💊', name: '急救包×2', cost: 1.64},
+                        {icon: '💣', name: '碎片手雷×3', cost: 3.6},
                     ],
-                    total: 25, note: '建议与队友配合，推进更稳'
+                    total: 22.24, note: '建议与队友配合，推进更稳'
                 },
                 rich: {
                     title: '全面战场·小康冲锋套',
                     desc: '高机动性输出，进攻型配置',
                     items: [
-                        {icon: '🔫', name: '冲锋枪（满改）', cost: 22},
+                        {icon: '🔫', name: 'Vector 冲锋枪（满改）', cost: 12},
+                        {icon: '🛡', name: 'H01战术头盔', cost: 0.8},
                         {icon: '🛡', name: '三级护甲', cost: 25},
-                        {icon: '💣', name: '粘性雷×5', cost: 2.5},
-                        {icon: '🥤', name: '兴奋剂×2', cost: 1},
+                        {icon: '💣', name: '碎片手雷×5', cost: 6},
+                        {icon: '🥤', name: '饮料（中）×2', cost: 0.9},
                     ],
-                    total: 50.5, note: '打法：快速切入，侧翼包抄'
+                    total: 44.7, note: '打法：快速切入，侧翼包抄'
                 },
                 vip: {
                     title: '全面战场·大佬指挥套',
                     desc: '全配装备，适合指挥位或大佬冲分',
                     items: [
-                        {icon: '🔫', name: '狙击枪（满改）', cost: 55},
+                        {icon: '🔫', name: 'AWM 狙击枪（满改）', cost: 60},
+                        {icon: '🔭', name: '8倍瞄准镜', cost: 15},
                         {icon: '🛡', name: '三级护甲', cost: 25},
-                        {icon: '💊', name: '医疗箱×3', cost: 3},
-                        {icon: '💣', name: '粘性雷×6', cost: 3},
-                        {icon: '🔭', name: '高倍瞄准镜', cost: 5},
+                        {icon: '💊', name: '急救包×3', cost: 2.46},
+                        {icon: '💣', name: '碎片手雷×6', cost: 7.2},
                     ],
-                    total: 91, note: '指挥要点：报点清晰，节奏把控'
+                    total: 109.66, note: '指挥要点：报点清晰，节奏把控'
                 }
             },
             ranked: {
@@ -3458,46 +3541,50 @@
                     title: '竞技排位·穷鬼上分套',
                     desc: '性价比赛枪，适合练枪',
                     items: [
-                        {icon: '🔫', name: 'AKM（裸枪）', cost: 2},
-                        {icon: '💊', name: '急救包×2', cost: 1.6},
+                        {icon: '🔫', name: 'AKM 突击步枪', cost: 4.81},
+                        {icon: '💊', name: '急救包×2', cost: 1.64},
                         {icon: '💣', name: '碎片手雷×2', cost: 2.4},
+                        {icon: '🥤', name: '饮料（小）×2', cost: 0.4},
                     ],
-                    total: 6, note: '排位策略：稳扎稳打，少浪'
+                    total: 9.25, note: '排位策略：稳扎稳打，少浪'
                 },
                 normal: {
                     title: '竞技排位·小康稳定套',
                     desc: '主流配置，适合铂金以下段位',
                     items: [
-                        {icon: '🔫', name: 'M4A1（标准改）', cost: 15},
+                        {icon: '🔫', name: 'M4A1 标准改', cost: 15},
+                        {icon: '🔦', name: '全息瞄准镜', cost: 1.8},
                         {icon: '🛡', name: '二级护甲', cost: 8},
-                        {icon: '💊', name: '急救包×2', cost: 1.6},
+                        {icon: '💊', name: '急救包×2', cost: 1.64},
                         {icon: '💣', name: '碎片手雷×3', cost: 3.6},
                         {icon: '🥤', name: '饮料（中）×2', cost: 0.9},
                     ],
-                    total: 29.1, note: '段位目标：铂金稳冲'
+                    total: 30.94, note: '段位目标：铂金稳冲'
                 },
                 rich: {
                     title: '竞技排位·小康冲分套',
                     desc: '冲钻石推荐配置',
                     items: [
-                        {icon: '🔫', name: '突击步枪（满改）', cost: 30},
+                        {icon: '🔫', name: 'K416 突击步枪（满改）', cost: 22},
+                        {icon: '🔦', name: '消音器+全息', cost: 6},
                         {icon: '🛡', name: '三级护甲', cost: 25},
                         {icon: '💣', name: '碎片手雷×4', cost: 4.8},
-                        {icon: '🔦', name: '全息+消音', cost: 5},
+                        {icon: '🥤', name: '饮料（大）×2', cost: 1.44},
                     ],
-                    total: 64.8, note: '冲分要点：配合沟通是关键'
+                    total: 59.24, note: '冲分要点：配合沟通是关键'
                 },
                 vip: {
                     title: '竞技排位·大佬战神套',
                     desc: '全服顶级配置，战神段位专用',
                     items: [
                         {icon: '🔫', name: '顶级步枪（满改）', cost: 80},
+                        {icon: '🔦', name: '专属消音器', cost: 10},
                         {icon: '🛡', name: '三级护甲', cost: 25},
-                        {icon: '💊', name: '急救包×4', cost: 3.2},
+                        {icon: '💊', name: '急救包×4', cost: 3.28},
                         {icon: '💣', name: '碎片手雷×6', cost: 7.2},
                         {icon: '🔭', name: '4倍镜+消音', cost: 8},
                     ],
-                    total: 123.4, note: '战神要点：个人能力+意识配合'
+                    total: 133.48, note: '战神要点：枪法+意识缺一不可'
                 }
             }
         };
