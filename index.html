@@ -1857,10 +1857,12 @@
                     <label>物品分类</label>
                     <select id="price-cat" onchange="showPriceTable()">
                         <option value="weapon">武器配件</option>
+                        <option value="bullets">子弹价格</option>
                         <option value="armor">护甲防具</option>
                         <option value="consumable">消耗品</option>
                         <option value="material">制造材料</option>
                         <option value="keys">钥匙卡</option>
+                        <option value="collectibles">收集品</option>
                     </select>
                 </div>
                 <div style="overflow-x:auto;">
@@ -2259,6 +2261,32 @@
     <div class="toast" id="toast"></div>
 
     <script>
+        // ==================== Game Data Loader ====================
+        let gameData = null;
+        let dataLoaded = false;
+
+        async function loadGameData() {
+            try {
+                const resp = await fetch('data/game-data.json?t=' + Date.now());
+                if (!resp.ok) throw new Error('HTTP ' + resp.status);
+                gameData = await resp.json();
+                dataLoaded = true;
+                onDataLoaded();
+            } catch(e) {
+                console.warn('无法加载 game-data.json，使用内置数据', e);
+            }
+        }
+
+        function onDataLoaded() {
+            updateTickerFromData();
+            updateWorkshopOptions();
+            updateDiyData();
+            initDIY(); // 在数据更新后重新渲染 DIY 选项
+            updatePriceTableFromData();
+            updateKeysFromData();
+            updateCollectiblesFromData();
+        }
+
         // ==================== Theme Toggle ====================
         function initTheme() {
             const saved = localStorage.getItem('theme');
@@ -2286,58 +2314,68 @@
         initTheme();
 
         // ==================== Ticker ====================
-        // 战备物资实时价格数据
-        const tickerData = [
-            // 武器
-            {name: 'G17 手枪', price: '4799', trend: 'up', type: 'weapon'},
-            {name: 'QSZ92G 手枪', price: '4799', trend: 'stable', type: 'weapon'},
-            {name: 'G18 手枪', price: '1.9万', trend: 'up', type: 'weapon'},
-            {name: '.357左轮', price: '1.4万', trend: 'down', type: 'weapon'},
-            {name: '沙漠之鹰', price: '1.6万', trend: 'up', type: 'weapon'},
-            {name: 'MP5 冲锋枪', price: '2.5万', trend: 'down', type: 'weapon'},
-            {name: 'P90 冲锋枪', price: '4.6万', trend: 'up', type: 'weapon'},
-            {name: 'Vector 冲锋枪', price: '7.8万', trend: 'up', type: 'weapon'},
-            {name: 'AKM 突击步枪', price: '4.8万', trend: 'up', type: 'weapon'},
-            {name: 'QBZ-191 步枪', price: '5.7万', trend: 'stable', type: 'weapon'},
-            {name: 'SCAR-L 突击步枪', price: '8.5万', trend: 'up', type: 'weapon'},
-            {name: 'AUG 突击步枪', price: '9.5万', trend: 'up', type: 'weapon'},
-            {name: 'K416 突击步枪', price: '16.5万', trend: 'up', type: 'weapon'},
-            {name: 'M870 霰弹枪', price: '5000', trend: 'stable', type: 'weapon'},
-            {name: 'M1014 霰弹枪', price: '2.7万', trend: 'up', type: 'weapon'},
-            {name: 'M249 轻机枪', price: '4.3万', trend: 'down', type: 'weapon'},
-            {name: 'PKM 轻机枪', price: '4.3万', trend: 'stable', type: 'weapon'},
-            {name: 'SV-98 狙击枪', price: '7.0万', trend: 'up', type: 'weapon'},
-            {name: 'R93 狙击枪', price: '7.3万', trend: 'stable', type: 'weapon'},
-            {name: 'M700 狙击枪', price: '10.5万', trend: 'up', type: 'weapon'},
-            {name: 'AWM 狙击枪', price: '56.4万', trend: 'up', type: 'weapon'},
-            // 配件
-            {name: '红点瞄准镜', price: '5000', trend: 'stable', type: 'attachment'},
-            {name: '全息瞄准镜', price: '1.8万', trend: 'up', type: 'attachment'},
-            {name: '4倍瞄准镜', price: '2.0万', trend: 'stable', type: 'attachment'},
-            {name: 'MP5伸缩枪托', price: '1.9万', trend: 'down', type: 'attachment'},
-            {name: 'G3稳定枪托', price: '1.7万', trend: 'stable', type: 'attachment'},
-            // 防具
-            {name: '户外棒球帽', price: '8207', trend: 'up', type: 'armor'},
-            {name: '安保头盔', price: '1858', trend: 'stable', type: 'armor'},
-            {name: 'MC防弹头盔', price: '1.1万', trend: 'up', type: 'armor'},
-            {name: 'H01战术头盔', price: '7976', trend: 'down', type: 'armor'},
-            {name: 'H07战术头盔', price: '1.9万', trend: 'up', type: 'armor'},
-            {name: '防暴头盔', price: '2.4万', trend: 'stable', type: 'armor'},
-        ];
+        // 从 game-data.json 动态生成价格滚动数据
+        function buildTickerData() {
+            if (gameData && gameData.weapons) {
+                const data = [];
+                // 武器
+                for (const [cat, val] of Object.entries(gameData.weapons)) {
+                    if (!val.items) continue;
+                    for (const w of val.items) {
+                        const priceStr = w.price >= 10000
+                            ? (w.price / 10000).toFixed(1).replace(/\.0$/, '') + '万'
+                            : w.price.toString();
+                        data.push({ name: w.name, price: priceStr, trend: 'up', type: 'weapon' });
+                    }
+                }
+                // 配件（每件）
+                for (const [cat, val] of Object.entries(gameData.attachments || {})) {
+                    if (!val.items) continue;
+                    for (const a of val.items) {
+                        const priceStr = a.price >= 10000
+                            ? (a.price / 10000).toFixed(1).replace(/\.0$/, '') + '万'
+                            : a.price.toString();
+                        data.push({ name: a.name, price: priceStr, trend: 'stable', type: 'attachment' });
+                    }
+                }
+                // 防具
+                const armorCats = ['helmet', 'vest', 'backpack'];
+                for (const cat of armorCats) {
+                    const arr = gameData.armor && gameData.armor[cat];
+                    if (!arr) continue;
+                    for (const a of arr) {
+                        const priceStr = a.price >= 10000
+                            ? (a.price / 10000).toFixed(1).replace(/\.0$/, '') + '万'
+                            : (a.price || '—').toString();
+                        data.push({ name: a.name || a.id, price: priceStr, trend: 'up', type: 'armor' });
+                    }
+                }
+                return data;
+            }
+            // 降级：返回空数组（不显示 ticker）
+            return [];
+        }
 
-        function initTicker() {
+        function updateTickerFromData() {
             const wrap = document.getElementById('ticker-content');
-            const html = tickerData.map(item => `
+            if (!wrap) return;
+            const data = buildTickerData();
+            if (data.length === 0) return;
+            const html = data.map(item => `
                 <div class="ticker-item">
                     <span class="name">${item.name}</span>
                     <span class="price">${item.price}</span>
                     <span class="${item.trend === 'up' ? 'trend-up' : item.trend === 'down' ? 'trend-down' : ''}">${item.trend === 'up' ? '▲' : item.trend === 'down' ? '▼' : '—'}</span>
                 </div>
             `).join('');
-            // Duplicate for seamless scroll
-            wrap.innerHTML = html + html;
+            wrap.innerHTML = html + html; // 重复一次实现无缝滚动
         }
-        initTicker();
+
+        // 初始化 ticker（首次页面加载，数据未到时用空内容）
+        (function initTicker() {
+            const wrap = document.getElementById('ticker-content');
+            if (wrap) wrap.innerHTML = '';
+        })();
 
         // ==================== Gear Guide ====================
         const gearData = {
@@ -3090,64 +3128,79 @@
         };
 
         // ==================== DIY Build Calculator ====================
-        const diyData = {
-            weapons: [
-                { id: 'm4_basic', name: 'M4A1（基础改）', cost: 5, icon: '🔫' },
-                { id: 'm4_full', name: 'M4A1（满改）', cost: 25, icon: '🔫' },
-                { id: 'ak_basic', name: 'AKM（裸枪）', cost: 2, icon: '🔫' },
-                { id: 'ak_full', name: 'AKM（满改）', cost: 30, icon: '🔫' },
-                { id: 'vector_basic', name: 'Vector（基础）', cost: 3, icon: '⚡' },
-                { id: 'vector_full', name: 'Vector（满改）', cost: 15, icon: '⚡' },
-                { id: 'qbz_basic', name: 'QBZ（裸枪）', cost: 0.5, icon: '🔫' },
-                { id: 'qbz_full', name: 'QBZ（满改）', cost: 12, icon: '🔫' },
-                { id: 'scar_full', name: 'SCAR-L（满改）', cost: 22, icon: '🔫' },
-                { id: 'mp5_full', name: 'MP5（满改）', cost: 10, icon: '⚡' },
-                { id: 'p90_full', name: 'P90（满改）', cost: 12, icon: '⚡' },
-                { id: 'sniper_bolt_basic', name: '栓动狙（裸枪）', cost: 15, icon: '🎯' },
-                { id: 'sniper_bolt_full', name: '栓动狙（满改）', cost: 55, icon: '🎯' },
-                { id: 'sniper_auto', name: '半自动狙（满改）', cost: 45, icon: '🎯' },
-                { id: 'm249_full', name: 'M249（满改）', cost: 40, icon: '🔫' },
-                { id: 'aug_full', name: 'AUG（满改）', cost: 20, icon: '🔫' },
-                { id: 'knife', name: '战术匕首', cost: 0, icon: '🗡' },
-            ],
-            armors: [
-                { id: 'armor_1', name: '一级护甲', cost: 5, icon: '🛡' },
-                { id: 'armor_2', name: '二级护甲', cost: 15, icon: '🛡' },
-                { id: 'armor_3', name: '三级护甲', cost: 35, icon: '🛡' },
-                { id: 'helmet_1', name: '战术头盔', cost: 3, icon: '⛑' },
-                { id: 'helmet_2', name: '二级头盔', cost: 8, icon: '⛑' },
-                { id: 'helmet_3', name: '三级头盔', cost: 18, icon: '⛑' },
-                { id: 'face_shield', name: '面部护甲', cost: 12, icon: '🛡' },
-            ],
-            consumables: [
-                { id: 'medkit', name: '急救包', cost: 0.82, icon: '💊', qty: 1 },
-                { id: 'medkit_x2', name: '急救包×2', cost: 1.64, icon: '💊', qty: 2 },
-                { id: 'medkit_x3', name: '急救包×3', cost: 2.46, icon: '💊', qty: 3 },
-                { id: 'medkit_x4', name: '急救包×4', cost: 3.28, icon: '💊', qty: 4 },
-                { id: 'bandage', name: '绷带×3', cost: 0.3, icon: '🩹' },
-                { id: 'bandage_x5', name: '绷带×5', cost: 0.5, icon: '🩹' },
-                { id: 'drink_m', name: '饮料（中）', cost: 0.45, icon: '🥤' },
-                { id: 'drink_m_x2', name: '饮料（中）×2', cost: 0.9, icon: '🥤' },
-                { id: 'drink_l', name: '饮料（大）', cost: 0.7, icon: '🥤' },
-                { id: 'food_m', name: '食物包（中）', cost: 0.38, icon: '🍖' },
-            ],
-            bags: [
-                { id: 'bag_s', name: '背包（小）', cost: 0.3, icon: '🎒' },
-                { id: 'bag_m', name: '背包（中）', cost: 1.2, icon: '🎒' },
-                { id: 'bag_l', name: '背包（大）', cost: 3.5, icon: '🎒' },
-                { id: 'bag_xl', name: '背包（超大）', cost: 8, icon: '🎒' },
-            ],
-            grenades: [
-                { id: 'frag_x2', name: '碎片手雷×2', cost: 2.4, icon: '💣' },
-                { id: 'frag_x3', name: '碎片手雷×3', cost: 3.6, icon: '💣' },
-                { id: 'frag_x4', name: '碎片手雷×4', cost: 4.8, icon: '💣' },
-                { id: 'frag_x5', name: '碎片手雷×5', cost: 6, icon: '💣' },
-                { id: 'flash_x2', name: '闪光弹×2', cost: 1.1, icon: '💥' },
-                { id: 'smoke', name: '烟雾弹', cost: 0.8, icon: '💨' },
-                { id: 'sticky_x2', name: '粘性雷×2', cost: 1, icon: '💣' },
-                { id: 'sticky_x3', name: '粘性雷×3', cost: 1.5, icon: '💣' },
-            ]
-        };
+        let diyData = {};
+
+        function updateDiyData() {
+            if (!gameData) return;
+            const weapons = [], armors = [], consumables = [], bags = [], grenades = [];
+            // 武器：来自 weapons
+            for (const [cat, val] of Object.entries(gameData.weapons || {})) {
+                if (!val.items) continue;
+                for (const w of val.items) {
+                    weapons.push({
+                        id: w.id, name: w.name,
+                        cost: Math.round(w.price / 10000 * 10) / 10,
+                        icon: cat === 'sniper' ? '🎯' : cat === 'smg' ? '⚡' : '🔫'
+                    });
+                }
+            }
+            // 防具：来自 armor
+            const helmetList = gameData.armor?.helmet || [];
+            const vestList = gameData.armor?.vest || [];
+            const backpackList = gameData.armor?.backpack || [];
+            for (const h of helmetList) {
+                armors.push({ id: h.id, name: h.name, cost: Math.round((h.price || 0) / 10000 * 10) / 10, icon: '⛑' });
+            }
+            for (const v of vestList) {
+                armors.push({ id: v.id, name: v.name, cost: Math.round((v.price || 0) / 10000 * 10) / 10, icon: '🛡' });
+            }
+            for (const b of backpackList) {
+                bags.push({ id: b.id, name: b.name, cost: Math.round((b.price || 0) / 10000 * 10) / 10, icon: '🎒' });
+            }
+            // 消耗品：来自 consumables
+            const catIcons = { medical: '💊', surgery: '🩺', bandage: '🩹', painkiller: '💉', enhancement: '💪', repair: '🔧' };
+            for (const [cat, val] of Object.entries(gameData.consumables || {})) {
+                if (!val.items) continue;
+                for (const c of val.items) {
+                    consumables.push({
+                        id: c.id, name: c.name,
+                        cost: Math.round((c.price || 0) / 10000 * 10) / 10,
+                        icon: catIcons[cat] || '💊'
+                    });
+                }
+            }
+            // 投掷物：从 workshop 中过滤
+            if (gameData.workshop) {
+                const grenadeCats = ['frag_grenade', 'flash_grenade', 'smoke_grenade', 'incendiary_grenade', 'frag', 'flash', 'smoke', 'incendiary', 'sticky'];
+                for (const w of gameData.workshop) {
+                    if (grenadeCats.some(g => (w.id || '').toLowerCase().includes(g))) {
+                        grenades.push({
+                            id: w.id, name: w.name,
+                            cost: Math.round(w.price / 10000 * 10) / 10,
+                            icon: (w.id || '').toLowerCase().includes('flash') ? '💥' :
+                                  (w.id || '').toLowerCase().includes('smoke') ? '💨' : '💣'
+                        });
+                    }
+                }
+            }
+            // 备用：确保每个分类至少有一些默认项
+            if (weapons.length === 0) {
+                weapons.push({ id: 'knife', name: '战术匕首', cost: 0, icon: '🗡' });
+            }
+            if (armors.length === 0) {
+                armors.push({ id: 'armor_1', name: '一级护甲', cost: 5, icon: '🛡' });
+            }
+            if (consumables.length === 0) {
+                consumables.push({ id: 'medkit', name: '急救包', cost: 0.82, icon: '💊' });
+            }
+            if (bags.length === 0) {
+                bags.push({ id: 'bag_s', name: '背包（小）', cost: 0.3, icon: '🎒' });
+            }
+            if (grenades.length === 0) {
+                grenades.push({ id: 'frag_x2', name: '碎片手雷×2', cost: 2.4, icon: '💣' });
+            }
+            diyData = { weapons, armors, consumables, bags, grenades };
+        }
 
         let selectedItems = [];
 
@@ -3333,53 +3386,57 @@
         });
 
         // ==================== Workshop Calculator ====================
-        // 工坊制造数据
-        const wsData = {
-            // 消耗品类
-            medkit: { name: '急救包', price: 8200, taxRate: 0.08, category: 'consumable' },
-            medkit_large: { name: '急救包（大）', price: 16000, taxRate: 0.08, category: 'consumable' },
-            ammo_pack_small: { name: '弹药包（小）', price: 3500, taxRate: 0.08, category: 'consumable' },
-            ammo_pack_medium: { name: '弹药包（中）', price: 6500, taxRate: 0.08, category: 'consumable' },
-            ammo_pack_large: { name: '弹药包（大）', price: 12000, taxRate: 0.08, category: 'consumable' },
-            armor_repair: { name: '护甲修复工具', price: 21000, taxRate: 0.08, category: 'consumable' },
-            toolkit: { name: '工具箱', price: 35000, taxRate: 0.08, category: 'consumable' },
-            grenade_frag: { name: '碎片手雷', price: 12000, taxRate: 0.08, category: 'consumable' },
-            grenade_flash: { name: '闪光弹', price: 5500, taxRate: 0.08, category: 'consumable' },
-            grenade_smoke: { name: '烟雾弹', price: 4000, taxRate: 0.08, category: 'consumable' },
-            grenade_incendiary: { name: '燃烧弹', price: 8000, taxRate: 0.08, category: 'consumable' },
-            drink_small: { name: '饮料（小）', price: 2000, taxRate: 0.08, category: 'consumable' },
-            drink_medium: { name: '饮料（中）', price: 4500, taxRate: 0.08, category: 'consumable' },
-            drink_large: { name: '饮料（大）', price: 7200, taxRate: 0.08, category: 'consumable' },
-            food_small: { name: '食物包（小）', price: 1500, taxRate: 0.08, category: 'consumable' },
-            food_medium: { name: '食物包（中）', price: 3800, taxRate: 0.08, category: 'consumable' },
-            food_large: { name: '食物包（大）', price: 6000, taxRate: 0.08, category: 'consumable' },
-            bandage: { name: '绷带', price: 500, taxRate: 0.08, category: 'consumable' },
-            morphine: { name: '吗啡', price: 3000, taxRate: 0.08, category: 'consumable' },
-            // 弹药类
-            ammo_556: { name: '5.56mm NATO弹', price: 80, taxRate: 0.08, category: 'ammo' },
-            ammo_762x39: { name: '7.62×39mm弹', price: 90, taxRate: 0.08, category: 'ammo' },
-            ammo_762x51: { name: '7.62×51mm NATO弹', price: 120, taxRate: 0.08, category: 'ammo' },
-            ammo_545: { name: '5.45×39mm弹', price: 85, taxRate: 0.08, category: 'ammo' },
-            ammo_127x55: { name: '12.7×55mm弹', price: 500, taxRate: 0.08, category: 'ammo' },
-            ammo_9mm: { name: '9mm手枪弹', price: 50, taxRate: 0.08, category: 'ammo' },
-            ammo_45acp: { name: '.45 ACP弹', price: 60, taxRate: 0.08, category: 'ammo' },
-            // 钥匙类
-            keys_blue: { name: '钥匙卡（蓝）', price: 50000, taxRate: 0.08, category: 'key' },
-            keys_purple: { name: '钥匙卡（紫）', price: 125000, taxRate: 0.08, category: 'key' },
-            keys_gold: { name: '钥匙卡（金）', price: 280000, taxRate: 0.08, category: 'key' },
-            // 其他
-            pass_card: { name: '通关卡', price: 75000, taxRate: 0.08, category: 'other' },
-            gas_mask: { name: '防毒面具', price: 19000, taxRate: 0.08, category: 'other' },
-            electronics: { name: '电子元件', price: 6800, taxRate: 0.08, category: 'material' },
-            metal_scraps: { name: '金属碎片', price: 2600, taxRate: 0.08, category: 'material' },
-            cloth: { name: '布料', price: 1700, taxRate: 0.08, category: 'material' },
-            fuel: { name: '燃料', price: 4400, taxRate: 0.08, category: 'material' },
-        };
+        // 工坊数据：优先从 game-data.json 读取
+        let wsData = {};
 
-        // 格式化价格显示（数字 -> "X万" 或 "X.X万" 格式）
+        function updateWorkshopOptions() {
+            const select = document.getElementById('ws-item');
+            if (!select) return;
+            // 清空旧选项（保留第一个）
+            while (select.options.length > 1) select.remove(1);
+            wsData = {};
+
+            if (!gameData || !gameData.workshop) {
+                // 降级：保留空选项
+                return;
+            }
+
+            // 分类中文名
+            const catNames = {
+                medical: '医疗', surgery: '手术', bandage: '绷带',
+                painkiller: '止痛药', enhancement: '强化', repair: '修理',
+                ammo: '弹药', key: '钥匙', armor: '防具', other: '其他', material: '材料'
+            };
+            const groups = {};
+            for (const item of gameData.workshop) {
+                const cat = item.category || 'other';
+                if (!groups[cat]) {
+                    groups[cat] = { label: catNames[cat] || cat, items: [] };
+                }
+                groups[cat].items.push(item);
+                wsData[item.id] = {
+                    name: item.name,
+                    price: item.price,
+                    taxRate: item.taxRate || 0.08,
+                    category: cat
+                };
+            }
+            for (const [cat, g] of Object.entries(groups)) {
+                const optGroup = document.createElement('optgroup');
+                optGroup.label = g.label;
+                for (const item of g.items) {
+                    const opt = document.createElement('option');
+                    opt.value = item.id;
+                    opt.textContent = item.name;
+                    optGroup.appendChild(opt);
+                }
+                select.appendChild(optGroup);
+            }
+        }
+
         function formatPrice(price) {
             if (price >= 10000) {
-                return (price / 10000).toFixed(1) + '万';
+                return (price / 10000).toFixed(1).replace(/\.0$/, '') + '万';
             }
             return price.toString();
         }
@@ -3729,78 +3786,138 @@
         showBulletCompare();
 
         // ==================== Price Table ====================
-        const priceData = {
-            weapon: [
-                {name: 'M4A1 战术版', yesterday: 12.5, today: 13.2, trend7d: '+5.6%'},
-                {name: 'M4A1 满改版', yesterday: 28, today: 26.5, trend7d: '-5.4%'},
-                {name: 'AKM 标准版', yesterday: 8.2, today: 7.9, trend7d: '-3.7%'},
-                {name: 'AKM 满改版', yesterday: 32, today: 33.5, trend7d: '+4.7%'},
-                {name: 'Vector 冲锋枪', yesterday: 5.5, today: 5.8, trend7d: '+5.5%'},
-                {name: 'QBZ 标准版', yesterday: 3.5, today: 3.8, trend7d: '+8.6%'},
-                {name: 'SCAR-L 满改版', yesterday: 25, today: 24, trend7d: '-4.0%'},
-                {name: 'MP5 冲锋枪', yesterday: 6.2, today: 6.5, trend7d: '+4.8%'},
-                {name: '狙击枪AWM', yesterday: 35, today: 38, trend7d: '+8.6%'},
-                {name: 'M24 狙击枪', yesterday: 22, today: 21, trend7d: '-4.5%'},
-                {name: '霰弹枪SPAS', yesterday: 4.2, today: 4.1, trend7d: '-2.4%'},
-                {name: 'AUG 突击步枪', yesterday: 15, today: 14.5, trend7d: '-3.3%'},
-                {name: 'Deagle 手枪', yesterday: 3.5, today: 3.8, trend7d: '+8.6%'},
-                {name: 'M249 机枪', yesterday: 28, today: 27, trend7d: '-3.6%'},
-            ],
-            armor: [
-                {name: '一级护甲', yesterday: 2.0, today: 1.9, trend7d: '-5.0%'},
-                {name: '二级护甲', yesterday: 8.5, today: 8.8, trend7d: '+3.5%'},
-                {name: '三级护甲', yesterday: 24, today: 25, trend7d: '+4.2%'},
-                {name: '战术头盔', yesterday: 6.2, today: 6.0, trend7d: '-3.2%'},
-                {name: '二级头盔', yesterday: 3.5, today: 3.8, trend7d: '+8.6%'},
-                {name: '三级头盔', yesterday: 15, today: 14, trend7d: '-6.7%'},
-                {name: '面部护甲', yesterday: 10, today: 11, trend7d: '+10.0%'},
-                {name: '防毒面具', yesterday: 1.8, today: 1.9, trend7d: '+5.6%'},
-            ],
-            consumable: [
-                {name: '急救包', yesterday: 0.85, today: 0.82, trend7d: '-3.5%'},
-                {name: '急救包（大）', yesterday: 1.5, today: 1.6, trend7d: '+6.7%'},
-                {name: '饮料（大）', yesterday: 0.75, today: 0.72, trend7d: '-4.0%'},
-                {name: '饮料（中）', yesterday: 0.48, today: 0.45, trend7d: '-6.3%'},
-                {name: '绷带', yesterday: 0.12, today: 0.11, trend7d: '-8.3%'},
-                {name: '绷带×5', yesterday: 0.55, today: 0.5, trend7d: '-9.1%'},
-                {name: '医疗箱', yesterday: 1.2, today: 1.3, trend7d: '+8.3%'},
-                {name: '护甲修复工具', yesterday: 2.2, today: 2.1, trend7d: '-4.5%'},
-                {name: '工具箱', yesterday: 3.8, today: 3.5, trend7d: '-7.9%'},
-            ],
-            material: [
-                {name: '铁块', yesterday: 0.25, today: 0.26, trend7d: '+4.0%'},
-                {name: '布料', yesterday: 0.18, today: 0.17, trend7d: '-5.6%'},
-                {name: '电子元件', yesterday: 0.65, today: 0.68, trend7d: '+4.6%'},
-                {name: '燃料', yesterday: 0.45, today: 0.44, trend7d: '-2.2%'},
-                {name: '玻璃', yesterday: 0.15, today: 0.16, trend7d: '+6.7%'},
-                {name: '塑料', yesterday: 0.12, today: 0.11, trend7d: '-8.3%'},
-                {name: '铜线', yesterday: 0.35, today: 0.36, trend7d: '+2.9%'},
-                {name: '电路板', yesterday: 0.8, today: 0.82, trend7d: '+2.5%'},
-            ],
-            keys: [
-                {name: '钥匙卡-白', yesterday: 1.2, today: 1.1, trend7d: '-8.3%'},
-                {name: '钥匙卡-蓝', yesterday: 4.8, today: 5.0, trend7d: '+4.2%'},
-                {name: '钥匙卡-紫', yesterday: 13.0, today: 12.5, trend7d: '-3.8%'},
-                {name: '钥匙卡-金', yesterday: 27, today: 28, trend7d: '+3.7%'},
-                {name: '通关卡', yesterday: 8, today: 7.5, trend7d: '-6.3%'},
-            ]
-        };
+        let priceData = {};
+
+        function updatePriceTableFromData() {
+            if (!gameData) return;
+            priceData = { weapon: [], armor: [], consumable: [], material: [], keys: [], bullets: [] };
+
+            // 武器：来自 weapons
+            for (const [cat, val] of Object.entries(gameData.weapons || {})) {
+                if (!val.items) continue;
+                for (const w of val.items) {
+                    const price = Math.round(w.price / 100) / 100; // 万元
+                    priceData.weapon.push({
+                        name: w.name, today: price, yesterday: price, trend7d: '—'
+                    });
+                }
+            }
+
+            // 防具
+            const armorAll = [
+                ...(gameData.armor?.helmet || []),
+                ...(gameData.armor?.vest || []),
+            ];
+            for (const a of armorAll) {
+                const price = Math.round((a.price || 0) / 100) / 100;
+                priceData.armor.push({ name: a.name || a.id, today: price, yesterday: price, trend7d: '—' });
+            }
+
+            // 消耗品
+            if (gameData.workshop) {
+                const consTypes = ['medkit', 'medkit_large', 'drink', 'food', 'bandage', 'morphine', 'armor_repair', 'toolkit'];
+                for (const w of gameData.workshop) {
+                    if (consTypes.some(t => (w.id || '').toLowerCase().includes(t))) {
+                        const price = Math.round(w.price / 100) / 100;
+                        priceData.consumable.push({ name: w.name, today: price, yesterday: price, trend7d: '—' });
+                    }
+                }
+            }
+
+            // 子弹
+            const bulletsItems = (gameData.bullets?.items || gameData.bullets || []);
+            for (const b of bulletsItems) {
+                priceData.bullets.push({
+                    name: b.name + (b.for_weapon ? ` (${b.for_weapon})` : ''),
+                    today: Math.round(b.price / 100) / 100, yesterday: Math.round(b.price / 100) / 100, trend7d: '—'
+                });
+            }
+
+            // 钥匙卡
+            const keysItems = (gameData.keys?.items || gameData.keys || []);
+            for (const k of keysItems) {
+                const trend = k.trend_30d;
+                const trendStr = trend !== undefined ? (trend > 0 ? `+${trend.toFixed(1)}%` : `${trend.toFixed(1)}%`) : '—';
+                priceData.keys.push({
+                    name: k.name, today: '—', yesterday: '—', trend7d: trendStr, level: k.level || '—'
+                });
+            }
+
+            // 收集品
+            const collectItems = (gameData.collectibles?.items || gameData.collectibles || []);
+            for (const c of collectItems) {
+                const trend = c.trend_7d || c.trend_30d;
+                const trendStr = trend !== undefined ? (trend > 0 ? `+${trend.toFixed(1)}%` : `${trend.toFixed(1)}%`) : '—';
+                priceData.collectibles.push({
+                    name: c.name, tier: c.tier || '—', trend7d: trendStr
+                });
+            }
+        }
+
+        // 钥匙卡数据已整合进 priceData.keys，以下为扩展预留
+        function updateKeysFromData() {
+            // keys 数据已通过 updatePriceTableFromData 加载到 priceData
+        }
+
+        // 收集品数据已整合进 priceData.collectibles，以下为扩展预留
+        function updateCollectiblesFromData() {
+            // collectibles 数据已通过 updatePriceTableFromData 加载到 priceData
+        }
 
         function showPriceTable() {
             const cat = document.getElementById('price-cat').value;
             const tbody = document.getElementById('price-tbody');
             const items = priceData[cat] || [];
+            if (!items.length) { tbody.innerHTML = '<tr><td colspan="5" style="text-align:center;color:var(--text-muted)">暂无数据</td></tr>'; return; }
 
+            // 子弹和收集品用不同格式
+            if (cat === 'bullets') {
+                tbody.innerHTML = items.map(item => `
+                    <tr>
+                        <td><strong>${item.name}</strong></td>
+                        <td colspan="2"><strong>${item.today}元</strong></td>
+                        <td colspan="2"><span class="trend-up">参考价</span></td>
+                    </tr>`).join('');
+                return;
+            }
+            if (cat === 'collectibles') {
+                tbody.innerHTML = items.map(item => {
+                    const trendVal = parseFloat(item.trend7d);
+                    const isUp = !isNaN(trendVal) && trendVal >= 0;
+                    return `
+                    <tr>
+                        <td><strong>${item.name}</strong></td>
+                        <td>Tier ${item.tier}</td>
+                        <td colspan="2"><span class="${isUp ? 'trend-up' : 'trend-down'}">${item.trend7d}</span></td>
+                    </tr>`;
+                }).join('');
+                return;
+            }
+            if (cat === 'keys') {
+                tbody.innerHTML = items.map(item => {
+                    const trendVal = parseFloat(item.trend7d);
+                    const isUp = !isNaN(trendVal) && trendVal >= 0;
+                    return `
+                    <tr>
+                        <td><strong>${item.name}</strong></td>
+                        <td>${item.level}</td>
+                        <td colspan="2"><span class="${isUp ? 'trend-up' : 'trend-down'}">${item.trend7d}</span></td>
+                    </tr>`;
+                }).join('');
+                return;
+            }
+
+            // 默认格式：武器/护甲/消耗品/材料
             tbody.innerHTML = items.map(item => {
-                const change = item.today - item.yesterday;
-                const trendUp = change > 0;
-                const trendClass = change > 0 ? 'trend-up' : 'trend-down';
-                const trendSymbol = change > 0 ? '▲' : '▼';
+                const change = (item.today || 0) - (item.yesterday || 0);
+                const trendUp = change >= 0;
+                const trendClass = trendUp ? 'trend-up' : 'trend-down';
+                const trendSymbol = trendUp ? '▲' : '▼';
                 return `
                     <tr>
                         <td><strong>${item.name}</strong></td>
-                        <td>${item.yesterday.toFixed(2)}万</td>
-                        <td><strong>${item.today.toFixed(2)}万</strong></td>
+                        <td>${typeof item.yesterday === 'number' ? item.yesterday.toFixed(2) + '万' : '—'}</td>
+                        <td><strong>${typeof item.today === 'number' ? item.today.toFixed(2) + '万' : '—'}</strong></td>
                         <td class="${trendClass}">${trendSymbol} ${Math.abs(change).toFixed(2)}万</td>
                         <td><span style="font-size:12px;padding:2px 8px;border-radius:4px;background:${trendUp?'rgba(34,197,94,0.15)':'rgba(239,68,68,0.15)'};color:${trendUp?'var(--green)':'var(--red)'}">${item.trend7d}</span></td>
                     </tr>
@@ -4019,6 +4136,9 @@
         document.querySelectorAll('.tool-card, .guide-card, .affiliate-card').forEach(card => {
             observer.observe(card);
         });
+
+        // 页面加载完成后拉取游戏数据
+        loadGameData();
     </script>
 </body>
 </html>
