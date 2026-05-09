@@ -24,7 +24,7 @@
     <meta property="twitter:image" content="https://df.sanjiaoy.top/og-image.png">
 
     <!-- 站点验证 -->
-    <meta name="baidu-site-verification" content="your-verification-code">
+    <meta name="baidu-site-verification" content="codeva-4oVgHgVDqL">
     <meta name="google-site-verification" content="your-verification-code">
 
     <!-- 站点地图 -->
@@ -1809,6 +1809,42 @@
                         <p>语音沟通、战术配合、阵容搭配。教你从野王进化成团队核心。</p>
                         <div class="tool-card-footer">提升配合 → <span class="arrow">→</span></div>
                     </div>
+                    <div class="tool-card" onclick="openModal('guide-bag')">
+                        <div class="tool-icon purple">🎒</div>
+                        <h3>背包容量管理</h3>
+                        <p>烽火地带背包格子管理技巧，教你如何最大化利用背包空间，携带更多有价值物资。</p>
+                        <div class="tool-card-footer">查看攻略 → <span class="arrow">→</span></div>
+                    </div>
+                    <div class="tool-card" onclick="openModal('guide-market')">
+                        <div class="tool-icon yellow">📈</div>
+                        <h3>市场倒卖技巧</h3>
+                        <p>物资低买高卖攻略，教你识别价格规律，把握最佳买入卖出时机，日入百万不是梦。</p>
+                        <div class="tool-card-footer">学习技巧 → <span class="arrow">→</span></div>
+                    </div>
+                    <div class="tool-card" onclick="openModal('guide-armor')">
+                        <div class="tool-icon blue">🛡</div>
+                        <h3>护甲系统详解</h3>
+                        <p>护甲等级、减伤机制、耐久度消耗详解。教你看懂护甲面板，科学选择防护装备。</p>
+                        <div class="tool-card-footer">了解护甲 → <span class="arrow">→</span></div>
+                    </div>
+                    <div class="tool-card" onclick="openModal('guide-map-zero')">
+                        <div class="tool-icon green">🏔️</div>
+                        <h3>零号大坝地图指南</h3>
+                        <p>新手入门地图，行政楼为核心区域。教你最佳路线规划和高价值物资点位分布。</p>
+                        <div class="tool-card-footer">查看地图 → <span class="arrow">→</span></div>
+                    </div>
+                    <div class="tool-card" onclick="openModal('guide-map-brak')">
+                        <div class="tool-icon orange">🏙️</div>
+                        <h3>巴克什地图攻略</h3>
+                        <p>高密度巷战地图，S级钥匙房最多的地图。教你如何在复杂地形中生存并搜刮财富。</p>
+                        <div class="tool-card-footer">查看攻略 → <span class="arrow">→</span></div>
+                    </div>
+                    <div class="tool-card" onclick="openModal('guide-map-space')">
+                        <div class="tool-icon yellow">🚀</div>
+                        <h3>航天基地高风险指南</h3>
+                        <p>高收益高风险地图，需要拉双闸撤离。教你如何在高科技区域获取稀有装备。</p>
+                        <div class="tool-card-footer">查看指南 → <span class="arrow">→</span></div>
+                    </div>
                 </div>
             </div>
         </section>
@@ -2384,6 +2420,215 @@
                 <div class="guide-card">
                     <h4>💪 阵容搭配建议</h4>
                     <p>推荐2人开黑：1个突破手+1个狙击手。4人满编建议：2突破+1狙击+1医疗。排位时尽量沟通，野队也至少发发信号。</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal: Bag Guide -->
+    <div class="modal-overlay" id="modal-guide-bag">
+        <div class="modal" style="max-width: 800px;">
+            <div class="modal-header">
+                <div>
+                    <h3>🎒 背包容量管理</h3>
+                    <p>最大化利用背包空间</p>
+                </div>
+                <button class="modal-close" onclick="closeModal('guide-bag')">✕</button>
+            </div>
+            <div class="modal-body">
+                <div class="guide-card" style="margin-bottom: 16px;">
+                    <h4>📊 背包容量等级</h4>
+                    <p><strong>小型背包</strong>：8格，适合跑刀新手<br>
+                    <strong>中型背包</strong>：24格，主流选择<br>
+                    <strong>大型背包</strong>：36格，跑刀必备<br>
+                    <strong>军用背包</strong>：48格，大佬配置</p>
+                </div>
+                <div class="guide-card" style="margin-bottom: 16px;">
+                    <h4>💎 高价值物资优先级</h4>
+                    <p>1. <strong>红装</strong>：价值最高，优先携带<br>
+                    2. <strong>金装</strong>：次高价值，必拿<br>
+                    3. <strong>高价值紫装</strong>：如高级芯片<br>
+                    4. <strong>钥匙卡</strong>：S级钥匙房必备<br>
+                    5. <strong>子弹</strong>：根据剩余容量决定</p>
+                </div>
+                <div class="guide-card" style="margin-bottom: 16px;">
+                    <h4>🚫 应该舍弃的物资</h4>
+                    <p>低价值绿装、过期消耗品、容量大的低价值物品。记住：背包空间=金钱，每格都要放有价值的东西！</p>
+                </div>
+                <div class="guide-card">
+                    <h4>💡 实战技巧</h4>
+                    <p>进图前规划路线，按优先级搜刮。撤离前检查背包，果断丢弃低价值物品。有时候空手撤离也比背着垃圾强。</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal: Market Guide -->
+    <div class="modal-overlay" id="modal-guide-market">
+        <div class="modal" style="max-width: 800px;">
+            <div class="modal-header">
+                <div>
+                    <h3>📈 市场倒卖技巧</h3>
+                    <p>低买高卖，日入百万</p>
+                </div>
+                <button class="modal-close" onclick="closeModal('guide-market')">✕</button>
+            </div>
+            <div class="modal-body">
+                <div class="guide-card" style="margin-bottom: 16px;">
+                    <h4>⏰ 价格波动规律</h4>
+                    <p><strong>周一至周三</strong>：价格平稳，适合买入<br>
+                    <strong>周四至周五</strong>：价格上涨，出货好时机<br>
+                    <strong>周末</strong>：活动期间波动大，谨慎操作</p>
+                </div>
+                <div class="guide-card" style="margin-bottom: 16px;">
+                    <h4>🔥 高利润倒卖物品</h4>
+                    <p>1. <strong>子弹类</strong>：热门口径低买高卖<br>
+                    2. <strong>消耗品类</strong>：急救包、止疼药<br>
+                    3. <strong>材料类</strong>：钢材、凯夫拉<br>
+                    4. <strong>紫装材料</strong>：稀有材料必抢</p>
+                </div>
+                <div class="guide-card" style="margin-bottom: 16px;">
+                    <h4>⚠️ 倒卖注意事项</h4>
+                    <p>控制库存，不要囤货！热门物品利润空间有限，大量囤积风险大。关注版本更新，新武器相关物品通常会涨价。</p>
+                </div>
+                <div class="guide-card">
+                    <h4>💰 资金管理建议</h4>
+                    <p>建议80%资金用于正常战备，20%用于倒卖。设置止损线，单品亏损超过10%及时出手，不要贪心！</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal: Armor Guide -->
+    <div class="modal-overlay" id="modal-guide-armor">
+        <div class="modal" style="max-width: 800px;">
+            <div class="modal-header">
+                <div>
+                    <h3>🛡️ 护甲系统详解</h3>
+                    <p>看懂护甲面板，科学选择防护</p>
+                </div>
+                <button class="modal-close" onclick="closeModal('guide-armor')">✕</button>
+            </div>
+            <div class="modal-body">
+                <div class="guide-card" style="margin-bottom: 16px;">
+                    <h4>📊 护甲等级与减伤</h4>
+                    <p><strong>1级护甲</strong>：减伤10%，最基础<br>
+                    <strong>2级护甲</strong>：减伤20%，入门选择<br>
+                    <strong>3级护甲</strong>：减伤30%，性价比最高<br>
+                    <strong>4级护甲</strong>：减伤40%，进阶配置<br>
+                    <strong>5级护甲</strong>：减伤50%，顶级防护</p>
+                </div>
+                <div class="guide-card" style="margin-bottom: 16px;">
+                    <h4>💎 护甲耐久机制</h4>
+                    <p>护甲每次受到攻击会消耗耐久。耐久归零后护甲失效，变为0%减伤。修理护甲可恢复耐久，但有折扣。</p>
+                </div>
+                <div class="guide-card" style="margin-bottom: 16px;">
+                    <h4>🎯 头盔选择建议</h4>
+                    <p>头盔主要用于防狙击。3级头盔是性价比之选，4级头盔防R93/AWM但价格昂贵。根据预算和打法选择。</p>
+                </div>
+                <div class="guide-card">
+                    <h4>💡 护甲维护技巧</h4>
+                    <p>轻度使用后及时修理，避免耐久耗尽。烽火地带护甲不继承，建议使用2-3级护甲，性价比最高。高级护甲留给全面战场。</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal: Zero Dam Map Guide -->
+    <div class="modal-overlay" id="modal-guide-map-zero">
+        <div class="modal" style="max-width: 800px;">
+            <div class="modal-header">
+                <div>
+                    <h3>🏔️ 零号大坝地图指南</h3>
+                    <p>新手入门地图，行政楼为核心</p>
+                </div>
+                <button class="modal-close" onclick="closeModal('guide-map-zero')">✕</button>
+            </div>
+            <div class="modal-body">
+                <div class="guide-card" style="margin-bottom: 16px;">
+                    <h4>🗺️ 地图特点</h4>
+                    <p>中等大小地图，适合新手熟悉游戏节奏。建筑密集区集中在中央，水坝区域提供狙击位。撤离点分布均匀，相对安全。</p>
+                </div>
+                <div class="guide-card" style="margin-bottom: 16px;">
+                    <h4>💎 高价值区域</h4>
+                    <p><strong>行政楼</strong>：物资丰富，兵家必争<br>
+                    <strong>仓库区</strong>：蓝装概率高<br>
+                    <strong>控制中心</strong>：电子元件集中</p>
+                </div>
+                <div class="guide-card" style="margin-bottom: 16px;">
+                    <h4>🚪 撤离点</h4>
+                    <p>主要撤离点：大坝东侧（需要拉闸）、行政楼后门（需要钥匙卡）。紧急撤离点：北侧桥梁（低概率开放）。</p>
+                </div>
+                <div class="guide-card">
+                    <h4>🎯 跑刀建议</h4>
+                    <p>开局直奔行政楼，搜完立即撤离。避开主航道，走边缘路线。带好止疼药以备不时之需。</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal: Brakkesh Map Guide -->
+    <div class="modal-overlay" id="modal-guide-map-brak">
+        <div class="modal" style="max-width: 800px;">
+            <div class="modal-header">
+                <div>
+                    <h3>🏙️ 巴克什地图攻略</h3>
+                    <p>高密度巷战地图，S级钥匙房最多</p>
+                </div>
+                <button class="modal-close" onclick="closeModal('guide-map-brak')">✕</button>
+            </div>
+            <div class="modal-body">
+                <div class="guide-card" style="margin-bottom: 16px;">
+                    <h4>🗺️ 地图特点</h4>
+                    <p>大型城市地图，建筑密集，巷战激烈。掩体多但视野受限，容易遭遇伏击。脚步声密集，需要高度警惕。</p>
+                </div>
+                <div class="guide-card" style="margin-bottom: 16px;">
+                    <h4>💎 S级钥匙房位置</h4>
+                    <p><strong>商业中心</strong>：最高价值区，必抢<br>
+                    <strong>医院</strong>：医疗物资丰富<br>
+                    <strong>银行</strong>：需要钥匙卡，高回报<br>
+                    <strong>警局</strong>：武器配件较多</p>
+                </div>
+                <div class="guide-card" style="margin-bottom: 16px;">
+                    <h4>🚪 撤离点</h4>
+                    <p>主要撤离：商业区北门、警局侧门。需要钥匙卡的撤离点价值更高，但风险也大。提前规划撤离路线。</p>
+                </div>
+                <div class="guide-card">
+                    <h4>🎯 生存技巧</h4>
+                    <p>贴墙走避免被偷背，多用消音武器。遇到敌人先找掩体，不要在开阔地带对枪。跑刀建议带烟雾弹掩护撤离。</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal: Space Base Map Guide -->
+    <div class="modal-overlay" id="modal-guide-map-space">
+        <div class="modal" style="max-width: 800px;">
+            <div class="modal-header">
+                <div>
+                    <h3>🚀 航天基地高风险指南</h3>
+                    <p>高收益高风险，需要拉双闸撤离</p>
+                </div>
+                <button class="modal-close" onclick="closeModal('guide-map-space')">✕</button>
+            </div>
+            <div class="modal-body">
+                <div class="guide-card" style="margin-bottom: 16px;">
+                    <h4>🗺️ 地图特点</h4>
+                    <p>科技感十足的地图，区域开阔。建筑多为大型厂房和实验室，视野好但暴露风险高。高价值物资集中在研发中心。</p>
+                </div>
+                <div class="guide-card" style="margin-bottom: 16px;">
+                    <h4>💎 高价值区域</h4>
+                    <p><strong>研发中心</strong>：科技装备和稀有材料<br>
+                    <strong>实验室</strong>：芯片和电子元件<br>
+                    <strong>指挥中心</strong>：情报和高级装备</p>
+                </div>
+                <div class="guide-card" style="margin-bottom: 16px;">
+                    <h4>🚪 撤离条件</h4>
+                    <p><strong>特殊撤离</strong>：需要拉两个闸门（东西各一个）才能开启中央撤离点。必须提前规划，一人拉闸一人掩护。</p>
+                </div>
+                <div class="guide-card">
+                    <h4>🎯 生存技巧</h4>
+                    <p>建议组队前往，单独进入风险极大。拉闸前确认安全，撤离时注意背后。携带足够的消耗品，这里战斗激烈。</p>
                 </div>
             </div>
         </div>
