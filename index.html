@@ -1607,12 +1607,38 @@
             <li><a href="#guides">攻略</a></li>
             <li><a href="#affiliate" class="nav-cta">省钱找我</a></li>
             <li><button class="theme-toggle" onclick="toggleTheme()" id="themeBtn">🌙 深色</button></li>
+            <li><button class="theme-toggle" onclick="openModal('search')" title="搜索">🔍</button></li>
         </ul>
         <button class="mobile-menu-btn" onclick="toggleMobileMenu()">☰</button>
     </nav>
     
     <!-- Mobile Menu Overlay -->
     <div class="mobile-menu-overlay" id="mobile-menu-overlay" onclick="toggleMobileMenu()"></div>
+
+    <!-- Search Modal -->
+    <div class="modal-overlay" id="modal-search">
+        <div class="modal" style="max-width: 600px;">
+            <div class="modal-header">
+                <div>
+                    <h3>🔍 搜索工具和攻略</h3>
+                    <p>输入关键词快速找到想要的内容</p>
+                </div>
+                <button class="modal-close" onclick="closeModal('search')">✕</button>
+            </div>
+            <div class="modal-body">
+                <div class="search-box">
+                    <span class="search-icon">🔍</span>
+                    <input type="text" id="global-search-input" placeholder="搜索武器、工具、攻略..." oninput="performGlobalSearch()" autofocus>
+                </div>
+                <div id="search-results" style="max-height: 400px; overflow-y: auto;">
+                    <p style="color: var(--text-muted); text-align: center; padding: 20px;">输入关键词开始搜索...</p>
+                </div>
+                <div style="margin-top: 16px; padding: 12px; background: rgba(255,107,53,0.08); border-radius: 8px;">
+                    <p style="font-size: 12px; color: var(--text-secondary);">💡 热门搜索：<a href="#" onclick="quickSearch('AKM')" style="color: var(--accent);">AKM</a> · <a href="#" onclick="quickSearch('工坊')" style="color: var(--accent);">工坊利润</a> · <a href="#" onclick="quickSearch('撤离')" style="color: var(--accent);">撤离路线</a> · <a href="#" onclick="quickSearch('护甲')" style="color: var(--accent);">护甲推荐</a></p>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <main>
         <!-- Hero -->
@@ -2110,11 +2136,15 @@
                     </div>
                 </div>
 
-                <div class="diy-actions">
-                    <button class="btn-secondary" onclick="clearDiyBuild()">🗑 清空全部</button>
-                    <button class="btn-primary" onclick="saveDiyBuild()">💾 保存配置</button>
-                    <button class="btn-secondary" onclick="loadDiyBuild()">📂 加载配置</button>
+                <!-- 快捷操作按钮 -->
+                <div class="diy-actions" style="margin-bottom: 12px;">
+                    <button class="btn-secondary" onclick="clearDiyBuild()" style="flex: 1; justify-content: center;">🗑️ 清空</button>
+                    <button class="btn-secondary" onclick="loadDiyBuild()" style="flex: 1; justify-content: center;">📂 加载</button>
+                    <button class="btn-primary" onclick="saveDiyBuild()" style="flex: 2; justify-content: center;">💾 保存配置</button>
                 </div>
+                
+                <!-- 已保存配置快速入口 -->
+                <div id="diy-saved-list" style="margin-bottom: 16px;"></div>
             </div>
         </div>
     </div>
@@ -3543,6 +3573,7 @@
                 const builds = JSON.parse(localStorage.getItem('diyBuilds') || '[]');
                 builds.push({ name, items: selectedItems, total: selectedItems.reduce((s, i) => s + i.cost, 0), date: new Date().toISOString() });
                 localStorage.setItem('diyBuilds', JSON.stringify(builds));
+                showDiySavedList(); // 刷新保存列表
                 alert(`✅ 已保存配置「${name}」！`);
             }
         }
@@ -3563,13 +3594,66 @@
             }
         }
 
+        // 显示已保存配置列表
+        function showDiySavedList() {
+            const container = document.getElementById('diy-saved-list');
+            if (!container) return;
+            
+            const builds = JSON.parse(localStorage.getItem('diyBuilds') || '[]');
+            if (builds.length === 0) {
+                container.innerHTML = '';
+                return;
+            }
+            
+            const html = `
+                <div style="background: rgba(255,107,53,0.08); border: 1px solid rgba(255,107,53,0.2); border-radius: 10px; padding: 12px;">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+                        <span style="font-size: 12px; color: var(--accent); font-weight: 600;">💾 已保存配置 (${builds.length})</span>
+                    </div>
+                    <div style="display: flex; flex-wrap: wrap; gap: 6px;">
+                        ${builds.slice(-3).reverse().map((b, i) => `
+                            <button onclick="quickLoadBuild(${builds.length - 1 - i})" style="
+                                background: var(--bg-card);
+                                border: 1px solid var(--border);
+                                border-radius: 6px;
+                                padding: 6px 10px;
+                                font-size: 12px;
+                                color: var(--text-primary);
+                                cursor: pointer;
+                                display: flex;
+                                align-items: center;
+                                gap: 4px;
+                                transition: all 0.2s;
+                            " onmouseover="this.style.borderColor='var(--accent)'" onmouseout="this.style.borderColor='var(--border)'">
+                                📂 ${b.name} (${b.total}万)
+                            </button>
+                        `).join('')}
+                    </div>
+                </div>
+            `;
+            container.innerHTML = html;
+        }
+
+        function quickLoadBuild(index) {
+            const builds = JSON.parse(localStorage.getItem('diyBuilds') || '[]');
+            if (index >= 0 && index < builds.length) {
+                selectedItems = [...builds[index].items];
+                initDIY();
+                showDiySavedList();
+                showToast(`已加载「${builds[index].name}」`);
+            }
+        }
+
         // 覆盖openModal函数，初始化DIY
         const originalOpenModal = window.openModal;
         window.openModal = function(name) {
             document.getElementById('modal-' + name).classList.add('active');
             document.body.style.overflow = 'hidden';
             if (name === 'price') showPriceTable();
-            if (name === 'diy') initDIY();
+            if (name === 'diy') {
+                initDIY();
+                showDiySavedList();
+            }
         };
 
         function showGearBuilds() {
@@ -3640,12 +3724,96 @@
             document.body.style.overflow = document.querySelector('.nav-links').classList.contains('active') ? 'hidden' : '';
         }
 
+        // ==================== Global Search ====================
+        const searchIndex = [
+            // 工具
+            { type: 'tool', name: '工坊利润计算器', keywords: '工坊 利润 计算 制造', action: () => openModal('workshop') },
+            { type: 'tool', name: '战备配置推荐', keywords: '战备 配置 推荐 装备', action: () => openModal('build') },
+            { type: 'tool', name: '子弹兑换计算器', keywords: '子弹 兑换 部门 口径', action: () => openModal('bullet') },
+            { type: 'tool', name: '物品价格走势', keywords: '价格 走势 物品 行情', action: () => openModal('price') },
+            { type: 'tool', name: '撤离路线图', keywords: '撤离 路线 地图 烽火', action: () => openModal('evac') },
+            { type: 'tool', name: '物资分布图', keywords: '物资 分布 刷新 稀有', action: () => openModal('loot') },
+            { type: 'tool', name: 'DIY战备计算器', keywords: 'DIY 战备 自定义 配置', action: () => openModal('diy') },
+            { type: 'tool', name: '改枪配件搭配', keywords: '改枪 配件 改装 搭配', action: () => openModal('gear') },
+            { type: 'tool', name: '卡战备计算器', keywords: '卡战备 卡配置', action: () => window.open('card-combat-calculator.html') },
+            { type: 'tool', name: '子弹经济学', keywords: '子弹 经济 倒卖', action: () => window.open('bullet-economics.html') },
+            // 攻略
+            { type: 'guide', name: 'S9赛季新手指南', keywords: '新手 指南 入门 教程', action: () => openModal('guide-newbie') },
+            { type: 'guide', name: '烽火地带跑刀攻略', keywords: '跑刀 攻略 烽火 财富', action: () => openModal('guide-runblade') },
+            { type: 'guide', name: '改枪配件搭配大全', keywords: '改枪 配件 改装', action: () => openModal('gear') },
+            { type: 'guide', name: 'DIY战备计算器', keywords: 'DIY 战备 自定义', action: () => openModal('diy') },
+            { type: 'guide', name: '狙击手入门指南', keywords: '狙击 入门 瞄准', action: () => openModal('guide-sniper') },
+            { type: 'guide', name: '团队配合技巧', keywords: '团队 配合 配合', action: () => openModal('guide-team') },
+        ];
+
+        function performGlobalSearch() {
+            const query = document.getElementById('global-search-input').value.trim().toLowerCase();
+            const resultsDiv = document.getElementById('search-results');
+            
+            if (query.length < 1) {
+                resultsDiv.innerHTML = '<p style="color: var(--text-muted); text-align: center; padding: 20px;">输入关键词开始搜索...</p>';
+                return;
+            }
+            
+            const results = searchIndex.filter(item => 
+                item.name.toLowerCase().includes(query) || 
+                item.keywords.toLowerCase().includes(query)
+            );
+            
+            if (results.length === 0) {
+                resultsDiv.innerHTML = '<p style="color: var(--text-muted); text-align: center; padding: 20px;">未找到匹配结果，请尝试其他关键词</p>';
+                return;
+            }
+            
+            const typeIcons = { tool: '🛠', guide: '📖' };
+            const typeColors = { tool: 'var(--accent)', guide: 'var(--blue)' };
+            
+            resultsDiv.innerHTML = results.map(item => `
+                <div class="rec-item" onclick="executeSearchAction(this)" data-action="${item.action.toString()}" style="cursor: pointer;">
+                    <div class="rec-item-left">
+                        <div class="rec-item-icon" style="background: ${typeColors[item.type]}22;">
+                            ${typeIcons[item.type]}
+                        </div>
+                        <div>
+                            <div class="rec-item-name">${item.name}</div>
+                            <div style="font-size: 11px; color: var(--text-muted);">${item.type === 'tool' ? '工具' : '攻略'}</div>
+                        </div>
+                    </div>
+                    <div style="color: var(--accent); font-size: 18px;">→</div>
+                </div>
+            `).join('');
+        }
+
+        function executeSearchAction(el) {
+            const results = searchIndex.filter(item => 
+                el.querySelector('.rec-item-name').textContent === item.name
+            );
+            if (results.length > 0) {
+                closeModal('search');
+                results[0].action();
+            }
+        }
+
+        function quickSearch(keyword) {
+            document.getElementById('global-search-input').value = keyword;
+            performGlobalSearch();
+            return false;
+        }
+
         // ==================== Modals ====================
         function openModal(name) {
             document.getElementById('modal-' + name).classList.add('active');
             document.body.style.overflow = 'hidden';
             // Auto-trigger for build if defaults set
             if (name === 'price') showPriceTable();
+            if (name === 'diy') {
+                initDIY();
+                showDiySavedList();
+            }
+            if (name === 'search') {
+                document.getElementById('global-search-input').value = '';
+                document.getElementById('search-results').innerHTML = '<p style="color: var(--text-muted); text-align: center; padding: 20px;">输入关键词开始搜索...</p>';
+            }
             // Close mobile menu if open
             document.querySelector('.nav-links').classList.remove('active');
             document.getElementById('mobile-menu-overlay').classList.remove('active');

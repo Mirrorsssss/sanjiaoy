@@ -13685,6 +13685,266 @@
       ],
       "craft_time": "20分钟",
       "description": "24格容量中型背包"
+    },
+    {
+      "id": "w_vest3",
+      "name": "三级护甲",
+      "type": "armor",
+      "grade": 3,
+      "materials": [
+        {
+          "id": "m_steel",
+          "name": "钢材",
+          "quantity": 8
+        },
+        {
+          "id": "m_kevlar",
+          "name": "凯夫拉纤维",
+          "quantity": 4
+        }
+      ],
+      "craft_time": "45分钟",
+      "description": "三级防护护甲，高性价比进阶装备"
+    },
+    {
+      "id": "w_helmet3",
+      "name": "三级头盔",
+      "type": "armor",
+      "grade": 3,
+      "materials": [
+        {
+          "id": "m_steel",
+          "name": "钢材",
+          "quantity": 5
+        },
+        {
+          "id": "m_kevlar",
+          "name": "凯夫拉纤维",
+          "quantity": 3
+        }
+      ],
+      "craft_time": "35分钟",
+      "description": "三级防护头盔，抵御狙击伤害"
+    },
+    {
+      "id": "w_backpack_l",
+      "name": "大型背包",
+      "type": "bag",
+      "grade": 3,
+      "materials": [
+        {
+          "id": "m_cloth",
+          "name": "织物",
+          "quantity": 12
+        },
+        {
+          "id": "m_steel",
+          "name": "钢材",
+          "quantity": 4
+        }
+      ],
+      "craft_time": "30分钟",
+      "description": "36格容量大型背包，跑刀必备"
+    },
+    {
+      "id": "w_bandage",
+      "name": "止血绷带",
+      "type": "consumable",
+      "grade": 1,
+      "materials": [
+        {
+          "id": "c_gauze",
+          "name": "绷带",
+          "quantity": 1
+        }
+      ],
+      "craft_time": "3分钟",
+      "description": "快速止血，恢复少量生命"
+    },
+    {
+      "id": "w_surgical",
+      "name": "手术包",
+      "type": "consumable",
+      "grade": 3,
+      "materials": [
+        {
+          "id": "c_gauze",
+          "name": "绷带",
+          "quantity": 5
+        },
+        {
+          "id": "c_saline",
+          "name": "生理盐水",
+          "quantity": 2
+        },
+        {
+          "id": "m_steel",
+          "name": "钢材",
+          "quantity": 2
+        }
+      ],
+      "craft_time": "15分钟",
+      "description": "治疗骨折和重伤，战备必备"
+    },
+    {
+      "id": "w_stimulant",
+      "name": "体能增强针",
+      "type": "consumable",
+      "grade": 4,
+      "materials": [
+        {
+          "id": "c_herb",
+          "name": "草药",
+          "quantity": 5
+        },
+        {
+          "id": "c_saline",
+          "name": "生理盐水",
+          "quantity": 3
+        }
+      ],
+      "craft_time": "20分钟",
+      "description": "瞬间恢复体力并增强移动速度"
+    },
+    {
+      "id": "w_chest_harness",
+      "name": "战术胸挂",
+      "type": "armor",
+      "grade": 2,
+      "materials": [
+        {
+          "id": "m_kevlar",
+          "name": "凯夫拉纤维",
+          "quantity": 3
+        },
+        {
+          "id": "m_cloth",
+          "name": "织物",
+          "quantity": 4
+        }
+      ],
+      "craft_time": "15分钟",
+      "description": "增加弹匣和物品携带容量"
+    },
+    {
+      "id": "w_vest4",
+      "name": "四级护甲",
+      "type": "armor",
+      "grade": 4,
+      "materials": [
+        {
+          "id": "m_steel",
+          "name": "钢材",
+          "quantity": 12
+        },
+        {
+          "id": "m_kevlar",
+          "name": "凯夫拉纤维",
+          "quantity": 6
+        }
+      ],
+      "craft_time": "60分钟",
+      "description": "四级防护顶级护甲，硬刚必备"
+    },
+    {
+      "id": "w_helmet4",
+      "name": "四级头盔",
+      "type": "armor",
+      "grade": 4,
+      "materials": [
+        {
+          "id": "m_steel",
+          "name": "钢材",
+          "quantity": 8
+        },
+        {
+          "id": "m_kevlar",
+          "name": "凯夫拉纤维",
+          "quantity": 5
+        }
+      ],
+      "craft_time": "50分钟",
+      "description": "四级防护顶级头盔"
+    },
+    {
+      "id": "w_ammo_pack",
+      "name": "弹药包",
+      "type": "consumable",
+      "grade": 2,
+      "materials": [
+        {
+          "id": "m_steel",
+          "name": "钢材",
+          "quantity": 2
+        },
+        {
+          "id": "m_cloth",
+          "name": "织物",
+          "quantity": 3
+        }
+      ],
+      "craft_time": "10分钟",
+      "description": "额外弹药存储，增加撤离容错率"
+    },
+    {
+      "id": "w_armor_plate",
+      "name": "护甲碎片",
+      "type": "consumable",
+      "grade": 2,
+      "materials": [
+        {
+          "id": "m_steel",
+          "name": "钢材",
+          "quantity": 4
+        }
+      ],
+      "craft_time": "8分钟",
+      "description": "修复受损护甲的消耗品"
+    },
+    {
+      "id": "w_goggles",
+      "name": "战术护目镜",
+      "type": "armor",
+      "grade": 3,
+      "materials": [
+        {
+          "id": "m_steel",
+          "name": "钢材",
+          "quantity": 3
+        },
+        {
+          "id": "m_cloth",
+          "name": "织物",
+          "quantity": 2
+        }
+      ],
+      "craft_time": "25分钟",
+      "description": "减少闪光弹影响"
+    },
+    {
+      "id": "w_military_bag",
+      "name": "军用背包",
+      "type": "bag",
+      "grade": 4,
+      "materials": [
+        {
+          "id": "m_cloth",
+          "name": "织物",
+          "quantity": 15
+        },
+        {
+          "id": "m_steel",
+          "name": "钢材",
+          "quantity": 6
+        },
+        {
+          "id": "m_kevlar",
+          "name": "凯夫拉纤维",
+          "quantity": 3
+        }
+      ],
+      "craft_time": "45分钟",
+      "description": "48格超大容量，适合大佬跑刀"
     }
   ],
   "builds": [

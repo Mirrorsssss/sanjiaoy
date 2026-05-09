@@ -14,94 +14,165 @@
             padding: 2rem;
         }
         
-        .economics-header {
+        /* ========== 头部区域 ========== */
+        .hero-section {
             text-align: center;
-            margin-bottom: 3rem;
+            padding: 3rem 2rem;
+            background: linear-gradient(135deg, rgba(245, 158, 11, 0.1) 0%, rgba(239, 68, 68, 0.1) 100%);
+            border-radius: 24px;
+            margin-bottom: 2rem;
+            position: relative;
+            overflow: hidden;
         }
         
-        .economics-header h1 {
-            font-size: 2.5rem;
+        .hero-section::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(245, 158, 11, 0.05) 0%, transparent 70%);
+            animation: pulse 8s ease-in-out infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); opacity: 0.5; }
+            50% { transform: scale(1.1); opacity: 1; }
+        }
+        
+        .hero-section h1 {
+            font-size: 3rem;
             margin-bottom: 1rem;
-            background: linear-gradient(135deg, var(--accent-orange), var(--accent-yellow));
+            background: linear-gradient(135deg, #f59e0b, #ef4444);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
+            position: relative;
+            z-index: 1;
         }
         
-        .economics-header p {
+        .hero-section p {
             color: var(--text-secondary);
-            font-size: 1.1rem;
+            font-size: 1.2rem;
+            position: relative;
+            z-index: 1;
         }
         
+        /* ========== 数据状态 ========== */
         .data-status {
-            text-align: center;
-            padding: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.8rem;
+            padding: 1rem 1.5rem;
             margin-bottom: 2rem;
-            border-radius: 8px;
-            font-size: 0.9rem;
+            border-radius: 12px;
+            font-size: 0.95rem;
+        }
+        
+        .data-status .icon {
+            font-size: 1.2rem;
+        }
+        
+        .data-status .count {
+            font-weight: 700;
+            color: #f59e0b;
         }
         
         .data-status.loading {
-            background: rgba(245, 158, 11, 0.1);
-            color: var(--accent-orange);
+            background: linear-gradient(135deg, rgba(245, 158, 11, 0.15), rgba(245, 158, 11, 0.05));
+            color: #f59e0b;
+            border: 1px solid rgba(245, 158, 11, 0.3);
         }
         
         .data-status.loaded {
-            background: rgba(16, 185, 129, 0.1);
+            background: linear-gradient(135deg, rgba(16, 185, 129, 0.15), rgba(16, 185, 129, 0.05));
             color: #10b981;
+            border: 1px solid rgba(16, 185, 129, 0.3);
         }
         
         .data-status.error {
-            background: rgba(239, 68, 68, 0.1);
+            background: linear-gradient(135deg, rgba(239, 68, 68, 0.15), rgba(239, 68, 68, 0.05));
             color: #ef4444;
+            border: 1px solid rgba(239, 68, 68, 0.3);
         }
         
+        /* ========== 标签切换 ========== */
         .tool-tabs {
             display: flex;
+            justify-content: center;
             gap: 1rem;
             margin-bottom: 2rem;
             flex-wrap: wrap;
-            justify-content: center;
         }
         
         .tab-btn {
-            padding: 0.8rem 2rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 1rem 2rem;
             background: var(--bg-card);
-            border: 1px solid var(--border);
-            border-radius: 8px;
+            border: 2px solid var(--border);
+            border-radius: 16px;
             color: var(--text-primary);
             cursor: pointer;
-            transition: all 0.3s;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             font-size: 1rem;
+            font-weight: 600;
         }
         
-        .tab-btn.active {
-            background: var(--accent-orange);
-            border-color: var(--accent-orange);
-            color: white;
+        .tab-btn .icon {
+            font-size: 1.3rem;
         }
         
         .tab-btn:hover {
-            border-color: var(--accent-orange);
+            border-color: #f59e0b;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(245, 158, 11, 0.2);
         }
         
+        .tab-btn.active {
+            background: linear-gradient(135deg, #f59e0b, #ef4444);
+            border-color: transparent;
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(245, 158, 11, 0.3);
+        }
+        
+        /* ========== 工具面板 ========== */
         .tool-section {
             background: var(--bg-card);
-            border: 1px solid var(--border);
-            border-radius: 16px;
+            border: 2px solid var(--border);
+            border-radius: 24px;
             padding: 2rem;
             display: none;
         }
         
         .tool-section.active {
             display: block;
-            animation: fadeIn 0.5s ease;
+            animation: slideUp 0.5s ease;
         }
         
-        @keyframes fadeIn {
+        @keyframes slideUp {
             from { opacity: 0; transform: translateY(20px); }
             to { opacity: 1; transform: translateY(0); }
         }
         
+        .tool-section h2 {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 1.5rem;
+            color: var(--text-primary);
+            margin-bottom: 0.5rem;
+        }
+        
+        .tool-section .subtitle {
+            color: var(--text-secondary);
+            margin-bottom: 1.5rem;
+        }
+        
+        /* ========== 价格表格 ========== */
         .ammo-table {
             width: 100%;
             border-collapse: collapse;
@@ -115,10 +186,11 @@
             color: var(--text-primary);
             font-weight: 600;
             border-bottom: 2px solid var(--border);
+            border-radius: 8px 8px 0 0;
         }
         
         .ammo-table td {
-            padding: 1rem;
+            padding: 1.2rem 1rem;
             border-bottom: 1px solid var(--border);
             color: var(--text-secondary);
         }
@@ -127,24 +199,44 @@
             background: var(--bg-secondary);
         }
         
-        .price-cell {
-            color: #f59e0b;
-            font-weight: 600;
-            font-size: 1.1rem;
+        .ammo-table tr:last-child td {
+            border-bottom: none;
         }
         
         .caliber-badge {
             display: inline-block;
-            padding: 0.3rem 0.8rem;
-            background: var(--bg-secondary);
-            border-radius: 6px;
-            color: var(--text-primary);
-            font-weight: 600;
+            padding: 0.4rem 1rem;
+            background: linear-gradient(135deg, rgba(245, 158, 11, 0.2), rgba(245, 158, 11, 0.1));
+            border: 1px solid rgba(245, 158, 11, 0.3);
+            border-radius: 8px;
+            color: #f59e0b;
+            font-weight: 700;
+            font-size: 0.95rem;
         }
         
-        .profit-calculator {
+        .item-name {
+            color: var(--text-primary);
+            font-weight: 500;
+        }
+        
+        .price-cell {
+            color: #f59e0b;
+            font-weight: 700;
+            font-size: 1.1rem;
+        }
+        
+        .time-cell {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+        
+        /* ========== 收益计算器 ========== */
+        .calculator-card {
             max-width: 600px;
             margin: 0 auto;
+            background: var(--bg-secondary);
+            border-radius: 20px;
+            padding: 2rem;
         }
         
         .input-group {
@@ -152,61 +244,86 @@
         }
         
         .input-group label {
-            display: block;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
             color: var(--text-primary);
             margin-bottom: 0.5rem;
-            font-weight: 500;
+            font-weight: 600;
+        }
+        
+        .input-group label .icon {
+            font-size: 1.2rem;
         }
         
         .input-group select,
         .input-group input {
             width: 100%;
-            padding: 0.8rem;
-            background: var(--bg-secondary);
-            border: 1px solid var(--border);
-            border-radius: 8px;
+            padding: 1rem;
+            background: var(--bg-card);
+            border: 2px solid var(--border);
+            border-radius: 12px;
             color: var(--text-primary);
             font-size: 1rem;
+            transition: all 0.3s;
         }
         
         .input-group select:focus,
         .input-group input:focus {
             outline: none;
-            border-color: var(--accent-orange);
-            box-shadow: 0 0 0 3px rgba(245, 158, 11, 0.1);
+            border-color: #f59e0b;
+            box-shadow: 0 0 0 4px rgba(245, 158, 11, 0.1);
         }
         
         .calculate-btn {
             width: 100%;
-            padding: 1rem;
-            background: linear-gradient(135deg, var(--accent-orange), var(--accent-yellow));
+            padding: 1.2rem;
+            background: linear-gradient(135deg, #f59e0b, #ef4444);
             border: none;
-            border-radius: 12px;
+            border-radius: 16px;
             color: white;
-            font-size: 1.1rem;
-            font-weight: 600;
+            font-size: 1.2rem;
+            font-weight: 700;
             cursor: pointer;
             transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
         }
         
         .calculate-btn:hover {
             transform: translateY(-2px);
-            box-shadow: 0 8px 24px rgba(245, 158, 11, 0.3);
+            box-shadow: 0 12px 32px rgba(245, 158, 11, 0.4);
         }
         
         .result-display {
             margin-top: 2rem;
             padding: 2rem;
-            background: var(--bg-secondary);
-            border-radius: 12px;
+            background: var(--bg-card);
+            border: 2px solid var(--border);
+            border-radius: 20px;
             text-align: center;
+            display: none;
+        }
+        
+        .result-display.show {
+            display: block;
+            animation: slideUp 0.3s ease;
         }
         
         .result-value {
-            font-size: 2rem;
-            font-weight: 700;
-            color: var(--accent-orange);
+            font-size: 2.5rem;
+            font-weight: 800;
             margin: 1rem 0;
+        }
+        
+        .result-value.profit {
+            color: #10b981;
+        }
+        
+        .result-value.loss {
+            color: #ef4444;
         }
         
         .result-label {
@@ -214,16 +331,143 @@
             font-size: 1rem;
         }
         
+        .result-details {
+            margin-top: 1.5rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid var(--border);
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+        }
+        
+        .result-details .row {
+            display: flex;
+            justify-content: space-between;
+            margin: 0.5rem 0;
+        }
+        
+        .result-details .value {
+            color: var(--text-primary);
+            font-weight: 600;
+        }
+        
+        /* ========== 低价预测 ========== */
+        .prediction-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin-top: 1.5rem;
+        }
+        
+        .prediction-card {
+            background: var(--bg-secondary);
+            border: 2px solid var(--border);
+            border-radius: 20px;
+            padding: 1.5rem;
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .prediction-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #10b981, #059669);
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+        
+        .prediction-card:hover {
+            border-color: #10b981;
+            transform: translateY(-4px);
+            box-shadow: 0 12px 32px rgba(16, 185, 129, 0.15);
+        }
+        
+        .prediction-card:hover::before {
+            opacity: 1;
+        }
+        
+        .prediction-card .caliber {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 1rem;
+        }
+        
+        .prediction-card .badge {
+            padding: 0.4rem 1rem;
+            background: rgba(245, 158, 11, 0.15);
+            border: 1px solid rgba(245, 158, 11, 0.3);
+            border-radius: 8px;
+            color: #f59e0b;
+            font-weight: 700;
+        }
+        
+        .prediction-card .recommendation {
+            padding: 0.3rem 0.8rem;
+            border-radius: 6px;
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+        
+        .prediction-card .recommendation.strong {
+            background: rgba(16, 185, 129, 0.15);
+            color: #10b981;
+        }
+        
+        .prediction-card .recommendation.medium {
+            background: rgba(245, 158, 11, 0.15);
+            color: #f59e0b;
+        }
+        
+        .prediction-card .recommendation.low {
+            background: rgba(107, 114, 128, 0.15);
+            color: #6b7280;
+        }
+        
+        .prediction-card .price-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 0.5rem 0;
+            border-bottom: 1px solid var(--border);
+        }
+        
+        .prediction-card .price-row:last-of-type {
+            border-bottom: none;
+        }
+        
+        .prediction-card .price-label {
+            color: var(--text-secondary);
+        }
+        
+        .prediction-card .price-value {
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+        
+        .prediction-card .price-value.discount {
+            color: #10b981;
+        }
+        
+        /* ========== 提示区域 ========== */
         .tips-section {
             margin-top: 2rem;
             padding: 1.5rem;
-            background: var(--bg-secondary);
-            border-radius: 12px;
+            background: linear-gradient(135deg, rgba(59, 130, 246, 0.1), rgba(139, 92, 246, 0.1));
+            border: 1px solid rgba(59, 130, 246, 0.2);
+            border-radius: 16px;
         }
         
         .tips-section h3 {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
             color: var(--text-primary);
             margin-bottom: 1rem;
+            font-size: 1.1rem;
         }
         
         .tips-section ul {
@@ -233,7 +477,7 @@
         
         .tips-section li {
             color: var(--text-secondary);
-            padding: 0.5rem 0;
+            padding: 0.6rem 0;
             padding-left: 1.5rem;
             position: relative;
         }
@@ -244,53 +488,28 @@
             left: 0;
         }
         
-        .prediction-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 1.5rem;
-            margin-top: 2rem;
-        }
-        
-        .prediction-card {
-            background: var(--bg-secondary);
-            border: 1px solid var(--border);
-            border-radius: 12px;
-            padding: 1.5rem;
-            transition: all 0.3s;
-        }
-        
-        .prediction-card:hover {
-            border-color: var(--accent-orange);
-            transform: translateY(-2px);
-        }
-        
-        .prediction-card h4 {
-            color: var(--text-primary);
-            margin-bottom: 1rem;
-            font-size: 1.1rem;
-        }
-        
-        .prediction-card .price-row {
-            display: flex;
-            justify-content: space-between;
-            margin: 0.5rem 0;
-            color: var(--text-secondary);
-        }
-        
-        .prediction-card .price-value {
-            color: var(--accent-orange);
-            font-weight: 600;
-        }
-        
-        .recommendation-badge {
-            display: inline-block;
-            padding: 0.3rem 0.8rem;
-            background: var(--accent-orange);
-            color: white;
-            border-radius: 6px;
-            font-size: 0.85rem;
-            font-weight: 600;
-            margin-top: 1rem;
+        /* ========== 响应式 ========== */
+        @media (max-width: 768px) {
+            .hero-section h1 {
+                font-size: 2rem;
+            }
+            
+            .tool-tabs {
+                flex-direction: column;
+            }
+            
+            .tab-btn {
+                width: 100%;
+                justify-content: center;
+            }
+            
+            .ammo-table {
+                font-size: 0.9rem;
+            }
+            
+            .prediction-grid {
+                grid-template-columns: 1fr;
+            }
         }
     </style>
 </head>
@@ -310,28 +529,39 @@
     </nav>
 
     <div class="economics-container">
-        <div class="economics-header">
+        <!-- 头部区域 -->
+        <div class="hero-section">
             <h1>📈 子弹经济学</h1>
             <p>实时交易行价格，帮你倒子弹赚差价</p>
         </div>
 
+        <!-- 数据状态 -->
         <div id="dataStatus" class="data-status loading">
-            ⏳ 正在加载实时价格数据...
+            <span class="icon">⏳</span>
+            <span>正在加载实时价格数据...</span>
         </div>
 
+        <!-- 标签切换 -->
         <div class="tool-tabs">
-            <button class="tab-btn active" onclick="switchTab('price')">📊 实时价格</button>
-            <button class="tab-btn" onclick="switchTab('profit')">💰 收益计算</button>
-            <button class="tab-btn" onclick="switchTab('prediction')">🔮 低价预测</button>
+            <button class="tab-btn active" onclick="switchTab('price', this)">
+                <span class="icon">📊</span>
+                <span>实时价格</span>
+            </button>
+            <button class="tab-btn" onclick="switchTab('profit', this)">
+                <span class="icon">💰</span>
+                <span>收益计算</span>
+            </button>
+            <button class="tab-btn" onclick="switchTab('prediction', this)">
+                <span class="icon">🔮</span>
+                <span>低价预测</span>
+            </button>
         </div>
 
         <!-- 实时价格追踪 -->
         <div class="tool-section active" id="priceSection">
             <h2>📊 子弹实时价格</h2>
-            <p style="color: var(--text-secondary); margin-bottom: 1rem;">
-                数据每10分钟更新一次，来自真实交易行
-            </p>
-            <table class="ammo-table" id="ammoPriceTable">
+            <p class="subtitle">数据每10分钟更新一次，来自真实交易行</p>
+            <table class="ammo-table">
                 <thead>
                     <tr>
                         <th>口径</th>
@@ -342,7 +572,7 @@
                 </thead>
                 <tbody id="ammoPriceBody">
                     <tr>
-                        <td colspan="4" style="text-align: center; padding: 2rem;">
+                        <td colspan="4" style="text-align: center; padding: 3rem;">
                             加载中...
                         </td>
                     </tr>
@@ -353,35 +583,39 @@
         <!-- 收益计算器 -->
         <div class="tool-section" id="profitSection">
             <h2>💰 倒子弹收益计算</h2>
-            <div class="profit-calculator">
+            <p class="subtitle">输入买入卖出价格，计算你的利润</p>
+            <div class="calculator-card">
                 <div class="input-group">
-                    <label>选择子弹</label>
+                    <label><span class="icon">🎯</span> 选择子弹</label>
                     <select id="ammoSelect">
                         <option value="">-- 请选择子弹 --</option>
                     </select>
                 </div>
                 
                 <div class="input-group">
-                    <label>买入价格（/发）</label>
+                    <label><span class="icon">📥</span> 买入价格（/发）</label>
                     <input type="number" id="buyPrice" step="1" placeholder="如：3000">
                 </div>
                 
                 <div class="input-group">
-                    <label>卖出价格（/发）</label>
+                    <label><span class="icon">📤</span> 卖出价格（/发）</label>
                     <input type="number" id="sellPrice" step="1" placeholder="如：3500">
                 </div>
                 
                 <div class="input-group">
-                    <label>数量（发）</label>
+                    <label><span class="icon">📦</span> 数量（发）</label>
                     <input type="number" id="ammoCount" placeholder="如：1000">
                 </div>
                 
                 <button class="calculate-btn" onclick="calculateProfit()">
-                    💰 计算收益
+                    <span>💰</span>
+                    <span>计算收益</span>
                 </button>
                 
-                <div class="result-display" id="profitResult" style="display: none;">
-                    <!-- 动态生成 -->
+                <div class="result-display" id="profitResult">
+                    <div class="result-value" id="profitValue">+0</div>
+                    <div class="result-label">总利润</div>
+                    <div class="result-details" id="profitDetails"></div>
                 </div>
             </div>
             
@@ -399,12 +633,9 @@
         <!-- 低价补货预测 -->
         <div class="tool-section" id="predictionSection">
             <h2>🔮 低价补货预测</h2>
-            <p style="color: var(--text-secondary); margin-bottom: 1.5rem;">
-                根据当前价格分析，以下子弹值得关注
-            </p>
-            
+            <p class="subtitle">根据当前价格分析，以下子弹值得关注</p>
             <div class="prediction-grid" id="predictionGrid">
-                <p style="text-align: center; color: var(--text-secondary); grid-column: 1 / -1;">
+                <p style="text-align: center; color: var(--text-secondary); grid-column: 1 / -1; padding: 2rem;">
                     加载中...
                 </p>
             </div>
@@ -441,7 +672,7 @@
                 
                 priceData = await response.json();
                 
-                // 筛选子弹类物品（按口径分类）
+                // 筛选子弹类物品
                 filterAmmoData();
                 
                 // 填充数据
@@ -449,23 +680,30 @@
                 populateAmmoSelect();
                 generatePredictions();
                 
+                const timestamp = formatTimestamp(priceData[0]?.is_get_time);
                 statusEl.className = 'data-status loaded';
-                statusEl.innerHTML = `✅ 实时价格数据加载成功！共 ${ammoData.length} 种子弹 | 更新时间：${formatTimestamp(priceData[0]?.is_get_time)}`;
+                statusEl.innerHTML = `
+                    <span class="icon">✅</span>
+                    <span>实时数据加载成功！共 <span class="count">${ammoData.length}</span> 种子弹</span>
+                    <span style="opacity: 0.7">| 更新于 ${timestamp}</span>
+                `;
             } catch (error) {
                 statusEl.className = 'data-status error';
-                statusEl.innerHTML = `❌ 数据加载失败：${error.message}<br>请检查网络连接或稍后重试`;
+                statusEl.innerHTML = `
+                    <span class="icon">❌</span>
+                    <span>数据加载失败：${error.message}</span>
+                `;
                 console.error('Price data load error:', error);
             }
         }
 
-        // 筛选子弹数据（按口径分类）
+        // 筛选子弹数据
         function filterAmmoData() {
-            // 口径分类列表
             const caliberCategories = [
                 '9x19mm', '5.56x45mm', '7.62x39mm', '7.62x51mm',
                 '5.45x39mm', '5.7x28mm', '4.6x30mm', '6.8x51mm',
                 '12 Gauge', '.45 ACP', '.357 Magnum', '12.7x55mm',
-                '.50 AE', '7.62x54mm', '.45-70mm'
+                '.50 AE', '7.62x54mm', '.45-70mm', '9x39mm', '7.62x35mm'
             ];
 
             ammoData = priceData.filter(item => 
@@ -500,9 +738,9 @@
             tbody.innerHTML = ammoData.map(ammo => `
                 <tr>
                     <td><span class="caliber-badge">${ammo.caliber}</span></td>
-                    <td>${ammo.cheapest.name}</td>
+                    <td class="item-name">${ammo.cheapest.name}</td>
                     <td class="price-cell">¥${ammo.cheapest.price.toLocaleString()}</td>
-                    <td>${formatTimestamp(ammo.cheapest.is_get_time)}</td>
+                    <td class="time-cell">${formatTimestamp(ammo.cheapest.is_get_time)}</td>
                 </tr>
             `).join('');
         }
@@ -511,7 +749,6 @@
         function populateAmmoSelect() {
             const select = document.getElementById('ammoSelect');
             
-            // 展开所有子弹物品
             const allAmmoItems = [];
             ammoData.forEach(ammo => {
                 ammo.allItems.forEach(item => {
@@ -534,7 +771,6 @@
 
         // 计算收益
         function calculateProfit() {
-            const ammoSelect = document.getElementById('ammoSelect');
             const buyPrice = parseFloat(document.getElementById('buyPrice').value);
             const sellPrice = parseFloat(document.getElementById('sellPrice').value);
             const count = parseInt(document.getElementById('ammoCount').value);
@@ -548,38 +784,67 @@
             const totalRevenue = sellPrice * count;
             const profit = totalRevenue - totalCost;
             const profitRate = (profit / totalCost * 100).toFixed(2);
+            const unitProfit = sellPrice - buyPrice;
             
-            const result = document.getElementById('profitResult');
-            result.style.display = 'block';
-            result.innerHTML = `
-                <div class="result-value" style="color: ${profit >= 0 ? '#10b981' : '#ef4444'};">
-                    ${profit >= 0 ? '+' : ''}${profit.toLocaleString()} 哈夫币
+            const resultEl = document.getElementById('profitResult');
+            const valueEl = document.getElementById('profitValue');
+            const detailsEl = document.getElementById('profitDetails');
+            
+            const isProfit = profit >= 0;
+            valueEl.textContent = (isProfit ? '+' : '') + profit.toLocaleString() + ' 哈夫币';
+            valueEl.className = 'result-value ' + (isProfit ? 'profit' : 'loss');
+            
+            detailsEl.innerHTML = `
+                <div class="row">
+                    <span>总成本</span>
+                    <span class="value">¥${totalCost.toLocaleString()}</span>
                 </div>
-                <div class="result-label">总利润（利润率 ${profitRate}%）</div>
-                <div style="margin-top: 1rem; color: var(--text-secondary); font-size: 0.9rem;">
-                    <p>总成本：¥${totalCost.toLocaleString()} | 总收入：¥${totalRevenue.toLocaleString()}</p>
-                    <p>单价利润：¥${(sellPrice - buyPrice).toLocaleString()}/发</p>
+                <div class="row">
+                    <span>总收入</span>
+                    <span class="value">¥${totalRevenue.toLocaleString()}</span>
+                </div>
+                <div class="row">
+                    <span>单价利润</span>
+                    <span class="value">¥${unitProfit.toLocaleString()}/发</span>
+                </div>
+                <div class="row">
+                    <span>利润率</span>
+                    <span class="value">${isProfit ? '+' : ''}${profitRate}%</span>
                 </div>
             `;
+            
+            resultEl.classList.add('show');
         }
 
         // 生成低价预测
         function generatePredictions() {
             const grid = document.getElementById('predictionGrid');
             
-            // 简单预测逻辑：价格较低的推荐买入
             const predictions = ammoData
                 .map(ammo => {
                     const avgPrice = ammo.allItems.reduce((sum, item) => sum + item.price, 0) / ammo.allItems.length;
                     const minPrice = ammo.cheapest.price;
                     const discount = ((avgPrice - minPrice) / avgPrice * 100).toFixed(1);
                     
+                    let recommendation, recClass;
+                    if (discount > 10) {
+                        recommendation = '强烈推荐';
+                        recClass = 'strong';
+                    } else if (discount > 5) {
+                        recommendation = '推荐';
+                        recClass = 'medium';
+                    } else {
+                        recommendation = '观望';
+                        recClass = 'low';
+                    }
+                    
                     return {
                         caliber: ammo.caliber,
                         currentPrice: minPrice,
                         avgPrice: Math.round(avgPrice),
                         discount: parseFloat(discount),
-                        recommendation: discount > 10 ? '强烈推荐' : discount > 5 ? '推荐' : '观望'
+                        recommendation,
+                        recClass
                     };
                 })
                 .sort((a, b) => b.discount - a.discount)
@@ -587,35 +852,31 @@
             
             grid.innerHTML = predictions.map(pred => `
                 <div class="prediction-card">
-                    <h4><span class="caliber-badge">${pred.caliber}</span></h4>
+                    <div class="caliber">
+                        <span class="badge">${pred.caliber}</span>
+                        <span class="recommendation ${pred.recClass}">${pred.recommendation}</span>
+                    </div>
                     <div class="price-row">
-                        <span>当前最低价</span>
+                        <span class="price-label">当前最低价</span>
                         <span class="price-value">¥${pred.currentPrice.toLocaleString()}</span>
                     </div>
                     <div class="price-row">
-                        <span>平均价格</span>
-                        <span>¥${pred.avgPrice.toLocaleString()}</span>
+                        <span class="price-label">平均价格</span>
+                        <span class="price-value">¥${pred.avgPrice.toLocaleString()}</span>
                     </div>
                     <div class="price-row">
-                        <span>折扣幅度</span>
-                        <span style="color: #10b981; font-weight: 600;">${pred.discount}%</span>
-                    </div>
-                    <div class="recommendation-badge" style="
-                        background: ${pred.recommendation === '强烈推荐' ? '#10b981' : pred.recommendation === '推荐' ? '#f59e0b' : '#6b7280'};
-                    ">
-                        ${pred.recommendation}
+                        <span class="price-label">折扣幅度</span>
+                        <span class="price-value discount">-${pred.discount}%</span>
                     </div>
                 </div>
             `).join('');
         }
 
         // 切换标签页
-        function switchTab(tabName) {
+        function switchTab(tabName, btn) {
             // 更新按钮状态
-            document.querySelectorAll('.tab-btn').forEach(btn => {
-                btn.classList.remove('active');
-            });
-            event.target.classList.add('active');
+            document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
             
             // 更新内容显示
             document.querySelectorAll('.tool-section').forEach(section => {
