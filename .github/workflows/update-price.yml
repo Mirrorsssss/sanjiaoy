@@ -1,0 +1,75 @@
+name: Update Price Data
+
+on:
+  schedule:
+    # 每10分钟运行一次
+    - cron: '*/10 * * * *'
+  workflow_dispatch:  # 允许手动触发
+  push:
+    branches: [ gh-pages ]
+
+jobs:
+  update-price:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+      with:
+        ref: gh-pages
+        token: ${{ secrets.GITHUB_TOKEN }}
+        
+    - name: Set up Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.11'
+        
+    - name: Download latest price data
+      run: |
+        echo "正在从 orzice/DeltaForcePrice 下载最新 price.json..."
+        curl -s -o price.json "https://raw.githubusercontent.com/orzice/DeltaForcePrice/master/price.json"
+        
+        if [ ! -f price.json ]; then
+          echo "❌ 下载失败"
+          exit 1
+        fi
+        
+        # 检查文件是否有效JSON
+        python3 -c "import json; json.load(open('price.json'))"
+        if [ $? -ne 0 ]; then
+          echo "❌ price.json 格式错误"
+          exit 1
+        fi
+        
+        ITEM_COUNT=$(python3 -c "import json; print(len(json.load(open('price.json'))))")
+        echo "✅ 下载成功，共 $ITEM_COUNT 个物品"
+        
+    - name: Check for changes
+      id: check_changes
+      run: |
+        git config user.name "GitHub Actions"
+        git config user.email "actions@github.com"
+        
+        if git diff --quiet price.json; then
+          echo "has_changes=false" >> $GITHUB_OUTPUT
+          echo "📊 数据无变化，跳过提交"
+        else
+          echo "has_changes=true" >> $GITHUB_OUTPUT
+          echo "📊 检测到数据变化"
+        fi
+        
+    - name: Commit and push changes
+      if: steps.check_changes.outputs.has_changes == 'true'
+      run: |
+        TIMESTAMP=$(date +'%Y-%m-%d %H:%M:%S')
+        git add price.json
+        git commit -m "auto: 更新实时价格数据 ($TIMESTAMP)"
+        git push
+        echo "✅ 数据已更新并推送到仓库"
+        
+    - name: No changes
+      if: steps.check_changes.outputs.has_changes == 'false'
+      run: |
+        echo "✅ 数据已是最新，无需更新"
