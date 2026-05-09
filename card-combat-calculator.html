@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>卡战备计算器 - 三角洲行动战备工具 | 三角眼</title>
+    <meta name="description" content="三角洲行动卡战备计算器，精准卡着战备值线进图，高性价比配装方案。支持零号大坝、长弓溪谷、航天基地、巴克什、潮汐监狱等地图。">
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>👁️</text></svg>">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .calculator-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+        
+        .calculator-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+        
+        .calculator-header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, var(--accent-blue), var(--accent-purple));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .calculator-header p {
+            color: var(--text-secondary);
+            font-size: 1.1rem;
+        }
+        
+        .input-section {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+        }
+        
+        .input-group {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .input-item label {
+            display: block;
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .input-item select {
+            width: 100%;
+            padding: 0.8rem 1rem;
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            color: var(--text-primary);
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .input-item select:hover {
+            border-color: var(--accent-blue);
+        }
+        
+        .input-item select:focus {
+            outline: none;
+            border-color: var(--accent-blue);
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+        }
+        
+        .calculate-btn {
+            width: 100%;
+            padding: 1rem;
+            background: linear-gradient(135deg, var(--accent-blue), var(--accent-purple));
+            border: none;
+            border-radius: 12px;
+            color: white;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .calculate-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(59, 130, 246, 0.3);
+        }
+        
+        .result-section {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            display: none;
+        }
+        
+        .result-section.active {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .result-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid var(--border);
+        }
+        
+        .result-header h2 {
+            font-size: 1.5rem;
+            color: var(--text-primary);
+        }
+        
+        .result-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+        
+        .stat-card {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 1.5rem;
+            text-align: center;
+        }
+        
+        .stat-card .label {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .stat-card .value {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--accent-blue);
+        }
+        
+        .stat-card .value.warning {
+            color: var(--accent-orange);
+        }
+        
+        .stat-card .value.success {
+            color: var(--accent-green);
+        }
+        
+        .gear-section {
+            margin-bottom: 2rem;
+        }
+        
+        .gear-section h3 {
+            font-size: 1.2rem;
+            color: var(--text-primary);
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--accent-blue);
+        }
+        
+        .gear-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 1rem;
+        }
+        
+        .gear-card {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 1.5rem;
+            transition: all 0.3s;
+        }
+        
+        .gear-card:hover {
+            border-color: var(--accent-blue);
+            transform: translateY(-2px);
+        }
+        
+        .gear-card h4 {
+            font-size: 1.1rem;
+            color: var(--text-primary);
+            margin-bottom: 0.8rem;
+        }
+        
+        .gear-card .details {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            line-height: 1.6;
+        }
+        
+        .gear-card .details p {
+            margin-bottom: 0.3rem;
+        }
+        
+        .tips-section {
+            background: var(--bg-secondary);
+            border-left: 4px solid var(--accent-yellow);
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin-top: 2rem;
+        }
+        
+        .tips-section h3 {
+            color: var(--accent-yellow);
+            margin-bottom: 1rem;
+        }
+        
+        .tips-section ul {
+            list-style: none;
+            padding: 0;
+        }
+        
+        .tips-section li {
+            color: var(--text-secondary);
+            padding: 0.5rem 0;
+            padding-left: 1.5rem;
+            position: relative;
+        }
+        
+        .tips-section li:before {
+            content: "💡";
+            position: absolute;
+            left: 0;
+        }
+        
+        .loading {
+            text-align: center;
+            padding: 3rem;
+            color: var(--text-secondary);
+        }
+        
+        .spinner {
+            display: inline-block;
+            width: 40px;
+            height: 40px;
+            border: 4px solid var(--border);
+            border-top-color: var(--accent-blue);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+        
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+    <div class="calculator-container">
+        <div class="calculator-header">
+            <h1>🎯 卡战备计算器</h1>
+            <p>精准卡着战备值线进图，高性价比配装方案</p>
+        </div>
+        
+        <div class="input-section">
+            <div class="input-group">
+                <div class="input-item">
+                    <label>选择地图</label>
+                    <select id="mapSelect">
+                        <option value="zeroDam">零号大坝</option>
+                        <option value="longbowValley">长弓溪谷</option>
+                        <option value="spacePort">航天基地</option>
+                        <option value="buckish">巴克什</option>
+                        <option value="tidalPrison">潮汐监狱</option>
+                    </select>
+                </div>
+                
+                <div class="input-item">
+                    <label>选择难度</label>
+                    <select id="difficultySelect">
+                        <option value="classified">机密</option>
+                        <option value="topSecret">绝密</option>
+                    </select>
+                </div>
+            </div>
+            
+            <button class="calculate-btn" onclick="calculateLoadout()">
+                🔍 计算推荐配装
+            </button>
+        </div>
+        
+        <div class="result-section" id="resultSection">
+            <div class="result-header">
+                <h2 id="resultTitle">推荐配装方案</h2>
+            </div>
+            
+            <div class="result-stats" id="resultStats"></div>
+            
+            <div class="gear-section">
+                <h3>🎒 装备配置</h3>
+                <div class="gear-grid" id="gearGrid"></div>
+            </div>
+            
+            <div class="gear-section">
+                <h3>🔫 武器配置</h3>
+                <div class="gear-grid" id="weaponGrid"></div>
+            </div>
+            
+            <div class="tips-section">
+                <h3>💡 卡战备技巧</h3>
+                <ul id="tipsList"></ul>
+            </div>
+        </div>
+    </div>
+    
+    <script src="game-data.js"></script>
+    <script>
+        // 战备方案数据（从gear.json加载）
+        let loadoutData = null;
+        
+        // 地图和难度映射
+        const mapNames = {
+            zeroDam: '零号大坝',
+            longbowValley: '长弓溪谷',
+            spacePort: '航天基地',
+            buckish: '巴克什',
+            tidalPrison: '潮汐监狱'
+        };
+        
+        const difficultyNames = {
+            classified: '机密',
+            topSecret: '绝密'
+        };
+        
+        // 加载数据
+        async function loadData() {
+            try {
+                const response = await fetch('data/gear.json');
+                loadoutData = await response.json();
+                console.log('✅ 卡战备数据加载成功');
+            } catch (error) {
+                console.error('❌ 数据加载失败:', error);
+            }
+        }
+        
+        // 计算推荐配装
+        function calculateLoadout() {
+            const map = document.getElementById('mapSelect').value;
+            const difficulty = document.getElementById('difficultySelect').value;
+            
+            if (!loadoutData) {
+                alert('数据加载中，请稍后再试');
+                return;
+            }
+            
+            // 查找匹配的方案
+            const key = `${map}_${difficulty}`;
+            const scheme = loadoutData.recommendedLoadouts[key];
+            
+            if (!scheme) {
+                alert('暂不支持该地图和难度的配装方案');
+                return;
+            }
+            
+            // 显示结果
+            displayResult(map, difficulty, scheme);
+        }
+        
+        // 显示结果
+        function displayResult(map, difficulty, scheme) {
+            const section = document.getElementById('resultSection');
+            const title = document.getElementById('resultTitle');
+            const stats = document.getElementById('resultStats');
+            const gearGrid = document.getElementById('gearGrid');
+            const weaponGrid = document.getElementById('weaponGrid');
+            const tipsList = document.getElementById('tipsList');
+            
+            // 更新标题
+            title.textContent = `${mapNames[map]}-${difficultyNames[difficulty]} 推荐配装`;
+            
+            // 更新统计信息
+            stats.innerHTML = `
+                <div class="stat-card">
+                    <div class="label">战备值门槛</div>
+                    <div class="value">${scheme.threshold}万</div>
+                </div>
+                <div class="stat-card">
+                    <div class="label">推荐战备值</div>
+                    <div class="value success">${scheme.targetValue}万</div>
+                </div>
+                <div class="stat-card">
+                    <div class="label">预估成本</div>
+                    <div class="value">${scheme.gear.totalCost}</div>
+                </div>
+            `;
+            
+            // 更新装备配置
+            gearGrid.innerHTML = `
+                <div class="gear-card">
+                    <h4>⛑️ 头盔</h4>
+                    <div class="details">
+                        <p><strong>${scheme.gear.helmet}</strong></p>
+                    </div>
+                </div>
+                <div class="gear-card">
+                    <h4>🎒 背包</h4>
+                    <div class="details">
+                        <p><strong>${scheme.gear.backpack}</strong></p>
+                    </div>
+                </div>
+                <div class="gear-card">
+                    <h4>👕 胸挂</h4>
+                    <div class="details">
+                        <p><strong>${scheme.gear.chestRig}</strong></p>
+                    </div>
+                </div>
+            `;
+            
+            // 更新武器配置
+            weaponGrid.innerHTML = `
+                <div class="gear-card">
+                    <h4>🔫 ${scheme.gear.weapon.split('+')[0]}</h4>
+                    <div class="details">
+                        <p>${scheme.gear.weapon}</p>
+                    </div>
+                </div>
+            `;
+            
+            // 更新技巧
+            tipsList.innerHTML = loadoutData.tips.general.map(tip => 
+                `<li>${tip}</li>`
+            ).join('');
+            
+            // 显示结果区域
+            section.classList.add('active');
+            
+            // 滚动到结果区域
+            section.scrollIntoView({ behavior: 'smooth' });
+        }
+        
+        // 页面加载时初始化
+        window.addEventListener('DOMContentLoaded', () => {
+            loadData();
+        });
+    </script>
+</body>
+</html>

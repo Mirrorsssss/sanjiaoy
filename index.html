@@ -1693,6 +1693,12 @@
                         <p>各区域物资类型与刷新率统计，跑刀必看的资源分布指南。</p>
                         <div class="tool-card-footer">查看分布 → <span class="arrow">→</span></div>
                     </div>
+                    <div class="tool-card" onclick="window.open('card-combat-calculator.html', '_blank')">
+                        <div class="tool-icon purple">🎯</div>
+                        <h3>卡战备计算器</h3>
+                        <p>精准卡着战备值线进图，高性价比配装方案。不花冤枉钱！</p>
+                        <div class="tool-card-footer">开始计算 → <span class="arrow">→</span></div>
+                    </div>
                 </div>
             </div>
         </section>
@@ -3664,10 +3670,10 @@
             while (select.options.length > 1) select.remove(1);
             wsData = {};
 
-            // 兼容 normalizeGameData 转换后的格式：{ consume: { items: [...] } } 和原始数组格式
-            const items = gameData?.consumables?.consume?.items || gameData?.consumables || [];
+            // 优先从 gameData.workshop 加载工坊配方数据
+            const items = gameData?.workshop || [];
             if (!items.length) {
-                console.warn('工坊数据加载失败，未找到 consumables');
+                console.warn('工坊数据加载失败，未找到 workshop 数据');
                 return;
             }
 
@@ -3680,12 +3686,15 @@
                     groups[g] = { label: gradeNames[g] || `${g}级`, items: [] };
                 }
                 groups[g].items.push(item);
+                // 保存工坊物品数据，包含材料信息
                 wsData[item.id] = {
                     name: item.name,
                     grade: g,
                     gradeName: gradeNames[g] || `${g}级`,
                     description: item.description || '',
-                    icon: item.icon || ''
+                    icon: item.icon || '',
+                    materials: item.materials || [],
+                    craft_time: item.craft_time || ''
                 };
             }
             for (const g of Object.keys(groups).sort((a, b) => a - b)) {
@@ -3707,17 +3716,58 @@
             const infoBox = document.getElementById('ws-item-info');
             if (!itemKey) {
                 infoBox.style.display = 'none';
+                // 清空材料成本
+                document.getElementById('ws-m1').value = '';
+                document.getElementById('ws-m2').value = '';
+                document.getElementById('ws-m3').value = '';
+                document.getElementById('ws-price-input').value = '';
+                calcWorkshop();
                 return;
             }
             const item = wsData[itemKey];
             if (!item) return;
+            
+            // 显示物品信息
             document.getElementById('ws-item-icon').src = item.icon;
             document.getElementById('ws-item-name').textContent = item.name;
             document.getElementById('ws-item-grade').textContent = item.gradeName;
-            document.getElementById('ws-item-desc').textContent = item.description;
+            document.getElementById('ws-item-desc').textContent = item.description + (item.craft_time ? ` [制作时间: ${item.craft_time}]` : '');
             infoBox.style.display = 'block';
-            // 清空售价输入并触发计算
-            document.getElementById('ws-price-input').value = '';
+            
+            // 自动计算材料总成本
+            // 假设材料价格：钢材=0.5万，凯夫拉=1万，织物=0.3万，绷带=0.1万，生理盐水=0.2万，草药=0.15万
+            const materialPrice = {
+                'm_steel': 0.5,   // 钢材
+                'm_kevlar': 1.0,  // 凯夫拉纤维
+                'm_cloth': 0.3,    // 织物
+                'c_gauze': 0.1,    // 绷带
+                'c_saline': 0.2,    // 生理盐水
+                'c_herb': 0.15      // 草药
+            };
+            
+            let totalMaterialCost = 0;
+            const materialDetails = [];
+            
+            if (item.materials && item.materials.length > 0) {
+                item.materials.forEach((mat, idx) => {
+                    const price = materialPrice[mat.id] || 0.2; // 默认0.2万
+                    const cost = price * mat.quantity;
+                    totalMaterialCost += cost;
+                    materialDetails.push(`${mat.name}×${mat.quantity} (${cost.toFixed(1)}万)`);
+                });
+            }
+            
+            // 自动填充材料成本到输入框（最多3个）
+            document.getElementById('ws-m1').value = item.materials?.[0] ? (materialPrice[item.materials[0].id] || 0.2) * item.materials[0].quantity : '';
+            document.getElementById('ws-m2').value = item.materials?.[1] ? (materialPrice[item.materials[1].id] || 0.2) * item.materials[1].quantity : '';
+            document.getElementById('ws-m3').value = item.materials?.[2] ? (materialPrice[item.materials[2].id] || 0.2) * item.materials[2].quantity : '';
+            
+            // 显示材料明细
+            if (materialDetails.length > 0) {
+                document.getElementById('ws-item-desc').textContent = `材料: ${materialDetails.join(' + ')} = ${totalMaterialCost.toFixed(1)}万 [${item.craft_time || ''}]`;
+            }
+            
+            // 触发计算
             calcWorkshop();
         }
 
@@ -4012,72 +4062,103 @@
                 return;
             }
 
-            const data = buildData[mode]?.[budget];
-            if (!data) {
+            // 从 gameData.builds 动态加载
+            const builds = gameData?.builds || [];
+            if (!builds.length) {
+                result.style.display = 'none';
+                console.warn('战备配置数据未找到');
+                return;
+            }
+
+            // 根据 mode 和 budget 筛选配置
+            let matchedBuild = builds.find(b => b.mode === mode && b.budget === budget);
+            
+            // 如果没找到完全匹配的，尝试只匹配mode
+            if (!matchedBuild) {
+                matchedBuild = builds.find(b => b.mode === mode);
+            }
+            
+            // 如果还没找到，取第一个
+            if (!matchedBuild && builds.length > 0) {
+                matchedBuild = builds[0];
+            }
+
+            if (!matchedBuild) {
                 result.style.display = 'none';
                 return;
             }
 
-            document.getElementById('build-title').textContent = data.title;
-            document.getElementById('build-desc').textContent = data.desc;
+            const data = matchedBuild;
+
+            document.getElementById('build-title').textContent = data.name || '推荐配置';
+            document.getElementById('build-desc').textContent = data.description || '根据你的选择智能推荐';
 
             // 武器名称到真实数据的映射
             const weaponNameMap = {
+                'M4A1突击步枪': 'M4A1突击步枪',
                 'AKM突击步枪': 'AKM突击步枪',
-                'K416突击步枪（满改）': 'K416突击步枪',
                 'K416突击步枪': 'K416突击步枪',
-                'M4A1': 'M4A1突击步枪',
-                '满改狙击枪/步枪': null, // 不展示具体属性
+                'QBZ95-1突击步枪': 'QBZ95-1突击步枪',
             };
 
-            const itemsHtml = data.items.map(item => {
+            const itemsHtml = (data.items || []).map(item => {
                 // 尝试找对应武器的真实属性
                 let weaponAttr = '';
-                const realName = weaponNameMap[item.name.replace(/（.*?）|\(.*?\)/g, '').trim()];
-                if (realName && window.gameData && window.gameData.weapons) {
+                const realName = weaponNameMap[item.name] || item.name;
+                if (window.gameData && window.gameData.weapons) {
                     for (const [id, w] of Object.entries(window.gameData.weapons)) {
-                        if (w.name === realName) {
+                        if (w.name === realName || w.name.includes(realName) || realName.includes(w.name)) {
                             const gradeColor = {1:'#9ca3af',2:'#22c55e',3:'#3b82f6',4:'#a855f7',5:'#f59e0b',6:'#ef4444'};
                             const gc = gradeColor[w.grade] || '#9ca3af';
                             weaponAttr = `<div style="font-size:10px;color:var(--text-muted);margin-top:2px;">
                                 <span style="color:var(--green)">肉${w.meatHarm}</span> 
                                 <span style="color:var(--blue)">甲${w.armorHarm}</span> 
                                 <span style="color:var(--yellow)">${w.fireRate}RPM</span> 
-                                <span style="color:var(--text-secondary)">级${w.grade}</span>
+                                <span style="color:${gc}">级${w.grade}</span>
                             </div>`;
                             break;
                         }
                     }
                 }
+                
+                // 获取物品图标
+                let icon = item.icon || '🔫';
+                if (item.slot === 'primary' || item.slot === 'secondary') icon = '🔫';
+                else if (item.slot === 'armor') icon = '🛡️';
+                else if (item.slot === 'helmet') icon = '⛑️';
+                else if (item.slot === 'consumable') icon = '💊';
+                else if (item.slot === 'bag') icon = '🎒';
+                
                 return `
                 <div class="rec-item">
                     <div class="rec-item-left">
-                        <div class="rec-item-icon">${item.icon}</div>
+                        <div class="rec-item-icon">${icon}</div>
                         <div>
                             <div class="rec-item-name">${item.name}</div>
                             ${weaponAttr}
+                            ${item.slot ? `<div style="font-size:11px;color:var(--text-muted)">${item.slot}</div>` : ''}
                         </div>
                     </div>
                     <div class="rec-item-right">
-                        <div class="rec-item-price">${item.cost}万</div>
+                        <div class="rec-item-price">${item.cost || data.total_cost || '--'}万</div>
                     </div>
                 </div>`;
             }).join('');
 
             document.getElementById('build-items').innerHTML = itemsHtml + `
                 <div style="margin-top: 12px; padding: 12px; background: rgba(255,107,53,0.08); border-radius: 8px; font-size: 13px; color: var(--accent);">
-                    📌 ${data.note}
+                    📌 模式: ${mode} | 预算: ${budget} | 风格: ${style || '未选'}
                 </div>
             `;
 
             document.getElementById('build-cost').innerHTML = `
                 <div class="cost-card">
                     <div class="label">总预算</div>
-                    <div class="value" style="color: var(--yellow)">${data.total}万</div>
+                    <div class="value" style="color: var(--yellow)">${(data.total_cost || 0).toFixed(1)}万</div>
                 </div>
                 <div class="cost-card">
                     <div class="label">物品数量</div>
-                    <div class="value" style="color: var(--accent)">${data.items.length}件</div>
+                    <div class="value" style="color: var(--accent)">${(data.items || []).length}件</div>
                 </div>
             `;
 
