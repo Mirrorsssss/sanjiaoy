@@ -3,23 +3,23 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>子弹经济学 - 三角洲行动战备工具 | 三角眼</title>
-    <meta name="description" content="子弹经济学工具，追踪子弹价格波动，预测低价补货时机，计算倒子弹收益。助你低买高卖，玩转游戏内经济系统。">
-    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>👁️</text></svg>">
+    <title>子弹经济学 - 实时价格版 - 三角洲行动 | 三角眼</title>
+    <meta name="description" content="子弹经济学工具，实时追踪子弹价格波动，计算倒子弹收益。基于真实交易行数据，助你低买高卖。">
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📈</text></svg>">
     <link rel="stylesheet" href="style.css">
     <style>
-        .calculator-container {
+        .economics-container {
             max-width: 1200px;
             margin: 0 auto;
             padding: 2rem;
         }
         
-        .calculator-header {
+        .economics-header {
             text-align: center;
             margin-bottom: 3rem;
         }
         
-        .calculator-header h1 {
+        .economics-header h1 {
             font-size: 2.5rem;
             margin-bottom: 1rem;
             background: linear-gradient(135deg, var(--accent-orange), var(--accent-yellow));
@@ -27,48 +27,61 @@
             -webkit-text-fill-color: transparent;
         }
         
-        .calculator-header p {
+        .economics-header p {
             color: var(--text-secondary);
             font-size: 1.1rem;
         }
         
-        .features-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-            margin-bottom: 3rem;
+        .data-status {
+            text-align: center;
+            padding: 1rem;
+            margin-bottom: 2rem;
+            border-radius: 8px;
+            font-size: 0.9rem;
         }
         
-        .feature-card {
+        .data-status.loading {
+            background: rgba(245, 158, 11, 0.1);
+            color: var(--accent-orange);
+        }
+        
+        .data-status.loaded {
+            background: rgba(16, 185, 129, 0.1);
+            color: #10b981;
+        }
+        
+        .data-status.error {
+            background: rgba(239, 68, 68, 0.1);
+            color: #ef4444;
+        }
+        
+        .tool-tabs {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        
+        .tab-btn {
+            padding: 0.8rem 2rem;
             background: var(--bg-card);
             border: 1px solid var(--border);
-            border-radius: 16px;
-            padding: 2rem;
+            border-radius: 8px;
+            color: var(--text-primary);
             cursor: pointer;
             transition: all 0.3s;
+            font-size: 1rem;
         }
         
-        .feature-card:hover {
+        .tab-btn.active {
+            background: var(--accent-orange);
             border-color: var(--accent-orange);
-            transform: translateY(-4px);
-            box-shadow: 0 8px 25px rgba(255, 107, 53, 0.2);
+            color: white;
         }
         
-        .feature-card .icon {
-            font-size: 3rem;
-            margin-bottom: 1rem;
-        }
-        
-        .feature-card h3 {
-            font-size: 1.3rem;
-            color: var(--text-primary);
-            margin-bottom: 0.8rem;
-        }
-        
-        .feature-card p {
-            color: var(--text-secondary);
-            font-size: 0.95rem;
-            line-height: 1.6;
+        .tab-btn:hover {
+            border-color: var(--accent-orange);
         }
         
         .tool-section {
@@ -76,7 +89,6 @@
             border: 1px solid var(--border);
             border-radius: 16px;
             padding: 2rem;
-            margin-bottom: 2rem;
             display: none;
         }
         
@@ -90,148 +102,88 @@
             to { opacity: 1; transform: translateY(0); }
         }
         
-        .tool-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 2rem;
-            padding-bottom: 1rem;
-            border-bottom: 1px solid var(--border);
-        }
-        
-        .tool-header h2 {
-            font-size: 1.5rem;
-            color: var(--text-primary);
-        }
-        
-        .close-btn {
-            background: var(--bg-secondary);
-            border: 1px solid var(--border);
-            color: var(--text-primary);
-            padding: 0.5rem 1rem;
-            border-radius: 8px;
-            cursor: pointer;
-            transition: all 0.3s;
-        }
-        
-        .close-btn:hover {
-            background: var(--accent-orange);
-            border-color: var(--accent-orange);
-        }
-        
         .ammo-table {
             width: 100%;
             border-collapse: collapse;
-            margin-bottom: 2rem;
-        }
-        
-        .ammo-table th,
-        .ammo-table td {
-            padding: 1rem;
-            text-align: left;
-            border-bottom: 1px solid var(--border);
+            margin-top: 1.5rem;
         }
         
         .ammo-table th {
             background: var(--bg-secondary);
-            color: var(--text-secondary);
+            padding: 1rem;
+            text-align: left;
+            color: var(--text-primary);
             font-weight: 600;
-            font-size: 0.9rem;
+            border-bottom: 2px solid var(--border);
         }
         
-        .ammo-table tbody tr {
-            transition: all 0.3s;
+        .ammo-table td {
+            padding: 1rem;
+            border-bottom: 1px solid var(--border);
+            color: var(--text-secondary);
         }
         
-        .ammo-table tbody tr:hover {
+        .ammo-table tr:hover td {
             background: var(--bg-secondary);
         }
         
-        .price-change {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.3rem;
-            padding: 0.2rem 0.6rem;
+        .price-cell {
+            color: #f59e0b;
+            font-weight: 600;
+            font-size: 1.1rem;
+        }
+        
+        .caliber-badge {
+            display: inline-block;
+            padding: 0.3rem 0.8rem;
+            background: var(--bg-secondary);
             border-radius: 6px;
-            font-size: 0.85rem;
+            color: var(--text-primary);
             font-weight: 600;
-        }
-        
-        .price-change.up {
-            background: rgba(34, 197, 94, 0.1);
-            color: #22c55e;
-        }
-        
-        .price-change.down {
-            background: rgba(239, 68, 68, 0.1);
-            color: #ef4444;
-        }
-        
-        .buy-recommendation {
-            background: var(--bg-secondary);
-            border-left: 4px solid var(--accent-green);
-            border-radius: 8px;
-            padding: 1.5rem;
-            margin-bottom: 1rem;
-        }
-        
-        .buy-recommendation h4 {
-            color: var(--accent-green);
-            margin-bottom: 0.8rem;
-        }
-        
-        .buy-recommendation p {
-            color: var(--text-secondary);
-            font-size: 0.95rem;
         }
         
         .profit-calculator {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        .input-group {
+            margin-bottom: 1.5rem;
+        }
+        
+        .input-group label {
+            display: block;
+            color: var(--text-primary);
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+        }
+        
+        .input-group select,
+        .input-group input {
+            width: 100%;
+            padding: 0.8rem;
             background: var(--bg-secondary);
             border: 1px solid var(--border);
-            border-radius: 12px;
-            padding: 1.5rem;
-            margin-bottom: 2rem;
-        }
-        
-        .input-row {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 1rem;
-            margin-bottom: 1rem;
-        }
-        
-        .input-row label {
-            display: block;
-            color: var(--text-secondary);
-            font-size: 0.9rem;
-            margin-bottom: 0.5rem;
-        }
-        
-        .input-row input,
-        .input-row select {
-            width: 100%;
-            padding: 0.6rem;
-            background: var(--bg-card);
-            border: 1px solid var(--border);
-            border-radius: 6px;
+            border-radius: 8px;
             color: var(--text-primary);
-            font-size: 0.95rem;
+            font-size: 1rem;
         }
         
-        .input-row input:focus,
-        .input-row select:focus {
+        .input-group select:focus,
+        .input-group input:focus {
             outline: none;
             border-color: var(--accent-orange);
+            box-shadow: 0 0 0 3px rgba(245, 158, 11, 0.1);
         }
         
         .calculate-btn {
             width: 100%;
-            padding: 0.8rem;
+            padding: 1rem;
             background: linear-gradient(135deg, var(--accent-orange), var(--accent-yellow));
             border: none;
-            border-radius: 10px;
+            border-radius: 12px;
             color: white;
-            font-size: 1rem;
+            font-size: 1.1rem;
             font-weight: 600;
             cursor: pointer;
             transition: all 0.3s;
@@ -239,23 +191,22 @@
         
         .calculate-btn:hover {
             transform: translateY(-2px);
-            box-shadow: 0 8px 25px rgba(255, 107, 53, 0.3);
+            box-shadow: 0 8px 24px rgba(245, 158, 11, 0.3);
         }
         
         .result-display {
-            background: var(--bg-secondary);
-            border: 2px solid var(--accent-orange);
-            border-radius: 12px;
-            padding: 2rem;
-            text-align: center;
             margin-top: 2rem;
+            padding: 2rem;
+            background: var(--bg-secondary);
+            border-radius: 12px;
+            text-align: center;
         }
         
         .result-value {
-            font-size: 2.5rem;
+            font-size: 2rem;
             font-weight: 700;
             color: var(--accent-orange);
-            margin-bottom: 0.5rem;
+            margin: 1rem 0;
         }
         
         .result-label {
@@ -264,15 +215,14 @@
         }
         
         .tips-section {
-            background: var(--bg-secondary);
-            border-left: 4px solid var(--accent-yellow);
-            border-radius: 8px;
-            padding: 1.5rem;
             margin-top: 2rem;
+            padding: 1.5rem;
+            background: var(--bg-secondary);
+            border-radius: 12px;
         }
         
         .tips-section h3 {
-            color: var(--accent-yellow);
+            color: var(--text-primary);
             margin-bottom: 1rem;
         }
         
@@ -288,106 +238,142 @@
             position: relative;
         }
         
-        .tips-section li:before {
-            content: "💡";
+        .tips-section li::before {
+            content: '💡';
             position: absolute;
             left: 0;
+        }
+        
+        .prediction-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+        
+        .prediction-card {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 1.5rem;
+            transition: all 0.3s;
+        }
+        
+        .prediction-card:hover {
+            border-color: var(--accent-orange);
+            transform: translateY(-2px);
+        }
+        
+        .prediction-card h4 {
+            color: var(--text-primary);
+            margin-bottom: 1rem;
+            font-size: 1.1rem;
+        }
+        
+        .prediction-card .price-row {
+            display: flex;
+            justify-content: space-between;
+            margin: 0.5rem 0;
+            color: var(--text-secondary);
+        }
+        
+        .prediction-card .price-value {
+            color: var(--accent-orange);
+            font-weight: 600;
+        }
+        
+        .recommendation-badge {
+            display: inline-block;
+            padding: 0.3rem 0.8rem;
+            background: var(--accent-orange);
+            color: white;
+            border-radius: 6px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-top: 1rem;
         }
     </style>
 </head>
 <body>
-    <div class="calculator-container">
-        <div class="calculator-header">
+    <nav class="navbar">
+        <div class="nav-content">
+            <a href="index.html" class="nav-logo">
+                <span class="logo-icon">△</span>
+                <span>三角眼</span>
+            </a>
+            <div class="nav-links">
+                <a href="index.html" class="nav-link">首页</a>
+                <a href="bullet-economics.html" class="nav-link active">子弹经济学</a>
+                <a href="card-combat-calculator.html" class="nav-link">卡战备</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="economics-container">
+        <div class="economics-header">
             <h1>📈 子弹经济学</h1>
-            <p>像股票一样玩子弹，低买高卖赚差价</p>
+            <p>实时交易行价格，帮你倒子弹赚差价</p>
         </div>
-        
-        <div class="features-grid">
-            <div class="feature-card" onclick="showTool('price')">
-                <div class="icon">📊</div>
-                <h3>子弹价格追踪</h3>
-                <p>实时追踪各口径子弹价格走势，识别买入卖出时机。</p>
-            </div>
-            
-            <div class="feature-card" onclick="showTool('profit')">
-                <div class="icon">💰</div>
-                <h3>倒子弹收益计算</h3>
-                <p>计算低价买入高价卖出的利润，找出最具性价比的倒卖方案。</p>
-            </div>
-            
-            <div class="feature-card" onclick="showTool('prediction')">
-                <div class="icon">🔮</div>
-                <h3>低价补货预测</h3>
-                <p>基于历史数据预测子弹价格低点，指导最佳买入时机。</p>
-            </div>
+
+        <div id="dataStatus" class="data-status loading">
+            ⏳ 正在加载实时价格数据...
         </div>
-        
-        <!-- 子弹价格追踪 -->
-        <div class="tool-section" id="priceTool">
-            <div class="tool-header">
-                <h2>📊 子弹价格追踪</h2>
-                <button class="close-btn" onclick="hideTool('priceTool')">关闭</button>
-            </div>
-            
-            <table class="ammo-table">
+
+        <div class="tool-tabs">
+            <button class="tab-btn active" onclick="switchTab('price')">📊 实时价格</button>
+            <button class="tab-btn" onclick="switchTab('profit')">💰 收益计算</button>
+            <button class="tab-btn" onclick="switchTab('prediction')">🔮 低价预测</button>
+        </div>
+
+        <!-- 实时价格追踪 -->
+        <div class="tool-section active" id="priceSection">
+            <h2>📊 子弹实时价格</h2>
+            <p style="color: var(--text-secondary); margin-bottom: 1rem;">
+                数据每10分钟更新一次，来自真实交易行
+            </p>
+            <table class="ammo-table" id="ammoPriceTable">
                 <thead>
                     <tr>
                         <th>口径</th>
-                        <th>当前价格（/发）</th>
-                        <th>3日涨跌</th>
-                        <th>7日涨跌</th>
-                        <th>30日涨跌</th>
-                        <th>趋势</th>
+                        <th>物品名称</th>
+                        <th>当前价格</th>
+                        <th>更新时间</th>
                     </tr>
                 </thead>
                 <tbody id="ammoPriceBody">
-                    <!-- 动态生成 -->
+                    <tr>
+                        <td colspan="4" style="text-align: center; padding: 2rem;">
+                            加载中...
+                        </td>
+                    </tr>
                 </tbody>
             </table>
-            
-            <div class="tips-section">
-                <h3>💡 价格分析技巧</h3>
-                <ul>
-                    <li>关注3日跌幅超过10%的子弹，可能是买入时机</li>
-                    <li>7日涨幅超过20%的子弹，考虑卖出获利</li>
-                    <li>凌晨3-9点价格通常最低，适合批量买入</li>
-                    <li>周末价格通常较高，适合卖出</li>
-                </ul>
-            </div>
         </div>
-        
-        <!-- 倒子弹收益计算 -->
-        <div class="tool-section" id="profitTool">
-            <div class="tool-header">
-                <h2>💰 倒子弹收益计算</h2>
-                <button class="close-btn" onclick="hideTool('profitTool')">关闭</button>
-            </div>
-            
+
+        <!-- 收益计算器 -->
+        <div class="tool-section" id="profitSection">
+            <h2>💰 倒子弹收益计算</h2>
             <div class="profit-calculator">
-                <div class="input-row">
-                    <div>
-                        <label>子弹口径</label>
-                        <select id="ammoType">
-                            <option value="5.56x45">5.56×45mm</option>
-                            <option value="7.62x39">7.62×39mm</option>
-                            <option value="5.45x39">5.45×39mm</option>
-                            <option value="7.62x51">7.62×51mm</option>
-                            <option value="5.7x28">5.7×28mm</option>
-                            <option value="9x19">9×19mm</option>
-                        </select>
-                    </div>
-                    <div>
-                        <label>买入价格（/发）</label>
-                        <input type="number" id="buyPrice" step="0.01" placeholder="如：1000">
-                    </div>
-                    <div>
-                        <label>卖出价格（/发）</label>
-                        <input type="number" id="sellPrice" step="0.01" placeholder="如：1200">
-                    </div>
-                    <div>
-                        <label>数量（发）</label>
-                        <input type="number" id="ammoCount" placeholder="如：1000">
-                    </div>
+                <div class="input-group">
+                    <label>选择子弹</label>
+                    <select id="ammoSelect">
+                        <option value="">-- 请选择子弹 --</option>
+                    </select>
+                </div>
+                
+                <div class="input-group">
+                    <label>买入价格（/发）</label>
+                    <input type="number" id="buyPrice" step="1" placeholder="如：3000">
+                </div>
+                
+                <div class="input-group">
+                    <label>卖出价格（/发）</label>
+                    <input type="number" id="sellPrice" step="1" placeholder="如：3500">
+                </div>
+                
+                <div class="input-group">
+                    <label>数量（发）</label>
+                    <input type="number" id="ammoCount" placeholder="如：1000">
                 </div>
                 
                 <button class="calculate-btn" onclick="calculateProfit()">
@@ -402,40 +388,26 @@
             <div class="tips-section">
                 <h3>💡 倒子弹技巧</h3>
                 <ul>
-                    <li>选择价格波动大的子弹（如金弹、四级弹）</li>
+                    <li>选择价格波动大的子弹（如五级弹、六级弹）</li>
                     <li>关注游戏活动，活动期间价格通常下跌</li>
                     <li>批量交易可以降低单位成本</li>
                     <li>设置价格提醒，及时买入卖出</li>
                 </ul>
             </div>
         </div>
-        
+
         <!-- 低价补货预测 -->
-        <div class="tool-section" id="predictionTool">
-            <div class="tool-header">
-                <h2>🔮 低价补货预测</h2>
-                <button class="close-btn" onclick="hideTool('predictionTool')">关闭</button>
-            </div>
+        <div class="tool-section" id="predictionSection">
+            <h2>🔮 低价补货预测</h2>
+            <p style="color: var(--text-secondary); margin-bottom: 1.5rem;">
+                根据当前价格分析，以下子弹值得关注
+            </p>
             
-            <div class="buy-recommendation">
-                <h4>💰 今日推荐买入</h4>
-                <p>根据历史数据分析，以下子弹当前价格处于低位，建议买入：</p>
+            <div class="prediction-grid" id="predictionGrid">
+                <p style="text-align: center; color: var(--text-secondary); grid-column: 1 / -1;">
+                    加载中...
+                </p>
             </div>
-            
-            <table class="ammo-table">
-                <thead>
-                    <tr>
-                        <th>口径</th>
-                        <th>当前价格</th>
-                        <th>历史最低</th>
-                        <th>历史最高</th>
-                        <th>推荐指数</th>
-                    </tr>
-                </thead>
-                <tbody id="predictionBody">
-                    <!-- 动态生成 -->
-                </tbody>
-            </table>
             
             <div class="tips-section">
                 <h3>💡 补货策略</h3>
@@ -448,83 +420,127 @@
             </div>
         </div>
     </div>
-    
+
     <script>
-        // 子弹价格数据（静态数据，后续可更新）
-        const ammoData = [
-            { caliber: '5.56×45mm', price: 3482, change3d: -2.5, change7d: 5.2, change30d: 12.8 },
-            { caliber: '7.62×39mm', price: 2800, change3d: 1.8, change7d: -3.4, change30d: 8.5 },
-            { caliber: '5.45×39mm', price: 3200, change3d: -1.2, change7d: 4.1, change30d: 15.3 },
-            { caliber: '7.62×51mm', price: 3900, change3d: 3.5, change7d: 8.7, change30d: 20.1 },
-            { caliber: '5.7×28mm', price: 3605, change3d: -0.8, change7d: 2.3, change30d: 6.7 },
-            { caliber: '9×19mm', price: 2500, change3d: 0.5, change7d: -1.2, change30d: 4.3 }
-        ];
-        
-        // 显示工具
-        function showTool(toolId) {
-            // 隐藏所有工具
-            document.querySelectorAll('.tool-section').forEach(tool => {
-                tool.classList.remove('active');
-            });
+        // 全局数据
+        let priceData = [];
+        let ammoData = [];
+
+        // 页面加载时获取数据
+        window.addEventListener('DOMContentLoaded', async () => {
+            await loadPriceData();
+        });
+
+        // 加载实时价格数据
+        async function loadPriceData() {
+            const statusEl = document.getElementById('dataStatus');
             
-            // 显示选中工具
-            document.getElementById(toolId + 'Tool').classList.add('active');
-            
-            // 加载数据
-            if (toolId === 'price') {
-                loadAmmoPrices();
-            } else if (toolId === 'prediction') {
-                loadPredictions();
+            try {
+                const response = await fetch('/price.json');
+                if (!response.ok) throw new Error('Failed to load price data');
+                
+                priceData = await response.json();
+                
+                // 筛选子弹类物品（按口径分类）
+                filterAmmoData();
+                
+                // 填充数据
+                populateAmmoTable();
+                populateAmmoSelect();
+                generatePredictions();
+                
+                statusEl.className = 'data-status loaded';
+                statusEl.innerHTML = `✅ 实时价格数据加载成功！共 ${ammoData.length} 种子弹 | 更新时间：${formatTimestamp(priceData[0]?.is_get_time)}`;
+            } catch (error) {
+                statusEl.className = 'data-status error';
+                statusEl.innerHTML = `❌ 数据加载失败：${error.message}<br>请检查网络连接或稍后重试`;
+                console.error('Price data load error:', error);
             }
-            
-            // 滚动到工具区域
-            document.getElementById(toolId + 'Tool').scrollIntoView({ behavior: 'smooth' });
         }
-        
-        // 隐藏工具
-        function hideTool(toolId) {
-            document.getElementById(toolId).classList.remove('active');
+
+        // 筛选子弹数据（按口径分类）
+        function filterAmmoData() {
+            // 口径分类列表
+            const caliberCategories = [
+                '9x19mm', '5.56x45mm', '7.62x39mm', '7.62x51mm',
+                '5.45x39mm', '5.7x28mm', '4.6x30mm', '6.8x51mm',
+                '12 Gauge', '.45 ACP', '.357 Magnum', '12.7x55mm',
+                '.50 AE', '7.62x54mm', '.45-70mm'
+            ];
+
+            ammoData = priceData.filter(item => 
+                caliberCategories.includes(item.secondClassCN)
+            );
+
+            // 按口径分组
+            const grouped = {};
+            ammoData.forEach(item => {
+                const caliber = item.secondClassCN;
+                if (!grouped[caliber]) {
+                    grouped[caliber] = [];
+                }
+                grouped[caliber].push(item);
+            });
+
+            // 转回数组，每个口径取最低价
+            ammoData = Object.entries(grouped).map(([caliber, items]) => {
+                items.sort((a, b) => a.price - b.price);
+                return {
+                    caliber: caliber,
+                    cheapest: items[0],
+                    allItems: items
+                };
+            }).sort((a, b) => a.caliber.localeCompare(b.caliber));
         }
-        
-        // 加载子弹价格
-        function loadAmmoPrices() {
+
+        // 填充子弹价格表格
+        function populateAmmoTable() {
             const tbody = document.getElementById('ammoPriceBody');
             
             tbody.innerHTML = ammoData.map(ammo => `
                 <tr>
-                    <td><strong>${ammo.caliber}</strong></td>
-                    <td>${ammo.price.toLocaleString()}</td>
-                    <td>${formatChange(ammo.change3d)}</td>
-                    <td>${formatChange(ammo.change7d)}</td>
-                    <td>${formatChange(ammo.change30d)}</td>
-                    <td>${getTrendIcon(ammo.change7d)}</td>
+                    <td><span class="caliber-badge">${ammo.caliber}</span></td>
+                    <td>${ammo.cheapest.name}</td>
+                    <td class="price-cell">¥${ammo.cheapest.price.toLocaleString()}</td>
+                    <td>${formatTimestamp(ammo.cheapest.is_get_time)}</td>
                 </tr>
             `).join('');
         }
-        
-        // 格式化涨跌幅
-        function formatChange(value) {
-            const cls = value >= 0 ? 'up' : 'down';
-            const sign = value >= 0 ? '+' : '';
-            return `<span class="price-change ${cls}">${sign}${value.toFixed(1)}%</span>`;
+
+        // 填充子弹选择下拉框
+        function populateAmmoSelect() {
+            const select = document.getElementById('ammoSelect');
+            
+            // 展开所有子弹物品
+            const allAmmoItems = [];
+            ammoData.forEach(ammo => {
+                ammo.allItems.forEach(item => {
+                    allAmmoItems.push({
+                        caliber: ammo.caliber,
+                        ...item
+                    });
+                });
+            });
+
+            select.innerHTML = '<option value="">-- 请选择子弹 --</option>';
+            allAmmoItems.forEach(item => {
+                const option = document.createElement('option');
+                option.value = item.id;
+                option.textContent = `[${item.secondClassCN}] ${item.name} - ¥${item.price.toLocaleString()}`;
+                option.dataset.price = item.price;
+                select.appendChild(option);
+            });
         }
-        
-        // 获取趋势图标
-        function getTrendIcon(value) {
-            if (value > 5) return '📈 上涨';
-            if (value < -5) return '📉 下跌';
-            return '➡️ 平稳';
-        }
-        
+
         // 计算收益
         function calculateProfit() {
-            const ammoType = document.getElementById('ammoType').value;
+            const ammoSelect = document.getElementById('ammoSelect');
             const buyPrice = parseFloat(document.getElementById('buyPrice').value);
             const sellPrice = parseFloat(document.getElementById('sellPrice').value);
             const count = parseInt(document.getElementById('ammoCount').value);
             
             if (!buyPrice || !sellPrice || !count) {
-                alert('请填写完整信息');
+                alert('请填写完整信息！');
                 return;
             }
             
@@ -536,45 +552,84 @@
             const result = document.getElementById('profitResult');
             result.style.display = 'block';
             result.innerHTML = `
-                <div class="result-value">${profit.toLocaleString()} 哈夫币</div>
+                <div class="result-value" style="color: ${profit >= 0 ? '#10b981' : '#ef4444'};">
+                    ${profit >= 0 ? '+' : ''}${profit.toLocaleString()} 哈夫币
+                </div>
                 <div class="result-label">总利润（利润率 ${profitRate}%）</div>
                 <div style="margin-top: 1rem; color: var(--text-secondary); font-size: 0.9rem;">
-                    <p>总成本：${totalCost.toLocaleString()} | 总收入：${totalRevenue.toLocaleString()}</p>
+                    <p>总成本：¥${totalCost.toLocaleString()} | 总收入：¥${totalRevenue.toLocaleString()}</p>
+                    <p>单价利润：¥${(sellPrice - buyPrice).toLocaleString()}/发</p>
                 </div>
             `;
         }
-        
-        // 加载预测数据
-        function loadPredictions() {
-            const tbody = document.getElementById('predictionBody');
+
+        // 生成低价预测
+        function generatePredictions() {
+            const grid = document.getElementById('predictionGrid');
             
-            // 模拟预测数据
-            const predictions = [
-                { caliber: '7.62×51mm', current: 3900, low: 3200, high: 4500, rating: 5 },
-                { caliber: '5.56×45mm', current: 3482, low: 3000, high: 4000, rating: 4 },
-                { caliber: '5.7×28mm', current: 3605, low: 3300, high: 3800, rating: 3 }
-            ];
+            // 简单预测逻辑：价格较低的推荐买入
+            const predictions = ammoData
+                .map(ammo => {
+                    const avgPrice = ammo.allItems.reduce((sum, item) => sum + item.price, 0) / ammo.allItems.length;
+                    const minPrice = ammo.cheapest.price;
+                    const discount = ((avgPrice - minPrice) / avgPrice * 100).toFixed(1);
+                    
+                    return {
+                        caliber: ammo.caliber,
+                        currentPrice: minPrice,
+                        avgPrice: Math.round(avgPrice),
+                        discount: parseFloat(discount),
+                        recommendation: discount > 10 ? '强烈推荐' : discount > 5 ? '推荐' : '观望'
+                    };
+                })
+                .sort((a, b) => b.discount - a.discount)
+                .slice(0, 6);
             
-            tbody.innerHTML = predictions.map(pred => `
-                <tr>
-                    <td><strong>${pred.caliber}</strong></td>
-                    <td>${pred.current.toLocaleString()}</td>
-                    <td>${pred.low.toLocaleString()}</td>
-                    <td>${pred.high.toLocaleString()}</td>
-                    <td>${getRatingStars(pred.rating)}</td>
-                </tr>
+            grid.innerHTML = predictions.map(pred => `
+                <div class="prediction-card">
+                    <h4><span class="caliber-badge">${pred.caliber}</span></h4>
+                    <div class="price-row">
+                        <span>当前最低价</span>
+                        <span class="price-value">¥${pred.currentPrice.toLocaleString()}</span>
+                    </div>
+                    <div class="price-row">
+                        <span>平均价格</span>
+                        <span>¥${pred.avgPrice.toLocaleString()}</span>
+                    </div>
+                    <div class="price-row">
+                        <span>折扣幅度</span>
+                        <span style="color: #10b981; font-weight: 600;">${pred.discount}%</span>
+                    </div>
+                    <div class="recommendation-badge" style="
+                        background: ${pred.recommendation === '强烈推荐' ? '#10b981' : pred.recommendation === '推荐' ? '#f59e0b' : '#6b7280'};
+                    ">
+                        ${pred.recommendation}
+                    </div>
+                </div>
             `).join('');
         }
-        
-        // 获取推荐星级
-        function getRatingStars(rating) {
-            return '⭐'.repeat(rating);
+
+        // 切换标签页
+        function switchTab(tabName) {
+            // 更新按钮状态
+            document.querySelectorAll('.tab-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            event.target.classList.add('active');
+            
+            // 更新内容显示
+            document.querySelectorAll('.tool-section').forEach(section => {
+                section.classList.remove('active');
+            });
+            document.getElementById(tabName + 'Section').classList.add('active');
         }
-        
-        // 页面加载时初始化
-        window.addEventListener('DOMContentLoaded', () => {
-            console.log('✅ 子弹经济学工具加载完成');
-        });
+
+        // 格式化时间戳
+        function formatTimestamp(timestamp) {
+            if (!timestamp) return '未知';
+            const date = new Date(timestamp * 1000);
+            return date.toLocaleString('zh-CN');
+        }
     </script>
 </body>
 </html>

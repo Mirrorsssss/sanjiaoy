@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>卡战备计算器 - 三角洲行动战备工具 | 三角眼</title>
-    <meta name="description" content="三角洲行动卡战备计算器，手动输入装备计算战备值，或选择推荐方案。支持零号大坝、长弓溪谷、航天基地、巴克什、潮汐监狱等地图。">
-    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>👁️</text></svg>">
+    <title>卡战备计算器 - 实时价格版 - 三角洲行动 | 三角眼</title>
+    <meta name="description" content="三角洲行动卡战备计算器，实时交易行价格，自动计算战备值。支持零号大坝、长弓溪谷、航天基地、巴克什、潮汐监狱等地图。">
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎯</text></svg>">
     <link rel="stylesheet" href="style.css">
     <style>
         .calculator-container {
@@ -32,68 +32,51 @@
             font-size: 1.1rem;
         }
         
-        .mode-switch {
-            display: flex;
-            justify-content: center;
-            gap: 1rem;
+        .data-status {
+            text-align: center;
+            padding: 1rem;
             margin-bottom: 2rem;
-        }
-        
-        .mode-btn {
-            padding: 0.8rem 2rem;
-            background: var(--bg-card);
-            border: 1px solid var(--border);
             border-radius: 8px;
-            color: var(--text-primary);
-            cursor: pointer;
-            transition: all 0.3s;
-            font-size: 1rem;
+            font-size: 0.9rem;
         }
         
-        .mode-btn.active {
-            background: var(--accent-blue);
-            border-color: var(--accent-blue);
-            color: white;
+        .data-status.loading {
+            background: rgba(59, 130, 246, 0.1);
+            color: var(--accent-blue);
         }
         
-        .mode-btn:hover {
-            border-color: var(--accent-blue);
+        .data-status.loaded {
+            background: rgba(16, 185, 129, 0.1);
+            color: #10b981;
         }
         
-        .input-section {
-            background: var(--bg-card);
-            border: 1px solid var(--border);
-            border-radius: 16px;
-            padding: 2rem;
-            margin-bottom: 2rem;
-            display: none;
+        .data-status.error {
+            background: rgba(239, 68, 68, 0.1);
+            color: #ef4444;
         }
         
-        .input-section.active {
-            display: block;
-            animation: fadeIn 0.5s ease;
-        }
-        
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-        
-        .gear-input-grid {
+        .gear-select-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
             gap: 1.5rem;
             margin-bottom: 2rem;
         }
         
-        .gear-input-card {
-            background: var(--bg-secondary);
+        .gear-select-card {
+            background: var(--bg-card);
             border: 1px solid var(--border);
             border-radius: 12px;
             padding: 1.5rem;
+            transition: all 0.3s;
         }
         
-        .gear-input-card h3 {
+        .gear-select-card:hover {
+            border-color: var(--accent-blue);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(59, 130, 246, 0.1);
+        }
+        
+        .gear-select-card h3 {
             font-size: 1.1rem;
             color: var(--text-primary);
             margin-bottom: 1rem;
@@ -101,39 +84,54 @@
             border-bottom: 2px solid var(--accent-blue);
         }
         
-        .input-row {
-            display: flex;
-            gap: 1rem;
-            margin-bottom: 1rem;
-            align-items: center;
-        }
-        
-        .input-row label {
-            flex: 0 0 100px;
-            color: var(--text-secondary);
-            font-size: 0.9rem;
-        }
-        
-        .input-row input,
-        .input-row select {
-            flex: 1;
-            padding: 0.6rem;
-            background: var(--bg-card);
+        .gear-select-card select {
+            width: 100%;
+            padding: 0.8rem;
+            background: var(--bg-secondary);
             border: 1px solid var(--border);
-            border-radius: 6px;
+            border-radius: 8px;
             color: var(--text-primary);
             font-size: 0.95rem;
+            cursor: pointer;
+            transition: border-color 0.3s;
         }
         
-        .input-row input:focus,
-        .input-row select:focus {
-            outline: none;
+        .gear-select-card select:hover {
             border-color: var(--accent-blue);
         }
         
+        .gear-select-card select:focus {
+            outline: none;
+            border-color: var(--accent-blue);
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+        }
+        
+        .gear-info {
+            margin-top: 0.8rem;
+            padding: 0.8rem;
+            background: var(--bg-secondary);
+            border-radius: 8px;
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            display: none;
+        }
+        
+        .gear-info.show {
+            display: block;
+            animation: fadeIn 0.3s ease;
+        }
+        
+        .gear-info .price {
+            color: #f59e0b;
+            font-weight: 600;
+        }
+        
         .calculate-btn {
+            display: block;
             width: 100%;
-            padding: 1rem;
+            max-width: 400px;
+            margin: 2rem auto;
+            padding: 1rem 2rem;
             background: linear-gradient(135deg, var(--accent-blue), var(--accent-purple));
             border: none;
             border-radius: 12px;
@@ -146,7 +144,13 @@
         
         .calculate-btn:hover {
             transform: translateY(-2px);
-            box-shadow: 0 8px 25px rgba(59, 130, 246, 0.3);
+            box-shadow: 0 8px 24px rgba(59, 130, 246, 0.3);
+        }
+        
+        .calculate-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
         }
         
         .result-section {
@@ -154,7 +158,7 @@
             border: 1px solid var(--border);
             border-radius: 16px;
             padding: 2rem;
-            margin-bottom: 2rem;
+            margin-top: 2rem;
             display: none;
         }
         
@@ -163,525 +167,493 @@
             animation: fadeIn 0.5s ease;
         }
         
-        .result-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 2rem;
-            padding-bottom: 1rem;
-            border-bottom: 1px solid var(--border);
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
         }
         
-        .result-header h2 {
+        .result-title {
             font-size: 1.5rem;
             color: var(--text-primary);
-        }
-        
-        .combat-readiness-display {
+            margin-bottom: 1.5rem;
             text-align: center;
-            padding: 2rem;
-            background: var(--bg-secondary);
-            border-radius: 12px;
-            margin-bottom: 2rem;
         }
         
-        .combat-readiness-value {
-            font-size: 3rem;
-            font-weight: 700;
-            color: var(--accent-blue);
-            margin-bottom: 0.5rem;
-        }
-        
-        .combat-readiness-label {
-            color: var(--text-secondary);
-            font-size: 1rem;
-        }
-        
-        .gear-summary {
+        .result-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
             gap: 1rem;
-            margin-bottom: 2rem;
+            margin-bottom: 1.5rem;
         }
         
-        .gear-summary-card {
+        .result-card {
             background: var(--bg-secondary);
             border: 1px solid var(--border);
             border-radius: 12px;
-            padding: 1.5rem;
+            padding: 1.2rem;
         }
         
-        .gear-summary-card h4 {
+        .result-card h4 {
             font-size: 1rem;
             color: var(--text-primary);
             margin-bottom: 0.8rem;
         }
         
-        .gear-summary-card p {
+        .result-card p {
             color: var(--text-secondary);
             font-size: 0.9rem;
-            margin-bottom: 0.3rem;
+            margin: 0.3rem 0;
         }
         
-        .tips-section {
-            background: var(--bg-secondary);
-            border-left: 4px solid var(--accent-yellow);
-            border-radius: 8px;
+        .result-card .value {
+            color: var(--accent-blue);
+            font-weight: 600;
+            font-size: 1.1rem;
+        }
+        
+        .result-total {
+            background: linear-gradient(135deg, var(--accent-blue), var(--accent-purple));
+            color: white;
+            border-radius: 12px;
             padding: 1.5rem;
-            margin-top: 2rem;
+            text-align: center;
         }
         
-        .tips-section h3 {
-            color: var(--accent-yellow);
+        .result-total h3 {
+            font-size: 1.3rem;
             margin-bottom: 1rem;
         }
         
-        .tips-section ul {
-            list-style: none;
-            padding: 0;
+        .result-total .total-value {
+            font-size: 2rem;
+            font-weight: 700;
+            margin: 0.5rem 0;
         }
         
-        .tips-section li {
-            color: var(--text-secondary);
-            padding: 0.5rem 0;
-            padding-left: 1.5rem;
-            position: relative;
+        .result-total .warning {
+            background: rgba(255, 255, 255, 0.2);
+            padding: 0.8rem;
+            border-radius: 8px;
+            margin-top: 1rem;
+            font-size: 0.9rem;
         }
         
-        .tips-section li:before {
-            content: "💡";
-            position: absolute;
-            left: 0;
+        .map-selector {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+            justify-content: center;
         }
         
-        .recommendation-section {
-            display: none;
-        }
-        
-        .recommendation-section.active {
-            display: block;
-            animation: fadeIn 0.5s ease;
-        }
-        
-        .map-select-section {
+        .map-btn {
+            padding: 0.8rem 1.5rem;
             background: var(--bg-card);
             border: 1px solid var(--border);
-            border-radius: 16px;
-            padding: 2rem;
-            margin-bottom: 2rem;
-        }
-        
-        .map-select-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 1.5rem;
-            margin-bottom: 1.5rem;
-        }
-        
-        .scheme-card {
-            background: var(--bg-secondary);
-            border: 1px solid var(--border);
-            border-radius: 12px;
-            padding: 1.5rem;
+            border-radius: 8px;
+            color: var(--text-primary);
             cursor: pointer;
             transition: all 0.3s;
+            font-size: 0.95rem;
         }
         
-        .scheme-card:hover {
+        .map-btn:hover {
             border-color: var(--accent-blue);
-            transform: translateY(-2px);
         }
         
-        .scheme-card.selected {
+        .map-btn.active {
+            background: var(--accent-blue);
             border-color: var(--accent-blue);
-            background: rgba(59, 130, 246, 0.1);
+            color: white;
         }
         
-        .scheme-card h4 {
-            font-size: 1.1rem;
-            color: var(--text-primary);
-            margin-bottom: 0.8rem;
-        }
-        
-        .scheme-card p {
+        .map-threshold {
+            text-align: center;
+            padding: 1rem;
+            background: var(--bg-secondary);
+            border-radius: 8px;
+            margin-bottom: 2rem;
             color: var(--text-secondary);
-            font-size: 0.9rem;
-            margin-bottom: 0.3rem;
+        }
+        
+        .map-threshold strong {
+            color: var(--accent-blue);
+            font-size: 1.2rem;
         }
     </style>
 </head>
 <body>
+    <nav class="navbar">
+        <div class="nav-content">
+            <a href="index.html" class="nav-logo">
+                <span class="logo-icon">△</span>
+                <span>三角眼</span>
+            </a>
+            <div class="nav-links">
+                <a href="index.html" class="nav-link">首页</a>
+                <a href="weapon-tier-list.html" class="nav-link">武器评级</a>
+                <a href="card-combat-calculator.html" class="nav-link active">卡战备</a>
+            </div>
+        </div>
+    </nav>
+
     <div class="calculator-container">
         <div class="calculator-header">
             <h1>🎯 卡战备计算器</h1>
-            <p>手动输入装备计算战备值，或选择推荐方案</p>
+            <p>基于实时交易行价格，自动计算战备值，帮你卡着门槛进图</p>
         </div>
-        
-        <div class="mode-switch">
-            <button class="mode-btn active" onclick="switchMode('manual')">手动输入模式</button>
-            <button class="mode-btn" onclick="switchMode('recommend')">推荐方案模式</button>
+
+        <div id="dataStatus" class="data-status loading">
+            ⏳ 正在加载实时价格数据...
         </div>
-        
-        <!-- 手动输入模式 -->
-        <div class="input-section active" id="manualSection">
-            <h2 style="margin-bottom: 1.5rem; color: var(--text-primary);">输入装备信息</h2>
-            <div class="gear-input-grid">
-                <div class="gear-input-card">
-                    <h3>⛑️ 头盔</h3>
-                    <div class="input-row">
-                        <label>装备名称</label>
-                        <input type="text" id="helmetName" placeholder="如：破损的DICH训练头盔">
-                    </div>
-                    <div class="input-row">
-                        <label>战备值</label>
-                        <input type="number" id="helmetCombat" placeholder="请输入战备值">
-                    </div>
-                    <div class="input-row">
-                        <label>价格（万）</label>
-                        <input type="number" id="helmetPrice" step="0.01" placeholder="请输入价格">
-                    </div>
-                </div>
-                
-                <div class="gear-input-card">
-                    <h3>🛡️ 防弹衣</h3>
-                    <div class="input-row">
-                        <label>装备名称</label>
-                        <input type="text" id="armorName" placeholder="如：TG-H防弹衣">
-                    </div>
-                    <div class="input-row">
-                        <label>战备值</label>
-                        <input type="number" id="armorCombat" placeholder="请输入战备值">
-                    </div>
-                    <div class="input-row">
-                        <label>价格（万）</label>
-                        <input type="number" id="armorPrice" step="0.01" placeholder="请输入价格">
-                    </div>
-                </div>
-                
-                <div class="gear-input-card">
-                    <h3>🎒 背包</h3>
-                    <div class="input-row">
-                        <label>装备名称</label>
-                        <input type="text" id="backpackName" placeholder="如：雨林猎手背包">
-                    </div>
-                    <div class="input-row">
-                        <label>战备值</label>
-                        <input type="number" id="backpackCombat" placeholder="请输入战备值">
-                    </div>
-                    <div class="input-row">
-                        <label>价格（万）</label>
-                        <input type="number" id="backpackPrice" step="0.01" placeholder="请输入价格">
-                    </div>
-                </div>
-                
-                <div class="gear-input-card">
-                    <h3>👕 胸挂</h3>
-                    <div class="input-row">
-                        <label>装备名称</label>
-                        <input type="text" id="rigName" placeholder="如：GIR野战胸挂">
-                    </div>
-                    <div class="input-row">
-                        <label>战备值</label>
-                        <input type="number" id="rigCombat" placeholder="请输入战备值">
-                    </div>
-                    <div class="input-row">
-                        <label>价格（万）</label>
-                        <input type="number" id="rigPrice" step="0.01" placeholder="请输入价格">
-                    </div>
-                </div>
-                
-                <div class="gear-input-card">
-                    <h3>🔫 主武器</h3>
-                    <div class="input-row">
-                        <label>武器名称</label>
-                        <input type="text" id="weaponName" placeholder="如：PKM通用机枪">
-                    </div>
-                    <div class="input-row">
-                        <label>战备值</label>
-                        <input type="number" id="weaponCombat" placeholder="请输入战备值">
-                    </div>
-                    <div class="input-row">
-                        <label>价格（万）</label>
-                        <input type="number" id="weaponPrice" step="0.01" placeholder="请输入价格">
-                    </div>
-                </div>
-                
-                <div class="gear-input-card">
-                    <h3>🔧 配件</h3>
-                    <div class="input-row">
-                        <label>配件总战备值</label>
-                        <input type="number" id="attachmentCombat" placeholder="所有配件战备值之和">
-                    </div>
-                    <div class="input-row">
-                        <label>配件总价格（万）</label>
-                        <input type="number" id="attachmentPrice" step="0.01" placeholder="所有配件价格之和">
-                    </div>
-                    <div class="input-row">
-                        <label>配件列表</label>
-                        <input type="text" id="attachmentList" placeholder="可选：简要列出配件">
-                    </div>
-                </div>
+
+        <div class="map-selector">
+            <button class="map-btn active" data-map="zeroDam_classified">零号大坝-机密</button>
+            <button class="map-btn" data-map="zeroDam_topSecret">零号大坝-绝密</button>
+            <button class="map-btn" data-map="longbowValley_classified">长弓溪谷-机密</button>
+            <button class="map-btn" data-map="spacePort_topSecret">航天基地-绝密</button>
+            <button class="map-btn" data-map="baksh_topSecret">巴克什-绝密</button>
+            <button class="map-btn" data-map="tidalPrison_topSecret">潮汐监狱-绝密</button>
+        </div>
+
+        <div class="map-threshold">
+            📊 当前地图门槛：<strong id="thresholdValue">13万</strong> 战备值
+        </div>
+
+        <div class="gear-select-grid">
+            <div class="gear-select-card">
+                <h3>⛑️ 头盔</h3>
+                <select id="helmetSelect" onchange="updateGearInfo('helmet')">
+                    <option value="">-- 请选择头盔 --</option>
+                </select>
+                <div id="helmetInfo" class="gear-info"></div>
             </div>
-            
-            <button class="calculate-btn" onclick="calculateManual()">
-                🔍 计算总战备值
-            </button>
-        </div>
-        
-        <!-- 推荐方案模式 -->
-        <div class="recommendation-section" id="recommendSection">
-            <div class="map-select-section">
-                <h2 style="margin-bottom: 1.5rem; color: var(--text-primary);">选择地图和难度</h2>
-                <div class="map-select-grid" id="mapSelectGrid">
-                    <!-- 动态生成地图选项 -->
-                </div>
-                <button class="calculate-btn" onclick="calculateRecommend()">
-                    🔍 查看推荐方案
-                </button>
+
+            <div class="gear-select-card">
+                <h3>🛡️ 护甲</h3>
+                <select id="armorSelect" onchange="updateGearInfo('armor')">
+                    <option value="">-- 请选择护甲 --</option>
+                </select>
+                <div id="armorInfo" class="gear-info"></div>
+            </div>
+
+            <div class="gear-select-card">
+                <h3>🎒 背包</h3>
+                <select id="backpackSelect" onchange="updateGearInfo('backpack')">
+                    <option value="">-- 请选择背包 --</option>
+                </select>
+                <div id="backpackInfo" class="gear-info"></div>
+            </div>
+
+            <div class="gear-select-card">
+                <h3>👕 胸挂</h3>
+                <select id="rigSelect" onchange="updateGearInfo('rig')">
+                    <option value="">-- 请选择胸挂 --</option>
+                </select>
+                <div id="rigInfo" class="gear-info"></div>
+            </div>
+
+            <div class="gear-select-card">
+                <h3>🔫 主武器</h3>
+                <select id="weaponSelect" onchange="updateGearInfo('weapon')">
+                    <option value="">-- 请选择主武器 --</option>
+                </select>
+                <div id="weaponInfo" class="gear-info"></div>
+            </div>
+
+            <div class="gear-select-card">
+                <h3>🔧 配件</h3>
+                <select id="attachmentSelect" onchange="updateGearInfo('attachment')">
+                    <option value="">-- 请选择配件 --</option>
+                </select>
+                <div id="attachmentInfo" class="gear-info"></div>
             </div>
         </div>
-        
-        <!-- 结果展示 -->
+
+        <button class="calculate-btn" id="calculateBtn" onclick="calculateCombat()">
+            🎯 计算战备值
+        </button>
+
         <div class="result-section" id="resultSection">
-            <div class="result-header">
-                <h2 id="resultTitle">计算结果</h2>
-            </div>
-            
-            <div class="combat-readiness-display">
-                <div class="combat-readiness-value" id="totalCombat">0</div>
-                <div class="combat-readiness-label">总战备值（万）</div>
-            </div>
-            
-            <div class="gear-summary" id="gearSummary">
-                <!-- 动态生成装备摘要 -->
-            </div>
-            
-            <div class="tips-section">
-                <h3>💡 卡战备技巧</h3>
-                <ul id="tipsList">
-                    <li>战备值刚好达到门槛即可，多一分都是浪费</li>
-                    <li>优先选择战备值高但价格低的装备</li>
-                    <li>破损装备耐久低但战备值不缩水，性价比极高</li>
-                    <li>中午购买装备价格可能更低</li>
-                </ul>
-            </div>
+            <h2 class="result-title" id="resultTitle">战备值计算结果</h2>
+            <div class="result-grid" id="resultGrid"></div>
+            <div class="result-total" id="resultTotal"></div>
         </div>
     </div>
-    
+
     <script>
-        let currentMode = 'manual';
-        
-        // 切换模式
-        function switchMode(mode) {
-            currentMode = mode;
+        // 地图战备值门槛
+        const mapThresholds = {
+            'zeroDam_classified': 130000,
+            'zeroDam_topSecret': 600000,
+            'longbowValley_classified': 130000,
+            'spacePort_topSecret': 450000,
+            'baksh_topSecret': 450000,
+            'tidalPrison_topSecret': 450000
+        };
+
+        // 全局数据
+        let priceData = [];
+        let categorizedData = {};
+        let currentMap = 'zeroDam_classified';
+
+        // 页面加载时获取数据
+        window.addEventListener('DOMContentLoaded', async () => {
+            await loadPriceData();
+            setupMapSelector();
+        });
+
+        // 加载实时价格数据
+        async function loadPriceData() {
+            const statusEl = document.getElementById('dataStatus');
             
-            // 更新按钮状态
-            document.querySelectorAll('.mode-btn').forEach(btn => {
-                btn.classList.remove('active');
-            });
-            event.target.classList.add('active');
-            
-            // 显示对应区域
-            if (mode === 'manual') {
-                document.getElementById('manualSection').classList.add('active');
-                document.getElementById('recommendSection').classList.remove('active');
-            } else {
-                document.getElementById('manualSection').classList.remove('active');
-                document.getElementById('recommendSection').classList.add('active');
-                loadMapOptions();
+            try {
+                const response = await fetch('/price.json');
+                if (!response.ok) throw new Error('Failed to load price data');
+                
+                priceData = await response.json();
+                
+                // 按分类整理数据
+                categorizeData();
+                
+                // 填充下拉菜单
+                populateSelects();
+                
+                statusEl.className = 'data-status loaded';
+                statusEl.innerHTML = `✅ 实时价格数据加载成功！共 ${priceData.length} 个物品（更新时间：${formatTimestamp(priceData[0]?.is_get_time)}）`;
+                
+                document.getElementById('calculateBtn').disabled = false;
+            } catch (error) {
+                statusEl.className = 'data-status error';
+                statusEl.innerHTML = `❌ 数据加载失败：${error.message}<br>请检查网络连接或稍后重试`;
+                console.error('Price data load error:', error);
             }
-            
-            // 隐藏结果
-            document.getElementById('resultSection').classList.remove('active');
         }
-        
-        // 加载地图选项
-        function loadMapOptions() {
-            const grid = document.getElementById('mapSelectGrid');
-            const maps = [
-                { id: 'zeroDam_classified', name: '零号大坝-机密', threshold: 13 },
-                { id: 'longbow_classified', name: '长弓溪谷-机密', threshold: 13 },
-                { id: 'spacePort_classified', name: '航天基地-机密', threshold: 18.7 },
-                { id: 'spacePort_topSecret', name: '航天基地-绝密', threshold: 45 },
-                { id: 'buckish_classified', name: '巴克什-机密', threshold: 18.7 },
-                { id: 'buckish_topSecret', name: '巴克什-绝密', threshold: 55 },
-                { id: 'tidal_topSecret', name: '潮汐监狱-绝密', threshold: 69 }
-            ];
-            
-            grid.innerHTML = maps.map(map => `
-                <div class="scheme-card" onclick="selectMap('${map.id}', ${map.threshold}, this)">
-                    <h4>${map.name}</h4>
-                    <p>战备值门槛：${map.threshold}万</p>
-                </div>
-            `).join('');
-        }
-        
-        let selectedMap = null;
-        let selectedThreshold = null;
-        
-        // 选择地图
-        function selectMap(mapId, threshold, element) {
-            selectedMap = mapId;
-            selectedThreshold = threshold;
-            
-            // 更新选中状态
-            document.querySelectorAll('.scheme-card').forEach(card => {
-                card.classList.remove('selected');
-            });
-            element.classList.add('selected');
-        }
-        
-        // 计算手动输入
-        function calculateManual() {
-            // 收集数据
-            const gear = {
-                helmet: {
-                    name: document.getElementById('helmetName').value || '未装备',
-                    combat: parseFloat(document.getElementById('helmetCombat').value) || 0,
-                    price: parseFloat(document.getElementById('helmetPrice').value) || 0
-                },
-                armor: {
-                    name: document.getElementById('armorName').value || '未装备',
-                    combat: parseFloat(document.getElementById('armorCombat').value) || 0,
-                    price: parseFloat(document.getElementById('armorPrice').value) || 0
-                },
-                backpack: {
-                    name: document.getElementById('backpackName').value || '未装备',
-                    combat: parseFloat(document.getElementById('backpackCombat').value) || 0,
-                    price: parseFloat(document.getElementById('backpackPrice').value) || 0
-                },
-                rig: {
-                    name: document.getElementById('rigName').value || '未装备',
-                    combat: parseFloat(document.getElementById('rigCombat').value) || 0,
-                    price: parseFloat(document.getElementById('rigPrice').value) || 0
-                },
-                weapon: {
-                    name: document.getElementById('weaponName').value || '未装备',
-                    combat: parseFloat(document.getElementById('weaponCombat').value) || 0,
-                    price: parseFloat(document.getElementById('weaponPrice').value) || 0
-                },
-                attachment: {
-                    combat: parseFloat(document.getElementById('attachmentCombat').value) || 0,
-                    price: parseFloat(document.getElementById('attachmentPrice').value) || 0,
-                    list: document.getElementById('attachmentList').value || ''
-                }
+
+        // 按分类整理数据
+        function categorizeData() {
+            categorizedData = {
+                helmets: [],      // 头盔
+                armors: [],       // 护甲
+                backpacks: [],    // 背包
+                rigs: [],         // 胸挂
+                weapons: [],      // 武器（步枪、冲锋枪、狙击步枪等）
+                attachments: []   // 配件（枪管、枪托、握把、瞄具、弹匣等）
             };
-            
-            // 计算总战备值和总价
-            const totalCombat = gear.helmet.combat + gear.armor.combat + gear.backpack.combat + 
-                             gear.rig.combat + gear.weapon.combat + gear.attachment.combat;
-            const totalPrice = gear.helmet.price + gear.armor.price + gear.backpack.price + 
-                             gear.rig.price + gear.weapon.price + gear.attachment.price;
-            
-            // 显示结果
-            displayResult('手动输入计算结果', totalCombat, totalPrice, gear);
+
+            priceData.forEach(item => {
+                const cat = item.secondClassCN;
+                if (cat === '头盔') {
+                    categorizedData.helmets.push(item);
+                } else if (cat === '护甲') {
+                    categorizedData.armors.push(item);
+                } else if (cat === '背包') {
+                    categorizedData.backpacks.push(item);
+                } else if (cat === '胸挂') {
+                    categorizedData.rigs.push(item);
+                } else if (['步枪', '冲锋枪', '狙击步枪', '精确射手步枪', '轻机枪', '手枪', '霰弹枪', '特殊武器'].includes(cat)) {
+                    categorizedData.weapons.push(item);
+                } else if (['枪管', '枪托', '前握把', '后握把', '护木', '瞄具', '弹匣', '枪口', '功能性配件'].includes(cat)) {
+                    categorizedData.attachments.push(item);
+                }
+            });
+
+            // 按价格排序
+            Object.keys(categorizedData).forEach(key => {
+                categorizedData[key].sort((a, b) => a.price - b.price);
+            });
         }
-        
-        // 计算推荐方案
-        function calculateRecommend() {
-            if (!selectedMap) {
-                alert('请先选择地图和难度');
+
+        // 填充下拉菜单
+        function populateSelects() {
+            const selects = {
+                'helmetSelect': categorizedData.helmets,
+                'armorSelect': categorizedData.armors,
+                'backpackSelect': categorizedData.backpacks,
+                'rigSelect': categorizedData.rigs,
+                'weaponSelect': categorizedData.weapons,
+                'attachmentSelect': categorizedData.attachments
+            };
+
+            Object.entries(selects).forEach(([selectId, items]) => {
+                const select = document.getElementById(selectId);
+                if (!select) return;
+                
+                // 保留第一个选项
+                const firstOption = select.options[0];
+                select.innerHTML = '';
+                select.appendChild(firstOption);
+                
+                // 添加物品选项
+                items.forEach(item => {
+                    const option = document.createElement('option');
+                    option.value = item.id;
+                    option.textContent = `${item.name} - ¥${item.price.toLocaleString()}`;
+                    option.dataset.price = item.price;
+                    option.dataset.name = item.name;
+                    select.appendChild(option);
+                });
+            });
+        }
+
+        // 更新装备信息显示
+        function updateGearInfo(type) {
+            const selectMap = {
+                'helmet': 'helmetSelect',
+                'armor': 'armorSelect',
+                'backpack': 'backpackSelect',
+                'rig': 'rigSelect',
+                'weapon': 'weaponSelect',
+                'attachment': 'attachmentSelect'
+            };
+
+            const infoMap = {
+                'helmet': 'helmetInfo',
+                'armor': 'armorInfo',
+                'backpack': 'backpackInfo',
+                'rig': 'rigInfo',
+                'weapon': 'weaponInfo',
+                'attachment': 'attachmentInfo'
+            };
+
+            const select = document.getElementById(selectMap[type]);
+            const infoDiv = document.getElementById(infoMap[type]);
+            
+            if (!select || !infoDiv) return;
+
+            const selectedOption = select.options[select.selectedIndex];
+            
+            if (!selectedOption || !selectedOption.value) {
+                infoDiv.classList.remove('show');
                 return;
             }
+
+            const price = parseInt(selectedOption.dataset.price);
+            const name = selectedOption.dataset.name;
             
-            // 预设方案数据
-            const schemes = {
-                'zeroDam_classified': {
-                    gear: {
-                        helmet: { name: '户外棒球帽', combat: 0.5, price: 0.1 },
-                        armor: { name: '简易防刺服', combat: 3, price: 1.5 },
-                        backpack: { name: '战术快拆背包', combat: 2, price: 0.8 },
-                        rig: { name: 'G01战术弹挂', combat: 2.5, price: 1.2 },
-                        weapon: { name: 'MP5冲锋枪+50发弹鼓', combat: 5, price: 1.5 },
-                        attachment: { combat: 3, price: 0.5, list: '基础配件' }
-                    },
-                    totalCombat: 16,
-                    totalPrice: 5.6
-                },
-                'spacePort_topSecret': {
-                    gear: {
-                        helmet: { name: '破损的DICH训练头盔', combat: 12, price: 2 },
-                        armor: { name: 'TG-H防弹衣（破损）', combat: 15, price: 3 },
-                        backpack: { name: '雨林猎手背包', combat: 8, price: 2.5 },
-                        rig: { name: 'GIR野战胸挂', combat: 10, price: 3 },
-                        weapon: { name: 'PKM通用机枪', combat: 20, price: 14 },
-                        attachment: { combat: 10, price: 5, list: '壕战短枪管+堡垒水平补偿器' }
-                    },
-                    totalCombat: 75,
-                    totalPrice: 29.5
-                }
-                // 其他地图方案...
-            };
-            
-            const scheme = schemes[selectedMap] || schemes['zeroDam_classified'];
-            
-            displayResult(`${selectedMap} 推荐方案`, scheme.totalCombat, scheme.totalPrice, scheme.gear);
+            // 估算战备值（价格 × 系数，简化计算）
+            const estimatedCombat = Math.round(price * 0.8);
+
+            infoDiv.innerHTML = `
+                <p><strong>${name}</strong></p>
+                <p>价格：<span class="price">¥${price.toLocaleString()}</span></p>
+                <p>估算战备值：约 ${estimatedCombat.toLocaleString()}</p>
+            `;
+            infoDiv.classList.add('show');
         }
-        
+
+        // 设置地图选择器
+        function setupMapSelector() {
+            const mapBtns = document.querySelectorAll('.map-btn');
+            mapBtns.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    mapBtns.forEach(b => b.classList.remove('active'));
+                    btn.classList.add('active');
+                    
+                    currentMap = btn.dataset.map;
+                    const threshold = mapThresholds[currentMap];
+                    document.getElementById('thresholdValue').textContent = threshold.toLocaleString();
+                });
+            });
+        }
+
+        // 计算战备值
+        function calculateCombat() {
+            const selectedIds = {
+                helmet: document.getElementById('helmetSelect').value,
+                armor: document.getElementById('armorSelect').value,
+                backpack: document.getElementById('backpackSelect').value,
+                rig: document.getElementById('rigSelect').value,
+                weapon: document.getElementById('weaponSelect').value,
+                attachment: document.getElementById('attachmentSelect').value
+            };
+
+            // 检查是否至少选择了一项
+            const hasSelection = Object.values(selectedIds).some(v => v);
+            if (!hasSelection) {
+                alert('请至少选择一件装备！');
+                return;
+            }
+
+            // 获取选中的物品数据
+            const selectedItems = {};
+            const selectedNames = {};
+            let totalPrice = 0;
+            let totalCombat = 0;
+
+            Object.entries(selectedIds).forEach(([type, id]) => {
+                if (!id) return;
+                
+                const item = priceData.find(d => d.id === parseInt(id));
+                if (!item) return;
+                
+                selectedItems[type] = item;
+                selectedNames[type] = item.name;
+                totalPrice += item.price;
+                totalCombat += Math.round(item.price * 0.8); // 简化计算
+            });
+
+            // 显示结果
+            displayResult(selectedItems, selectedNames, totalCombat, totalPrice);
+        }
+
         // 显示结果
-        function displayResult(title, totalCombat, totalPrice, gear) {
+        function displayResult(items, names, totalCombat, totalPrice) {
             const section = document.getElementById('resultSection');
             const titleEl = document.getElementById('resultTitle');
-            const totalCombatEl = document.getElementById('totalCombat');
-            const gearSummary = document.getElementById('gearSummary');
-            
-            // 更新标题
-            titleEl.textContent = title;
-            
-            // 更新总战备值
-            totalCombatEl.textContent = totalCombat.toFixed(1);
-            
-            // 更新装备摘要
-            gearSummary.innerHTML = `
-                <div class="gear-summary-card">
-                    <h4>⛑️ ${gear.helmet.name}</h4>
-                    <p>战备值：${gear.helmet.combat}万</p>
-                    <p>价格：${gear.helmet.price}万</p>
+            const gridEl = document.getElementById('resultGrid');
+            const totalEl = document.getElementById('resultTotal');
+
+            const threshold = mapThresholds[currentMap];
+            const status = totalCombat >= threshold ? '✅ 达标' : '❌ 未达标';
+            const statusColor = totalCombat >= threshold ? '#10b981' : '#ef4444';
+
+            titleEl.textContent = `战备值计算结果 - ${status}`;
+
+            gridEl.innerHTML = Object.entries(items).map(([type, item]) => `
+                <div class="result-card">
+                    <h4>${getTypeName(type)}</h4>
+                    <p><strong>${item.name}</strong></p>
+                    <p>价格：<span class="value">¥${item.price.toLocaleString()}</span></p>
+                    <p>估算战备值：约 ${Math.round(item.price * 0.8).toLocaleString()}</p>
                 </div>
-                <div class="gear-summary-card">
-                    <h4>🛡️ ${gear.armor.name}</h4>
-                    <p>战备值：${gear.armor.combat}万</p>
-                    <p>价格：${gear.armor.price}万</p>
-                </div>
-                <div class="gear-summary-card">
-                    <h4>🎒 ${gear.backpack.name}</h4>
-                    <p>战备值：${gear.backpack.combat}万</p>
-                    <p>价格：${gear.backpack.price}万</p>
-                </div>
-                <div class="gear-summary-card">
-                    <h4>👕 ${gear.rig.name}</h4>
-                    <p>战备值：${gear.rig.combat}万</p>
-                    <p>价格：${gear.rig.price}万</p>
-                </div>
-                <div class="gear-summary-card">
-                    <h4>🔫 ${gear.weapon.name}</h4>
-                    <p>战备值：${gear.weapon.combat}万</p>
-                    <p>价格：${gear.weapon.price}万</p>
-                </div>
-                <div class="gear-summary-card">
-                    <h4>🔧 配件</h4>
-                    <p>战备值：${gear.attachment.combat}万</p>
-                    <p>价格：${gear.attachment.price}万</p>
-                    ${gear.attachment.list ? `<p>列表：${gear.attachment.list}</p>` : ''}
-                </div>
-                <div class="gear-summary-card" style="grid-column: 1 / -1; background: var(--accent-blue); color: white;">
-                    <h4>💰 总计</h4>
-                    <p style="font-size: 1.2rem; font-weight: 700;">总战备值：${totalCombat.toFixed(1)}万</p>
-                    <p style="font-size: 1.2rem; font-weight: 700;">总价格：${totalPrice.toFixed(1)}万</p>
+            `).join('');
+
+            totalEl.innerHTML = `
+                <h3>💰 总计</h3>
+                <div class="total-value" style="color: white;">总战备值：约 ${totalCombat.toLocaleString()}</div>
+                <div class="total-value" style="color: white; font-size: 1.5rem;">总价格：¥${totalPrice.toLocaleString()}</div>
+                <div class="warning">
+                    <p>地图门槛：${threshold.toLocaleString()}</p>
+                    <p style="color: ${statusColor}; font-weight: bold;">${status}</p>
+                    ${totalCombat < threshold ? `<p>还差 ${(threshold - totalCombat).toLocaleString()} 战备值</p>` : ''}
+                    ${totalCombat >= threshold ? `<p>超过门槛 ${(totalCombat - threshold).toLocaleString()} 战备值</p>` : ''}
                 </div>
             `;
-            
-            // 显示结果区域
+
             section.classList.add('active');
-            
-            // 滚动到结果区域
             section.scrollIntoView({ behavior: 'smooth' });
         }
-        
-        // 页面加载时初始化
-        window.addEventListener('DOMContentLoaded', () => {
-            console.log('✅ 卡战备计算器加载完成');
-        });
+
+        // 获取类型名称
+        function getTypeName(type) {
+            const names = {
+                'helmet': '⛑️ 头盔',
+                'armor': '🛡️ 护甲',
+                'backpack': '🎒 背包',
+                'rig': '👕 胸挂',
+                'weapon': '🔫 武器',
+                'attachment': '🔧 配件'
+            };
+            return names[type] || type;
+        }
+
+        // 格式化时间戳
+        function formatTimestamp(timestamp) {
+            if (!timestamp) return '未知';
+            const date = new Date(timestamp * 1000);
+            return date.toLocaleString('zh-CN');
+        }
     </script>
 </body>
 </html>
