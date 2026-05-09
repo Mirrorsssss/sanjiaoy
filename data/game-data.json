@@ -1,5 +1,5 @@
 {
-  "_version": "12.0.0-real",
+  "_version": "12.2.0",
   "_source": "github.com/jiansenc/DeltaForceData",
   "meta": {
     "game": "三角洲行动",
@@ -127,7 +127,7 @@
       "type": "gunRifle",
       "typeCN": "步枪",
       "grade": 0,
-      "weight": 4.0,
+      "weight": 4,
       "description": "K416突击步枪是一款德国制造的突击步枪。使用5.56x45mm子弹，具有高度可靠性和优秀的射击性能，广泛应用于全球多个国家的军队和特种部队。",
       "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_18010000013.png",
       "meatHarm": 29,
@@ -479,7 +479,7 @@
       "type": "gunSMG",
       "typeCN": "冲锋枪",
       "grade": 0,
-      "weight": 3.0,
+      "weight": 3,
       "description": "SMG-45发射.45口径弹药，人机工效上乘，性能稳定。",
       "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_18020000006.png",
       "meatHarm": 35,
@@ -2183,7 +2183,7 @@
       "type": "accScope",
       "typeCN": "瞄具",
       "grade": 3,
-      "weight": 0.0,
+      "weight": 0,
       "description": "",
       "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_13110000089.png",
       "slot": "scope",
@@ -2417,7 +2417,7 @@
       "type": "accStock",
       "typeCN": "枪托",
       "grade": 4,
-      "weight": 0.0,
+      "weight": 0,
       "description": "",
       "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_13030000178.png",
       "slot": "stock",
@@ -3415,7 +3415,7 @@
       "type": "accStock",
       "typeCN": "枪托",
       "grade": 2,
-      "weight": 0.0,
+      "weight": 0,
       "description": "",
       "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_13040000189.png",
       "slot": "stock",
@@ -4608,7 +4608,7 @@
       "type": "accMagazine",
       "typeCN": "弹匣",
       "grade": 4,
-      "weight": 0.0,
+      "weight": 0,
       "description": "",
       "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_13120000331.png",
       "slot": "magazine",
@@ -5089,7 +5089,7 @@
       "type": "accMagazine",
       "typeCN": "弹匣",
       "grade": 3,
-      "weight": 0.0,
+      "weight": 0,
       "description": "",
       "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_13120000330.png",
       "slot": "magazine",
@@ -8794,7 +8794,7 @@
       "type": "accFunctional",
       "typeCN": "功能性配件",
       "grade": 2,
-      "weight": 0.0,
+      "weight": 0,
       "description": "",
       "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_13410000001.png",
       "slot": "functional",
@@ -9390,7 +9390,7 @@
       "type": "consume",
       "typeCN": "消耗品",
       "grade": 6,
-      "weight": 3.0,
+      "weight": 3,
       "description": "针对6级装备的局内维修工具，能快速修复头盔耐久度。每块插板消耗工具包25点耐久；启用时间4.5秒。",
       "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_14060000003.png"
     },
@@ -9430,7 +9430,7 @@
       "type": "consume",
       "typeCN": "消耗品",
       "grade": 5,
-      "weight": 3.0,
+      "weight": 3,
       "description": "针对5级装备的局内维修工具，能快速修复护甲耐久度。每块插板消耗工具包40点耐久；启用时间4.5秒。",
       "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_14060000002.png"
     },
@@ -9530,7 +9530,7 @@
       "type": "consume",
       "typeCN": "消耗品",
       "grade": 3,
-      "weight": 1.0,
+      "weight": 1,
       "description": "针对3级装备的局内维修工具，能快速修复头盔耐久度。每块插板消耗工具包15点耐久；启用时间4.5秒。",
       "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_14060000007.png"
     },
@@ -13005,7 +13005,7 @@
       "type": "chest",
       "typeCN": "胸挂",
       "grade": 5,
-      "weight": 2.0,
+      "weight": 2,
       "description": "设计为高速作战行动使用，具备极高的携行弹药和补给能力，适合空降或快速突袭任务。提供22格快速使用空间。",
       "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_11070005001.png",
       "slot": "chest"
@@ -13016,7 +13016,7 @@
       "type": "chest",
       "typeCN": "胸挂",
       "grade": 5,
-      "weight": 2.0,
+      "weight": 2,
       "description": "轻量且结实的设计，适合野战行动，具备较大的存储空间和模块化挂载选项，便于物资取用。提供22格快速使用空间。",
       "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_11070005003.png",
       "slot": "chest"
@@ -13082,7 +13082,7 @@
       "type": "chest",
       "typeCN": "胸挂",
       "grade": 3,
-      "weight": 1.0,
+      "weight": 1,
       "description": "轻便的弹药携带系统，专为携带多个弹匣而设计，便于弹药快速更换，适合高频战斗任务。提供10格快速使用空间。",
       "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_11070003001.png",
       "slot": "chest"
@@ -13093,7 +13093,7 @@
       "type": "chest",
       "typeCN": "胸挂",
       "grade": 3,
-      "weight": 1.0,
+      "weight": 1,
       "description": "坚固耐用，设计为适应恶劣环境，提供充足的弹药携带空间和设备挂载选项，适合长时间作战。提供12格快速使用空间。",
       "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_11070003002.png",
       "slot": "chest"
@@ -14154,7 +14154,7 @@
       "name": "烽火小康套",
       "mode": "raid",
       "budget": "normal",
-      "total_cost": 15.0,
+      "total_cost": 15,
       "items": [
         {
           "id": "18010000006",
@@ -14178,7 +14178,3250 @@
         }
       ],
       "description": "均衡型烽火地带配置"
+    },
+    {
+      "id": "b_rush_raid_2",
+      "name": "烽火跑刀进阶套",
+      "mode": "raid",
+      "budget": "penny",
+      "total_cost": 5.5,
+      "items": [
+        {
+          "id": "18010000010",
+          "name": "AKS-74U突击步枪",
+          "slot": "primary"
+        },
+        {
+          "id": "c_medkit",
+          "name": "急救包",
+          "slot": "consumable"
+        },
+        {
+          "id": "c_bandage",
+          "name": "绷带",
+          "slot": "consumable"
+        },
+        {
+          "id": "bag1",
+          "name": "小型背包",
+          "slot": "bag"
+        }
+      ],
+      "description": "低成本跑刀进阶配置，AKS-74U高机动"
+    },
+    {
+      "id": "b_standard_raid_2",
+      "name": "烽火小康流2",
+      "mode": "raid",
+      "budget": "normal",
+      "total_cost": 18,
+      "items": [
+        {
+          "id": "18010000001",
+          "name": "M4A1突击步枪",
+          "slot": "primary"
+        },
+        {
+          "id": "a_vest2",
+          "name": "二级护甲",
+          "slot": "armor"
+        },
+        {
+          "id": "a_helmet2",
+          "name": "二级头盔",
+          "slot": "helmet"
+        },
+        {
+          "id": "rig2",
+          "name": "战术胸挂",
+          "slot": "rig"
+        },
+        {
+          "id": "c_medkit",
+          "name": "急救包",
+          "slot": "consumable"
+        }
+      ],
+      "description": "均衡型烽火地带配置，M4A1稳定输出"
+    },
+    {
+      "id": "b_rich_raid",
+      "name": "烽火富裕套",
+      "mode": "raid",
+      "budget": "rich",
+      "total_cost": 35,
+      "items": [
+        {
+          "id": "18010000013",
+          "name": "K416突击步枪",
+          "slot": "primary"
+        },
+        {
+          "id": "a_vest3",
+          "name": "三级护甲",
+          "slot": "armor"
+        },
+        {
+          "id": "a_helmet3",
+          "name": "三级头盔",
+          "slot": "helmet"
+        },
+        {
+          "id": "rig3",
+          "name": "高级胸挂",
+          "slot": "rig"
+        },
+        {
+          "id": "bag2",
+          "name": "中型背包",
+          "slot": "bag"
+        },
+        {
+          "id": "c_adv_medkit",
+          "name": "高级医疗包",
+          "slot": "consumable"
+        }
+      ],
+      "description": "高性能烽火地带配置，K416高射速压制"
+    },
+    {
+      "id": "b_vip_raid",
+      "name": "烽火VIP套装",
+      "mode": "raid",
+      "budget": "vip",
+      "total_cost": 60,
+      "items": [
+        {
+          "id": "18010000013",
+          "name": "K416突击步枪",
+          "slot": "primary"
+        },
+        {
+          "id": "a_vest4",
+          "name": "四级护甲",
+          "slot": "armor"
+        },
+        {
+          "id": "a_helmet4",
+          "name": "四级头盔",
+          "slot": "helmet"
+        },
+        {
+          "id": "rig3",
+          "name": "高级胸挂",
+          "slot": "rig"
+        },
+        {
+          "id": "bag3",
+          "name": "大型背包",
+          "slot": "bag"
+        },
+        {
+          "id": "c_adv_medkit",
+          "name": "高级医疗包",
+          "slot": "consumable"
+        },
+        {
+          "id": "c_tactical",
+          "name": "战术装备",
+          "slot": "consumable"
+        }
+      ],
+      "description": "顶级烽火地带配置，无惧任何对手"
+    },
+    {
+      "id": "b_rush_battle",
+      "name": "对战跑刀套",
+      "mode": "battle",
+      "budget": "penny",
+      "total_cost": 4,
+      "items": [
+        {
+          "id": "18020000001",
+          "name": "MP5冲锋枪",
+          "slot": "primary"
+        },
+        {
+          "id": "c_medkit",
+          "name": "急救包",
+          "slot": "consumable"
+        },
+        {
+          "id": "bag1",
+          "name": "小型背包",
+          "slot": "bag"
+        }
+      ],
+      "description": "对战模式低成本配置，MP5高射速"
+    },
+    {
+      "id": "b_standard_battle",
+      "name": "对战小康套",
+      "mode": "battle",
+      "budget": "normal",
+      "total_cost": 20,
+      "items": [
+        {
+          "id": "18010000006",
+          "name": "AKM突击步枪",
+          "slot": "primary"
+        },
+        {
+          "id": "a_vest2",
+          "name": "二级护甲",
+          "slot": "armor"
+        },
+        {
+          "id": "a_helmet2",
+          "name": "二级头盔",
+          "slot": "helmet"
+        },
+        {
+          "id": "rig2",
+          "name": "战术胸挂",
+          "slot": "rig"
+        },
+        {
+          "id": "c_medkit",
+          "name": "急救包",
+          "slot": "consumable"
+        }
+      ],
+      "description": "对战模式均衡配置，AKM强力输出"
+    },
+    {
+      "id": "b_standard_ranked",
+      "name": "排位标准套",
+      "mode": "ranked",
+      "budget": "normal",
+      "total_cost": 22,
+      "items": [
+        {
+          "id": "18010000001",
+          "name": "M4A1突击步枪",
+          "slot": "primary"
+        },
+        {
+          "id": "a_vest3",
+          "name": "三级护甲",
+          "slot": "armor"
+        },
+        {
+          "id": "a_helmet2",
+          "name": "二级头盔",
+          "slot": "helmet"
+        },
+        {
+          "id": "rig2",
+          "name": "战术胸挂",
+          "slot": "rig"
+        },
+        {
+          "id": "c_medkit",
+          "name": "急救包",
+          "slot": "consumable"
+        }
+      ],
+      "description": "排位模式稳健配置，重视生存"
+    },
+    {
+      "id": "b_rich_ranked",
+      "name": "排位富裕套",
+      "mode": "ranked",
+      "budget": "rich",
+      "total_cost": 40,
+      "items": [
+        {
+          "id": "18010000013",
+          "name": "K416突击步枪",
+          "slot": "primary"
+        },
+        {
+          "id": "a_vest3",
+          "name": "三级护甲",
+          "slot": "armor"
+        },
+        {
+          "id": "a_helmet3",
+          "name": "三级头盔",
+          "slot": "helmet"
+        },
+        {
+          "id": "rig3",
+          "name": "高级胸挂",
+          "slot": "rig"
+        },
+        {
+          "id": "bag2",
+          "name": "中型背包",
+          "slot": "bag"
+        },
+        {
+          "id": "c_adv_medkit",
+          "name": "高级医疗包",
+          "slot": "consumable"
+        }
+      ],
+      "description": "排位模式高性能配置，力争上游"
+    },
+    {
+      "id": "b_sniper_raid",
+      "name": "烽火狙击套",
+      "mode": "raid",
+      "budget": "rich",
+      "total_cost": 38,
+      "items": [
+        {
+          "id": "18010000017",
+          "name": "AWM狙击步枪",
+          "slot": "primary"
+        },
+        {
+          "id": "a_vest2",
+          "name": "二级护甲",
+          "slot": "armor"
+        },
+        {
+          "id": "a_helmet3",
+          "name": "三级头盔",
+          "slot": "helmet"
+        },
+        {
+          "id": "rig2",
+          "name": "战术胸挂",
+          "slot": "rig"
+        },
+        {
+          "id": "c_medkit",
+          "name": "急救包",
+          "slot": "consumable"
+        }
+      ],
+      "description": "狙击手专用配置，一击致命"
+    },
+    {
+      "id": "b_lmg_raid",
+      "name": "烽火机枪套",
+      "mode": "raid",
+      "budget": "rich",
+      "total_cost": 32,
+      "items": [
+        {
+          "id": "18040000001",
+          "name": "PKM通用机枪",
+          "slot": "primary"
+        },
+        {
+          "id": "a_vest3",
+          "name": "三级护甲",
+          "slot": "armor"
+        },
+        {
+          "id": "a_helmet2",
+          "name": "二级头盔",
+          "slot": "helmet"
+        },
+        {
+          "id": "rig3",
+          "name": "高级胸挂",
+          "slot": "rig"
+        },
+        {
+          "id": "bag2",
+          "name": "中型背包",
+          "slot": "bag"
+        },
+        {
+          "id": "c_medkit",
+          "name": "急救包",
+          "slot": "consumable"
+        }
+      ],
+      "description": "火力压制配置，PKM持续输出"
+    },
+    {
+      "id": "b_rush_battle_2",
+      "name": "对战跑刀进阶",
+      "mode": "battle",
+      "budget": "penny",
+      "total_cost": 6,
+      "items": [
+        {
+          "id": "18020000002",
+          "name": "Vector冲锋枪",
+          "slot": "primary"
+        },
+        {
+          "id": "c_medkit",
+          "name": "急救包",
+          "slot": "consumable"
+        },
+        {
+          "id": "bag1",
+          "name": "小型背包",
+          "slot": "bag"
+        }
+      ],
+      "description": "Vector高射速，近战霸主"
+    },
+    {
+      "id": "b_standard_ranked_2",
+      "name": "排位小康流",
+      "mode": "ranked",
+      "budget": "normal",
+      "total_cost": 25,
+      "items": [
+        {
+          "id": "18010000006",
+          "name": "AKM突击步枪",
+          "slot": "primary"
+        },
+        {
+          "id": "a_vest3",
+          "name": "三级护甲",
+          "slot": "armor"
+        },
+        {
+          "id": "a_helmet2",
+          "name": "二级头盔",
+          "slot": "helmet"
+        },
+        {
+          "id": "rig2",
+          "name": "战术胸挂",
+          "slot": "rig"
+        },
+        {
+          "id": "c_adv_medkit",
+          "name": "高级医疗包",
+          "slot": "consumable"
+        }
+      ],
+      "description": "排位AKM爆头流，一击致命"
+    },
+    {
+      "id": "b_vip_ranked",
+      "name": "排位VIP套装",
+      "mode": "ranked",
+      "budget": "vip",
+      "total_cost": 55,
+      "items": [
+        {
+          "id": "18010000013",
+          "name": "K416突击步枪",
+          "slot": "primary"
+        },
+        {
+          "id": "a_vest4",
+          "name": "四级护甲",
+          "slot": "armor"
+        },
+        {
+          "id": "a_helmet4",
+          "name": "四级头盔",
+          "slot": "helmet"
+        },
+        {
+          "id": "rig3",
+          "name": "高级胸挂",
+          "slot": "rig"
+        },
+        {
+          "id": "bag3",
+          "name": "大型背包",
+          "slot": "bag"
+        },
+        {
+          "id": "c_adv_medkit",
+          "name": "高级医疗包",
+          "slot": "consumable"
+        }
+      ],
+      "description": "排位顶级配置，统治战场"
     }
   ],
-  "_updated": "2026-05-09"
+  "_updated": "2026-05-09",
+  "gear": {
+    "a_helmet1": {
+      "id": "a_helmet1",
+      "name": "一级头盔",
+      "type": "helmet",
+      "typeCN": "头盔",
+      "grade": 1,
+      "defense": 15,
+      "durability": 50,
+      "weight": 1.2,
+      "price": 5000,
+      "description": "基础防护头盔，适合新手"
+    },
+    "a_helmet2": {
+      "id": "a_helmet2",
+      "name": "二级头盔",
+      "type": "helmet",
+      "typeCN": "头盔",
+      "grade": 2,
+      "defense": 25,
+      "durability": 80,
+      "weight": 1.8,
+      "price": 12000,
+      "description": "标准战术头盔，性价比高"
+    },
+    "a_helmet3": {
+      "id": "a_helmet3",
+      "name": "三级头盔",
+      "type": "helmet",
+      "typeCN": "头盔",
+      "grade": 3,
+      "defense": 35,
+      "durability": 120,
+      "weight": 2.5,
+      "price": 25000,
+      "description": "高级防弹头盔，强力防护"
+    },
+    "a_helmet4": {
+      "id": "a_helmet4",
+      "name": "四级头盔",
+      "type": "helmet",
+      "typeCN": "头盔",
+      "grade": 4,
+      "defense": 50,
+      "durability": 180,
+      "weight": 3.2,
+      "price": 45000,
+      "description": "顶级战术头盔，极致防护"
+    },
+    "a_vest1": {
+      "id": "a_vest1",
+      "name": "一级护甲",
+      "type": "vest",
+      "typeCN": "护甲",
+      "grade": 1,
+      "defense": 20,
+      "durability": 60,
+      "weight": 2.5,
+      "price": 8000,
+      "description": "基础防护护甲"
+    },
+    "a_vest2": {
+      "id": "a_vest2",
+      "name": "二级护甲",
+      "type": "vest",
+      "typeCN": "护甲",
+      "grade": 2,
+      "defense": 35,
+      "durability": 100,
+      "weight": 3.8,
+      "price": 18000,
+      "description": "标准战术护甲，均衡防护"
+    },
+    "a_vest3": {
+      "id": "a_vest3",
+      "name": "三级护甲",
+      "type": "vest",
+      "typeCN": "护甲",
+      "grade": 3,
+      "defense": 50,
+      "durability": 150,
+      "weight": 5.2,
+      "price": 35000,
+      "description": "高级防弹护甲，重型防护"
+    },
+    "a_vest4": {
+      "id": "a_vest4",
+      "name": "四级护甲",
+      "type": "vest",
+      "typeCN": "护甲",
+      "grade": 4,
+      "defense": 65,
+      "durability": 200,
+      "weight": 6.8,
+      "price": 60000,
+      "description": "顶级战术护甲，极致防御"
+    },
+    "bag1": {
+      "id": "bag1",
+      "name": "小型背包",
+      "type": "bag",
+      "typeCN": "背包",
+      "grade": 1,
+      "capacity": 12,
+      "weight": 0.8,
+      "price": 3000,
+      "description": "12格容量，适合跑刀"
+    },
+    "bag2": {
+      "id": "bag2",
+      "name": "中型背包",
+      "type": "bag",
+      "typeCN": "背包",
+      "grade": 2,
+      "capacity": 24,
+      "weight": 1.5,
+      "price": 8000,
+      "description": "24格容量，均衡选择"
+    },
+    "bag3": {
+      "id": "bag3",
+      "name": "大型背包",
+      "type": "bag",
+      "typeCN": "背包",
+      "grade": 3,
+      "capacity": 36,
+      "weight": 2.5,
+      "price": 15000,
+      "description": "36格容量，适合搜集"
+    },
+    "bag4": {
+      "id": "bag4",
+      "name": "军用背包",
+      "type": "bag",
+      "typeCN": "背包",
+      "grade": 4,
+      "capacity": 48,
+      "weight": 3.5,
+      "price": 28000,
+      "description": "48格超大容量，大佬专用"
+    },
+    "rig1": {
+      "id": "rig1",
+      "name": "基础胸挂",
+      "type": "rig",
+      "typeCN": "胸挂",
+      "grade": 1,
+      "capacity": 4,
+      "weight": 0.5,
+      "price": 2000,
+      "description": "4格弹匣容量"
+    },
+    "rig2": {
+      "id": "rig2",
+      "name": "战术胸挂",
+      "type": "rig",
+      "typeCN": "胸挂",
+      "grade": 2,
+      "capacity": 6,
+      "weight": 0.8,
+      "price": 5000,
+      "description": "6格弹匣容量，常用选择"
+    },
+    "rig3": {
+      "id": "rig3",
+      "name": "高级胸挂",
+      "type": "rig",
+      "typeCN": "胸挂",
+      "grade": 3,
+      "capacity": 8,
+      "weight": 1.2,
+      "price": 10000,
+      "description": "8格弹匣容量，火力持续"
+    }
+  },
+  "mods": {
+    "18010000001": {
+      "name": "M4A1突击步枪",
+      "icon": "🔫",
+      "builds": {
+        "raid": {
+          "budget": {
+            "title": "M4 烽火跑刀经济套",
+            "desc": "低成本高效率",
+            "parts": [
+              {
+                "slot": "枪口",
+                "name": "消音器（蓝）",
+                "cost": "0.8万"
+              },
+              {
+                "slot": "瞄准镜",
+                "name": "红点瞄准镜",
+                "cost": "0.5万"
+              }
+            ],
+            "total": "1.3万",
+            "tip": "适合跑刀"
+          },
+          "standard": {
+            "title": "M4 烽火小康套",
+            "desc": "攻防平衡",
+            "parts": [
+              {
+                "slot": "枪口",
+                "name": "消音器（紫）",
+                "cost": "3.5万"
+              },
+              {
+                "slot": "护木",
+                "name": "战术护木",
+                "cost": "1.2万"
+              },
+              {
+                "slot": "瞄准镜",
+                "name": "全息瞄准镜",
+                "cost": "1.8万"
+              }
+            ],
+            "total": "6.5万",
+            "tip": "中距离对枪优势"
+          },
+          "full": {
+            "title": "M4 烽火满改套",
+            "desc": "极致性能",
+            "parts": [
+              {
+                "slot": "枪口",
+                "name": "专属消音器",
+                "cost": "8万"
+              },
+              {
+                "slot": "护木",
+                "name": "重装护木",
+                "cost": "3万"
+              },
+              {
+                "slot": "瞄准镜",
+                "name": "高倍瞄准镜",
+                "cost": "5万"
+              },
+              {
+                "slot": "枪托",
+                "name": "顶级枪托",
+                "cost": "4万"
+              }
+            ],
+            "total": "20万",
+            "tip": "全能配置"
+          }
+        },
+        "battle": {
+          "standard": {
+            "title": "M4 战场套",
+            "desc": "高射速",
+            "parts": [
+              {
+                "slot": "枪口",
+                "name": "冲锋枪抑径器",
+                "cost": "2万"
+              },
+              {
+                "slot": "瞄准镜",
+                "name": "红点",
+                "cost": "0.8万"
+              }
+            ],
+            "total": "2.8万",
+            "tip": "适合抢点"
+          }
+        },
+        "ranked": {
+          "standard": {
+            "title": "M4 排位套",
+            "desc": "稳定性优先",
+            "parts": [
+              {
+                "slot": "枪口",
+                "name": "消音器",
+                "cost": "3万"
+              },
+              {
+                "slot": "护木",
+                "name": "战术护木",
+                "cost": "1.5万"
+              },
+              {
+                "slot": "瞄准镜",
+                "name": "全息",
+                "cost": "2万"
+              }
+            ],
+            "total": "6.5万",
+            "tip": "竞技必备"
+          }
+        }
+      }
+    },
+    "18010000006": {
+      "name": "AKM突击步枪",
+      "icon": "🔫",
+      "builds": {
+        "raid": {
+          "budget": {
+            "title": "AKM 烽火跑刀套",
+            "desc": "低成本高火力",
+            "parts": [
+              {
+                "slot": "瞄准镜",
+                "name": "红点瞄准镜",
+                "cost": "0.5万"
+              },
+              {
+                "slot": "枪口",
+                "name": "消音器（蓝）",
+                "cost": "0.8万"
+              }
+            ],
+            "total": "1.3万",
+            "tip": "适合跑刀，7.62伤害高"
+          },
+          "standard": {
+            "title": "AKM 烽火小康套",
+            "desc": "火力与性价比平衡",
+            "parts": [
+              {
+                "slot": "瞄准镜",
+                "name": "全息瞄准镜",
+                "cost": "1.8万"
+              },
+              {
+                "slot": "枪口",
+                "name": "消音器（紫）",
+                "cost": "3.5万"
+              },
+              {
+                "slot": "握把",
+                "name": "垂直握把",
+                "cost": "0.5万"
+              }
+            ],
+            "total": "5.8万",
+            "tip": "中距离对枪优势"
+          },
+          "full": {
+            "title": "AKM 烽火满改套",
+            "desc": "极致火力",
+            "parts": [
+              {
+                "slot": "瞄准镜",
+                "name": "高倍瞄准镜",
+                "cost": "5万"
+              },
+              {
+                "slot": "枪口",
+                "name": "专属消音器",
+                "cost": "8万"
+              },
+              {
+                "slot": "握把",
+                "name": "人体工学握把",
+                "cost": "2万"
+              },
+              {
+                "slot": "枪托",
+                "name": "AK枪托",
+                "cost": "3万"
+              }
+            ],
+            "total": "18万",
+            "tip": "全自动火力压制"
+          }
+        },
+        "battle": {
+          "standard": {
+            "title": "AKM 战场套",
+            "desc": "高伤害",
+            "parts": [
+              {
+                "slot": "枪口",
+                "name": "冲锋枪抑径器",
+                "cost": "2万"
+              },
+              {
+                "slot": "瞄准镜",
+                "name": "红点",
+                "cost": "0.8万"
+              }
+            ],
+            "total": "2.8万",
+            "tip": "适合抢点，7.62子弹伤害高"
+          }
+        },
+        "ranked": {
+          "standard": {
+            "title": "AKM 排位套",
+            "desc": "稳定性优先",
+            "parts": [
+              {
+                "slot": "瞄准镜",
+                "name": "全息",
+                "cost": "1.8万"
+              },
+              {
+                "slot": "枪口",
+                "name": "消音器（紫）",
+                "cost": "3.5万"
+              },
+              {
+                "slot": "握把",
+                "name": "垂直握把",
+                "cost": "0.5万"
+              }
+            ],
+            "total": "5.8万",
+            "tip": "排位赛稳定输出"
+          }
+        }
+      }
+    },
+    "18020000001": {
+      "name": "MP5冲锋枪",
+      "icon": "🔫",
+      "builds": {
+        "raid": {
+          "budget": {
+            "title": "MP5 烽火跑刀套",
+            "desc": "低成本高射速",
+            "parts": [
+              {
+                "slot": "瞄准镜",
+                "name": "红点瞄准镜",
+                "cost": "0.5万"
+              },
+              {
+                "slot": "枪口",
+                "name": "消音器（蓝）",
+                "cost": "0.8万"
+              }
+            ],
+            "total": "1.3万",
+            "tip": "适合跑刀，射速高"
+          },
+          "standard": {
+            "title": "MP5 烽火小康套",
+            "desc": "全能型",
+            "parts": [
+              {
+                "slot": "瞄准镜",
+                "name": "全息瞄准镜",
+                "cost": "1.8万"
+              },
+              {
+                "slot": "枪口",
+                "name": "消音器（紫）",
+                "cost": "3.5万"
+              }
+            ],
+            "total": "5.3万",
+            "tip": "中近距离全能"
+          }
+        },
+        "battle": {
+          "standard": {
+            "title": "MP5 战场套",
+            "desc": "高射速",
+            "parts": [
+              {
+                "slot": "枪口",
+                "name": "冲锋枪抑径器",
+                "cost": "2万"
+              },
+              {
+                "slot": "瞄准镜",
+                "name": "红点",
+                "cost": "0.8万"
+              }
+            ],
+            "total": "2.8万",
+            "tip": "适合室内近战"
+          }
+        }
+      }
+    },
+    "18020000002": {
+      "name": "P90冲锋枪",
+      "icon": "🔫",
+      "builds": {
+        "raid": {
+          "budget": {
+            "title": "P90 烽火跑刀套",
+            "desc": "大弹容",
+            "parts": [
+              {
+                "slot": "瞄准镜",
+                "name": "红点瞄准镜",
+                "cost": "0.5万"
+              }
+            ],
+            "total": "0.5万",
+            "tip": "50发弹容，适合跑刀"
+          },
+          "standard": {
+            "title": "P90 烽火小康套",
+            "desc": "大弹容高射速",
+            "parts": [
+              {
+                "slot": "瞄准镜",
+                "name": "全息瞄准镜",
+                "cost": "1.8万"
+              },
+              {
+                "slot": "枪口",
+                "name": "消音器（紫）",
+                "cost": "3.5万"
+              }
+            ],
+            "total": "5.3万",
+            "tip": "50发弹容持续火力"
+          }
+        },
+        "battle": {
+          "standard": {
+            "title": "P90 战场套",
+            "desc": "持续火力",
+            "parts": [
+              {
+                "slot": "枪口",
+                "name": "冲锋枪抑径器",
+                "cost": "2万"
+              },
+              {
+                "slot": "瞄准镜",
+                "name": "红点",
+                "cost": "0.8万"
+              }
+            ],
+            "total": "2.8万",
+            "tip": "50发弹容压制"
+          }
+        }
+      }
+    },
+    "18020000003": {
+      "name": "Vector冲锋枪",
+      "icon": "🔫",
+      "builds": {
+        "raid": {
+          "budget": {
+            "title": "Vector 烽火跑刀套",
+            "desc": "超高射速",
+            "parts": [
+              {
+                "slot": "瞄准镜",
+                "name": "红点瞄准镜",
+                "cost": "0.5万"
+              }
+            ],
+            "total": "0.5万",
+            "tip": "射速1200，近战无敌"
+          },
+          "standard": {
+            "title": "Vector 烽火小康套",
+            "desc": "近战特化",
+            "parts": [
+              {
+                "slot": "瞄准镜",
+                "name": "红点瞄准镜",
+                "cost": "0.5万"
+              },
+              {
+                "slot": "枪口",
+                "name": "消音器（紫）",
+                "cost": "3.5万"
+              }
+            ],
+            "total": "4万",
+            "tip": "室内近战最强"
+          }
+        },
+        "battle": {
+          "standard": {
+            "title": "Vector 战场套",
+            "desc": "近战爆发",
+            "parts": [
+              {
+                "slot": "枪口",
+                "name": "冲锋枪抑径器",
+                "cost": "2万"
+              },
+              {
+                "slot": "瞄准镜",
+                "name": "红点",
+                "cost": "0.8万"
+              }
+            ],
+            "total": "2.8万",
+            "tip": "适合室内CQB"
+          }
+        }
+      }
+    },
+    "18050000003": {
+      "name": "VSS射手步枪",
+      "icon": "🔫",
+      "builds": {
+        "raid": {
+          "budget": {
+            "title": "VSS 烽火隐蔽套",
+            "desc": "消音狙击",
+            "parts": [
+              {
+                "slot": "瞄准镜",
+                "name": "PSO-1瞄准镜",
+                "cost": "1.5万"
+              }
+            ],
+            "total": "1.5万",
+            "tip": "自带消音，隐蔽狙击"
+          },
+          "standard": {
+            "title": "VSS 烽火狙击套",
+            "desc": "中距离狙击",
+            "parts": [
+              {
+                "slot": "瞄准镜",
+                "name": "高倍瞄准镜",
+                "cost": "5万"
+              },
+              {
+                "slot": "握把",
+                "name": "垂直握把",
+                "cost": "0.5万"
+              }
+            ],
+            "total": "5.5万",
+            "tip": "9x39mm亚音速，隐蔽击杀"
+          }
+        },
+        "battle": {
+          "standard": {
+            "title": "VSS 战场套",
+            "desc": "远距离",
+            "parts": [
+              {
+                "slot": "瞄准镜",
+                "name": "高倍瞄准镜",
+                "cost": "5万"
+              }
+            ],
+            "total": "5万",
+            "tip": "适合远程支援"
+          }
+        }
+      }
+    },
+    "18060000008": {
+      "name": "R93狙击步枪",
+      "icon": "🔫",
+      "builds": {
+        "raid": {
+          "budget": {
+            "title": "R93 烽火入门套",
+            "desc": "大口径狙击",
+            "parts": [
+              {
+                "slot": "瞄准镜",
+                "name": "高倍瞄准镜",
+                "cost": "5万"
+              }
+            ],
+            "total": "5万",
+            "tip": ".338子弹一枪致死"
+          },
+          "standard": {
+            "title": "R93 烽火满配套",
+            "desc": "极致精度",
+            "parts": [
+              {
+                "slot": "瞄准镜",
+                "name": "高倍瞄准镜",
+                "cost": "5万"
+              },
+              {
+                "slot": "枪口",
+                "name": "消音器（紫）",
+                "cost": "3.5万"
+              },
+              {
+                "slot": "枪托",
+                "name": "狙击枪托",
+                "cost": "2万"
+              }
+            ],
+            "total": "10.5万",
+            "tip": "一枪致死，狙击之王"
+          }
+        },
+        "battle": {
+          "standard": {
+            "title": "R93 战场套",
+            "desc": "远程击杀",
+            "parts": [
+              {
+                "slot": "瞄准镜",
+                "name": "高倍瞄准镜",
+                "cost": "5万"
+              }
+            ],
+            "total": "5万",
+            "tip": "适合远程支援"
+          }
+        }
+      }
+    },
+    "18030000004": {
+      "name": "M870霰弹枪",
+      "icon": "🔫",
+      "builds": {
+        "raid": {
+          "budget": {
+            "title": "M870 烽火喷子套",
+            "desc": "近战爆发",
+            "parts": [
+              {
+                "slot": "瞄准镜",
+                "name": "红点瞄准镜",
+                "cost": "0.5万"
+              }
+            ],
+            "total": "0.5万",
+            "tip": "霰弹枪一枪秒杀"
+          },
+          "standard": {
+            "title": "M870 烽火满配套",
+            "desc": "近战特化",
+            "parts": [
+              {
+                "slot": "瞄准镜",
+                "name": "红点瞄准镜",
+                "cost": "0.5万"
+              },
+              {
+                "slot": "枪口",
+                "name": "消音器（紫）",
+                "cost": "3.5万"
+              }
+            ],
+            "total": "4万",
+            "tip": "室内近战无敌"
+          }
+        },
+        "battle": {
+          "standard": {
+            "title": "M870 战场套",
+            "desc": "近战爆发",
+            "parts": [
+              {
+                "slot": "瞄准镜",
+                "name": "红点",
+                "cost": "0.5万"
+              }
+            ],
+            "total": "0.5万",
+            "tip": "适合室内近战"
+          }
+        }
+      }
+    },
+    "18040000001": {
+      "name": "PKM通用机枪",
+      "icon": "🔫",
+      "builds": {
+        "raid": {
+          "budget": {
+            "title": "PKM 烽火压制套",
+            "desc": "大弹容压制",
+            "parts": [
+              {
+                "slot": "瞄准镜",
+                "name": "红点瞄准镜",
+                "cost": "0.5万"
+              }
+            ],
+            "total": "0.5万",
+            "tip": "100发弹链，持续压制"
+          },
+          "standard": {
+            "title": "PKM 烽火满配套",
+            "desc": "火力压制",
+            "parts": [
+              {
+                "slot": "瞄准镜",
+                "name": "全息瞄准镜",
+                "cost": "1.8万"
+              },
+              {
+                "slot": "枪口",
+                "name": "消音器（紫）",
+                "cost": "3.5万"
+              }
+            ],
+            "total": "5.3万",
+            "tip": "绝密地图标配"
+          }
+        },
+        "battle": {
+          "standard": {
+            "title": "PKM 战场套",
+            "desc": "火力压制",
+            "parts": [
+              {
+                "slot": "瞄准镜",
+                "name": "红点",
+                "cost": "0.5万"
+              }
+            ],
+            "total": "0.5万",
+            "tip": "适合火力压制"
+          }
+        }
+      }
+    },
+    "18040000002": {
+      "name": "M249轻机枪",
+      "icon": "🔫",
+      "builds": {
+        "raid": {
+          "budget": {
+            "title": "M249 烽火压制套",
+            "desc": "超大弹容",
+            "parts": [
+              {
+                "slot": "瞄准镜",
+                "name": "红点瞄准镜",
+                "cost": "0.5万"
+              }
+            ],
+            "total": "0.5万",
+            "tip": "200发弹链，持续火力"
+          },
+          "standard": {
+            "title": "M249 烽火满配套",
+            "desc": "火力压制",
+            "parts": [
+              {
+                "slot": "瞄准镜",
+                "name": "全息瞄准镜",
+                "cost": "1.8万"
+              },
+              {
+                "slot": "枪口",
+                "name": "消音器（紫）",
+                "cost": "3.5万"
+              }
+            ],
+            "total": "5.3万",
+            "tip": "200发弹容，移动弹药库"
+          }
+        },
+        "battle": {
+          "standard": {
+            "title": "M249 战场套",
+            "desc": "火力压制",
+            "parts": [
+              {
+                "slot": "瞄准镜",
+                "name": "红点",
+                "cost": "0.5万"
+              }
+            ],
+            "total": "0.5万",
+            "tip": "适合火力压制"
+          }
+        }
+      }
+    },
+    "18010000031": {
+      "name": "CAR-15突击步枪",
+      "icon": "🔫",
+      "builds": {
+        "raid": {
+          "budget": {
+            "title": "CAR-15 烽火跑刀套",
+            "desc": "低成本高效率",
+            "parts": [
+              {
+                "slot": "瞄准镜",
+                "name": "红点瞄准镜",
+                "cost": "0.5万"
+              },
+              {
+                "slot": "枪口",
+                "name": "消音器（蓝）",
+                "cost": "0.8万"
+              }
+            ],
+            "total": "1.3万",
+            "tip": "适合跑刀"
+          },
+          "standard": {
+            "title": "CAR-15 烽火小康套",
+            "desc": "全能型",
+            "parts": [
+              {
+                "slot": "瞄准镜",
+                "name": "全息瞄准镜",
+                "cost": "1.8万"
+              },
+              {
+                "slot": "枪口",
+                "name": "消音器（紫）",
+                "cost": "3.5万"
+              }
+            ],
+            "total": "5.3万",
+            "tip": "中距离全能"
+          }
+        },
+        "battle": {
+          "standard": {
+            "title": "CAR-15 战场套",
+            "desc": "高射速",
+            "parts": [
+              {
+                "slot": "枪口",
+                "name": "冲锋枪抑径器",
+                "cost": "2万"
+              },
+              {
+                "slot": "瞄准镜",
+                "name": "红点",
+                "cost": "0.8万"
+              }
+            ],
+            "total": "2.8万",
+            "tip": "适合抢点"
+          }
+        }
+      }
+    },
+    "18010000013": {
+      "name": "K416突击步枪",
+      "icon": "🔫",
+      "builds": {
+        "raid": {
+          "budget": {
+            "title": "K416 烽火跑刀套",
+            "desc": "高射速高可控",
+            "parts": [
+              {
+                "slot": "瞄准镜",
+                "name": "红点瞄准镜",
+                "cost": "0.5万"
+              },
+              {
+                "slot": "枪口",
+                "name": "消音器（蓝）",
+                "cost": "0.8万"
+              }
+            ],
+            "total": "1.3万",
+            "tip": "适合跑刀，射速880"
+          },
+          "standard": {
+            "title": "K416 烽火小康套",
+            "desc": "极致可控性",
+            "parts": [
+              {
+                "slot": "瞄准镜",
+                "name": "全息瞄准镜",
+                "cost": "1.8万"
+              },
+              {
+                "slot": "枪口",
+                "name": "消音器（紫）",
+                "cost": "3.5万"
+              },
+              {
+                "slot": "握把",
+                "name": "垂直握把",
+                "cost": "0.5万"
+              }
+            ],
+            "total": "5.8万",
+            "tip": "可控性61，后座44"
+          }
+        },
+        "battle": {
+          "standard": {
+            "title": "K416 战场套",
+            "desc": "高可控",
+            "parts": [
+              {
+                "slot": "枪口",
+                "name": "冲锋枪抑径器",
+                "cost": "2万"
+              },
+              {
+                "slot": "瞄准镜",
+                "name": "红点",
+                "cost": "0.8万"
+              }
+            ],
+            "total": "2.8万",
+            "tip": "适合抢点，可控性高"
+          }
+        }
+      }
+    },
+    "18010000015": {
+      "name": "AUG突击步枪",
+      "icon": "🔫",
+      "builds": {
+        "raid": {
+          "budget": {
+            "title": "AUG 烽火跑刀套",
+            "desc": "稳定无托",
+            "parts": [
+              {
+                "slot": "瞄准镜",
+                "name": "红点瞄准镜",
+                "cost": "0.5万"
+              }
+            ],
+            "total": "0.5万",
+            "tip": "无托设计，稳定高"
+          },
+          "standard": {
+            "title": "AUG 烽火小康套",
+            "desc": "稳定精准",
+            "parts": [
+              {
+                "slot": "瞄准镜",
+                "name": "全息瞄准镜",
+                "cost": "1.8万"
+              },
+              {
+                "slot": "枪口",
+                "name": "消音器（紫）",
+                "cost": "3.5万"
+              }
+            ],
+            "total": "5.3万",
+            "tip": "稳定59，中远距离强"
+          }
+        },
+        "battle": {
+          "standard": {
+            "title": "AUG 战场套",
+            "desc": "稳定输出",
+            "parts": [
+              {
+                "slot": "枪口",
+                "name": "冲锋枪抑径器",
+                "cost": "2万"
+              },
+              {
+                "slot": "瞄准镜",
+                "name": "红点",
+                "cost": "0.8万"
+              }
+            ],
+            "total": "2.8万",
+            "tip": "适合中距离对枪"
+          }
+        }
+      }
+    },
+    "18020000008": {
+      "name": "SR-3M紧凑突击步枪",
+      "icon": "🔫",
+      "builds": {
+        "raid": {
+          "budget": {
+            "title": "SR-3M 烽火隐蔽套",
+            "desc": "9x39mm亚音速",
+            "parts": [
+              {
+                "slot": "瞄准镜",
+                "name": "红点瞄准镜",
+                "cost": "0.5万"
+              }
+            ],
+            "total": "0.5万",
+            "tip": "9x39mm，隐蔽击杀"
+          },
+          "standard": {
+            "title": "SR-3M 烽火套",
+            "desc": "隐蔽近战",
+            "parts": [
+              {
+                "slot": "瞄准镜",
+                "name": "全息瞄准镜",
+                "cost": "1.8万"
+              },
+              {
+                "slot": "枪口",
+                "name": "消音器（紫）",
+                "cost": "3.5万"
+              }
+            ],
+            "total": "5.3万",
+            "tip": "9x39mm，近战隐蔽"
+          }
+        },
+        "battle": {
+          "standard": {
+            "title": "SR-3M 战场套",
+            "desc": "隐蔽近战",
+            "parts": [
+              {
+                "slot": "瞄准镜",
+                "name": "红点",
+                "cost": "0.5万"
+              }
+            ],
+            "total": "0.5万",
+            "tip": "适合室内CQB"
+          }
+        }
+      }
+    },
+    "18010000037": {
+      "name": "AS Val突击步枪",
+      "icon": "🔫",
+      "builds": {
+        "raid": {
+          "budget": {
+            "title": "AS Val 烽火隐蔽套",
+            "desc": "自带消音",
+            "parts": [
+              {
+                "slot": "瞄准镜",
+                "name": "红点瞄准镜",
+                "cost": "0.5万"
+              }
+            ],
+            "total": "0.5万",
+            "tip": "自带消音，9x39mm"
+          },
+          "standard": {
+            "title": "AS Val 烽火套",
+            "desc": "隐蔽狙击",
+            "parts": [
+              {
+                "slot": "瞄准镜",
+                "name": "高倍瞄准镜",
+                "cost": "5万"
+              },
+              {
+                "slot": "握把",
+                "name": "垂直握把",
+                "cost": "0.5万"
+              }
+            ],
+            "total": "5.5万",
+            "tip": "9x39mm亚音速，隐蔽击杀"
+          }
+        },
+        "battle": {
+          "standard": {
+            "title": "AS Val 战场套",
+            "desc": "隐蔽输出",
+            "parts": [
+              {
+                "slot": "瞄准镜",
+                "name": "红点",
+                "cost": "0.5万"
+              }
+            ],
+            "total": "0.5万",
+            "tip": "适合隐蔽作战"
+          }
+        }
+      }
+    },
+    "18010000014": {
+      "name": "M16A4突击步枪",
+      "icon": "🔫",
+      "builds": {
+        "raid": {
+          "budget": {
+            "title": "M16A4突击步枪 烽火跑刀套",
+            "desc": "低成本高效率",
+            "parts": [
+              {
+                "slot": "瞄准镜",
+                "name": "红点瞄准镜",
+                "cost": "0.5万"
+              },
+              {
+                "slot": "枪口",
+                "name": "消音器（蓝）",
+                "cost": "0.8万"
+              }
+            ],
+            "total": "1.3万",
+            "tip": "适合跑刀"
+          },
+          "standard": {
+            "title": "M16A4突击步枪 烽火小康套",
+            "desc": "攻防平衡",
+            "parts": [
+              {
+                "slot": "瞄准镜",
+                "name": "全息瞄准镜",
+                "cost": "1.8万"
+              },
+              {
+                "slot": "枪口",
+                "name": "消音器（紫）",
+                "cost": "3.5万"
+              }
+            ],
+            "total": "5.3万",
+            "tip": "中距离对枪优势"
+          },
+          "full": {
+            "title": "M16A4突击步枪 烽火满改套",
+            "desc": "极致性能",
+            "parts": [
+              {
+                "slot": "瞄准镜",
+                "name": "高倍瞄准镜",
+                "cost": "5万"
+              },
+              {
+                "slot": "枪口",
+                "name": "专属消音器",
+                "cost": "8万"
+              },
+              {
+                "slot": "握把",
+                "name": "人体工学握把",
+                "cost": "2万"
+              }
+            ],
+            "total": "15万",
+            "tip": "全能配置"
+          }
+        },
+        "battle": {
+          "standard": {
+            "title": "M16A4突击步枪 战场套",
+            "desc": "高性价比",
+            "parts": [
+              {
+                "slot": "枪口",
+                "name": "冲锋枪抑径器",
+                "cost": "2万"
+              },
+              {
+                "slot": "瞄准镜",
+                "name": "红点",
+                "cost": "0.8万"
+              }
+            ],
+            "total": "2.8万",
+            "tip": "适合抢点"
+          }
+        },
+        "ranked": {
+          "standard": {
+            "title": "M16A4突击步枪 排位套",
+            "desc": "稳定性优先",
+            "parts": [
+              {
+                "slot": "瞄准镜",
+                "name": "全息",
+                "cost": "1.8万"
+              },
+              {
+                "slot": "枪口",
+                "name": "消音器（紫）",
+                "cost": "3.5万"
+              }
+            ],
+            "total": "5.3万",
+            "tip": "竞技必备"
+          }
+        }
+      }
+    },
+    "18010000017": {
+      "name": "SG552突击步枪",
+      "icon": "🔫",
+      "builds": {
+        "raid": {
+          "budget": {
+            "title": "SG552突击步枪 烽火跑刀套",
+            "desc": "低成本高效率",
+            "parts": [
+              {
+                "slot": "瞄准镜",
+                "name": "红点瞄准镜",
+                "cost": "0.5万"
+              },
+              {
+                "slot": "枪口",
+                "name": "消音器（蓝）",
+                "cost": "0.8万"
+              }
+            ],
+            "total": "1.3万",
+            "tip": "适合跑刀"
+          },
+          "standard": {
+            "title": "SG552突击步枪 烽火小康套",
+            "desc": "攻防平衡",
+            "parts": [
+              {
+                "slot": "瞄准镜",
+                "name": "全息瞄准镜",
+                "cost": "1.8万"
+              },
+              {
+                "slot": "枪口",
+                "name": "消音器（紫）",
+                "cost": "3.5万"
+              }
+            ],
+            "total": "5.3万",
+            "tip": "中距离对枪优势"
+          },
+          "full": {
+            "title": "SG552突击步枪 烽火满改套",
+            "desc": "极致性能",
+            "parts": [
+              {
+                "slot": "瞄准镜",
+                "name": "高倍瞄准镜",
+                "cost": "5万"
+              },
+              {
+                "slot": "枪口",
+                "name": "专属消音器",
+                "cost": "8万"
+              },
+              {
+                "slot": "握把",
+                "name": "人体工学握把",
+                "cost": "2万"
+              }
+            ],
+            "total": "15万",
+            "tip": "全能配置"
+          }
+        },
+        "battle": {
+          "standard": {
+            "title": "SG552突击步枪 战场套",
+            "desc": "高性价比",
+            "parts": [
+              {
+                "slot": "枪口",
+                "name": "冲锋枪抑径器",
+                "cost": "2万"
+              },
+              {
+                "slot": "瞄准镜",
+                "name": "红点",
+                "cost": "0.8万"
+              }
+            ],
+            "total": "2.8万",
+            "tip": "适合抢点"
+          }
+        },
+        "ranked": {
+          "standard": {
+            "title": "SG552突击步枪 排位套",
+            "desc": "稳定性优先",
+            "parts": [
+              {
+                "slot": "瞄准镜",
+                "name": "全息",
+                "cost": "1.8万"
+              },
+              {
+                "slot": "枪口",
+                "name": "消音器（紫）",
+                "cost": "3.5万"
+              }
+            ],
+            "total": "5.3万",
+            "tip": "竞技必备"
+          }
+        }
+      }
+    },
+    "18010000018": {
+      "name": "AK-12突击步枪",
+      "icon": "🔫",
+      "builds": {
+        "raid": {
+          "budget": {
+            "title": "AK-12突击步枪 烽火跑刀套",
+            "desc": "低成本高效率",
+            "parts": [
+              {
+                "slot": "瞄准镜",
+                "name": "红点瞄准镜",
+                "cost": "0.5万"
+              },
+              {
+                "slot": "枪口",
+                "name": "消音器（蓝）",
+                "cost": "0.8万"
+              }
+            ],
+            "total": "1.3万",
+            "tip": "适合跑刀"
+          },
+          "standard": {
+            "title": "AK-12突击步枪 烽火小康套",
+            "desc": "攻防平衡",
+            "parts": [
+              {
+                "slot": "瞄准镜",
+                "name": "全息瞄准镜",
+                "cost": "1.8万"
+              },
+              {
+                "slot": "枪口",
+                "name": "消音器（紫）",
+                "cost": "3.5万"
+              }
+            ],
+            "total": "5.3万",
+            "tip": "中距离对枪优势"
+          },
+          "full": {
+            "title": "AK-12突击步枪 烽火满改套",
+            "desc": "极致性能",
+            "parts": [
+              {
+                "slot": "瞄准镜",
+                "name": "高倍瞄准镜",
+                "cost": "5万"
+              },
+              {
+                "slot": "枪口",
+                "name": "专属消音器",
+                "cost": "8万"
+              },
+              {
+                "slot": "握把",
+                "name": "人体工学握把",
+                "cost": "2万"
+              }
+            ],
+            "total": "15万",
+            "tip": "全能配置"
+          }
+        },
+        "battle": {
+          "standard": {
+            "title": "AK-12突击步枪 战场套",
+            "desc": "高性价比",
+            "parts": [
+              {
+                "slot": "枪口",
+                "name": "冲锋枪抑径器",
+                "cost": "2万"
+              },
+              {
+                "slot": "瞄准镜",
+                "name": "红点",
+                "cost": "0.8万"
+              }
+            ],
+            "total": "2.8万",
+            "tip": "适合抢点"
+          }
+        },
+        "ranked": {
+          "standard": {
+            "title": "AK-12突击步枪 排位套",
+            "desc": "稳定性优先",
+            "parts": [
+              {
+                "slot": "瞄准镜",
+                "name": "全息",
+                "cost": "1.8万"
+              },
+              {
+                "slot": "枪口",
+                "name": "消音器（紫）",
+                "cost": "3.5万"
+              }
+            ],
+            "total": "5.3万",
+            "tip": "竞技必备"
+          }
+        }
+      }
+    },
+    "18010000021": {
+      "name": "SCAR-H战斗步枪",
+      "icon": "🔫",
+      "builds": {
+        "raid": {
+          "budget": {
+            "title": "SCAR-H战斗步枪 烽火跑刀套",
+            "desc": "低成本高效率",
+            "parts": [
+              {
+                "slot": "瞄准镜",
+                "name": "红点瞄准镜",
+                "cost": "0.5万"
+              },
+              {
+                "slot": "枪口",
+                "name": "消音器（蓝）",
+                "cost": "0.8万"
+              }
+            ],
+            "total": "1.3万",
+            "tip": "适合跑刀"
+          },
+          "standard": {
+            "title": "SCAR-H战斗步枪 烽火小康套",
+            "desc": "攻防平衡",
+            "parts": [
+              {
+                "slot": "瞄准镜",
+                "name": "全息瞄准镜",
+                "cost": "1.8万"
+              },
+              {
+                "slot": "枪口",
+                "name": "消音器（紫）",
+                "cost": "3.5万"
+              }
+            ],
+            "total": "5.3万",
+            "tip": "中距离对枪优势"
+          },
+          "full": {
+            "title": "SCAR-H战斗步枪 烽火满改套",
+            "desc": "极致性能",
+            "parts": [
+              {
+                "slot": "瞄准镜",
+                "name": "高倍瞄准镜",
+                "cost": "5万"
+              },
+              {
+                "slot": "枪口",
+                "name": "专属消音器",
+                "cost": "8万"
+              },
+              {
+                "slot": "握把",
+                "name": "人体工学握把",
+                "cost": "2万"
+              }
+            ],
+            "total": "15万",
+            "tip": "全能配置"
+          }
+        },
+        "battle": {
+          "standard": {
+            "title": "SCAR-H战斗步枪 战场套",
+            "desc": "高性价比",
+            "parts": [
+              {
+                "slot": "枪口",
+                "name": "冲锋枪抑径器",
+                "cost": "2万"
+              },
+              {
+                "slot": "瞄准镜",
+                "name": "红点",
+                "cost": "0.8万"
+              }
+            ],
+            "total": "2.8万",
+            "tip": "适合抢点"
+          }
+        },
+        "ranked": {
+          "standard": {
+            "title": "SCAR-H战斗步枪 排位套",
+            "desc": "稳定性优先",
+            "parts": [
+              {
+                "slot": "瞄准镜",
+                "name": "全息",
+                "cost": "1.8万"
+              },
+              {
+                "slot": "枪口",
+                "name": "消音器（紫）",
+                "cost": "3.5万"
+              }
+            ],
+            "total": "5.3万",
+            "tip": "竞技必备"
+          }
+        }
+      }
+    },
+    "18010000023": {
+      "name": "G3战斗步枪",
+      "icon": "🔫",
+      "builds": {
+        "raid": {
+          "budget": {
+            "title": "G3战斗步枪 烽火跑刀套",
+            "desc": "低成本高效率",
+            "parts": [
+              {
+                "slot": "瞄准镜",
+                "name": "红点瞄准镜",
+                "cost": "0.5万"
+              },
+              {
+                "slot": "枪口",
+                "name": "消音器（蓝）",
+                "cost": "0.8万"
+              }
+            ],
+            "total": "1.3万",
+            "tip": "适合跑刀"
+          },
+          "standard": {
+            "title": "G3战斗步枪 烽火小康套",
+            "desc": "攻防平衡",
+            "parts": [
+              {
+                "slot": "瞄准镜",
+                "name": "全息瞄准镜",
+                "cost": "1.8万"
+              },
+              {
+                "slot": "枪口",
+                "name": "消音器（紫）",
+                "cost": "3.5万"
+              }
+            ],
+            "total": "5.3万",
+            "tip": "中距离对枪优势"
+          },
+          "full": {
+            "title": "G3战斗步枪 烽火满改套",
+            "desc": "极致性能",
+            "parts": [
+              {
+                "slot": "瞄准镜",
+                "name": "高倍瞄准镜",
+                "cost": "5万"
+              },
+              {
+                "slot": "枪口",
+                "name": "专属消音器",
+                "cost": "8万"
+              },
+              {
+                "slot": "握把",
+                "name": "人体工学握把",
+                "cost": "2万"
+              }
+            ],
+            "total": "15万",
+            "tip": "全能配置"
+          }
+        },
+        "battle": {
+          "standard": {
+            "title": "G3战斗步枪 战场套",
+            "desc": "高性价比",
+            "parts": [
+              {
+                "slot": "枪口",
+                "name": "冲锋枪抑径器",
+                "cost": "2万"
+              },
+              {
+                "slot": "瞄准镜",
+                "name": "红点",
+                "cost": "0.8万"
+              }
+            ],
+            "total": "2.8万",
+            "tip": "适合抢点"
+          }
+        },
+        "ranked": {
+          "standard": {
+            "title": "G3战斗步枪 排位套",
+            "desc": "稳定性优先",
+            "parts": [
+              {
+                "slot": "瞄准镜",
+                "name": "全息",
+                "cost": "1.8万"
+              },
+              {
+                "slot": "枪口",
+                "name": "消音器（紫）",
+                "cost": "3.5万"
+              }
+            ],
+            "total": "5.3万",
+            "tip": "竞技必备"
+          }
+        }
+      }
+    },
+    "18010000024": {
+      "name": "PTR-32突击步枪",
+      "icon": "🔫",
+      "builds": {
+        "raid": {
+          "budget": {
+            "title": "PTR-32突击步枪 烽火跑刀套",
+            "desc": "低成本高效率",
+            "parts": [
+              {
+                "slot": "瞄准镜",
+                "name": "红点瞄准镜",
+                "cost": "0.5万"
+              },
+              {
+                "slot": "枪口",
+                "name": "消音器（蓝）",
+                "cost": "0.8万"
+              }
+            ],
+            "total": "1.3万",
+            "tip": "适合跑刀"
+          },
+          "standard": {
+            "title": "PTR-32突击步枪 烽火小康套",
+            "desc": "攻防平衡",
+            "parts": [
+              {
+                "slot": "瞄准镜",
+                "name": "全息瞄准镜",
+                "cost": "1.8万"
+              },
+              {
+                "slot": "枪口",
+                "name": "消音器（紫）",
+                "cost": "3.5万"
+              }
+            ],
+            "total": "5.3万",
+            "tip": "中距离对枪优势"
+          },
+          "full": {
+            "title": "PTR-32突击步枪 烽火满改套",
+            "desc": "极致性能",
+            "parts": [
+              {
+                "slot": "瞄准镜",
+                "name": "高倍瞄准镜",
+                "cost": "5万"
+              },
+              {
+                "slot": "枪口",
+                "name": "专属消音器",
+                "cost": "8万"
+              },
+              {
+                "slot": "握把",
+                "name": "人体工学握把",
+                "cost": "2万"
+              }
+            ],
+            "total": "15万",
+            "tip": "全能配置"
+          }
+        },
+        "battle": {
+          "standard": {
+            "title": "PTR-32突击步枪 战场套",
+            "desc": "高性价比",
+            "parts": [
+              {
+                "slot": "枪口",
+                "name": "冲锋枪抑径器",
+                "cost": "2万"
+              },
+              {
+                "slot": "瞄准镜",
+                "name": "红点",
+                "cost": "0.8万"
+              }
+            ],
+            "total": "2.8万",
+            "tip": "适合抢点"
+          }
+        },
+        "ranked": {
+          "standard": {
+            "title": "PTR-32突击步枪 排位套",
+            "desc": "稳定性优先",
+            "parts": [
+              {
+                "slot": "瞄准镜",
+                "name": "全息",
+                "cost": "1.8万"
+              },
+              {
+                "slot": "枪口",
+                "name": "消音器（紫）",
+                "cost": "3.5万"
+              }
+            ],
+            "total": "5.3万",
+            "tip": "竞技必备"
+          }
+        }
+      }
+    },
+    "18010000008": {
+      "name": "QBZ95-1突击步枪",
+      "icon": "🔫",
+      "builds": {
+        "raid": {
+          "budget": {
+            "title": "QBZ95-1突击步枪 烽火跑刀套",
+            "desc": "低成本高效率",
+            "parts": [
+              {
+                "slot": "瞄准镜",
+                "name": "红点瞄准镜",
+                "cost": "0.5万"
+              },
+              {
+                "slot": "枪口",
+                "name": "消音器（蓝）",
+                "cost": "0.8万"
+              }
+            ],
+            "total": "1.3万",
+            "tip": "适合跑刀"
+          },
+          "standard": {
+            "title": "QBZ95-1突击步枪 烽火小康套",
+            "desc": "攻防平衡",
+            "parts": [
+              {
+                "slot": "瞄准镜",
+                "name": "全息瞄准镜",
+                "cost": "1.8万"
+              },
+              {
+                "slot": "枪口",
+                "name": "消音器（紫）",
+                "cost": "3.5万"
+              }
+            ],
+            "total": "5.3万",
+            "tip": "中距离对枪优势"
+          },
+          "full": {
+            "title": "QBZ95-1突击步枪 烽火满改套",
+            "desc": "极致性能",
+            "parts": [
+              {
+                "slot": "瞄准镜",
+                "name": "高倍瞄准镜",
+                "cost": "5万"
+              },
+              {
+                "slot": "枪口",
+                "name": "专属消音器",
+                "cost": "8万"
+              },
+              {
+                "slot": "握把",
+                "name": "人体工学握把",
+                "cost": "2万"
+              }
+            ],
+            "total": "15万",
+            "tip": "全能配置"
+          }
+        },
+        "battle": {
+          "standard": {
+            "title": "QBZ95-1突击步枪 战场套",
+            "desc": "高性价比",
+            "parts": [
+              {
+                "slot": "枪口",
+                "name": "冲锋枪抑径器",
+                "cost": "2万"
+              },
+              {
+                "slot": "瞄准镜",
+                "name": "红点",
+                "cost": "0.8万"
+              }
+            ],
+            "total": "2.8万",
+            "tip": "适合抢点"
+          }
+        },
+        "ranked": {
+          "standard": {
+            "title": "QBZ95-1突击步枪 排位套",
+            "desc": "稳定性优先",
+            "parts": [
+              {
+                "slot": "瞄准镜",
+                "name": "全息",
+                "cost": "1.8万"
+              },
+              {
+                "slot": "枪口",
+                "name": "消音器（紫）",
+                "cost": "3.5万"
+              }
+            ],
+            "total": "5.3万",
+            "tip": "竞技必备"
+          }
+        }
+      }
+    },
+    "18010000010": {
+      "name": "AKS-74U突击步枪",
+      "icon": "🔫",
+      "builds": {
+        "raid": {
+          "budget": {
+            "title": "AKS-74U突击步枪 烽火跑刀套",
+            "desc": "低成本高效率",
+            "parts": [
+              {
+                "slot": "瞄准镜",
+                "name": "红点瞄准镜",
+                "cost": "0.5万"
+              },
+              {
+                "slot": "枪口",
+                "name": "消音器（蓝）",
+                "cost": "0.8万"
+              }
+            ],
+            "total": "1.3万",
+            "tip": "适合跑刀"
+          },
+          "standard": {
+            "title": "AKS-74U突击步枪 烽火小康套",
+            "desc": "攻防平衡",
+            "parts": [
+              {
+                "slot": "瞄准镜",
+                "name": "全息瞄准镜",
+                "cost": "1.8万"
+              },
+              {
+                "slot": "枪口",
+                "name": "消音器（紫）",
+                "cost": "3.5万"
+              }
+            ],
+            "total": "5.3万",
+            "tip": "中距离对枪优势"
+          },
+          "full": {
+            "title": "AKS-74U突击步枪 烽火满改套",
+            "desc": "极致性能",
+            "parts": [
+              {
+                "slot": "瞄准镜",
+                "name": "高倍瞄准镜",
+                "cost": "5万"
+              },
+              {
+                "slot": "枪口",
+                "name": "专属消音器",
+                "cost": "8万"
+              },
+              {
+                "slot": "握把",
+                "name": "人体工学握把",
+                "cost": "2万"
+              }
+            ],
+            "total": "15万",
+            "tip": "全能配置"
+          }
+        },
+        "battle": {
+          "standard": {
+            "title": "AKS-74U突击步枪 战场套",
+            "desc": "高性价比",
+            "parts": [
+              {
+                "slot": "枪口",
+                "name": "冲锋枪抑径器",
+                "cost": "2万"
+              },
+              {
+                "slot": "瞄准镜",
+                "name": "红点",
+                "cost": "0.8万"
+              }
+            ],
+            "total": "2.8万",
+            "tip": "适合抢点"
+          }
+        },
+        "ranked": {
+          "standard": {
+            "title": "AKS-74U突击步枪 排位套",
+            "desc": "稳定性优先",
+            "parts": [
+              {
+                "slot": "瞄准镜",
+                "name": "全息",
+                "cost": "1.8万"
+              },
+              {
+                "slot": "枪口",
+                "name": "消音器（紫）",
+                "cost": "3.5万"
+              }
+            ],
+            "total": "5.3万",
+            "tip": "竞技必备"
+          }
+        }
+      }
+    },
+    "18010000016": {
+      "name": "M7战斗步枪",
+      "icon": "🔫",
+      "builds": {
+        "raid": {
+          "budget": {
+            "title": "M7战斗步枪 烽火跑刀套",
+            "desc": "低成本高效率",
+            "parts": [
+              {
+                "slot": "瞄准镜",
+                "name": "红点瞄准镜",
+                "cost": "0.5万"
+              },
+              {
+                "slot": "枪口",
+                "name": "消音器（蓝）",
+                "cost": "0.8万"
+              }
+            ],
+            "total": "1.3万",
+            "tip": "适合跑刀"
+          },
+          "standard": {
+            "title": "M7战斗步枪 烽火小康套",
+            "desc": "攻防平衡",
+            "parts": [
+              {
+                "slot": "瞄准镜",
+                "name": "全息瞄准镜",
+                "cost": "1.8万"
+              },
+              {
+                "slot": "枪口",
+                "name": "消音器（紫）",
+                "cost": "3.5万"
+              }
+            ],
+            "total": "5.3万",
+            "tip": "中距离对枪优势"
+          },
+          "full": {
+            "title": "M7战斗步枪 烽火满改套",
+            "desc": "极致性能",
+            "parts": [
+              {
+                "slot": "瞄准镜",
+                "name": "高倍瞄准镜",
+                "cost": "5万"
+              },
+              {
+                "slot": "枪口",
+                "name": "专属消音器",
+                "cost": "8万"
+              },
+              {
+                "slot": "握把",
+                "name": "人体工学握把",
+                "cost": "2万"
+              }
+            ],
+            "total": "15万",
+            "tip": "全能配置"
+          }
+        },
+        "battle": {
+          "standard": {
+            "title": "M7战斗步枪 战场套",
+            "desc": "高性价比",
+            "parts": [
+              {
+                "slot": "枪口",
+                "name": "冲锋枪抑径器",
+                "cost": "2万"
+              },
+              {
+                "slot": "瞄准镜",
+                "name": "红点",
+                "cost": "0.8万"
+              }
+            ],
+            "total": "2.8万",
+            "tip": "适合抢点"
+          }
+        },
+        "ranked": {
+          "standard": {
+            "title": "M7战斗步枪 排位套",
+            "desc": "稳定性优先",
+            "parts": [
+              {
+                "slot": "瞄准镜",
+                "name": "全息",
+                "cost": "1.8万"
+              },
+              {
+                "slot": "枪口",
+                "name": "消音器（紫）",
+                "cost": "3.5万"
+              }
+            ],
+            "total": "5.3万",
+            "tip": "竞技必备"
+          }
+        }
+      }
+    },
+    "18020000004": {
+      "name": "UZI冲锋枪",
+      "icon": "🔫",
+      "builds": {
+        "raid": {
+          "budget": {
+            "title": "UZI冲锋枪 烽火跑刀套",
+            "desc": "低成本高效率",
+            "parts": [
+              {
+                "slot": "瞄准镜",
+                "name": "红点瞄准镜",
+                "cost": "0.5万"
+              },
+              {
+                "slot": "枪口",
+                "name": "消音器（蓝）",
+                "cost": "0.8万"
+              }
+            ],
+            "total": "1.3万",
+            "tip": "适合跑刀"
+          },
+          "standard": {
+            "title": "UZI冲锋枪 烽火小康套",
+            "desc": "攻防平衡",
+            "parts": [
+              {
+                "slot": "瞄准镜",
+                "name": "全息瞄准镜",
+                "cost": "1.8万"
+              },
+              {
+                "slot": "枪口",
+                "name": "消音器（紫）",
+                "cost": "3.5万"
+              }
+            ],
+            "total": "5.3万",
+            "tip": "中距离对枪优势"
+          },
+          "full": {
+            "title": "UZI冲锋枪 烽火满改套",
+            "desc": "极致性能",
+            "parts": [
+              {
+                "slot": "瞄准镜",
+                "name": "高倍瞄准镜",
+                "cost": "5万"
+              },
+              {
+                "slot": "枪口",
+                "name": "专属消音器",
+                "cost": "8万"
+              },
+              {
+                "slot": "握把",
+                "name": "人体工学握把",
+                "cost": "2万"
+              }
+            ],
+            "total": "15万",
+            "tip": "全能配置"
+          }
+        },
+        "battle": {
+          "standard": {
+            "title": "UZI冲锋枪 战场套",
+            "desc": "高性价比",
+            "parts": [
+              {
+                "slot": "枪口",
+                "name": "冲锋枪抑径器",
+                "cost": "2万"
+              },
+              {
+                "slot": "瞄准镜",
+                "name": "红点",
+                "cost": "0.8万"
+              }
+            ],
+            "total": "2.8万",
+            "tip": "适合抢点"
+          }
+        },
+        "ranked": {
+          "standard": {
+            "title": "UZI冲锋枪 排位套",
+            "desc": "稳定性优先",
+            "parts": [
+              {
+                "slot": "瞄准镜",
+                "name": "全息",
+                "cost": "1.8万"
+              },
+              {
+                "slot": "枪口",
+                "name": "消音器（紫）",
+                "cost": "3.5万"
+              }
+            ],
+            "total": "5.3万",
+            "tip": "竞技必备"
+          }
+        }
+      }
+    },
+    "18020000005": {
+      "name": "野牛冲锋枪",
+      "icon": "🔫",
+      "builds": {
+        "raid": {
+          "budget": {
+            "title": "野牛冲锋枪 烽火跑刀套",
+            "desc": "低成本高效率",
+            "parts": [
+              {
+                "slot": "瞄准镜",
+                "name": "红点瞄准镜",
+                "cost": "0.5万"
+              },
+              {
+                "slot": "枪口",
+                "name": "消音器（蓝）",
+                "cost": "0.8万"
+              }
+            ],
+            "total": "1.3万",
+            "tip": "适合跑刀"
+          },
+          "standard": {
+            "title": "野牛冲锋枪 烽火小康套",
+            "desc": "攻防平衡",
+            "parts": [
+              {
+                "slot": "瞄准镜",
+                "name": "全息瞄准镜",
+                "cost": "1.8万"
+              },
+              {
+                "slot": "枪口",
+                "name": "消音器（紫）",
+                "cost": "3.5万"
+              }
+            ],
+            "total": "5.3万",
+            "tip": "中距离对枪优势"
+          },
+          "full": {
+            "title": "野牛冲锋枪 烽火满改套",
+            "desc": "极致性能",
+            "parts": [
+              {
+                "slot": "瞄准镜",
+                "name": "高倍瞄准镜",
+                "cost": "5万"
+              },
+              {
+                "slot": "枪口",
+                "name": "专属消音器",
+                "cost": "8万"
+              },
+              {
+                "slot": "握把",
+                "name": "人体工学握把",
+                "cost": "2万"
+              }
+            ],
+            "total": "15万",
+            "tip": "全能配置"
+          }
+        },
+        "battle": {
+          "standard": {
+            "title": "野牛冲锋枪 战场套",
+            "desc": "高性价比",
+            "parts": [
+              {
+                "slot": "枪口",
+                "name": "冲锋枪抑径器",
+                "cost": "2万"
+              },
+              {
+                "slot": "瞄准镜",
+                "name": "红点",
+                "cost": "0.8万"
+              }
+            ],
+            "total": "2.8万",
+            "tip": "适合抢点"
+          }
+        },
+        "ranked": {
+          "standard": {
+            "title": "野牛冲锋枪 排位套",
+            "desc": "稳定性优先",
+            "parts": [
+              {
+                "slot": "瞄准镜",
+                "name": "全息",
+                "cost": "1.8万"
+              },
+              {
+                "slot": "枪口",
+                "name": "消音器（紫）",
+                "cost": "3.5万"
+              }
+            ],
+            "total": "5.3万",
+            "tip": "竞技必备"
+          }
+        }
+      }
+    },
+    "18020000006": {
+      "name": "SMG-45冲锋枪",
+      "icon": "🔫",
+      "builds": {
+        "raid": {
+          "budget": {
+            "title": "SMG-45冲锋枪 烽火跑刀套",
+            "desc": "低成本高效率",
+            "parts": [
+              {
+                "slot": "瞄准镜",
+                "name": "红点瞄准镜",
+                "cost": "0.5万"
+              },
+              {
+                "slot": "枪口",
+                "name": "消音器（蓝）",
+                "cost": "0.8万"
+              }
+            ],
+            "total": "1.3万",
+            "tip": "适合跑刀"
+          },
+          "standard": {
+            "title": "SMG-45冲锋枪 烽火小康套",
+            "desc": "攻防平衡",
+            "parts": [
+              {
+                "slot": "瞄准镜",
+                "name": "全息瞄准镜",
+                "cost": "1.8万"
+              },
+              {
+                "slot": "枪口",
+                "name": "消音器（紫）",
+                "cost": "3.5万"
+              }
+            ],
+            "total": "5.3万",
+            "tip": "中距离对枪优势"
+          },
+          "full": {
+            "title": "SMG-45冲锋枪 烽火满改套",
+            "desc": "极致性能",
+            "parts": [
+              {
+                "slot": "瞄准镜",
+                "name": "高倍瞄准镜",
+                "cost": "5万"
+              },
+              {
+                "slot": "枪口",
+                "name": "专属消音器",
+                "cost": "8万"
+              },
+              {
+                "slot": "握把",
+                "name": "人体工学握把",
+                "cost": "2万"
+              }
+            ],
+            "total": "15万",
+            "tip": "全能配置"
+          }
+        },
+        "battle": {
+          "standard": {
+            "title": "SMG-45冲锋枪 战场套",
+            "desc": "高性价比",
+            "parts": [
+              {
+                "slot": "枪口",
+                "name": "冲锋枪抑径器",
+                "cost": "2万"
+              },
+              {
+                "slot": "瞄准镜",
+                "name": "红点",
+                "cost": "0.8万"
+              }
+            ],
+            "total": "2.8万",
+            "tip": "适合抢点"
+          }
+        },
+        "ranked": {
+          "standard": {
+            "title": "SMG-45冲锋枪 排位套",
+            "desc": "稳定性优先",
+            "parts": [
+              {
+                "slot": "瞄准镜",
+                "name": "全息",
+                "cost": "1.8万"
+              },
+              {
+                "slot": "枪口",
+                "name": "消音器（紫）",
+                "cost": "3.5万"
+              }
+            ],
+            "total": "5.3万",
+            "tip": "竞技必备"
+          }
+        }
+      }
+    },
+    "18020000010": {
+      "name": "MP7",
+      "icon": "🔫",
+      "builds": {
+        "raid": {
+          "budget": {
+            "title": "MP7 烽火跑刀套",
+            "desc": "低成本高效率",
+            "parts": [
+              {
+                "slot": "瞄准镜",
+                "name": "红点瞄准镜",
+                "cost": "0.5万"
+              },
+              {
+                "slot": "枪口",
+                "name": "消音器（蓝）",
+                "cost": "0.8万"
+              }
+            ],
+            "total": "1.3万",
+            "tip": "适合跑刀"
+          },
+          "standard": {
+            "title": "MP7 烽火小康套",
+            "desc": "攻防平衡",
+            "parts": [
+              {
+                "slot": "瞄准镜",
+                "name": "全息瞄准镜",
+                "cost": "1.8万"
+              },
+              {
+                "slot": "枪口",
+                "name": "消音器（紫）",
+                "cost": "3.5万"
+              }
+            ],
+            "total": "5.3万",
+            "tip": "中距离对枪优势"
+          },
+          "full": {
+            "title": "MP7 烽火满改套",
+            "desc": "极致性能",
+            "parts": [
+              {
+                "slot": "瞄准镜",
+                "name": "高倍瞄准镜",
+                "cost": "5万"
+              },
+              {
+                "slot": "枪口",
+                "name": "专属消音器",
+                "cost": "8万"
+              },
+              {
+                "slot": "握把",
+                "name": "人体工学握把",
+                "cost": "2万"
+              }
+            ],
+            "total": "15万",
+            "tip": "全能配置"
+          }
+        },
+        "battle": {
+          "standard": {
+            "title": "MP7 战场套",
+            "desc": "高性价比",
+            "parts": [
+              {
+                "slot": "枪口",
+                "name": "冲锋枪抑径器",
+                "cost": "2万"
+              },
+              {
+                "slot": "瞄准镜",
+                "name": "红点",
+                "cost": "0.8万"
+              }
+            ],
+            "total": "2.8万",
+            "tip": "适合抢点"
+          }
+        },
+        "ranked": {
+          "standard": {
+            "title": "MP7 排位套",
+            "desc": "稳定性优先",
+            "parts": [
+              {
+                "slot": "瞄准镜",
+                "name": "全息",
+                "cost": "1.8万"
+              },
+              {
+                "slot": "枪口",
+                "name": "消音器（紫）",
+                "cost": "3.5万"
+              }
+            ],
+            "total": "5.3万",
+            "tip": "竞技必备"
+          }
+        }
+      }
+    },
+    "18030000001": {
+      "name": "M1014霰弹枪",
+      "icon": "🔫",
+      "builds": {
+        "raid": {
+          "budget": {
+            "title": "M1014霰弹枪 烽火跑刀套",
+            "desc": "低成本高效率",
+            "parts": [
+              {
+                "slot": "瞄准镜",
+                "name": "红点瞄准镜",
+                "cost": "0.5万"
+              },
+              {
+                "slot": "枪口",
+                "name": "消音器（蓝）",
+                "cost": "0.8万"
+              }
+            ],
+            "total": "1.3万",
+            "tip": "适合跑刀"
+          },
+          "standard": {
+            "title": "M1014霰弹枪 烽火小康套",
+            "desc": "攻防平衡",
+            "parts": [
+              {
+                "slot": "瞄准镜",
+                "name": "全息瞄准镜",
+                "cost": "1.8万"
+              },
+              {
+                "slot": "枪口",
+                "name": "消音器（紫）",
+                "cost": "3.5万"
+              }
+            ],
+            "total": "5.3万",
+            "tip": "中距离对枪优势"
+          },
+          "full": {
+            "title": "M1014霰弹枪 烽火满改套",
+            "desc": "极致性能",
+            "parts": [
+              {
+                "slot": "瞄准镜",
+                "name": "高倍瞄准镜",
+                "cost": "5万"
+              },
+              {
+                "slot": "枪口",
+                "name": "专属消音器",
+                "cost": "8万"
+              },
+              {
+                "slot": "握把",
+                "name": "人体工学握把",
+                "cost": "2万"
+              }
+            ],
+            "total": "15万",
+            "tip": "全能配置"
+          }
+        },
+        "battle": {
+          "standard": {
+            "title": "M1014霰弹枪 战场套",
+            "desc": "高性价比",
+            "parts": [
+              {
+                "slot": "枪口",
+                "name": "冲锋枪抑径器",
+                "cost": "2万"
+              },
+              {
+                "slot": "瞄准镜",
+                "name": "红点",
+                "cost": "0.8万"
+              }
+            ],
+            "total": "2.8万",
+            "tip": "适合抢点"
+          }
+        },
+        "ranked": {
+          "standard": {
+            "title": "M1014霰弹枪 排位套",
+            "desc": "稳定性优先",
+            "parts": [
+              {
+                "slot": "瞄准镜",
+                "name": "全息",
+                "cost": "1.8万"
+              },
+              {
+                "slot": "枪口",
+                "name": "消音器（紫）",
+                "cost": "3.5万"
+              }
+            ],
+            "total": "5.3万",
+            "tip": "竞技必备"
+          }
+        }
+      }
+    },
+    "18050000002": {
+      "name": "Mini-14射手步枪",
+      "icon": "🔫",
+      "builds": {
+        "raid": {
+          "budget": {
+            "title": "Mini-14射手步枪 烽火跑刀套",
+            "desc": "低成本高效率",
+            "parts": [
+              {
+                "slot": "瞄准镜",
+                "name": "红点瞄准镜",
+                "cost": "0.5万"
+              },
+              {
+                "slot": "枪口",
+                "name": "消音器（蓝）",
+                "cost": "0.8万"
+              }
+            ],
+            "total": "1.3万",
+            "tip": "适合跑刀"
+          },
+          "standard": {
+            "title": "Mini-14射手步枪 烽火小康套",
+            "desc": "攻防平衡",
+            "parts": [
+              {
+                "slot": "瞄准镜",
+                "name": "全息瞄准镜",
+                "cost": "1.8万"
+              },
+              {
+                "slot": "枪口",
+                "name": "消音器（紫）",
+                "cost": "3.5万"
+              }
+            ],
+            "total": "5.3万",
+            "tip": "中距离对枪优势"
+          },
+          "full": {
+            "title": "Mini-14射手步枪 烽火满改套",
+            "desc": "极致性能",
+            "parts": [
+              {
+                "slot": "瞄准镜",
+                "name": "高倍瞄准镜",
+                "cost": "5万"
+              },
+              {
+                "slot": "枪口",
+                "name": "专属消音器",
+                "cost": "8万"
+              },
+              {
+                "slot": "握把",
+                "name": "人体工学握把",
+                "cost": "2万"
+              }
+            ],
+            "total": "15万",
+            "tip": "全能配置"
+          }
+        },
+        "battle": {
+          "standard": {
+            "title": "Mini-14射手步枪 战场套",
+            "desc": "高性价比",
+            "parts": [
+              {
+                "slot": "枪口",
+                "name": "冲锋枪抑径器",
+                "cost": "2万"
+              },
+              {
+                "slot": "瞄准镜",
+                "name": "红点",
+                "cost": "0.8万"
+              }
+            ],
+            "total": "2.8万",
+            "tip": "适合抢点"
+          }
+        },
+        "ranked": {
+          "standard": {
+            "title": "Mini-14射手步枪 排位套",
+            "desc": "稳定性优先",
+            "parts": [
+              {
+                "slot": "瞄准镜",
+                "name": "全息",
+                "cost": "1.8万"
+              },
+              {
+                "slot": "枪口",
+                "name": "消音器（紫）",
+                "cost": "3.5万"
+              }
+            ],
+            "total": "5.3万",
+            "tip": "竞技必备"
+          }
+        }
+      }
+    }
+  }
 }

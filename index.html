@@ -2872,6 +2872,88 @@
             updatePriceTableFromData();
             updateKeysFromData();
             updateCollectiblesFromData();
+            convertModsToGearData(); // 新增：将mods转换为gearData
+        }
+        
+        // 将game-data.json中的mods转换为gearData格式
+        function convertModsToGearData() {
+            if (!gameData || !gameData.mods) {
+                console.log('⚠️ 没有mods数据，使用硬编码gearData');
+                return;
+            }
+            
+            // 武器ID到gearData key的映射
+            const weaponKeyMap = {
+                '18010000001': 'm4',      // M4A1突击步枪
+                '18010000006': 'ak',      // AKM突击步枪
+                '18020000001': 'mp5',     // MP5冲锋枪
+                '18020000002': 'p90',     // P90冲锋枪
+                '18020000003': 'vector',  // Vector冲锋枪
+                '18050000003': 'vss',     // VSS射手步枪
+                '18060000008': 'r93',     // R93狙击步枪
+                '18030000004': 'm870',    // M870霰弹枪
+                '18040000001': 'pkm',     // PKM通用机枪
+                '18040000002': 'm249',    // M249轻机枪
+                '18010000031': 'car15',   // CAR-15突击步枪
+                '18010000013': 'k416',    // K416突击步枪
+                '18010000015': 'aug',     // AUG突击步枪
+                '18020000008': 'sr3m',    // SR-3M紧凑突击步枪
+                '18010000037': 'asval',   // AS Val突击步枪
+                // 第二批 2026-05-10
+                '18010000014': 'm16a4',   // M16A4突击步枪
+                '18010000017': 'sg552',   // SG552突击步枪
+                '18010000018': 'ak12',    // AK-12突击步枪
+                '18010000021': 'scarh',   // SCAR-H战斗步枪
+                '18010000023': 'g3',      // G3战斗步枪
+                '18010000024': 'ptr32',   // PTR-32突击步枪
+                '18010000008': 'qbz95',   // QBZ95-1突击步枪
+                '18010000010': 'aks74u',  // AKS-74U突击步枪
+                '18010000016': 'm7',      // M7战斗步枪
+                '18020000004': 'uzi',     // UZI冲锋枪
+                '18020000005': 'bizon',   // 野牛冲锋枪
+                '18020000006': 'smg45',   // SMG-45冲锋枪
+                '18020000010': 'mp7',     // MP7
+                '18030000001': 'm1014',   // M1014霰弹枪
+                '18050000002': 'mini14',  // Mini-14射手步枪
+            };
+            
+            // 预算级别映射
+            const budgetMap = {
+                'penny': 'budget',
+                'normal': 'standard',
+                'rich': 'full',
+                'vip': 'full'
+            };
+            
+            // 遍历mods，转换为gearData格式
+            for (const [weaponId, modData] of Object.entries(gameData.mods)) {
+                const key = weaponKeyMap[weaponId] || weaponId;
+                
+                // 初始化gearData[key]（如果不存在）
+                if (!gearData[key]) {
+                    gearData[key] = {
+                        name: modData.name,
+                        icon: modData.icon || '🔫',
+                        builds: {}
+                    };
+                }
+                
+                // 转换builds
+                if (modData.builds) {
+                    for (const [mode, budgetObj] of Object.entries(modData.builds)) {
+                        if (!gearData[key].builds[mode]) {
+                            gearData[key].builds[mode] = {};
+                        }
+                        
+                        for (const [budget, buildData] of Object.entries(budgetObj)) {
+                            const tier = budgetMap[budget] || budget;
+                            gearData[key].builds[mode][tier] = buildData;
+                        }
+                    }
+                }
+            }
+            
+            console.log('✅ mods数据已转换为gearData格式', Object.keys(gearData));
         }
 
         // ==================== Theme Toggle ====================

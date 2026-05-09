@@ -440,58 +440,178 @@
     </div>
     
     <script>
-        // 装备数据库
-        const gearDB = {
-            helmets: [
-                { name: '户外棒球帽', type: 'helmet', cv: 0.5, price: 0.5, icon: '🧢', reason: '最低配，战备值几乎为0' },
-                { name: '老式钢盔 (几乎全新)', type: 'helmet', cv: 1.3, price: 0.13, icon: '⛑️', reason: '便宜' },
-                { name: 'MC防弹头盔 (几乎全新)', type: 'helmet', cv: 9.3, price: 0.93, icon: '⛑️', reason: '高性价比' },
-                { name: 'DRO 战术头盔', type: 'helmet', cv: 8.4, price: 0.84, icon: '⛑️', reason: '8万战备只需8400' },
-                { name: 'H09 防暴头盔 (几乎全新)', type: 'helmet', cv: 15, price: 1.5, icon: '⛑️', reason: '15万战备性价比最高' },
-                { name: '破损的DICH训练头盔', type: 'helmet', cv: 45, price: 4.5, icon: '⛑️', reason: '绝密图推荐，耐久低但战备不缩水' },
-                { name: 'GN 久战重型夜视头盔', type: 'helmet', cv: 224.8, price: 22.5, icon: '⛑️', reason: '绝密顶级头盔' },
-            ],
-            armors: [
-                { name: '安保防弹衣', type: 'armor', cv: 2.4, price: 0.24, icon: '🦺', reason: '基础款' },
-                { name: '尼龙防弹衣 (几乎全新)', type: 'armor', cv: 2.6, price: 0.26, icon: '🦺', reason: '便宜' },
-                { name: '射手战术背心 (破损)', type: 'armor', cv: 36.2, price: 3.6, icon: '🦺', reason: '高性价比破损装' },
-                { name: '武士防弹背心 (破损)', type: 'armor', cv: 76.3, price: 7.6, icon: '🦺', reason: '绝密级性价比' },
-                { name: '精英防弹背心 (破损)', type: 'armor', cv: 260.7, price: 26, icon: '🦺', reason: '绝密顶级' },
-                { name: 'DT-AVS防弹衣', type: 'armor', cv: 199.9, price: 20, icon: '🦺', reason: '绝密标配' },
-            ],
-            backpacks: [
-                { name: '帆布背囊', type: 'backpack', cv: 1.2, price: 0.12, icon: '🎒', reason: '基础款' },
-                { name: '战术快拆背包', type: 'backpack', cv: 4.5, price: 0.45, icon: '🎒', reason: '4.5万战备只需4500' },
-                { name: '雨林猎手背包', type: 'backpack', cv: 35, price: 3.5, icon: '🎒', reason: '21格容量，性价比极高' },
-                { name: 'MAP侦察背包', type: 'backpack', cv: 41.9, price: 4.2, icon: '🎒', reason: '高战备值' },
-            ],
-            chestRigs: [
-                { name: 'G01战术弹挂', type: 'chestRig', cv: 3.5, price: 0.35, icon: '📦', reason: '基础款' },
-                { name: 'GIR野战胸挂', type: 'chestRig', cv: 25, price: 2.5, icon: '📦', reason: '绝密入门级' },
-                { name: 'DRC先进侦察胸挂', type: 'chestRig', cv: 65, price: 6.5, icon: '📦', reason: '绝密级胸挂' },
-            ]
+        // 装备数据库 - 动态加载
+        let gearDB = {
+            helmets: [],
+            armors: [],
+            backpacks: [],
+            chestRigs: []
         };
         
-        // 武器数据库
-        const weaponDB = {
-            budget: [
-                { name: 'MP5冲锋枪', type: 'primary', cv: 2, price: 1, ammo: '9×19mm', icon: '🔫', note: '裸枪+30发弹鼓' },
-                { name: 'CAR-15突击步枪', type: 'primary', cv: 2.5, price: 1, ammo: '5.56×45mm', icon: '🔫', note: '平民毕业枪' },
-                { name: 'M870霰弹枪', type: 'primary', cv: 3, price: 4, ammo: '12 Gauge', icon: '🔫', note: '清AI神器' },
-                { name: 'AKM突击步枪', type: 'primary', cv: 4, price: 4.5, ammo: '7.62×39mm', icon: '🔫', note: '高伤害' },
-            ],
-            mid: [
-                { name: 'K416突击步枪', type: 'primary', cv: 7, price: 8, ammo: '5.56×45mm', icon: '🔫', note: '全能型' },
-                { name: 'P90冲锋枪', type: 'primary', cv: 5, price: 6, ammo: '5.7×28mm', icon: '🔫', note: '高射速' },
-                { name: 'M249轻机枪', type: 'primary', cv: 10, price: 12, ammo: '5.56×45mm', icon: '🔫', note: '火力压制' },
-                { name: 'M7战斗步枪', type: 'primary', cv: 12, price: 14, ammo: '6.8×51mm', icon: '🔫', note: '绝密级' },
-            ],
-            high: [
-                { name: 'PKM通用机枪', type: 'primary', cv: 14, price: 14, ammo: '7.62×54mmR', icon: '🔫', note: '绝密标配' },
-                { name: 'AS Val突击步枪', type: 'primary', cv: 15, price: 18, ammo: '9×39mm', icon: '🔫', note: '微声神器' },
-                { name: 'R93狙击步枪', type: 'primary', cv: 18, price: 20, ammo: '7.62×51mm', icon: '🔫', note: '远程狙杀' },
-            ]
+        let weaponDB = {
+            budget: [],
+            mid: [],
+            high: []
         };
+        
+        // 从game-data.json加载数据
+        async function loadGameData() {
+            try {
+                const resp = await fetch('data/game-data.json?t=' + Date.now());
+                const gameData = await resp.json();
+                
+                // 转换gear数据为gearDB格式
+                if (gameData.gear) {
+                    const gearArr = Object.values(gameData.gear);
+                    
+                    // 头盔
+                    gearDB.helmets = gearArr
+                        .filter(g => g.type === 'helmet')
+                        .map(g => ({
+                            name: g.name,
+                            type: 'helmet',
+                            cv: g.price / 1000,  // 战备值估算
+                            price: g.price / 10000,  // 转换为万为单位
+                            icon: '⛑️',
+                            reason: g.description || `${g.typeCN}，防御${g.defense||0}`
+                        }))
+                        .sort((a, b) => a.cv - b.cv);
+                    
+                    // 护甲
+                    gearDB.armors = gearArr
+                        .filter(g => g.type === 'vest')
+                        .map(g => ({
+                            name: g.name,
+                            type: 'armor',
+                            cv: g.price / 1000,
+                            price: g.price / 10000,
+                            icon: '🦺',
+                            reason: g.description || `${g.typeCN}，防御${g.defense||0}`
+                        }))
+                        .sort((a, b) => a.cv - b.cv);
+                    
+                    // 背包
+                    gearDB.backpacks = gearArr
+                        .filter(g => g.type === 'bag')
+                        .map(g => ({
+                            name: g.name,
+                            type: 'backpack',
+                            cv: g.price / 1000,
+                            price: g.price / 10000,
+                            icon: '🎒',
+                            reason: g.description || `${g.typeCN}，${g.capacity||0}格`
+                        }))
+                        .sort((a, b) => a.cv - b.cv);
+                    
+                    // 胸挂
+                    gearDB.chestRigs = gearArr
+                        .filter(g => g.type === 'rig')
+                        .map(g => ({
+                            name: g.name,
+                            type: 'chestRig',
+                            cv: g.price / 1000,
+                            price: g.price / 10000,
+                            icon: '📦',
+                            reason: g.description || `${g.typeCN}，${g.capacity||0}格`
+                        }))
+                        .sort((a, b) => a.cv - b.cv);
+                }
+                
+                // 转换weapons数据为weaponDB格式
+                if (gameData.weapons) {
+                    const weaponsArr = Object.values(gameData.weapons);
+                    
+                    // 简单分类：按price分为budget(<5万), mid(5-15万), high(>15万)
+                    weaponDB.budget = weaponsArr
+                        .filter(w => w.price < 50000)
+                        .map(w => ({
+                            name: w.name,
+                            type: 'primary',
+                            cv: w.price / 10000,
+                            price: w.price / 10000,
+                            ammo: w.caliber || '未知',
+                            icon: '🔫',
+                            note: w.description || `${w.typeCN}，射速${w.fireRate||0}`
+                        }));
+                    
+                    weaponDB.mid = weaponsArr
+                        .filter(w => w.price >= 50000 && w.price <= 150000)
+                        .map(w => ({
+                            name: w.name,
+                            type: 'primary',
+                            cv: w.price / 10000,
+                            price: w.price / 10000,
+                            ammo: w.caliber || '未知',
+                            icon: '🔫',
+                            note: w.description || `${w.typeCN}，射速${w.fireRate||0}`
+                        }));
+                    
+                    weaponDB.high = weaponsArr
+                        .filter(w => w.price > 150000)
+                        .map(w => ({
+                            name: w.name,
+                            type: 'primary',
+                            cv: w.price / 10000,
+                            price: w.price / 10000,
+                            ammo: w.caliber || '未知',
+                            icon: '🔫',
+                            note: w.description || `${w.typeCN}，射速${w.fireRate||0}`
+                        }));
+                }
+                
+                console.log('✅ 游戏数据加载成功', {
+                    helmets: gearDB.helmets.length,
+                    armors: gearDB.armors.length,
+                    backpacks: gearDB.backpacks.length,
+                    chestRigs: gearDB.chestRigs.length,
+                    budgetWeapons: weaponDB.budget.length,
+                    midWeapons: weaponDB.mid.length,
+                    highWeapons: weaponDB.high.length
+                });
+                
+                // 数据加载完成后初始化页面
+                initPage();
+                
+            } catch (err) {
+                console.error('❌ 加载游戏数据失败，使用默认数据', err);
+                // 如果加载失败，使用硬编码的默认数据
+                useDefaultData();
+                initPage();
+            }
+        }
+        
+        // 默认数据（加载失败时使用）
+        function useDefaultData() {
+            gearDB = {
+                helmets: [
+                    { name: '户外棒球帽', type: 'helmet', cv: 0.5, price: 0.5, icon: '🧢', reason: '最低配，战备值几乎为0' },
+                    { name: '老式钢盔 (几乎全新)', type: 'helmet', cv: 1.3, price: 0.13, icon: '⛑️', reason: '便宜' },
+                    { name: 'MC防弹头盔 (几乎全新)', type: 'helmet', cv: 9.3, price: 0.93, icon: '⛑️', reason: '高性价比' },
+                ],
+                armors: [
+                    { name: '安保防弹衣', type: 'armor', cv: 2.4, price: 0.24, icon: '🦺', reason: '基础款' },
+                    { name: '尼龙防弹衣 (几乎全新)', type: 'armor', cv: 2.6, price: 0.26, icon: '🦺', reason: '便宜' },
+                ],
+                backpacks: [
+                    { name: '帆布背囊', type: 'backpack', cv: 1.2, price: 0.12, icon: '🎒', reason: '基础款' },
+                ],
+                chestRigs: [
+                    { name: 'G01战术弹挂', type: 'chestRig', cv: 3.5, price: 0.35, icon: '📦', reason: '基础款' },
+                ]
+            };
+            
+            weaponDB = {
+                budget: [
+                    { name: 'MP5冲锋枪', type: 'primary', cv: 2, price: 1, ammo: '9×19mm', icon: '🔫', note: '裸枪+30发弹鼓' },
+                ],
+                mid: [
+                    { name: 'K416突击步枪', type: 'primary', cv: 7, price: 8, ammo: '5.56×45mm', icon: '🔫', note: '全能型' },
+                ],
+                high: [
+                    { name: 'PKM通用机枪', type: 'primary', cv: 14, price: 14, ammo: '7.62×54mmR', icon: '🔫', note: '绝密标配' },
+                ]
+            };
+        }
         
         // 地图门槛
         const mapThresholds = {
@@ -694,6 +814,12 @@
                 const result = calculateOptimal(parseFloat(btn.dataset.budget), btn.dataset.map);
                 renderResult(result);
             });
+        });
+        
+        // 页面加载时初始化
+        document.addEventListener('DOMContentLoaded', () => {
+            console.log('🚀 开始加载游戏数据...');
+            loadGameData();
         });
     </script>
 </body>
