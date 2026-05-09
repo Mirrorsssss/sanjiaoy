@@ -13496,93 +13496,269 @@
     }
   },
   "ammo": {
-    "ammo7.62x39": {
-      "id": "ammo7.62x39",
-      "name": "7.62x39mm弹药",
-      "caliber": "7.62x39",
-      "type": "rifle",
-      "grade": 2,
-      "price": 120,
-      "damage": 43,
-      "pen": 26,
-      "description": "AKM等武器使用的7.62x39mm弹药，性价比赛用"
-    },
     "ammo5.56x45": {
       "id": "ammo5.56x45",
-      "name": "5.56x45mm弹药",
+      "name": "5.56×45mm弹药",
       "caliber": "5.56x45",
       "type": "rifle",
       "grade": 2,
-      "price": 200,
-      "damage": 38,
-      "pen": 28,
-      "description": "M4A1等武器使用的5.56x45mm弹药，综合性能强"
+      "penLevel": 3,
+      "price": 391,
+      "meatHarm": 28,
+      "armorHarm": 38,
+      "weapons": [
+        "M4A1",
+        "K416",
+        "M16A4",
+        "AUG",
+        "CAR-15",
+        "M249",
+        "Mini-14",
+        "SG552"
+      ],
+      "description": "M4A1/K416等北约制式步枪弹药"
+    },
+    "ammo7.62x39": {
+      "id": "ammo7.62x39",
+      "name": "7.62×39mm弹药",
+      "caliber": "7.62x39",
+      "type": "rifle",
+      "grade": 2,
+      "penLevel": 3,
+      "price": 400,
+      "meatHarm": 40,
+      "armorHarm": 28,
+      "weapons": [
+        "AKM",
+        "PTR-32",
+        "SKS"
+      ],
+      "description": "AKM等苏系步枪弹药，停止力强"
     },
     "ammo5.45x39": {
       "id": "ammo5.45x39",
-      "name": "5.45x39mm弹药",
+      "name": "5.45×39mm弹药",
       "caliber": "5.45x39",
       "type": "rifle",
       "grade": 2,
-      "price": 190,
-      "damage": 40,
-      "pen": 30,
-      "description": "AKS-74U等武器使用的5.45x39mm弹药，穿透优秀"
+      "penLevel": 3,
+      "price": 350,
+      "meatHarm": 34,
+      "armorHarm": 30,
+      "weapons": [
+        "AKS-74U",
+        "AK-12"
+      ],
+      "description": "AKS-74U/AK-12弹药，穿透力强"
+    },
+    "ammo7.62x51": {
+      "id": "ammo7.62x51",
+      "name": "7.62×51mm弹药",
+      "caliber": "7.62x51",
+      "type": "rifle",
+      "grade": 3,
+      "penLevel": 4,
+      "price": 800,
+      "meatHarm": 44,
+      "armorHarm": 44,
+      "weapons": [
+        "SCAR-H",
+        "G3",
+        "SR-25",
+        "M14",
+        "R93",
+        "M700"
+      ],
+      "description": "SCAR-H/G3等全威力步枪弹药"
+    },
+    "ammo7.62x54": {
+      "id": "ammo7.62x54",
+      "name": "7.62×54mmR弹药",
+      "caliber": "7.62x54",
+      "type": "rifle",
+      "grade": 3,
+      "penLevel": 4,
+      "price": 500,
+      "meatHarm": 48,
+      "armorHarm": 45,
+      "weapons": [
+        "PKM",
+        "SVD",
+        "SV-98"
+      ],
+      "description": "PKM/SVD/SV-98弹药，苏系全威力弹"
+    },
+    "ammo5.8x42": {
+      "id": "ammo5.8x42",
+      "name": "5.8×42mm弹药",
+      "caliber": "5.8x42",
+      "type": "rifle",
+      "grade": 2,
+      "penLevel": 3,
+      "price": 400,
+      "meatHarm": 27,
+      "armorHarm": 32,
+      "weapons": [
+        "QBZ95-1"
+      ],
+      "description": "QBZ95-1中国制式步枪弹药"
     },
     "ammo9x19": {
       "id": "ammo9x19",
-      "name": "9x19mm弹药",
+      "name": "9×19mm弹药",
       "caliber": "9x19",
       "type": "pistol",
       "grade": 2,
-      "price": 160,
-      "damage": 35,
-      "pen": 30,
-      "description": "Vector等武器使用的9x19mm弹药，穿甲手枪弹首选"
+      "penLevel": 2,
+      "price": 350,
+      "meatHarm": 30,
+      "armorHarm": 20,
+      "weapons": [
+        "MP5",
+        "UZI",
+        "野牛",
+        "勇士",
+        "QSZ92G",
+        "G18",
+        "93R",
+        "G17"
+      ],
+      "description": "MP5/手枪等使用的9mm弹药"
     },
-    "ammo12gauge": {
-      "id": "ammo12gauge",
+    "ammo9x39": {
+      "id": "ammo9x39",
+      "name": "9×39mm弹药",
+      "caliber": "9x39",
+      "type": "rifle",
+      "grade": 3,
+      "penLevel": 5,
+      "price": 800,
+      "meatHarm": 40,
+      "armorHarm": 48,
+      "weapons": [
+        "AS Val",
+        "VSS",
+        "SR-3M"
+      ],
+      "description": "AS Val/VSS亚音速特种弹药，穿透力极强"
+    },
+    "ammo5.7x28": {
+      "id": "ammo5.7x28",
+      "name": "5.7×28mm弹药",
+      "caliber": "5.7x28",
+      "type": "pistol",
+      "grade": 2,
+      "penLevel": 3,
+      "price": 300,
+      "meatHarm": 28,
+      "armorHarm": 35,
+      "weapons": [
+        "P90"
+      ],
+      "description": "P90专属弹药，穿透力强"
+    },
+    "ammo4.6x30": {
+      "id": "ammo4.6x30",
+      "name": "4.6×30mm弹药",
+      "caliber": "4.6x30",
+      "type": "pistol",
+      "grade": 2,
+      "penLevel": 3,
+      "price": 400,
+      "meatHarm": 28,
+      "armorHarm": 35,
+      "weapons": [
+        "MP7"
+      ],
+      "description": "MP7专属弹药，穿透力强"
+    },
+    "ammo12g": {
+      "id": "ammo12g",
       "name": "12号霰弹",
       "caliber": "12g",
       "type": "shotgun",
       "grade": 2,
-      "price": 300,
-      "damage": 120,
-      "pen": 15,
-      "description": "M870等霰弹枪使用的12号霰弹，单发精准中距离"
-    },
-    "ammo338lapua": {
-      "id": "ammo338lapua",
-      "name": ".338 Lapua弹药",
-      "caliber": "338",
-      "type": "sniper",
-      "grade": 4,
-      "price": 450,
-      "damage": 85,
-      "pen": 45,
-      "description": "M24等狙击枪使用的.338 Lapua弹药，狙击专用穿甲"
-    },
-    "ammo300blk": {
-      "id": "ammo300blk",
-      "name": ".300 BLK弹药",
-      "caliber": "300",
-      "type": "subsonic",
-      "grade": 3,
-      "price": 200,
-      "damage": 35,
-      "pen": 20,
-      "description": ".300 BLK专用弹药，亚音速消音冲锋"
+      "penLevel": 2,
+      "price": 400,
+      "meatHarm": 120,
+      "armorHarm": 15,
+      "weapons": [
+        "M870",
+        "M1014",
+        "S12K"
+      ],
+      "description": "M870/M1014霰弹枪弹药"
     },
     "ammo12.7x55": {
       "id": "ammo12.7x55",
-      "name": "12.7x55mm弹药",
-      "caliber": "127",
+      "name": "12.7×55mm弹药",
+      "caliber": "12.7x55",
       "type": "heavy",
       "grade": 4,
-      "price": 350,
-      "damage": 56,
-      "pen": 55,
-      "description": "ASH-12专用大口径弹药，穿甲能力极强"
+      "penLevel": 4,
+      "price": 1500,
+      "meatHarm": 56,
+      "armorHarm": 55,
+      "weapons": [
+        "ASh-12"
+      ],
+      "description": "ASh-12专属大口径弹药"
+    },
+    "ammo.357": {
+      "id": "ammo.357",
+      "name": ".357弹药",
+      "caliber": ".357",
+      "type": "pistol",
+      "grade": 2,
+      "penLevel": 2,
+      "price": 400,
+      "meatHarm": 45,
+      "armorHarm": 18,
+      "weapons": [
+        ".357左轮"
+      ],
+      "description": ".357左轮手枪弹药"
+    },
+    "ammo.45": {
+      "id": "ammo.45",
+      "name": ".45 ACP弹药",
+      "caliber": ".45",
+      "type": "pistol",
+      "grade": 2,
+      "penLevel": 2,
+      "price": 300,
+      "meatHarm": 40,
+      "armorHarm": 15,
+      "weapons": [],
+      "description": ".45 ACP手枪弹药"
+    },
+    "ammo6.8x51": {
+      "id": "ammo6.8x51",
+      "name": "6.8×51mm弹药",
+      "caliber": "6.8x51",
+      "type": "rifle",
+      "grade": 3,
+      "penLevel": 4,
+      "price": 600,
+      "meatHarm": 38,
+      "armorHarm": 42,
+      "weapons": [],
+      "description": "6.8mm新一代步枪弹药"
+    },
+    "ammo.50": {
+      "id": "ammo.50",
+      "name": ".50 AE弹药",
+      "caliber": ".50",
+      "type": "pistol",
+      "grade": 3,
+      "penLevel": 3,
+      "price": 500,
+      "meatHarm": 55,
+      "armorHarm": 25,
+      "weapons": [
+        "沙漠之鹰"
+      ],
+      "description": "沙漠之鹰专属弹药"
     }
   },
   "workshop": [

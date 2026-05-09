@@ -1684,6 +1684,37 @@
             </div>
         </div>
 
+        <!-- Daily Recommendations - 今日推荐 -->
+        <section id="daily-rec">
+            <div class="container">
+                <div class="section-header">
+                    <div class="section-tag">今日推荐</div>
+                    <h2>不用选，直接用</h2>
+                    <p>根据你的游戏习惯，直接给出最优方案</p>
+                </div>
+                <div class="tools-grid">
+                    <div class="tool-card" onclick="openModal('build')">
+                        <div class="tool-icon orange">🎯</div>
+                        <h3>今日战备推荐</h3>
+                        <p>零号大坝机密 · 10万预算 · 8.5万花费</p>
+                        <div class="tool-card-footer">查看详情 → <span class="arrow">→</span></div>
+                    </div>
+                    <div class="tool-card" onclick="openModal('workshop')">
+                        <div class="tool-icon green">💰</div>
+                        <h3>今日最赚钱工坊</h3>
+                        <p>急造子弹M995 · 利润3.2万 · 税率8%</p>
+                        <div class="tool-card-footer">查看详情 → <span class="arrow">→</span></div>
+                    </div>
+                    <div class="tool-card" onclick="openModal('bullet')">
+                        <div class="tool-icon blue">🔫</div>
+                        <h3>今日子弹推荐</h3>
+                        <p>PVP推荐M995 · 4212$/发 · 穿透力最强</p>
+                        <div class="tool-card-footer">查看详情 → <span class="arrow">→</span></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
         <!-- Tools -->
         <section id="tools">
             <div class="container">
@@ -2016,20 +2047,26 @@
             </div>
             <div class="modal-body">
                 <div style="padding: 12px; background: rgba(255,107,53,0.08); border: 1px solid rgba(255,107,53,0.2); border-radius: 8px; margin-bottom: 16px;">
-                    <p style="font-size: 12px; color: var(--text-muted);">⚠️ 子弹数据基于游戏实测和社区反馈，数值可能随版本更新变化。实际效果以游戏内为准。</p>
+                    <p style="font-size: 12px; color: var(--text-muted);">弹药决定穿透等级和伤害系数，武器决定基础伤害。穿透等级 &gt; 护甲等级 = 全额伤害。</p>
                 </div>
                 <div class="form-group">
                     <label>子弹口径</label>
                     <select id="bullet-caliber" onchange="showBulletCompare()">
                         <option value="">— 选择口径 —</option>
-                        <option value="762">7.62mm（步枪/狙击）</option>
-                        <option value="556">5.56mm（北约制式）</option>
-                        <option value="545">5.45mm（俄系）</option>
-                        <option value="9mm">9mm（手枪/冲锋）</option>
-                        <option value="12g">12号霰弹</option>
-                        <option value="338">.338 Lapua（栓狙）</option>
-                        <option value="300">.300 BLK（冲锋）</option>
-                        <option value="127">12.7mm（大口径）</option>
+                        <option value="556">5.56×45mm（M4A1/K416/AUG等）</option>
+                        <option value="762x39">7.62×39mm（AKM/PTR-32/SKS）</option>
+                        <option value="545">5.45×39mm（AKS-74U/AK-12）</option>
+                        <option value="762x51">7.62×51mm（SCAR-H/G3/SR-25）</option>
+                        <option value="762x54">7.62×54mmR（PKM/SVD/SV-98）</option>
+                        <option value="58">5.8×42mm（QBZ95-1）</option>
+                        <option value="9mm">9×19mm（MP5/UZI/手枪）</option>
+                        <option value="9x39">9×39mm（AS Val/VSS/SR-3M）</option>
+                        <option value="57">5.7×28mm（P90）</option>
+                        <option value="46">4.6×30mm（MP7）</option>
+                        <option value="127">12.7×55mm（ASh-12）</option>
+                        <option value="12g">12号霰弹（M870/M1014）</option>
+                        <option value="357">.357（左轮手枪）</option>
+                        <option value="45">.45 ACP</option>
                     </select>
                 </div>
                 <div class="bullet-compare-grid" id="bullet-grid"></div>
@@ -2110,7 +2147,7 @@
                         <option value="ak">AKM</option>
                         <option value="vector">Vector</option>
                         <option value="qbz">QBZ</option>
-                        <option value="scar">SCAR-L</option>
+                        <option value="k416">K416</option>
                         <option value="mp5">MP5</option>
                         <option value="p90">P90</option>
                         <option value="m249">M249</option>
@@ -2790,6 +2827,14 @@
                 d.consumables = { consume: { items: d.consumables } };
             }
 
+            // Ammo: normalize field names (damage→meatHarm, pen→armorHarm) for consistency with weapon fields
+            if (d.ammo && !Array.isArray(d.ammo)) {
+                for (const [id, a] of Object.entries(d.ammo)) {
+                    if (a.damage !== undefined && a.meatHarm === undefined) a.meatHarm = a.damage;
+                    if (a.pen !== undefined && a.armorHarm === undefined) a.armorHarm = a.pen;
+                }
+            }
+
             // Keys: keep as array (JS already handles both array and {items:[]})
             // Collectibles: keep as array (JS already handles both)
             return d;
@@ -3205,14 +3250,14 @@
                     }
                 }
             },
-            scar: {
-                name: 'SCAR-L',
+            k416: {
+                name: 'K416',
                 icon: '🔫',
                 builds: {
                     raid: {
                         standard: {
-                            title: 'SCAR-L 烽火小康套',
-                            desc: '高伤害，可靠稳定',
+                            title: 'K416 烽火小康套',
+                            desc: '高射速，稳定可控',
                             parts: [
                                 { slot: '枪口', name: '消音器', cost: '2万' },
                                 { slot: '护木', name: '战术护木', cost: '1.5万' },
@@ -3226,7 +3271,7 @@
                     },
                     battle: {
                         standard: {
-                            title: 'SCAR 战场中远套',
+                            title: 'K416 战场中远套',
                             desc: '中远距离优秀',
                             parts: [
                                 { slot: '枪口', name: '制退器', cost: '2万' },
@@ -3235,12 +3280,12 @@
                                 { slot: '枪托', name: '稳托', cost: '1.5万' },
                             ],
                             total: '6.2万',
-                            tip: 'SCAR远距离精度极高'
+                            tip: 'K416射速快，中距离对枪有优势'
                         }
                     },
                     ranked: {
                         standard: {
-                            title: 'SCAR 排位全能套',
+                            title: 'K416 排位全能套',
                             desc: '竞技万金油',
                             parts: [
                                 { slot: '枪口', name: '消音', cost: '3.5万' },
@@ -3250,7 +3295,7 @@
                                 { slot: '握把', name: '战术握把', cost: '1.5万' },
                             ],
                             total: '11.5万',
-                            tip: '比赛常客，稳定性极佳'
+                            tip: '比赛热门步枪，稳定性极佳'
                         }
                     }
                 }
@@ -4372,7 +4417,7 @@
                     title: '全面战场·新手枪',
                     desc: '免费手枪出门，快速熟悉战场节奏',
                     items: [
-                        {icon: '🔫', name: 'M1911手枪', cost: 0},
+                        {icon: '🔫', name: 'QSZ92G手枪', cost: 0},
                         {icon: '💊', name: '急救包×2', cost: 1.6},
                         {icon: '💣', name: '碎片手雷×1', cost: 0.5},
                     ],
@@ -4595,55 +4640,102 @@
         }
 
         // ==================== Bullet Compare ====================
+        // 子弹对比数据：penLevel=穿透等级，price=单价($/发)，source=获取方式，tip=使用建议
+        // 注意：三角洲行动中，武器决定基础伤害，弹药决定穿透等级和伤害系数
         const bulletData = {
-            '762': [
-                {dept: '情报部', name: '7.62x39mm BP弹', damage: 45, pen: 32, price: 180, note: '穿甲能力优秀'},
-                {dept: '工程部', name: '7.62x39mm PS弹', damage: 43, pen: 26, price: 120, note: '性价比赛用'},
-                {dept: '健康部', name: '7.62x39mm HP弹', damage: 50, pen: 15, price: 150, note: '对人伤害高'},
-            ],
             '556': [
-                {dept: '情报部', name: '5.56x45mm M855', damage: 38, pen: 28, price: 200, note: '综合性能强'},
-                {dept: '工程部', name: '5.56x45mm M856', damage: 36, pen: 35, price: 220, note: '穿甲略优'},
-                {dept: '健康部', name: '5.56x45mm Mk262', damage: 42, pen: 22, price: 250, note: '精度高'},
+                {name: 'M995', penLevel: 5, price: 4212, source: '工坊/交易行', tip: '最高穿透5级弹，PVE打AI必备，PVP穿甲效果极佳'},
+                {name: 'M855A1', penLevel: 4, price: 1671, source: '交易行', tip: '增强型穿甲弹，PVP综合性价比之选'},
+                {name: 'M855', penLevel: 3, price: 391, source: '工程部', tip: '标准穿甲弹，日常使用够用'},
+                {name: 'FMJ', penLevel: 2, price: 79, source: '工程部', tip: '基础弹药，扫货练枪首选'},
+                {name: 'RRLP', penLevel: 1, price: 35, source: '健康部', tip: '空尖弹，价格最低，近距离伤害高但穿透差'},
+            ],
+            '762x39': [
+                {name: 'AP', penLevel: 5, price: 3500, source: '工坊/交易行', tip: '最高穿透5级弹，克制6级甲，AKM最优选'},
+                {name: 'BP', penLevel: 4, price: 1200, source: '情报部/交易行', tip: '穿甲弹，穿透与伤害平衡，高性价比'},
+                {name: 'PS', penLevel: 3, price: 400, source: '工程部', tip: '钢芯普通弹，行动12级后可在工程部兑换'},
+                {name: 'T45M', penLevel: 2, price: 200, source: '工程部', tip: '曳光弹，穿透一般，夜战可追踪弹道'},
+                {name: 'LP', penLevel: 1, price: 150, source: '健康部', tip: '空尖弹，近距离rush伤害高'},
             ],
             '545': [
-                {dept: '情报部', name: '5.45x39mm BS弹', damage: 40, pen: 30, price: 190, note: '穿透优秀'},
-                {dept: '工程部', name: '5.45x39mm PS弹', damage: 38, pen: 25, price: 110, note: '经济实惠'},
+                {name: 'BS', penLevel: 5, price: 2800, source: '情报部/交易行', tip: '5.45口径穿甲天花板，AK-12首选'},
+                {name: 'PP', penLevel: 4, price: 1500, source: '交易行', tip: '改进穿甲弹，穿透优秀'},
+                {name: 'PS', penLevel: 3, price: 350, source: '工程部', tip: '标准弹，经济实惠日常够用'},
+                {name: 'HP', penLevel: 1, price: 200, source: '健康部', tip: '空尖弹，近战伤害高'},
+            ],
+            '762x51': [
+                {name: 'BPZ', penLevel: 6, price: 4500, source: '工坊/交易行', tip: '7级穿透！最高级弹药之一，SCAR-H/G3终极选择'},
+                {name: 'M80', penLevel: 4, price: 800, source: '交易行', tip: '标准全威力弹，穿透优秀'},
+                {name: 'M61', penLevel: 5, price: 3000, source: '交易行', tip: '穿甲弹，高穿透适合打重甲'},
+            ],
+            '762x54': [
+                {name: '7N1', penLevel: 5, price: 2500, source: '情报部/交易行', tip: '狙击穿甲弹，SV-98/SVD首选'},
+                {name: 'T46M', penLevel: 3, price: 500, source: '工程部', tip: '曳光弹，PKM机枪扫射用'},
+                {name: 'LPS', penLevel: 4, price: 1200, source: '交易行', tip: '钢芯弹，穿透和伤害平衡'},
+            ],
+            '58': [
+                {name: 'DVP88', penLevel: 5, price: 3000, source: '情报部/交易行', tip: '5.8mm穿甲弹，QBZ95-1最优选'},
+                {name: 'DBP10', penLevel: 4, price: 1000, source: '工程部', tip: '通用弹，穿透优秀'},
+                {name: 'DVP87', penLevel: 3, price: 400, source: '工程部', tip: '标准弹，日常使用'},
             ],
             '9mm': [
-                {dept: '情报部', name: '9x19mm AP6.3', damage: 35, pen: 30, price: 160, note: '穿甲手枪弹首选'},
-                {dept: '工程部', name: '9x19mm Pst gzh', damage: 38, pen: 20, price: 100, note: '高伤害实惠'},
-                {dept: '健康部', name: '9x19mm RIP', damage: 42, pen: 10, price: 130, note: '停止力强'},
+                {name: 'AP 6.3', penLevel: 3, price: 600, source: '情报部', tip: '手枪弹穿甲首选，P90也可用'},
+                {name: 'Pst gzh', penLevel: 2, price: 350, source: '工程部', tip: '钢芯弹，伤害和穿透平衡'},
+                {name: 'RIP', penLevel: 1, price: 450, source: '健康部', tip: '空尖弹，停止力极强，近战神器'},
+                {name: 'FMJ', penLevel: 1, price: 200, source: '工程部', tip: '基础手枪弹，价格最低'},
             ],
-            '12g': [
-                {dept: '工程部', name: '12号霰弹 slug', damage: 120, pen: 15, price: 300, note: '单发精准中距离'},
-                {dept: '健康部', name: '12号霰弹 00 buckshot', damage: 90, pen: 5, price: 180, note: '近距离散布大'},
-                {dept: '工程部', name: '12号霰弹 flechette', damage: 80, pen: 20, price: 250, note: '穿刺型霰弹'},
+            '9x39': [
+                {name: 'SP-6', penLevel: 5, price: 3000, source: '情报部/交易行', tip: '亚音速穿甲天花板，AS Val/VSS最优选'},
+                {name: 'PAB-9', penLevel: 4, price: 1500, source: '交易行', tip: '穿甲弹，穿透优秀'},
+                {name: 'SP-5', penLevel: 3, price: 800, source: '工程部', tip: '标准亚音速弹，消音射击'},
             ],
-            '338': [
-                {dept: '情报部', name: '.338 Lapua Magnum AP', damage: 85, pen: 45, price: 450, note: '狙击专用穿甲'},
-                {dept: '工程部', name: '.338 Lapua Magnum SIE', damage: 90, pen: 38, price: 480, note: '伤害更高'},
+            '57': [
+                {name: 'RIP', penLevel: 4, price: 800, source: '健康部', tip: 'P90空尖弹，近战伤害极高'},
+                {name: 'SS190', penLevel: 5, price: 1500, source: '情报部/交易行', tip: 'P90穿甲弹，穿透极强'},
+                {name: 'FMJ', penLevel: 3, price: 300, source: '工程部', tip: '标准弹，日常扫货'},
             ],
-            '300': [
-                {dept: '工程部', name: '.300 Blackout sub', damage: 35, pen: 20, price: 200, note: '亚音速消音冲锋'},
-                {dept: '情报部', name: '.300 Blackout sup', damage: 42, pen: 28, price: 280, note: '穿甲亚音速'},
+            '46': [
+                {name: 'AP', penLevel: 4, price: 1200, source: '情报部/交易行', tip: 'MP7穿甲弹，穿透优秀'},
+                {name: 'FMJ', penLevel: 3, price: 400, source: '工程部', tip: '标准弹，日常使用'},
             ],
             '127': [
-                {dept: '情报部', name: '12.7x55mm PS12B', damage: 56, pen: 55, price: 350, note: 'ASh-12专用穿甲'},
-                {dept: '工程部', name: '12.7x55mm PS12', damage: 52, pen: 45, price: 300, note: 'ASh-12标准弹'},
-                {dept: '健康部', name: '12.7x55mm SP13', damage: 60, pen: 30, price: 320, note: '对人高伤害'},
-            ]
+                {name: 'PS12B', penLevel: 6, price: 4000, source: '情报部/交易行', tip: 'ASh-12最高穿透弹，6级穿甲'},
+                {name: 'PS12A', penLevel: 5, price: 3000, source: '交易行', tip: '高穿透弹，伤害和穿甲平衡'},
+                {name: 'PS12', penLevel: 4, price: 1500, source: '工程部', tip: '标准弹，近战够用'},
+                {name: 'SP13', penLevel: 3, price: 1200, source: '健康部', tip: '对人高伤害，近战清场'},
+            ],
+            '12g': [
+                {name: 'Slug', penLevel: 4, price: 800, source: '工程部', tip: '独头弹，中距离单发精准'},
+                {name: 'Flechette', penLevel: 3, price: 600, source: '交易行', tip: '柳叶箭弹，穿透好散布小'},
+                {name: '00 Buckshot', penLevel: 2, price: 400, source: '工程部', tip: '鹿弹，近距离散布大'},
+                {name: 'RIP', penLevel: 1, price: 500, source: '健康部', tip: '空尖霰弹，近战伤害最高'},
+            ],
+            '357': [
+                {name: 'AP', penLevel: 3, price: 800, source: '交易行', tip: '.357穿甲弹，左轮手枪用'},
+                {name: 'FMJ', penLevel: 2, price: 400, source: '工程部', tip: '标准弹，日常使用'},
+            ],
+            '45': [
+                {name: 'AP', penLevel: 4, price: 1000, source: '情报部', tip: '.45穿甲弹，穿透优秀'},
+                {name: 'FMJ', penLevel: 2, price: 300, source: '工程部', tip: '标准弹'},
+                {name: 'RIP', penLevel: 1, price: 500, source: '健康部', tip: '空尖弹，停止力极强'},
+            ],
         };
 
         const bulletTips = {
-            '762': '7.62mm口径穿甲选情报部BS弹，追求伤害选健康部HP弹，工程部PS弹性价比最高。',
-            '556': '5.56mm综合选M855，冲排位选穿透M856，精准射击选Mk262。',
-            '545': 'BS弹是5.45口径穿甲天花板；PS弹便宜够用，适合日常。',
-            '9mm': '情报部AP6.3是穿甲首选，手枪里穿透天花板；健康部RIP停止力强适合近战。',
-            '12g': 'slug单发精准适合中距离；00 buckshot适合近距离霰射；flechette穿透更好。',
-            '338': '.338是狙击专用，口径大伤害高。AP穿甲更强，SIE伤害更高。',
-            '300': '消音冲锋选亚音速；需要穿甲选情报部版本。',
-            '127': '12.7mm是ASh-12专用口径。穿甲选PS12B，对人选SP13。',
+            '556': 'M995是5.56穿透天花板，PVE必备。日常PVP选M855A1性价比最高，扫货练枪用RRLP最省钱。',
+            '762x39': 'AP弹穿甲5级克制重甲，AKM玩家必入。BP弹性价比高适合大多数场景。',
+            '545': 'BS弹是5.45穿甲天花板，AK-12最优选。PS弹便宜日常够用。',
+            '762x51': 'BPZ是7级穿透弹，整个游戏最高级别！SCAR-H和G3的终极弹药。',
+            '762x54': '7N1狙击穿甲弹，SV-98和SVD的最佳搭档。PKM扫射用T46M曳光弹。',
+            '58': 'DVP88穿甲弹，QBZ95-1专用最优弹药。5.8mm口径目前只有QBZ系列使用。',
+            '9mm': 'AP 6.3是手枪弹穿甲首选。RIP空尖弹停止力极强，适合近战冲锋。',
+            '9x39': 'SP-6亚音速穿甲天花板！配合AS Val/VSS消音狙，隐形杀手搭配。',
+            '57': 'P90专属口径。SS190穿甲极强适合打甲，RIP近战伤害爆炸。',
+            '46': 'MP7专属口径。AP穿甲弹是唯一推荐，MP7核心优势就是高穿透。',
+            '127': 'ASh-12专属大口径。PS12B穿透6级近战无敌，SP13对人伤害高。',
+            '12g': 'Slug独头弹适合中距离精准；00 Buckshot近战散布大清场快；Flechette穿透最好。',
+            '357': '.357左轮手枪专用，AP弹穿透不错。',
+            '45': '.45 ACP口径，AP弹穿透优秀。高伤害手枪弹。',
         };
 
         function showBulletCompare() {
@@ -4663,24 +4755,34 @@
                 return;
             }
 
-            // Find best by damage and pen
-            const bestDmg = bullets.reduce((a,b) => a.damage > b.damage ? a : b);
-            const bestPen = bullets.reduce((a,b) => a.pen > b.pen ? a : b);
+            // Find best by penetration level and price/value
+            const bestPen = bullets.reduce((a,b) => (a.penLevel||0) > (b.penLevel||0) ? a : b);
+            const bestValue = bullets.reduce((a,b) => {
+                const va = (a.penLevel||1) / (a.price||1);
+                const vb = (b.penLevel||1) / (b.price||1);
+                return va > vb ? a : b;
+            });
 
             grid.innerHTML = bullets.map(b => {
-                const isBestDmg = b === bestDmg;
                 const isBestPen = b === bestPen;
-                const cls = (isBestDmg || isBestPen) ? 'best' : '';
+                const isBestValue = b === bestValue;
+                const cls = isBestPen ? 'best' : (isBestValue ? 'best-value' : '');
+                const penColor = b.penLevel >= 5 ? 'var(--green)' : b.penLevel >= 3 ? 'var(--yellow)' : 'var(--text-secondary)';
                 return `
                     <div class="bullet-compare-item ${cls}">
-                        <div class="dept">${b.dept}</div>
-                        <div class="bullet-name">${b.name}</div>
-                        <div class="bullet-stats">
-                            伤害: <strong style="color:${isBestDmg?'var(--green)':'var(--text-secondary)'}">${b.damage}</strong> &nbsp;
-                            穿甲: <strong style="color:${isBestPen?'var(--blue)':'var(--text-secondary)'}">${b.pen}</strong> &nbsp;
-                            兑换: ${b.price}币
+                        <div style="display:flex;justify-content:space-between;align-items:center">
+                            <div class="bullet-name">${b.name}</div>
+                            <div style="display:flex;gap:6px;align-items:center">
+                                <span style="font-size:11px;padding:2px 6px;border-radius:4px;background:${b.penLevel>=5?'rgba(239,68,68,0.15)':b.penLevel>=3?'rgba(34,197,94,0.1)':'rgba(156,163,175,0.1)'};color:${penColor};font-weight:600">穿${b.penLevel}级</span>
+                                ${isBestPen ? '<span style="font-size:10px;padding:2px 6px;border-radius:4px;background:rgba(34,197,94,0.15);color:var(--green)">最高穿透</span>' : ''}
+                                ${isBestValue ? '<span style="font-size:10px;padding:2px 6px;border-radius:4px;background:rgba(59,130,246,0.15);color:var(--blue)">性价比</span>' : ''}
+                            </div>
                         </div>
-                        <div style="font-size:11px;color:var(--text-muted);margin-top:4px">${b.note}</div>
+                        <div class="bullet-stats">
+                            💰 ${b.price}$/发 &nbsp;
+                            📦 ${b.source}
+                        </div>
+                        <div style="font-size:11px;color:var(--text-muted);margin-top:4px">${b.tip}</div>
                     </div>
                 `;
             }).join('');
