@@ -5467,5 +5467,42 @@
         // 页面加载完成后拉取游戏数据
         loadGameData();
     </script>
+<script>
+// 今日推荐自动初始化
+let autoInitModal = null;
+const _openModal = openModal;
+openModal = function(type) {
+    _openModal(type);
+    if (autoInitModal !== type) return;
+    autoInitModal = null;
+    setTimeout(() => {
+        if (type === 'build') {
+            const m = document.getElementById('build-mode');
+            if (m) m.value = 'raid';
+            const b = document.getElementById('build-budget');
+            if (b) b.value = 'normal';
+            if (typeof showBuild === 'function') showBuild();
+        } else if (type === 'workshop') {
+            const sel = document.getElementById('ws-item');
+            if (sel && sel.options.length > 1) {
+                sel.selectedIndex = 1;
+                if (typeof onWorkshopItemChange === 'function') onWorkshopItemChange();
+            }
+        }
+    }, 150);
+};
+
+document.addEventListener('DOMContentLoaded', () => {
+    const cards = document.querySelectorAll('#daily-rec .tool-card');
+    cards.forEach(card => {
+        const oc = card.getAttribute('onclick') || '';
+        const m = oc.match(/openModal\('(\w+)'\)/);
+        if (m) {
+            const modalType = m[1];
+            card.setAttribute('onclick', `autoInitModal='${modalType}';openModal('${modalType}')`);
+        }
+    });
+});
+</script>
 </body>
 </html>
