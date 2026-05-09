@@ -3819,19 +3819,48 @@
             document.getElementById('build-title').textContent = data.title;
             document.getElementById('build-desc').textContent = data.desc;
 
-            const itemsHtml = data.items.map(item => `
+            // 武器名称到真实数据的映射
+            const weaponNameMap = {
+                'AKM突击步枪': 'AKM突击步枪',
+                'K416突击步枪（满改）': 'K416突击步枪',
+                'K416突击步枪': 'K416突击步枪',
+                'M4A1': 'M4A1突击步枪',
+                '满改狙击枪/步枪': null, // 不展示具体属性
+            };
+
+            const itemsHtml = data.items.map(item => {
+                // 尝试找对应武器的真实属性
+                let weaponAttr = '';
+                const realName = weaponNameMap[item.name.replace(/（.*?）|\(.*?\)/g, '').trim()];
+                if (realName && window.gameData && window.gameData.weapons) {
+                    for (const [id, w] of Object.entries(window.gameData.weapons)) {
+                        if (w.name === realName) {
+                            const gradeColor = {1:'#9ca3af',2:'#22c55e',3:'#3b82f6',4:'#a855f7',5:'#f59e0b',6:'#ef4444'};
+                            const gc = gradeColor[w.grade] || '#9ca3af';
+                            weaponAttr = `<div style="font-size:10px;color:var(--text-muted);margin-top:2px;">
+                                <span style="color:var(--green)">肉${w.meatHarm}</span> 
+                                <span style="color:var(--blue)">甲${w.armorHarm}</span> 
+                                <span style="color:var(--yellow)">${w.fireRate}RPM</span> 
+                                <span style="color:var(--text-secondary)">级${w.grade}</span>
+                            </div>`;
+                            break;
+                        }
+                    }
+                }
+                return `
                 <div class="rec-item">
                     <div class="rec-item-left">
                         <div class="rec-item-icon">${item.icon}</div>
                         <div>
                             <div class="rec-item-name">${item.name}</div>
+                            ${weaponAttr}
                         </div>
                     </div>
                     <div class="rec-item-right">
                         <div class="rec-item-price">${item.cost}万</div>
                     </div>
-                </div>
-            `).join('');
+                </div>`;
+            }).join('');
 
             document.getElementById('build-items').innerHTML = itemsHtml + `
                 <div style="margin-top: 12px; padding: 12px; background: rgba(255,107,53,0.08); border-radius: 8px; font-size: 13px; color: var(--accent);">
