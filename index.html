@@ -4252,19 +4252,6 @@
             
             document.getElementById('evac-content').innerHTML = html;
             document.getElementById('evac-detail').style.display = 'none';
-        }EvacDetail(this, '${p.name}')">
-                    <div class="icon">${p.icon}</div>
-                    <div class="name">${p.name}</div>
-                    <div class="value">${p.condition}</div>
-                </div>`;
-            });
-            
-            html += `</div><div style="margin-top: 16px; padding: 14px; background: rgba(255,107,53,0.08); border-radius: 10px;">
-                <p style="font-size: 13px; color: var(--text-secondary);"><strong style="color: var(--accent);">💡 小贴士：</strong>${data.name}是烽火地带的${zone === 'zero-dam' ? '新手启蒙区域，适合练习' : zone === 'longbow' ? '狙击手乐园，面积最大' : zone === 'brakkesh' ? '高密度巷战区域，钥匙房最多' : zone === 'space' ? '高收益高风险区域，需拉双闸' : '高准入区域，有稀有红装'}。</p>
-            </div>`;
-            
-            document.getElementById('evac-content').innerHTML = html;
-            document.getElementById('evac-detail').style.display = 'none';
         }
 
         function showEvacDetail(el, pointName) {
