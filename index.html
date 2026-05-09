@@ -1774,43 +1774,24 @@
             <div class="modal-body">
                 <div class="form-group">
                     <label>选择制造物品</label>
-                    <select id="ws-item" onchange="calcWorkshop()">
+                    <select id="ws-item" onchange="onWorkshopItemChange()">
                         <option value="">— 选择物品 —</option>
-                        <optgroup label="消耗品">
-                            <option value="medkit">急救包</option>
-                            <option value="medkit_large">急救包（大）</option>
-                            <option value="ammo_pack_small">弹药包（小）</option>
-                            <option value="ammo_pack_medium">弹药包（中）</option>
-                            <option value="ammo_pack_large">弹药包（大）</option>
-                            <option value="armor_repair">护甲修复工具</option>
-                            <option value="toolkit">工具箱</option>
-                        </optgroup>
-                        <optgroup label="投掷物">
-                            <option value="grenade_frag">碎片手雷</option>
-                            <option value="grenade_flash">闪光弹</option>
-                            <option value="grenade_smoke">烟雾弹</option>
-                            <option value="grenade_incendiary">燃烧弹</option>
-                        </optgroup>
-                        <optgroup label="医疗/食物">
-                            <option value="drink_small">饮料（小）</option>
-                            <option value="drink_medium">饮料（中）</option>
-                            <option value="drink_large">饮料（大）</option>
-                            <option value="food_small">食物包（小）</option>
-                            <option value="food_medium">食物包（中）</option>
-                            <option value="food_large">食物包（大）</option>
-                            <option value="bandage">绷带</option>
-                            <option value="morphine">吗啡</option>
-                        </optgroup>
-                        <optgroup label="钥匙">
-                            <option value="keys_blue">钥匙卡（蓝）</option>
-                            <option value="keys_purple">钥匙卡（紫）</option>
-                            <option value="keys_gold">钥匙卡（金）</option>
-                        </optgroup>
-                        <optgroup label="其他">
-                            <option value="pass_card">通关卡</option>
-                            <option value="gas_mask">防毒面具</option>
-                        </optgroup>
                     </select>
+                </div>
+                <!-- 物品信息展示 -->
+                <div class="result-box" id="ws-item-info" style="display:none; margin-bottom: 16px; padding: 12px;">
+                    <div style="display:flex; align-items:center; gap:12px;">
+                        <img id="ws-item-icon" src="" style="width:40px;height:40px;border-radius:8px;background:var(--bg-secondary)">
+                        <div>
+                            <div style="font-weight:600;" id="ws-item-name">—</div>
+                            <div style="font-size:12px;color:var(--text-secondary);" id="ws-item-grade">—</div>
+                        </div>
+                    </div>
+                    <p style="margin-top:8px;font-size:13px;color:var(--text-secondary);" id="ws-item-desc">—</p>
+                </div>
+                <div class="form-group">
+                    <label>预估市场售价（万）</label>
+                    <input type="number" id="ws-price-input" placeholder="输入当前市场售价" step="0.1" oninput="calcWorkshop()">
                 </div>
                 <div class="form-row">
                     <div class="form-group">
@@ -1833,7 +1814,7 @@
                         <span class="value" id="ws-cost">—</span>
                     </div>
                     <div class="result-item">
-                        <span class="label">市场售价参考</span>
+                        <span class="label">输入售价</span>
                         <span class="value accent" id="ws-price">—</span>
                     </div>
                     <div class="result-item">
@@ -1945,11 +1926,11 @@
 
     <!-- Modal: Price Trend -->
     <div class="modal-overlay" id="modal-price">
-        <div class="modal">
+        <div class="modal" style="max-width: 1000px;">
             <div class="modal-header">
                 <div>
-                    <h3>📊 物品价格走势</h3>
-                    <p>热门物品近期价格参考（数据来自玩家社区）</p>
+                    <h3>📊 物品属性总览</h3>
+                    <p>游戏真实数据参考，支持武器、配件、防具、消耗品、钥匙卡、收藏品</p>
                 </div>
                 <button class="modal-close" onclick="closeModal('price')">✕</button>
             </div>
@@ -1957,31 +1938,29 @@
                 <div class="form-group">
                     <label>物品分类</label>
                     <select id="price-cat" onchange="showPriceTable()">
-                        <option value="weapon">武器配件</option>
-                        <option value="bullets">子弹价格</option>
-                        <option value="armor">护甲防具</option>
-                        <option value="consumable">消耗品</option>
-                        <option value="material">制造材料</option>
-                        <option value="keys">钥匙卡</option>
-                        <option value="collectibles">收集品</option>
+                        <option value="weapon">武器（属性对比）</option>
+                        <option value="attachment">配件（加成属性）</option>
+                        <option value="armor">防具（等级类型）</option>
+                        <option value="consumable">消耗品（图鉴）</option>
+                        <option value="keys">钥匙卡（地图位置）</option>
+                        <option value="collectible">收藏品（刷新点）</option>
                     </select>
                 </div>
                 <div style="overflow-x:auto;">
                     <table class="price-table" id="price-table">
-                        <thead>
+                        <thead id="price-thead">
                             <tr>
                                 <th>物品名称</th>
-                                <th>昨日均价</th>
-                                <th>今日均价</th>
-                                <th>7日趋势</th>
-                                <th>趋势</th>
+                                <th>类型</th>
+                                <th>等级</th>
+                                <th>属性</th>
                             </tr>
                         </thead>
                         <tbody id="price-tbody"></tbody>
                     </table>
                 </div>
                 <p style="font-size:12px; color: var(--text-muted); margin-top: 16px; text-align: center;">
-                    📌 实时交易行价格 · 价格存在波动风险
+                    📌 数据来源：腾讯官方API · 仅供参考，实际数据以游戏为准
                 </p>
             </div>
         </div>
@@ -2114,37 +2093,7 @@
                     <button class="tab" onclick="switchEvacTab(this, 'tidal')">潮汐监狱</button>
                 </div>
                 <div id="evac-content">
-                    <h4 style="color: var(--accent); margin-bottom: 12px;">🏭 零号大坝撤离点</h4>
-                    <div class="map-grid">
-                        <div class="map-location high-value" onclick="showEvacDetail(this, '小路撤离点')">
-                            <div class="icon">🚪</div>
-                            <div class="name">小路撤离点</div>
-                            <div class="value">条件：无 | 24小时开放</div>
-                        </div>
-                        <div class="map-location medium-value" onclick="showEvacDetail(this, '公路撤离点')">
-                            <div class="icon">🛣️</div>
-                            <div class="name">公路撤离点</div>
-                            <div class="value">条件：需开关</div>
-                        </div>
-                        <div class="map-location medium-value" onclick="showEvacDetail(this, '东侧撤离点')">
-                            <div class="icon">🚪</div>
-                            <div class="name">东侧撤离点</div>
-                            <div class="value">条件：无 | 限时开放</div>
-                        </div>
-                        <div class="map-location" onclick="showEvacDetail(this, '西侧撤离点')">
-                            <div class="icon">🔒</div>
-                            <div class="name">西侧撤离点</div>
-                            <div class="value">条件：钥匙卡·蓝</div>
-                        </div>
-                        <div class="map-location" onclick="showEvacDetail(this, '紧急撤离')">
-                            <div class="icon">⚠️</div>
-                            <div class="name">紧急撤离</div>
-                            <div class="value">条件：生命值&lt;20%</div>
-                        </div>
-                    </div>
-                    <div style="margin-top: 16px; padding: 14px; background: rgba(255,107,53,0.08); border-radius: 10px;">
-                        <p style="font-size: 13px; color: var(--text-secondary);"><strong style="color: var(--accent);">💡 小贴士：</strong>零号大坝是新手启蒙区域，行政楼为核心。建议从出生点快速搜刮后，从小路撤离点安全撤离。</p>
-                    </div>
+                    <!-- 撤离点内容将由JavaScript动态生成 -->
                 </div>
                 <div class="result-box" id="evac-detail" style="display: none; margin-top: 16px;">
                     <h4>📍 撤离点详情</h4>
@@ -3671,7 +3620,7 @@
         });
 
         // ==================== Workshop Calculator ====================
-        // 工坊数据：优先从 game-data.json 读取
+        // 工坊数据：优先从 game-data.json 读取 consumables
         let wsData = {};
 
         function updateWorkshopOptions() {
@@ -3681,35 +3630,32 @@
             while (select.options.length > 1) select.remove(1);
             wsData = {};
 
-            if (!gameData || !gameData.workshop) {
-                // 降级：保留空选项
+            if (!gameData || !gameData.consumables || !gameData.consumables.length) {
                 return;
             }
 
-            // 分类中文名
-            const catNames = {
-                medical: '医疗', surgery: '手术', bandage: '绷带',
-                painkiller: '止痛药', enhancement: '强化', repair: '修理',
-                ammo: '弹药', key: '钥匙', armor: '防具', other: '其他', material: '材料'
-            };
+            // 按等级分组
+            const gradeNames = { 1: '1级·基础', 2: '2级·普通', 3: '3级·进阶', 4: '4级·稀有', 5: '5级·史诗', 6: '6级·传说' };
             const groups = {};
-            for (const item of gameData.workshop) {
-                const cat = item.category || 'other';
-                if (!groups[cat]) {
-                    groups[cat] = { label: catNames[cat] || cat, items: [] };
+            for (const item of gameData.consumables) {
+                const g = item.grade || 1;
+                if (!groups[g]) {
+                    groups[g] = { label: gradeNames[g] || `${g}级`, items: [] };
                 }
-                groups[cat].items.push(item);
+                groups[g].items.push(item);
                 wsData[item.id] = {
                     name: item.name,
-                    price: item.price,
-                    taxRate: item.taxRate || 0.08,
-                    category: cat
+                    grade: g,
+                    gradeName: gradeNames[g] || `${g}级`,
+                    description: item.description || '',
+                    icon: item.icon || ''
                 };
             }
-            for (const [cat, g] of Object.entries(groups)) {
+            for (const g of Object.keys(groups).sort((a, b) => a - b)) {
+                const gData = groups[g];
                 const optGroup = document.createElement('optgroup');
-                optGroup.label = g.label;
-                for (const item of g.items) {
+                optGroup.label = gData.label;
+                for (const item of gData.items) {
                     const opt = document.createElement('option');
                     opt.value = item.id;
                     opt.textContent = item.name;
@@ -3717,6 +3663,25 @@
                 }
                 select.appendChild(optGroup);
             }
+        }
+
+        function onWorkshopItemChange() {
+            const itemKey = document.getElementById('ws-item').value;
+            const infoBox = document.getElementById('ws-item-info');
+            if (!itemKey) {
+                infoBox.style.display = 'none';
+                return;
+            }
+            const item = wsData[itemKey];
+            if (!item) return;
+            document.getElementById('ws-item-icon').src = item.icon;
+            document.getElementById('ws-item-name').textContent = item.name;
+            document.getElementById('ws-item-grade').textContent = item.gradeName;
+            document.getElementById('ws-item-desc').textContent = item.description;
+            infoBox.style.display = 'block';
+            // 清空售价输入并触发计算
+            document.getElementById('ws-price-input').value = '';
+            calcWorkshop();
         }
 
         function formatPrice(price) {
@@ -3731,39 +3696,40 @@
             const m1 = parseFloat(document.getElementById('ws-m1').value) || 0;
             const m2 = parseFloat(document.getElementById('ws-m2').value) || 0;
             const m3 = parseFloat(document.getElementById('ws-m3').value) || 0;
+            const priceInput = parseFloat(document.getElementById('ws-price-input').value) || 0;
             const resultBox = document.getElementById('ws-result');
             const hint = document.getElementById('ws-hint');
 
             if (!itemKey) {
                 resultBox.style.display = 'none';
-                hint.style.display = 'none';
+                if (hint) hint.style.display = 'none';
                 return;
             }
 
-            const item = wsData[itemKey];
             // 材料成本单位是"万"，转换为整数
             const totalCost = (m1 + m2 + m3) * 10000;
-            const itemPrice = item.price;
-            const tax = itemPrice * item.taxRate;
-            const netIncome = itemPrice * (1 - item.taxRate);
+            const itemPrice = priceInput * 10000; // 用户输入的售价（万）-> 整数
+            const taxRate = 0.08;
+            const tax = itemPrice * taxRate;
+            const netIncome = itemPrice * (1 - taxRate);
             const netProfit = netIncome - totalCost;
             const profitRate = totalCost > 0 ? (netProfit / totalCost * 100) : (netIncome > 0 ? 100 : 0);
 
             document.getElementById('ws-cost').textContent = (m1 + m2 + m3).toFixed(1) + '万';
-            document.getElementById('ws-price').textContent = formatPrice(itemPrice);
+            document.getElementById('ws-price').textContent = priceInput > 0 ? priceInput.toFixed(1) + '万' : '—';
             document.getElementById('ws-tax').textContent = formatPrice(Math.round(tax));
             document.getElementById('ws-netincome').textContent = formatPrice(Math.round(netIncome));
-            
+
             const profitEl = document.getElementById('ws-netprofit');
             profitEl.textContent = (netProfit >= 0 ? '+' : '') + formatPrice(Math.round(netProfit));
             profitEl.className = 'value ' + (netProfit >= 0 ? 'green' : 'red');
-            
+
             const rateEl = document.getElementById('ws-rate');
             rateEl.textContent = (netProfit >= 0 ? '+' : '') + profitRate.toFixed(1) + '%';
             rateEl.className = 'value ' + (profitRate >= 0 ? 'green' : 'red');
 
             resultBox.style.display = 'block';
-            hint.style.display = 'block';
+            if (hint) hint.style.display = 'block';
         }
 
         // ==================== Build Recommendation ====================
@@ -3976,145 +3942,211 @@
         showBulletCompare();
 
         // ==================== Price Table ====================
+        // 物品属性总览数据
         let priceData = {};
 
         function updatePriceTableFromData() {
             if (!gameData) return;
-            priceData = { weapon: [], armor: [], consumable: [], material: [], keys: [], bullets: [] };
+            priceData = { weapon: [], attachment: [], armor: [], consumable: [], keys: [], collectible: [] };
 
-            // 武器：来自 weapons
-            for (const [cat, val] of Object.entries(gameData.weapons || {})) {
-                if (!val.items) continue;
-                for (const w of val.items) {
-                    const price = Math.round(w.price / 100) / 100; // 万元
-                    priceData.weapon.push({
-                        name: w.name, today: price, yesterday: price, trend7d: '—'
-                    });
-                }
-            }
-
-            // 防具
-            const armorAll = [
-                ...(gameData.armor?.helmet || []),
-                ...(gameData.armor?.vest || []),
-            ];
-            for (const a of armorAll) {
-                const price = Math.round((a.price || 0) / 100) / 100;
-                priceData.armor.push({ name: a.name || a.id, today: price, yesterday: price, trend7d: '—' });
-            }
-
-            // 消耗品
-            if (gameData.workshop) {
-                const consTypes = ['medkit', 'medkit_large', 'drink', 'food', 'bandage', 'morphine', 'armor_repair', 'toolkit'];
-                for (const w of gameData.workshop) {
-                    if (consTypes.some(t => (w.id || '').toLowerCase().includes(t))) {
-                        const price = Math.round(w.price / 100) / 100;
-                        priceData.consumable.push({ name: w.name, today: price, yesterday: price, trend7d: '—' });
-                    }
-                }
-            }
-
-            // 子弹
-            const bulletsItems = (gameData.bullets?.items || gameData.bullets || []);
-            for (const b of bulletsItems) {
-                priceData.bullets.push({
-                    name: b.name + (b.for_weapon ? ` (${b.for_weapon})` : ''),
-                    today: Math.round(b.price / 100) / 100, yesterday: Math.round(b.price / 100) / 100, trend7d: '—'
+            // 武器：来自 weapons（id -> obj 格式）
+            const weapons = gameData.weapons || {};
+            for (const [id, w] of Object.entries(weapons)) {
+                priceData.weapon.push({
+                    name: w.name,
+                    type: w.typeCN || w.type || '',
+                    grade: w.grade || '?',
+                    caliber: w.caliber || '',
+                    fireRate: w.fireRate || 0,
+                    capacity: w.capacity || 0,
+                    recoil: w.recoil || 0,
+                    control: w.control || 0,
+                    stability: w.stability || 0,
+                    shootDistance: w.shootDistance || 0,
+                    meatHarm: w.meatHarm || 0,
+                    armorHarm: w.armorHarm || 0,
+                    fireMode: w.fireMode || '',
+                    description: w.description || ''
                 });
             }
 
-            // 钥匙卡
-            const keysItems = (gameData.keys?.items || gameData.keys || []);
-            for (const k of keysItems) {
-                const trend = k.trend_30d;
-                const trendStr = trend !== undefined ? (trend > 0 ? `+${trend.toFixed(1)}%` : `${trend.toFixed(1)}%`) : '—';
+            // 配件：来自 attachments（id -> obj 格式）
+            const attachments = gameData.attachments || {};
+            for (const [id, a] of Object.entries(attachments)) {
+                priceData.attachment.push({
+                    name: a.name,
+                    type: a.typeCN || a.type || '',
+                    slot: a.slot || '',
+                    grade: a.grade || '?',
+                    recoil: a.recoil || 0,
+                    control: a.control || 0,
+                    advantage: Array.isArray(a.advantage) ? a.advantage.join(' / ') : (a.advantage || ''),
+                    disadvantage: Array.isArray(a.disadvantage) ? a.disadvantage.join(' / ') : (a.disadvantage || ''),
+                    description: a.description || ''
+                });
+            }
+
+            // 防具：来自 armor（id -> obj 格式）
+            const armor = gameData.armor || {};
+            for (const [id, a] of Object.entries(armor)) {
+                priceData.armor.push({
+                    name: a.name,
+                    type: a.typeCN || a.type || '',
+                    slot: a.slot || '',
+                    grade: a.grade || '?',
+                    weight: a.weight || 0,
+                    description: a.description || ''
+                });
+            }
+
+            // 消耗品：来自 consumables（列表格式）
+            const consumables = gameData.consumables || [];
+            for (const c of consumables) {
+                priceData.consumable.push({
+                    name: c.name,
+                    type: c.typeCN || c.type || '',
+                    grade: c.grade || '?',
+                    weight: c.weight || 0,
+                    description: c.description || ''
+                });
+            }
+
+            // 钥匙卡：来自 keys（列表格式）
+            const keys = gameData.keys || [];
+            for (const k of keys) {
                 priceData.keys.push({
-                    name: k.name, today: '—', yesterday: '—', trend7d: trendStr, level: k.level || '—'
+                    name: k.name,
+                    map: k.map || '',
+                    location: k.location || '',
+                    durability: k.durability || '?',
+                    description: k.description || ''
                 });
             }
 
-            // 收集品
-            const collectItems = (gameData.collectibles?.items || gameData.collectibles || []);
-            for (const c of collectItems) {
-                const trend = c.trend_7d || c.trend_30d;
-                const trendStr = trend !== undefined ? (trend > 0 ? `+${trend.toFixed(1)}%` : `${trend.toFixed(1)}%`) : '—';
-                priceData.collectibles.push({
-                    name: c.name, tier: c.tier || '—', trend7d: trendStr
+            // 收集品：来自 collectibles（列表格式）
+            const collectibles = gameData.collectibles || [];
+            for (const c of collectibles) {
+                priceData.collectible.push({
+                    name: c.name,
+                    map: c.map || c.location || '',
+                    type: c.type || '',
+                    rarity: c.rarity || c.grade || '',
+                    description: c.description || ''
                 });
             }
-        }
-
-        // 钥匙卡数据已整合进 priceData.keys，以下为扩展预留
-        function updateKeysFromData() {
-            // keys 数据已通过 updatePriceTableFromData 加载到 priceData
-        }
-
-        // 收集品数据已整合进 priceData.collectibles，以下为扩展预留
-        function updateCollectiblesFromData() {
-            // collectibles 数据已通过 updatePriceTableFromData 加载到 priceData
         }
 
         function showPriceTable() {
             const cat = document.getElementById('price-cat').value;
             const tbody = document.getElementById('price-tbody');
+            const thead = document.getElementById('price-thead');
             const items = priceData[cat] || [];
-            if (!items.length) { tbody.innerHTML = '<tr><td colspan="5" style="text-align:center;color:var(--text-muted)">暂无数据</td></tr>'; return; }
-
-            // 子弹和收集品用不同格式
-            if (cat === 'bullets') {
-                tbody.innerHTML = items.map(item => `
-                    <tr>
-                        <td><strong>${item.name}</strong></td>
-                        <td colspan="2"><strong>${item.today}元</strong></td>
-                        <td colspan="2"><span class="trend-up">参考价</span></td>
-                    </tr>`).join('');
-                return;
-            }
-            if (cat === 'collectibles') {
-                tbody.innerHTML = items.map(item => {
-                    const trendVal = parseFloat(item.trend7d);
-                    const isUp = !isNaN(trendVal) && trendVal >= 0;
-                    return `
-                    <tr>
-                        <td><strong>${item.name}</strong></td>
-                        <td>Tier ${item.tier}</td>
-                        <td colspan="2"><span class="${isUp ? 'trend-up' : 'trend-down'}">${item.trend7d}</span></td>
-                    </tr>`;
-                }).join('');
-                return;
-            }
-            if (cat === 'keys') {
-                tbody.innerHTML = items.map(item => {
-                    const trendVal = parseFloat(item.trend7d);
-                    const isUp = !isNaN(trendVal) && trendVal >= 0;
-                    return `
-                    <tr>
-                        <td><strong>${item.name}</strong></td>
-                        <td>${item.level}</td>
-                        <td colspan="2"><span class="${isUp ? 'trend-up' : 'trend-down'}">${item.trend7d}</span></td>
-                    </tr>`;
-                }).join('');
+            if (!items.length) {
+                tbody.innerHTML = '<tr><td colspan="4" style="text-align:center;color:var(--text-muted)">暂无数据</td></tr>';
                 return;
             }
 
-            // 默认格式：武器/护甲/消耗品/材料
-            tbody.innerHTML = items.map(item => {
-                const change = (item.today || 0) - (item.yesterday || 0);
-                const trendUp = change >= 0;
-                const trendClass = trendUp ? 'trend-up' : 'trend-down';
-                const trendSymbol = trendUp ? '▲' : '▼';
-                return `
-                    <tr>
-                        <td><strong>${item.name}</strong></td>
-                        <td>${typeof item.yesterday === 'number' ? item.yesterday.toFixed(2) + '万' : '—'}</td>
-                        <td><strong>${typeof item.today === 'number' ? item.today.toFixed(2) + '万' : '—'}</strong></td>
-                        <td class="${trendClass}">${trendSymbol} ${Math.abs(change).toFixed(2)}万</td>
-                        <td><span style="font-size:12px;padding:2px 8px;border-radius:4px;background:${trendUp?'rgba(34,197,94,0.15)':'rgba(239,68,68,0.15)'};color:${trendUp?'var(--green)':'var(--red)'}">${item.trend7d}</span></td>
-                    </tr>
-                `;
-            }).join('');
+            // 根据分类生成表头和内容
+            if (cat === 'weapon') {
+                thead.innerHTML = `<tr><th>武器名称</th><th>类型</th><th>等级</th><th>关键属性</th></tr>`;
+                tbody.innerHTML = items.map(w => {
+                    const gradeColor = {1:'#9ca3af',2:'#22c55e',3:'#3b82f6',4:'#a855f7',5:'#f59e0b',6:'#ef4444'};
+                    const gc = gradeColor[w.grade] || '#9ca3af';
+                    return `<tr>
+                        <td><strong>${w.name}</strong></td>
+                        <td>${w.type}</td>
+                        <td><span style="color:${gc};font-weight:700">${w.grade}</span></td>
+                        <td style="font-size:12px;color:var(--text-secondary)">
+                            ${w.caliber ? `口径:${w.caliber} · ` : ''}${w.fireRate}RPM · ${w.capacity}发 · 肉伤${w.meatHarm} · 护甲伤${w.armorHarm}
+                            ${w.fireMode ? ` · ${w.fireMode}` : ''}
+                        </td>
+                    </tr>`;
+                }).join('');
+            } else if (cat === 'attachment') {
+                thead.innerHTML = `<tr><th>配件名称</th><th>类型</th><th>槽位</th><th>属性加成</th></tr>`;
+                tbody.innerHTML = items.map(a => {
+                    const gradeColor = {1:'#9ca3af',2:'#22c55e',3:'#3b82f6',4:'#a855f7',5:'#f59e0b',6:'#ef4444'};
+                    const gc = gradeColor[a.grade] || '#9ca3af';
+                    return `<tr>
+                        <td><strong>${a.name}</strong></td>
+                        <td>${a.type}</td>
+                        <td><span style="color:var(--accent)">${a.slot}</span></td>
+                        <td style="font-size:12px">
+                            ${a.recoil ? `<span style="color:var(--green)">后坐力${a.recoil > 0 ? '+' : ''}${a.recoil}</span>` : ''}
+                            ${a.control ? `<span style="color:#3b82f6"> 操控${a.control > 0 ? '+' : ''}${a.control}</span>` : ''}
+                            ${a.advantage ? `<br><span style="color:var(--text-muted)">${a.advantage}</span>` : ''}
+                        </td>
+                    </tr>`;
+                }).join('');
+            } else if (cat === 'armor') {
+                thead.innerHTML = `<tr><th>防具名称</th><th>类型</th><th>等级</th><th>属性</th></tr>`;
+                tbody.innerHTML = items.map(a => {
+                    const gradeColor = {1:'#9ca3af',2:'#22c55e',3:'#3b82f6',4:'#a855f7',5:'#f59e0b',6:'#ef4444'};
+                    const gc = gradeColor[a.grade] || '#9ca3af';
+                    return `<tr>
+                        <td><strong>${a.name}</strong></td>
+                        <td>${a.type} · ${a.slot}</td>
+                        <td><span style="color:${gc};font-weight:700">${a.grade}</span></td>
+                        <td style="font-size:12px;color:var(--text-secondary)">重量 ${a.weight} · ${a.description}</td>
+                    </tr>`;
+                }).join('');
+            } else if (cat === 'consumable') {
+                thead.innerHTML = `<tr><th>物品名称</th><th>类型</th><th>等级</th><th>效果说明</th></tr>`;
+                tbody.innerHTML = items.map(c => {
+                    const gradeColor = {1:'#9ca3af',2:'#22c55e',3:'#3b82f6',4:'#a855f7',5:'#f59e0b',6:'#ef4444'};
+                    const gc = gradeColor[c.grade] || '#9ca3af';
+                    return `<tr>
+                        <td><strong>${c.name}</strong></td>
+                        <td>${c.type}</td>
+                        <td><span style="color:${gc};font-weight:700">${c.grade}</span></td>
+                        <td style="font-size:12px;color:var(--text-secondary)">${c.description}</td>
+                    </tr>`;
+                }).join('');
+            } else if (cat === 'keys') {
+                thead.innerHTML = `<tr><th>钥匙名称</th><th>地图</th><th>位置</th><th>耐久</th></tr>`;
+                tbody.innerHTML = items.map(k => `<tr>
+                    <td><strong>${k.name}</strong></td>
+                    <td>${k.map}</td>
+                    <td style="font-size:13px;color:var(--text-secondary)">${k.location}</td>
+                    <td>${k.durability}</td>
+                </tr>`).join('');
+            } else if (cat === 'collectible') {
+                thead.innerHTML = `<tr><th>收藏品名称</th><th>地图</th><th>类型</th><th>稀有度</th></tr>`;
+                tbody.innerHTML = items.map(c => `<tr>
+                    <td><strong>${c.name}</strong></td>
+                    <td>${c.map}</td>
+                    <td>${c.type}</td>
+                    <td><span style="color:var(--yellow)">${c.rarity}</span></td>
+                </tr>`).join('');
+            }
         }
         showPriceTable();
+
+        // ==================== Evacuation Map Data Loader ====================
+        // 撤离路线图钥匙卡数据（从 gameData.keys 加载）
+        function updateKeysFromData() {
+            if (!gameData || !gameData.keys) return;
+            const mapKeyNames = {
+                '零号大坝': 'zero-dam',
+                '长弓溪谷': 'longbow',
+                '巴克什': 'brakkesh',
+                '航天基地': 'space',
+                '潮汐监狱': 'tidal'
+            };
+            window.evacKeyCards = { 'zero-dam': [], 'longbow': [], 'brakkesh': [], 'space': [], 'tidal': [] };
+            for (const k of gameData.keys) {
+                const mapId = mapKeyNames[k.map];
+                if (mapId && window.evacKeyCards[mapId]) {
+                    window.evacKeyCards[mapId].push(k);
+                }
+            }
+        }
+
+        // 物资分布图收藏品数据（从 gameData.collectibles 加载）
+        function updateCollectiblesFromData() {
+            if (!gameData || !gameData.collectibles) return;
+            window.lootCollectibles = gameData.collectibles;
+        }
 
         // ==================== Evacuation Map ====================
         // 数据来源：三角洲行动官方Wiki及游戏实测
@@ -4210,14 +4242,23 @@
             '紧急撤离': { name: '紧急撤离', items: ['无'], strategy: '最后手段，存活率很低。尽量避免用到。' }
         };
 
+        // 地图名称映射
+        const mapKeyNames = {
+            'zero-dam': '零号大坝',
+            'longbow': '长弓溪谷',
+            'brakkesh': '巴克什',
+            'space': '航天基地',
+            'tidal': '潮汐监狱'
+        };
+
         function switchEvacTab(btn, zone) {
             document.querySelectorAll('#modal-evac .tab').forEach(t => t.classList.remove('active'));
             btn.classList.add('active');
-            
+
             const data = evacData[zone];
             let html = `<h4 style="color: var(--accent); margin-bottom: 12px;">${data.name} - 撤离点</h4>
                 <div class="map-grid">`;
-            
+
             data.points.forEach(p => {
                 const riskClass = p.risk === '低' ? '' : p.risk === '中' ? 'medium-value' : 'high-value';
                 html += `<div class="map-location ${riskClass}" onclick="showEvacDetail(this, '${p.name}')">
@@ -4226,15 +4267,15 @@
                     <div class="value">条件：${p.condition} | ${p.cost === '免费' ? '免费' : p.cost}</div>
                 </div>`;
             });
-            
+
             html += `</div>`;
-            
+
             // 添加资源区信息
             if (data.lootZones && data.lootZones.length > 0) {
                 html += `<div style="margin-top: 20px;">
                     <h4 style="color: var(--green); margin-bottom: 12px;">📦 ${data.name} - 资源区分布</h4>
                     <div class="loot-grid">`;
-                
+
                 data.lootZones.forEach(zone => {
                     const riskColor = zone.risk === '高' ? 'red' : zone.risk === '中' ? 'orange' : 'green';
                     html += `<div class="loot-item">
@@ -4242,14 +4283,30 @@
                         <span class="rate ${zone.keyRequired ? 'epic' : 'common'}">${zone.keyRequired ? '需钥匙' : '免费进入'}</span>
                     </div>`;
                 });
-                
+
                 html += `</div></div>`;
             }
-            
+
+            // 添加钥匙卡列表（从 gameData.keys 动态加载）
+            const mapName = mapKeyNames[zone];
+            if (window.evacKeyCards && window.evacKeyCards[zone] && window.evacKeyCards[zone].length > 0) {
+                html += `<div style="margin-top: 20px;">
+                    <h4 style="color: var(--yellow); margin-bottom: 12px;">🔑 ${data.name} - 钥匙卡分布</h4>
+                    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:8px;">`;
+                window.evacKeyCards[zone].forEach(k => {
+                    html += `<div style="padding:10px 12px;background:var(--bg-secondary);border-radius:8px;border:1px solid var(--border);font-size:13px;">
+                        <div style="font-weight:600;color:var(--text-primary);">${k.name}</div>
+                        <div style="color:var(--text-muted);font-size:11px;margin-top:4px;">${k.location}</div>
+                        <div style="color:var(--text-secondary);font-size:11px;">耐久: ${k.durability}</div>
+                    </div>`;
+                });
+                html += `</div></div>`;
+            }
+
             html += `<div style="margin-top: 16px; padding: 14px; background: rgba(255,107,53,0.08); border-radius: 10px;">
                 <p style="font-size: 13px; color: var(--text-secondary);"><strong style="color: var(--accent);">💡 小贴士：</strong>${data.name}是烽火地带的${zone === 'zero-dam' ? '新手启蒙区域，适合练习。行政楼是核心区域但竞争激烈' : zone === 'longbow' ? '狙击手乐园，面积最大。建议组队行动，注意远距离交战' : zone === 'brakkesh' ? '高密度巷战区域，S级钥匙房最多。建议携带烟雾弹和震撼弹' : zone === 'space' ? '高收益高风险区域，需拉双闸撤离。建议满编队伍进入' : '高准入区域，有稀有红装刷新。建议装备总价值50万以上再进入'}。</p>
             </div>`;
-            
+
             document.getElementById('evac-content').innerHTML = html;
             document.getElementById('evac-detail').style.display = 'none';
         }
@@ -4364,28 +4421,50 @@
             const data = lootData[tier] || [];
             const mapFilter = document.getElementById('loot-map-filter')?.value || '';
             const searchFilter = document.getElementById('loot-search')?.value.toLowerCase() || '';
-            
-            let filtered = data;
+
+            // 合并真实收藏品数据
+            let allItems = [...data];
+            if (window.lootCollectibles && tier !== 'low') {
+                const rarityMap = { S: 'legendary', A: 'epic', B: 'rare', C: 'common' };
+                for (const c of window.lootCollectibles) {
+                    const mapName = c.map || '';
+                    const mapId = { '零号大坝': 'zero-dam', '长弓溪谷': 'longbow', '巴克什': 'brakkesh', '航天基地': 'space', '潮汐监狱': 'tidal' }[mapName] || '';
+                    const rarity = rarityMap[c.rarity] || rarityMap[c.grade] || 'common';
+                    const tierMatch = tier === 'all' || (tier === 'high' && (rarity === 'legendary' || rarity === 'epic')) || (tier === 'medium' && rarity !== 'legendary');
+                    if (!tierMatch) continue;
+                    allItems.push({
+                        name: c.name,
+                        rate: rarity,
+                        zone: mapName,
+                        location: c.location || c.type || '',
+                        value: rarity === 'legendary' ? '极高' : rarity === 'epic' ? '高' : '中',
+                        tip: c.description || c.type || '',
+                        isCollectible: true
+                    });
+                }
+            }
+
+            let filtered = allItems;
             if (mapFilter) {
                 filtered = filtered.filter(item => item.zone === mapFilter || item.zone === '通用');
             }
             if (searchFilter) {
-                filtered = filtered.filter(item => 
-                    item.name.toLowerCase().includes(searchFilter) || 
-                    item.location.toLowerCase().includes(searchFilter)
+                filtered = filtered.filter(item =>
+                    item.name.toLowerCase().includes(searchFilter) ||
+                    (item.location || '').toLowerCase().includes(searchFilter)
                 );
             }
-            
+
             if (filtered.length === 0) {
                 grid.innerHTML = '<p style="text-align:center;color:var(--text-secondary);padding:40px;">暂无匹配结果</p>';
                 return;
             }
-            
+
             grid.innerHTML = filtered.map(item => `
-                <div class="loot-item" style="cursor:pointer;" onclick="showLootDetail('${item.name}')">
+                <div class="loot-item" style="cursor:pointer;" onclick="showLootDetail('${item.name}', ${item.isCollectible ? 'true' : 'false'})">
                     <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;">
                         <span class="name" style="font-weight:600;">${item.name}</span>
-                        <span class="rate ${item.rate}">${item.rate === 'legendary' ? '传说' : item.rate === 'epic' ? '史诗' : item.rate === 'rare' ? '稀有' : '普通'}</span>
+                        <span class="rate ${item.rate}">${item.rate === 'legendary' ? '传说' : item.rate === 'epic' ? '史诗' : item.rate === 'rare' ? '稀有' : '普通'}${item.isCollectible ? ' 📦' : ''}</span>
                     </div>
                     <div style="font-size:11px;color:var(--text-secondary);">
                         <span style="color:var(--accent);">📍 ${item.location || item.zone}</span>
@@ -4395,20 +4474,19 @@
             `).join('');
         }
 
-        function showLootDetail(name) {
-            // 查找物品详情
-            const allItems = [...lootData.high, ...lootData.medium, ...lootData.low];
-            const item = allItems.find(i => i.name === name);
-            if (item) {
-                showToast(`${item.name}: ${item.tip || '点击查看详情'}`);
+        function showLootDetail(name, isCollectible) {
+            if (isCollectible) {
+                showToast(`📦 收藏品: ${name}`);
+            } else {
+                const allItems = [...lootData.high, ...lootData.medium, ...lootData.low];
+                const item = allItems.find(i => i.name === name);
+                if (item) showToast(`${item.name}: ${item.tip || '点击查看详情'}`);
             }
         }
 
         function filterLoot() {
             renderLootGrid(currentLootTier);
-        }
-
-        // Init loot grid
+        }        // Init loot grid
         renderLootGrid('high');
 
         // ==================== Toast Notification ====================
