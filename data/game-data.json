@@ -9332,6 +9332,51 @@
       "keyType": 0,
       "description": "用于开启铁脊车站的售票处",
       "icon": "https://playerhub.df.qq.com/playerhub/60004/object/key/p_长弓溪谷白卡.png"
+    },
+    {
+      "id": "key_tidal_001",
+      "name": "监狱正门钥匙卡",
+      "map": "潮汐监狱",
+      "location": "监狱正门入口",
+      "durability": 3,
+      "grade": 3,
+      "description": "潮汐监狱正门撤离点使用的钥匙卡，开启后可使用正门撤离点。"
+    },
+    {
+      "id": "key_tidal_002",
+      "name": "监狱侧门钥匙卡",
+      "map": "潮汐监狱",
+      "location": "监狱侧门",
+      "durability": 3,
+      "grade": 4,
+      "description": "潮汐监狱侧门撤离点钥匙卡，紫色品质，可开启侧门撤离。"
+    },
+    {
+      "id": "key_tidal_003",
+      "name": "监狱顶部钥匙卡",
+      "map": "潮汐监狱",
+      "location": "监狱顶部",
+      "durability": 2,
+      "grade": 5,
+      "description": "潮汐监狱顶部撤离点钥匙卡，金色品质，开启顶部绳索撤离。"
+    },
+    {
+      "id": "key_tidal_004",
+      "name": "监狱地下通道钥匙卡",
+      "map": "潮汐监狱",
+      "location": "地下通道入口",
+      "durability": 3,
+      "grade": 4,
+      "description": "开启潮汐监狱地下通道撤离点，需要完成特定任务后出现。"
+    },
+    {
+      "id": "key_tidal_005",
+      "name": "监狱长办公室钥匙",
+      "map": "潮汐监狱",
+      "location": "监狱长办公室门",
+      "durability": 5,
+      "grade": 5,
+      "description": "开启监狱长办公室，高价值物品刷新点，S级区域。"
     }
   ],
   "consumables": [
@@ -9645,7 +9690,8 @@
       "map": "",
       "location": "",
       "description": "黄金瞪羚，约300年历史，被阿萨拉王子用于追求潜在伴侣。",
-      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15010050001.png"
+      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15010050001.png",
+      "rarity": "S"
     },
     {
       "id": 15020010031,
@@ -9655,7 +9701,8 @@
       "map": "",
       "location": "",
       "description": "工具&材料，一种轻量、高强度、高刚性的先进复合材料，广泛应用于航空航天、建筑等领域。",
-      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15020010031.png"
+      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15020010031.png",
+      "rarity": "A"
     },
     {
       "id": 15020010033,
@@ -9665,7 +9712,8 @@
       "map": "",
       "location": "",
       "description": "尚未开封的20升高性能航空燃料，专为火箭发动机所设计，提供澎湃动力。\n【用途】解锁仓库7级必要材料。\n【来源】仅限航天城产出，禁止交易。",
-      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15020010033.png"
+      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15020010033.png",
+      "rarity": "A"
     },
     {
       "id": 15030010012,
@@ -9675,7 +9723,8 @@
       "map": "",
       "location": "",
       "description": "电子物品，可以拍摄16K，240帧高精度视频。",
-      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15030010012.png"
+      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15030010012.png",
+      "rarity": "A"
     },
     {
       "id": 15030050001,
@@ -9685,7 +9734,8 @@
       "map": "",
       "location": "",
       "description": "电子物品，计算机中一种专门处理图形数据的硬件设备，用于加速图形和影像的处理，包括3D图形渲染、视频解码和显示输出等功能，高端游戏电脑必备。",
-      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15030050001.png"
+      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15030050001.png",
+      "rarity": "A"
     },
     {
       "id": 15030050002,
@@ -9695,7 +9745,8 @@
       "map": "",
       "location": "",
       "description": "电子物品，利用无线电遥控设备和自备的程序控制装置操纵的飞行器。",
-      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15030050002.png"
+      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15030050002.png",
+      "rarity": "A"
     },
     {
       "id": 15030050004,
@@ -9705,7 +9756,8 @@
       "map": "",
       "location": "",
       "description": "电子物品，无线信号发射器是一种能提供各种频率、波形和输出电平电信号的设备。",
-      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15030050004.png"
+      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15030050004.png",
+      "rarity": "A"
     },
     {
       "id": 15030050007,
@@ -9715,7 +9767,8 @@
       "map": "",
       "location": "",
       "description": "电子物品，笔记本电脑，高效屏幕比例，轻薄随行，散热系统新升级，带来畅爽使用体验。",
-      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15030050007.png"
+      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15030050007.png",
+      "rarity": "B"
     },
     {
       "id": 15030050008,
@@ -9725,7 +9778,8 @@
       "map": "",
       "location": "",
       "description": "电子物品，高性能的军事级数据处理装置，专为提供强大计算能力和高速数据传输能力，以满足战场上严苛的信息处理需求。",
-      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15030050008.png"
+      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15030050008.png",
+      "rarity": "A"
     },
     {
       "id": 15030050012,
@@ -9735,7 +9789,8 @@
       "map": "",
       "location": "",
       "description": "电子物品，存储加密数据，可为军用，带自毁功能。",
-      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15030050012.png"
+      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15030050012.png",
+      "rarity": "B"
     },
     {
       "id": 15030050013,
@@ -9745,7 +9800,8 @@
       "map": "",
       "location": "",
       "description": "电子物品，G.T.I.专为恶劣环境下保持稳定、高速的卫星连接而打造的便携式、高性能通信设备。\n【用途】解锁训练中心7级必要材料.\n【来源】仅限航天城产出，禁止交易。",
-      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15030050013.png"
+      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15030050013.png",
+      "rarity": "C"
     },
     {
       "id": 15030050014,
@@ -9755,7 +9811,8 @@
       "map": "",
       "location": "",
       "description": "电子物品，飞行数据记录仪。",
-      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15030050014.png"
+      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15030050014.png",
+      "rarity": "C"
     },
     {
       "id": 15030050017,
@@ -9765,7 +9822,8 @@
       "map": "",
       "location": "",
       "description": "军用物品，全自动多模式炮弹，可装载于多种军用设备上。",
-      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15030050017.png"
+      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15030050017.png",
+      "rarity": "A"
     },
     {
       "id": 15030050018,
@@ -9775,7 +9833,8 @@
       "map": "",
       "location": "",
       "description": "军用密钥，主要在极端天气和复杂网络下使用，破译机密设备。",
-      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15030050018.png"
+      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15030050018.png",
+      "rarity": "A"
     },
     {
       "id": 15040050002,
@@ -9785,7 +9844,8 @@
       "map": "",
       "location": "",
       "description": "阿萨拉著名艺术家参考古罗马皇帝克劳迪乌斯创作的半身像。",
-      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15040050002.png"
+      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15040050002.png",
+      "rarity": "C"
     },
     {
       "id": 15060040004,
@@ -9795,7 +9855,8 @@
       "map": "",
       "location": "",
       "description": "医疗道具，能够协助或完全替代患者呼吸，通过向患者提供氧气和控制呼吸频率与压力，以改善呼吸功能和维持生命。",
-      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15060040004.png"
+      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15060040004.png",
+      "rarity": "C"
     },
     {
       "id": 15060080015,
@@ -9805,7 +9866,8 @@
       "map": "",
       "location": "",
       "description": "是一种产自法国香槟地区的气泡酒，以其独特的口感和气泡而闻名，常被用于庆祝重要场合和佳节。",
-      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15060080015.png"
+      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15060080015.png",
+      "rarity": "C"
     },
     {
       "id": 15070040003,
@@ -9815,7 +9877,8 @@
       "map": "",
       "location": "",
       "description": "情报道具，实验数据。",
-      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15070040003.png"
+      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15070040003.png",
+      "rarity": "C"
     },
     {
       "id": 15070050001,
@@ -9825,7 +9888,8 @@
       "map": "",
       "location": "",
       "description": "情报道具，哈夫克公司基于量子存储技术开发的小型便携式存储单元，能够实现极高的传输速率和TB级的数据。",
-      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15070050001.png"
+      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15070050001.png",
+      "rarity": "C"
     },
     {
       "id": 15080040001,
@@ -9835,7 +9899,8 @@
       "map": "",
       "location": "",
       "description": "棘龙的爪子，是迄今为止阿萨拉档案中记载的最大的已知恐龙之一。",
-      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15080040001.png"
+      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15080040001.png",
+      "rarity": "C"
     },
     {
       "id": 15080050003,
@@ -9845,7 +9910,8 @@
       "map": "",
       "location": "",
       "description": "稀有且具备历史意义的阿萨拉土制滑膛枪，曾被用在对抗外国殖民者的独立战争中。",
-      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15080050003.png"
+      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15080050003.png",
+      "rarity": "C"
     },
     {
       "id": 15080050006,
@@ -9855,7 +9921,8 @@
       "map": "",
       "location": "",
       "description": "世界上最大的钻石，璀璨夺目，象征永恒的爱。",
-      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15080050006.png"
+      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15080050006.png",
+      "rarity": "C"
     },
     {
       "id": 15080050010,
@@ -9865,7 +9932,8 @@
       "map": "",
       "location": "",
       "description": "一整根金条，可以拿去卖钱。",
-      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15080050010.png"
+      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15080050010.png",
+      "rarity": "S"
     },
     {
       "id": 15080050014,
@@ -9875,7 +9943,8 @@
       "map": "",
       "location": "",
       "description": "游荡猎人赛伊德的贴身怀表，听说里面有着他身世的秘密。",
-      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15080050014.png"
+      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15080050014.png",
+      "rarity": "C"
     },
     {
       "id": 15080050030,
@@ -9885,17 +9954,19 @@
       "map": "",
       "location": "",
       "description": "哈夫克公司生产的M100超算单元，是基于曼德尔砖进行技术流用的民品级芯片，但其中依然充斥着外界无法解决的黑盒架构，颇具研究价值。",
-      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15080050030.png"
+      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15080050030.png",
+      "rarity": "C"
     },
     {
       "id": 15080050031,
       "name": "便携军用雷达",
       "type": "collection",
       "typeCN": "收集品",
-      "map": "",
+      "map": "长弓溪谷",
       "location": "",
       "description": "这台便携式军用雷达体积轻巧，易于携带，可在各种环境中使用。其高精度传感器和强大数据处理能力，能够迅速探测到周边敌情，为部队提供有力支持。",
-      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15080050031.png"
+      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15080050031.png",
+      "rarity": "A"
     },
     {
       "id": 15080050032,
@@ -9905,7 +9976,8 @@
       "map": "",
       "location": "",
       "description": "这台军用信息终端，具备坚固耐用的外壳和防尘防水设计，能在恶劣环境下稳定工作。搭载高性能处理器和加密存储，确保军事数据安全可靠。",
-      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15080050032.png"
+      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15080050032.png",
+      "rarity": "A"
     },
     {
       "id": 15080050040,
@@ -9915,7 +9987,8 @@
       "map": "",
       "location": "",
       "description": "这台主战坦克模型，严格按照真实尺寸缩比制作，细节精致。炮塔与车身可电动旋转，让您全方位欣赏这台钢铁巨兽。",
-      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15080050040.png"
+      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15080050040.png",
+      "rarity": "C"
     },
     {
       "id": 15080050041,
@@ -9925,7 +9998,8 @@
       "map": "",
       "location": "",
       "description": "这台步战车仿真模型，比例精确，细节丰富。配有金属炮管及橡胶轮胎，是军事爱好者收藏的绝佳之选。",
-      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15080050041.png"
+      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15080050041.png",
+      "rarity": "C"
     },
     {
       "id": 15080050042,
@@ -9935,7 +10009,8 @@
       "map": "",
       "location": "",
       "description": "这块金质名贵机械表，镶钻表盘璀璨夺目，精细机芯运转精准。佩戴它，彰显您非凡品味与优雅气质。",
-      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15080050042.png"
+      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15080050042.png",
+      "rarity": "C"
     },
     {
       "id": 15080050044,
@@ -9945,7 +10020,8 @@
       "map": "",
       "location": "",
       "description": "已贮存极高密级情报的服务器机柜，经研判属于高性能的军事级数据处理装置，数据已经过复杂加密，需要专业人员解析。",
-      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15080050044.png"
+      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15080050044.png",
+      "rarity": "A"
     },
     {
       "id": 15080050058,
@@ -9955,7 +10031,8 @@
       "map": "",
       "location": "",
       "description": "便携式医疗设备，用于心脏骤停急救。操作简便，内置语音指导，关键时刻挽救生命。",
-      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15080050058.png"
+      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15080050058.png",
+      "rarity": "C"
     },
     {
       "id": 15080050061,
@@ -9965,7 +10042,8 @@
       "map": "",
       "location": "",
       "description": "集成了最先端磁盘阵列技术的次世代数据存储设备，已经可以满足军用级别的数据加密要求。",
-      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15080050061.png"
+      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15080050061.png",
+      "rarity": "C"
     },
     {
       "id": 15080050066,
@@ -9975,7 +10053,8 @@
       "map": "",
       "location": "",
       "description": "哈夫克家居产品，采用智能导航系统规划清洁路线，提升家庭卫生效率。",
-      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15080050066.png"
+      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15080050066.png",
+      "rarity": "C"
     },
     {
       "id": 15080050067,
@@ -9985,7 +10064,8 @@
       "map": "",
       "location": "",
       "description": "哈夫克家居产品，采用智能光学探测系统快速扫清顽垢，居家首选。",
-      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15080050067.png"
+      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15080050067.png",
+      "rarity": "C"
     },
     {
       "id": 15080050097,
@@ -9995,7 +10075,8 @@
       "map": "",
       "location": "",
       "description": "医疗道具，专为体征已经极度衰弱，自主呼吸已经消失的病患设计的辅助呼吸设备，生命的最终防线。",
-      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15080050097.png"
+      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15080050097.png",
+      "rarity": "C"
     },
     {
       "id": 15090010040,
@@ -10005,7 +10086,8 @@
       "map": "",
       "location": "",
       "description": "机械工蜂，仿生设计，精致小巧。振动翅膀，能模仿真实工蜂飞行。腹部携带微型工具，适用于精密操作与探索。",
-      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15090010040.png"
+      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15090010040.png",
+      "rarity": "C"
     },
     {
       "id": 15020010035,
@@ -10015,7 +10097,8 @@
       "map": "",
       "location": "",
       "description": "工具&材料，能源类道具，提供火源，为各类设备提供持久稳定的动力，满足高性能需求。\n【用途】可在工作台制造6级品阶的子弹。",
-      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15020010035.png"
+      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15020010035.png",
+      "rarity": "A"
     },
     {
       "id": 15020010036,
@@ -10025,7 +10108,8 @@
       "map": "",
       "location": "",
       "description": "工具&材料，能源类道具，高效环保的能源转换设备，通过化学反应直接将燃料的化学能转化为电能，为汽车、飞机、坦克提供动力。",
-      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15020010036.png"
+      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15020010036.png",
+      "rarity": "A"
     },
     {
       "id": 15020050006,
@@ -10035,7 +10119,8 @@
       "map": "",
       "location": "",
       "description": "工具&材料，坚固耐用，能够承受各种恶劣环境和高强度的使用。\n【用途】可在后勤处制造5级品阶头盔与护甲。\n【来源】该物品仅能通过医疗部门兑换获得，禁止交易。",
-      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15020050006.png"
+      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15020050006.png",
+      "rarity": "S"
     },
     {
       "id": 15030040001,
@@ -10045,7 +10130,8 @@
       "map": "",
       "location": "",
       "description": "电子物品，微型图像采集设备。",
-      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15030040001.png"
+      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15030040001.png",
+      "rarity": "C"
     },
     {
       "id": 15030040003,
@@ -10055,7 +10141,8 @@
       "map": "",
       "location": "",
       "description": "电子物品，中央处理器，是计算机系统的运算和控制核心，对计算机的所有硬件进行控制调配。",
-      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15030040003.png"
+      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15030040003.png",
+      "rarity": "C"
     },
     {
       "id": 15030040013,
@@ -10065,7 +10152,8 @@
       "map": "",
       "location": "",
       "description": "电子物品，常见的便携式通讯工具，拥有强大的计算能力和通讯功能。",
-      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15030040013.png"
+      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15030040013.png",
+      "rarity": "C"
     },
     {
       "id": 15030050003,
@@ -10075,7 +10163,8 @@
       "map": "",
       "location": "",
       "description": "电子物品，一种具有微处理器的数字电子设备，用于自动化控制的数字逻辑控制器。\n【用途】可在医疗部门同其他材料兑换四个钛合金\n【来源】局内获得",
-      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15030050003.png"
+      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15030050003.png",
+      "rarity": "C"
     },
     {
       "id": 15030050006,
@@ -10085,7 +10174,8 @@
       "map": "",
       "location": "",
       "description": "电子物品，利用光学成像原理形成影像，能够快速捕捉并记录清晰、生动的照片和视频。",
-      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15030050006.png"
+      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15030050006.png",
+      "rarity": "C"
     },
     {
       "id": 15030050019,
@@ -10095,7 +10185,8 @@
       "map": "",
       "location": "",
       "description": "军用物品，制造爆炸物的高级原材料。",
-      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15030050019.png"
+      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15030050019.png",
+      "rarity": "A"
     },
     {
       "id": 15040010019,
@@ -10105,7 +10196,8 @@
       "map": "",
       "location": "",
       "description": "杂物，E型滤毒罐，罐体采用新型氧化铝材质，抗氧化耐腐蚀，抗压强度大。\n【用途】可在医疗部门同其他材料兑换四个中级子弹生产零件\n【来源】局内获取",
-      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15040010019.png"
+      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15040010019.png",
+      "rarity": "C"
     },
     {
       "id": 15040010023,
@@ -10115,7 +10207,8 @@
       "map": "",
       "location": "",
       "description": "杂物，一款轻便易携的电力传输工具，能够为电子设备提供稳定、安全的电力连接。\n【用途】可在制药台制造6级品阶维修套件",
-      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15040010023.png"
+      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15040010023.png",
+      "rarity": "C"
     },
     {
       "id": 15060040001,
@@ -10125,7 +10218,8 @@
       "map": "",
       "location": "",
       "description": "医疗道具，使用红外光检测到皮肤下的静脉，并在皮肤表面清晰显示血管位置。",
-      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15060040001.png"
+      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15060040001.png",
+      "rarity": "C"
     },
     {
       "id": 15060040003,
@@ -10135,7 +10229,8 @@
       "map": "",
       "location": "",
       "description": "医疗道具，用于无创测量血氧饱和度，操作简单便捷。",
-      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15060040003.png"
+      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15060040003.png",
+      "rarity": "C"
     },
     {
       "id": 15060080014,
@@ -10145,7 +10240,8 @@
       "map": "",
       "location": "",
       "description": "咖啡，采用烘焙磨制到位的咖啡豆所制作冲泡的饮料。",
-      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15060080014.png"
+      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15060080014.png",
+      "rarity": "C"
     },
     {
       "id": 15070040001,
@@ -10155,7 +10251,8 @@
       "map": "",
       "location": "",
       "description": "情报道具，资料：设计图纸。",
-      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15070040001.png"
+      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15070040001.png",
+      "rarity": "C"
     },
     {
       "id": 15080050002,
@@ -10165,7 +10262,8 @@
       "map": "",
       "location": "",
       "description": "24K纯金打造，低调奢华，稳固耐用，开盖灵活，能全方位提升使用者气质的打火机。",
-      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15080050002.png"
+      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15080050002.png",
+      "rarity": "S"
     },
     {
       "id": 15080050004,
@@ -10175,7 +10273,8 @@
       "map": "",
       "location": "",
       "description": "华贵的功绩勋章，似乎是用于表彰某位曾为阿萨拉建筑事业耗费心血，做出过杰出贡献的人士。",
-      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15080050004.png"
+      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15080050004.png",
+      "rarity": "C"
     },
     {
       "id": 15080050009,
@@ -10185,7 +10284,8 @@
       "map": "",
       "location": "",
       "description": "古老的阿萨拉海盗的金币，被人擦得亮闪闪的。",
-      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15080050009.png"
+      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15080050009.png",
+      "rarity": "S"
     },
     {
       "id": 15080050013,
@@ -10195,7 +10295,8 @@
       "map": "",
       "location": "",
       "description": "地狱黑鲨雷斯的贴身乐谱本，没有人知道里面记录了哪些歌曲。尾页一串奇怪的音符，427。",
-      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15080050013.png"
+      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15080050013.png",
+      "rarity": "C"
     },
     {
       "id": 15080050015,
@@ -10205,7 +10306,8 @@
       "map": "",
       "location": "",
       "description": "特色酒杯，见证了阿萨拉战士们的无尽战斗和英勇忠诚，每一只酒杯都在诉说着勇士们的荣耀和传奇。",
-      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15080050015.png"
+      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15080050015.png",
+      "rarity": "C"
     },
     {
       "id": 15080050024,
@@ -10215,7 +10317,8 @@
       "map": "",
       "location": "",
       "description": "工具材料，精密且高性能的组件，用于打造更为强大的中级弹药。",
-      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15080050024.png"
+      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15080050024.png",
+      "rarity": "C"
     },
     {
       "id": 15080050025,
@@ -10225,7 +10328,8 @@
       "map": "",
       "location": "",
       "description": "工具材料，先进的高精度组件，专为制造高性能弹药而设计，为战场上的勇士们提供无与伦比的强大火力。",
-      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15080050025.png"
+      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15080050025.png",
+      "rarity": "C"
     },
     {
       "id": 15080050033,
@@ -10235,7 +10339,8 @@
       "map": "",
       "location": "",
       "description": "这台军用卫星通讯仪，具有高速传输和实时通讯功能，能在全球范围内与军事基地实现无缝联系。其高度加密和抗干扰设计，确保通讯内容的安全和机密性。",
-      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15080050033.png"
+      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15080050033.png",
+      "rarity": "A"
     },
     {
       "id": 15080050034,
@@ -10245,7 +10350,8 @@
       "map": "",
       "location": "",
       "description": "单反相机，高分辨率成像，快速对焦系统，支持更换镜头。专业级摄影爱好者的理想选择，捕捉每一个精彩瞬间。",
-      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15080050034.png"
+      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15080050034.png",
+      "rarity": "C"
     },
     {
       "id": 15080050035,
@@ -10255,7 +10361,8 @@
       "map": "",
       "location": "",
       "description": "这台军用望远镜具备高倍放大和高清成像能力，能够在远距离上观察目标。其充氮防水设计，确保在恶劣环境下仍能正常工作，为军事观察提供有力支持。",
-      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15080050035.png"
+      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15080050035.png",
+      "rarity": "A"
     },
     {
       "id": 15080050062,
@@ -10265,7 +10372,8 @@
       "map": "",
       "location": "",
       "description": "阵列服务器通过集成多硬盘，并采用了RAID技术，进而获得了更强的数据存储及处理能力。",
-      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15080050062.png"
+      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15080050062.png",
+      "rarity": "A"
     },
     {
       "id": 15080050063,
@@ -10275,7 +10383,8 @@
       "map": "",
       "location": "",
       "description": "精致的纸质档案袋，其上印有哈夫克公司的logo，可能具备一定情报价值。",
-      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15080050063.png"
+      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15080050063.png",
+      "rarity": "C"
     },
     {
       "id": 15080050071,
@@ -10285,7 +10394,8 @@
       "map": "",
       "location": "",
       "description": "便携式咖啡冲泡产品，采用一次性滤纸包装，方便快速冲泡，保留咖啡原味，适合忙碌或外出时享用。\n【用途】可在医疗部门同其他材料兑换四个高级燃料。\n【来源】局内获得。",
-      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15080050071.png"
+      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15080050071.png",
+      "rarity": "C"
     },
     {
       "id": 15080050082,
@@ -10295,7 +10405,8 @@
       "map": "",
       "location": "",
       "description": "阿萨拉当地首饰融合地域文化元素，设计独特，散开的三片边陲象征着阿萨拉人对这片土地所包含的爱意。",
-      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15080050082.png"
+      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15080050082.png",
+      "rarity": "C"
     },
     {
       "id": 15080050083,
@@ -10305,7 +10416,8 @@
       "map": "",
       "location": "",
       "description": "实木材质的报时座钟，表面有一层使用碎矿石制成的岩绘具所涂制的漆面，尽显禅意。",
-      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15080050083.png"
+      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15080050083.png",
+      "rarity": "C"
     },
     {
       "id": 15080050089,
@@ -10315,7 +10427,8 @@
       "map": "",
       "location": "",
       "description": "高精度计算设备，用于预测和调整制导兵器弹道，确保我们每一次远程打击都能痛击敌人的要冲。",
-      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15080050089.png"
+      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15080050089.png",
+      "rarity": "A"
     },
     {
       "id": 15080050090,
@@ -10325,7 +10438,8 @@
       "map": "",
       "location": "",
       "description": "电子物品，采用闪存技术，拥有极快的读写速度，耐用且安静。",
-      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15080050090.png"
+      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15080050090.png",
+      "rarity": "C"
     },
     {
       "id": 15080050092,
@@ -10335,7 +10449,8 @@
       "map": "",
       "location": "",
       "description": "在阿萨拉见诸此物，是龙得盘着是虎得卧着。",
-      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15080050092.png"
+      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15080050092.png",
+      "rarity": "S"
     },
     {
       "id": 15080050093,
@@ -10345,7 +10460,8 @@
       "map": "",
       "location": "",
       "description": "哈夫克优秀雇员的象征，领受它的人直到生命最后一刻都将其置于身旁……",
-      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15080050093.png"
+      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15080050093.png",
+      "rarity": "C"
     },
     {
       "id": 15080050094,
@@ -10355,7 +10471,8 @@
       "map": "",
       "location": "",
       "description": "在命运的齿轮于阿萨拉大地翻腾之前，他也仅仅是一名猎手……",
-      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15080050094.png"
+      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15080050094.png",
+      "rarity": "C"
     },
     {
       "id": 15080050095,
@@ -10365,7 +10482,8 @@
       "map": "",
       "location": "",
       "description": "哈夫克先端技术的结晶，通过脑电波信号控制电子设备，实现人脑与机器的直接交互、是神经科学与人工智能的前沿应用。",
-      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15080050095.png"
+      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15080050095.png",
+      "rarity": "C"
     },
     {
       "id": 15020010024,
@@ -10375,7 +10493,8 @@
       "map": "",
       "location": "",
       "description": "工具&材料，强大的破碎设备，适用于建筑拆除等，能有效粉碎混凝土、钢筋等坚硬材料。",
-      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15020010024.png"
+      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15020010024.png",
+      "rarity": "C"
     },
     {
       "id": 15020050001,
@@ -10385,7 +10504,8 @@
       "map": "",
       "location": "",
       "description": "工具&材料，利用旋转刀片实现平滑的切割效果，能将木料锯断或锯割开。",
-      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15020050001.png"
+      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15020050001.png",
+      "rarity": "C"
     },
     {
       "id": 15020050003,
@@ -10395,7 +10515,8 @@
       "map": "",
       "location": "",
       "description": "工具&材料，高强度纤维，可用于军事领域。\n【用途】可在防具台制造5级品阶背包与胸挂。",
-      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15020050003.png"
+      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15020050003.png",
+      "rarity": "C"
     },
     {
       "id": 15020050004,
@@ -10405,7 +10526,8 @@
       "map": "",
       "location": "",
       "description": "工具&材料，坚固耐用，能够有效地防护人员免受弹片等危险物质的侵害。\n【用途】是医疗部门处兑换钛合金的必需品。",
-      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15020050004.png"
+      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15020050004.png",
+      "rarity": "C"
     },
     {
       "id": 15020050005,
@@ -10415,7 +10537,8 @@
       "map": "",
       "location": "",
       "description": "工具&材料，具有高强度和耐腐蚀性，是制造高质量工业设备和机械零件的理想选择。\n【用途】可在制药台制造5级品阶维修套件。",
-      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15020050005.png"
+      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15020050005.png",
+      "rarity": "C"
     },
     {
       "id": 15030040005,
@@ -10425,7 +10548,8 @@
       "map": "",
       "location": "",
       "description": "电子物品，SSD，用固态电子存储芯片阵列制成的硬盘。",
-      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15030040005.png"
+      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15030040005.png",
+      "rarity": "C"
     },
     {
       "id": 15030040006,
@@ -10435,7 +10559,8 @@
       "map": "",
       "location": "",
       "description": "电子物品，是与CPU直接交换数据的内部存储器。",
-      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15030040006.png"
+      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15030040006.png",
+      "rarity": "C"
     },
     {
       "id": 15030040007,
@@ -10445,7 +10570,8 @@
       "map": "",
       "location": "",
       "description": "电子物品，是计算机最基本同时也是最重要的部件之一。主板一般为矩形电路板，上面安装有组成计算机的主要电路系统。",
-      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15030040007.png"
+      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15030040007.png",
+      "rarity": "C"
     },
     {
       "id": 15030040012,
@@ -10455,7 +10581,8 @@
       "map": "",
       "location": "",
       "description": "电子物品，携带方便，音质优良，对噪音抑制能力不错，可以收听国内外主流电台媒体播放。",
-      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15030040012.png"
+      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15030040012.png",
+      "rarity": "C"
     },
     {
       "id": 15030040014,
@@ -10465,7 +10592,8 @@
       "map": "",
       "location": "",
       "description": "电子物品，通过发射特定频率的信号，干扰和破坏敌方的电子系统，以达到控制战场信息优势的目的。",
-      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15030040014.png"
+      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15030040014.png",
+      "rarity": "C"
     },
     {
       "id": 15030050005,
@@ -10475,7 +10603,8 @@
       "map": "",
       "location": "",
       "description": "电子物品，拥有极致立体声声卡，外听声辨位失真度小，泛用性强各平台皆适用。",
-      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15030050005.png"
+      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15030050005.png",
+      "rarity": "C"
     },
     {
       "id": 15030050011,
@@ -10485,7 +10614,8 @@
       "map": "",
       "location": "",
       "description": "电子物品，游戏手柄，设计精美，手感舒适，让你掌控游戏的每一个细节。",
-      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15030050011.png"
+      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15030050011.png",
+      "rarity": "C"
     },
     {
       "id": 15040010014,
@@ -10495,7 +10625,8 @@
       "map": "",
       "location": "",
       "description": "阿萨拉早期皇室所用，绘有精致装饰的水烟壶。",
-      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15040010014.png"
+      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15040010014.png",
+      "rarity": "C"
     },
     {
       "id": 15040010015,
@@ -10505,7 +10636,8 @@
       "map": "",
       "location": "",
       "description": "G.T.1.常用的一种间谍工具，在敏感地点记录视频和音频资料，可以记录到MicroSD卡或通过WiFi实时传输数据。",
-      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15040010015.png"
+      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15040010015.png",
+      "rarity": "C"
     },
     {
       "id": 15040040007,
@@ -10515,7 +10647,8 @@
       "map": "",
       "location": "",
       "description": "杂物，为电动车提供持久、稳定的动力来源。",
-      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15040040007.png"
+      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15040040007.png",
+      "rarity": "C"
     },
     {
       "id": 15040050003,
@@ -10525,7 +10658,8 @@
       "map": "",
       "location": "",
       "description": "杂物，部分受损的军用热像仪，利用热成像技术可以在漆黑的环境下观测事物。",
-      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15040050003.png"
+      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15040050003.png",
+      "rarity": "C"
     },
     {
       "id": 15060040002,
@@ -10535,7 +10669,8 @@
       "map": "",
       "location": "",
       "description": "医疗道具，测量血压的仪器，也叫血压计。深度采集有效数据，测量结果更准确，一目了然。",
-      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15060040002.png"
+      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15060040002.png",
+      "rarity": "C"
     },
     {
       "id": 15060080005,
@@ -10545,7 +10680,8 @@
       "map": "",
       "location": "",
       "description": "将柠檬在热水中稍微浸泡，然后切片泡水添加蜂蜜、茶叶冲制而成的高级饮料。",
-      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15060080005.png"
+      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15060080005.png",
+      "rarity": "C"
     },
     {
       "id": 15060080008,
@@ -10555,7 +10691,8 @@
       "map": "",
       "location": "",
       "description": "运动饮料浓缩物,用药剂浓缩成果冻状。含有复杂的碳水化合物，来自于单糖葡萄糖或者是果糖。",
-      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15060080008.png"
+      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15060080008.png",
+      "rarity": "C"
     },
     {
       "id": 15070050002,
@@ -10565,7 +10702,8 @@
       "map": "",
       "location": "",
       "description": "情报道具，资料：军事情报。",
-      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15070050002.png"
+      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15070050002.png",
+      "rarity": "C"
     },
     {
       "id": 15080040002,
@@ -10575,7 +10713,8 @@
       "map": "",
       "location": "",
       "description": "海盗的最佳伴侣，一把宽阔短小的弯刀，切削锋利，刀片承载很重，适合近距离战斗，上面还依稀残留有血腥味和潮湿海味。",
-      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15080040002.png"
+      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15080040002.png",
+      "rarity": "C"
     },
     {
       "id": 15080040003,
@@ -10585,7 +10724,8 @@
       "map": "",
       "location": "",
       "description": "尖角锋利，从成年公牛身上取摘下来的牛角，完整细长，拿到手的重量让人不由得感叹“嚯，想必这头牛一定很大！”",
-      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15080040003.png"
+      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15080040003.png",
+      "rarity": "C"
     },
     {
       "id": 15080050001,
@@ -10595,7 +10735,8 @@
       "map": "",
       "location": "",
       "description": "为阿萨拉王妃定制的耳环。曾保存于博物馆，后被盗出。",
-      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15080050001.png"
+      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15080050001.png",
+      "rarity": "C"
     },
     {
       "id": 15080050016,
@@ -10605,7 +10746,8 @@
       "map": "",
       "location": "",
       "description": "传闻这酒壶曾陪伴着阿萨拉传奇将军征战沙场，而壶中所藏的佳酿，似乎蕴含着他战斗生涯的种种秘密。",
-      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15080050016.png"
+      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15080050016.png",
+      "rarity": "C"
     },
     {
       "id": 15080050018,
@@ -10615,7 +10757,8 @@
       "map": "",
       "location": "",
       "description": "这件饰章呈匕首状，蕴含着匠人的心血与智慧。它见证了无数勇敢战士的荣耀与忠诚，是他们在战场上的得力助手。",
-      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15080050018.png"
+      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15080050018.png",
+      "rarity": "S"
     },
     {
       "id": 15080050036,
@@ -10625,7 +10768,8 @@
       "map": "",
       "location": "",
       "description": "这台军用热像仪，利用红外技术进行夜间或低能见度环境下的目标探测。高分辨率成像，实时显示温度分布，助力军事侦查与搜救任务。",
-      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15080050036.png"
+      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15080050036.png",
+      "rarity": "A"
     },
     {
       "id": 15080050037,
@@ -10635,7 +10779,8 @@
       "map": "",
       "location": "",
       "description": "这款广角镜头拥有宽广的视角范围，适合拍摄大场景照片。紧凑轻便的设计，便于携带，是摄影爱好者记录广阔天地的得力助手。",
-      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15080050037.png"
+      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15080050037.png",
+      "rarity": "C"
     },
     {
       "id": 15080050038,
@@ -10645,7 +10790,8 @@
       "map": "",
       "location": "",
       "description": "这张专业声卡提供高保真音频处理与多接口兼容性，满足录音、混音及播客创作等多样化需求，让声音更动人。",
-      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15080050038.png"
+      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15080050038.png",
+      "rarity": "C"
     },
     {
       "id": 15080050043,
@@ -10655,7 +10801,8 @@
       "map": "",
       "location": "",
       "description": "此匕首为军队仪式专用，刀身镶嵌荣誉徽章，彰显无畏精神。锋利刃口，象征军人勇往直前，保家卫国。",
-      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15080050043.png"
+      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15080050043.png",
+      "rarity": "C"
     },
     {
       "id": 15080050045,
@@ -10665,7 +10812,8 @@
       "map": "",
       "location": "",
       "description": "这台加密路由器内置多重加密算法保护数据。其储存的情报信息，仅授权人员可解密查阅。",
-      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15080050045.png"
+      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15080050045.png",
+      "rarity": "C"
     },
     {
       "id": 15080050057,
@@ -10675,7 +10823,8 @@
       "map": "",
       "location": "",
       "description": "医用无菌敷料包，内含多种尺寸纱布、棉签，预附消毒液，适用于各种创伤护理。",
-      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15080050057.png"
+      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15080050057.png",
+      "rarity": "C"
     },
     {
       "id": 15080050064,
@@ -10685,7 +10834,8 @@
       "map": "",
       "location": "",
       "description": "粗糙的纸质档案袋，记载了阿萨拉卫队的相关信息，可能具备一定情报价值。",
-      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15080050064.png"
+      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15080050064.png",
+      "rarity": "C"
     },
     {
       "id": 15080050068,
@@ -10695,7 +10845,8 @@
       "map": "",
       "location": "",
       "description": "便捷式家用咖啡机，使用咖啡胶囊一键冲泡，快速制作新鲜咖啡，操作简便，口味多样。",
-      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15080050068.png"
+      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15080050068.png",
+      "rarity": "C"
     },
     {
       "id": 15080050069,
@@ -10705,7 +10856,8 @@
       "map": "",
       "location": "",
       "description": "高级咖啡豆选自阿萨拉地区优质咖啡树，经过精心烘焙和筛选，具有独特风味和香气，为咖啡爱好者提供纯正且丰富的口感体验:\n【用途】可在医疗部门同其他材料兑换三个机械工蜂模型。\n【来源】局内获得，禁止交易。",
-      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15080050069.png"
+      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15080050069.png",
+      "rarity": "C"
     },
     {
       "id": 15020010015,
@@ -10715,7 +10867,8 @@
       "map": "",
       "location": "",
       "description": "工具&材料，无机胶凝材料。能把砂、石等材料牢固地胶结在一起。",
-      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15020010015.png"
+      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15020010015.png",
+      "rarity": "C"
     },
     {
       "id": 15020010016,
@@ -10725,7 +10878,8 @@
       "map": "",
       "location": "",
       "description": "工具&材料，覆盖在物体表面起保护、装饰、标志和其他特殊用途的化学混合物涂料。",
-      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15020010016.png"
+      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15020010016.png",
+      "rarity": "C"
     },
     {
       "id": 15020010018,
@@ -10735,7 +10889,8 @@
       "map": "",
       "location": "",
       "description": "工具&材料，对石材进行加工的时候使用，如制碑、雕刻，能击碎大型材料的工具。",
-      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15020010018.png"
+      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15020010018.png",
+      "rarity": "C"
     },
     {
       "id": 15020010023,
@@ -10745,7 +10900,8 @@
       "map": "",
       "location": "",
       "description": "工具&材料，一种精确测量长度、内外径及深度的便携式测量工具，具有数显功能。",
-      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15020010023.png"
+      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15020010023.png",
+      "rarity": "A"
     },
     {
       "id": 15020010025,
@@ -10755,7 +10911,8 @@
       "map": "",
       "location": "",
       "description": "工具&材料，高分子合成纤维制成的织物，耐用性极佳，弹性恢复性极好。\n【用途】可在后勤处制造5级品阶背包与胸挂。\n【来源】该物品仅能通过医疗部门处使用高精数显卡尺兑换获得，禁止交易。",
-      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15020010025.png"
+      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15020010025.png",
+      "rarity": "C"
     },
     {
       "id": 15020010028,
@@ -10765,7 +10922,8 @@
       "map": "",
       "location": "",
       "description": "工具&材料，保护机械及加工件的液体或半固体润滑剂，主要起润滑、辅助冷却、防锈清洁等作用。",
-      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15020010028.png"
+      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15020010028.png",
+      "rarity": "C"
     },
     {
       "id": 15020010034,
@@ -10775,7 +10933,8 @@
       "map": "",
       "location": "",
       "description": "工具&材料，能源类道具，提供火源，具有成本低廉和易于获取的优点。",
-      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15020010034.png"
+      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15020010034.png",
+      "rarity": "A"
     },
     {
       "id": 15020010037,
@@ -10785,7 +10944,8 @@
       "map": "",
       "location": "",
       "description": "能源类道具，用于存放压缩或液化燃气，为燃气设备提供可靠安全的能源供应。",
-      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15020010037.png"
+      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15020010037.png",
+      "rarity": "C"
     },
     {
       "id": 15020040001,
@@ -10795,7 +10955,8 @@
       "map": "",
       "location": "",
       "description": "工具&材料，存储工具和各种家庭杂物的容器，可用于生产，维修等各种用途。",
-      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15020040001.png"
+      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15020040001.png",
+      "rarity": "B"
     },
     {
       "id": 15020040002,
@@ -10805,7 +10966,8 @@
       "map": "",
       "location": "",
       "description": "工具&材料，一种柔软、纤细蓬松、富有光泽的纤维。",
-      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15020040002.png"
+      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15020040002.png",
+      "rarity": "C"
     },
     {
       "id": 15020050002,
@@ -10815,7 +10977,8 @@
       "map": "",
       "location": "",
       "description": "工具&材料，轻巧的充电式工具，采用高精度电机技术，其钻头夹持有力，能便捷地钻孔和拧螺丝。",
-      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15020050002.png"
+      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15020050002.png",
+      "rarity": "C"
     },
     {
       "id": 15020050008,
@@ -10825,7 +10988,8 @@
       "map": "",
       "location": "",
       "description": "工具&材料，其特点为寿命长、半永久性、微小电流驱动信号等。",
-      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15020050008.png"
+      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15020050008.png",
+      "rarity": "C"
     },
     {
       "id": 15030010001,
@@ -10835,7 +10999,8 @@
       "map": "",
       "location": "",
       "description": "电子物品，轻薄小巧，为移动设备等消费电子产品充电的便携充电器。",
-      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15030010001.png"
+      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15030010001.png",
+      "rarity": "A"
     },
     {
       "id": 15030010008,
@@ -10845,7 +11010,8 @@
       "map": "",
       "location": "",
       "description": "电子物品，携带型的袖珍音频播放器，体积小，重量轻。",
-      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15030010008.png"
+      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15030010008.png",
+      "rarity": "C"
     },
     {
       "id": 15030040002,
@@ -10855,7 +11021,8 @@
       "map": "",
       "location": "",
       "description": "电子物品，视频输入设备，被广泛运用于视频会议、远程医疗及实时监控等方面。",
-      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15030040002.png"
+      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15030040002.png",
+      "rarity": "C"
     },
     {
       "id": 15030040010,
@@ -10865,7 +11032,8 @@
       "map": "",
       "location": "",
       "description": "电子物品，平面显示器的一种，用于电视机及计算机的屏幕显示。优点是耗电量低、体积小、辐射低。",
-      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15030040010.png"
+      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15030040010.png",
+      "rarity": "C"
     },
     {
       "id": 15030050016,
@@ -10875,7 +11043,8 @@
       "map": "",
       "location": "",
       "description": "电子物品，太阳能发电系统中的核心部件。",
-      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15030050016.png"
+      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15030050016.png",
+      "rarity": "C"
     },
     {
       "id": 15040010017,
@@ -10885,7 +11054,8 @@
       "map": "",
       "location": "",
       "description": "杂物，在军事上主要用作枪弹、炮弹发射药和火箭导弹的推进剂及其他驱动装置的能源，是弹药的重要组成部分。",
-      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15040010017.png"
+      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15040010017.png",
+      "rarity": "C"
     },
     {
       "id": 15040010021,
@@ -10895,7 +11065,8 @@
       "map": "",
       "location": "",
       "description": "杂物，组成枪械的各式各样零件。",
-      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15040010021.png"
+      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15040010021.png",
+      "rarity": "C"
     },
     {
       "id": 15040010022,
@@ -10905,7 +11076,8 @@
       "map": "",
       "location": "",
       "description": "杂物，各种插口的转换插座，包括变压功能和USB/type c 输出。",
-      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15040010022.png"
+      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15040010022.png",
+      "rarity": "C"
     },
     {
       "id": 15060010004,
@@ -10915,7 +11087,8 @@
       "map": "",
       "location": "",
       "description": "医疗道具，用于测量体温。",
-      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15060010004.png"
+      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15060010004.png",
+      "rarity": "C"
     },
     {
       "id": 15060010006,
@@ -10925,7 +11098,8 @@
       "map": "",
       "location": "",
       "description": "医疗道具，诊断工具，用于收集放大心肺、动静脉和其他内脏的声音。",
-      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15060010006.png"
+      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15060010006.png",
+      "rarity": "C"
     },
     {
       "id": 15060010007,
@@ -10935,7 +11109,8 @@
       "map": "",
       "location": "",
       "description": "医疗道具，医用酒精主要成分是乙醇。",
-      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15060010007.png"
+      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15060010007.png",
+      "rarity": "C"
     },
     {
       "id": 15060080010,
@@ -10945,7 +11120,8 @@
       "map": "",
       "location": "",
       "description": "结合了东方传统美食工艺的食品，口味鲜美且营养丰富。",
-      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15060080010.png"
+      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15060080010.png",
+      "rarity": "C"
     },
     {
       "id": 15060080011,
@@ -10955,7 +11131,8 @@
       "map": "",
       "location": "",
       "description": "通体呈黑褐色，味甜含咖啡因的碳酸饮料，但不含酒精。",
-      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15060080011.png"
+      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15060080011.png",
+      "rarity": "C"
     },
     {
       "id": 15060080013,
@@ -10965,7 +11142,8 @@
       "map": "",
       "location": "",
       "description": "军用食品的一种，具有固形物含量多、真空度高、储存期长和包装牢固等特点。",
-      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15060080013.png"
+      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15060080013.png",
+      "rarity": "A"
     },
     {
       "id": 15060080016,
@@ -10975,7 +11153,8 @@
       "map": "",
       "location": "",
       "description": "植物性蛋白质补充品，来源于大豆，富含完整的氨基酸谱，适合素食者和乳糖不耐受者。",
-      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15060080016.png"
+      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15060080016.png",
+      "rarity": "C"
     },
     {
       "id": 15070010001,
@@ -10985,7 +11164,8 @@
       "map": "",
       "location": "",
       "description": "情报道具，OHPO牌闪存盘，16g，便携的存储设备。",
-      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15070010001.png"
+      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15070010001.png",
+      "rarity": "C"
     },
     {
       "id": 15070010002,
@@ -10995,7 +11175,8 @@
       "map": "",
       "location": "",
       "description": "情报道具，Condisk牌存储卡，存储量有256g，是一种数码产品上的独立存储介质。",
-      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15070010002.png"
+      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15070010002.png",
+      "rarity": "C"
     },
     {
       "id": 15070040002,
@@ -11005,7 +11186,8 @@
       "map": "",
       "location": "",
       "description": "情报道具，资料：商业机密。",
-      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15070040002.png"
+      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15070040002.png",
+      "rarity": "C"
     },
     {
       "id": 15070050003,
@@ -11015,7 +11197,8 @@
       "map": "",
       "location": "",
       "description": "情报道具，一份包含重要信息和数据的文档，用于记录、分析和传递关键情报。",
-      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15070050003.png"
+      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15070050003.png",
+      "rarity": "C"
     },
     {
       "id": 15080050008,
@@ -11025,7 +11208,8 @@
       "map": "",
       "location": "",
       "description": "古老的阿萨拉海盗的银币，带有古怪气息。",
-      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15080050008.png"
+      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15080050008.png",
+      "rarity": "C"
     },
     {
       "id": 15080050011,
@@ -11035,7 +11219,8 @@
       "map": "",
       "location": "",
       "description": "颇具年代感的望远镜。根据阿萨拉地方志记载，这种望远镜曾被阿萨拉卫队的祖先广泛使用。",
-      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15080050011.png"
+      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15080050011.png",
+      "rarity": "C"
     },
     {
       "id": 15080050012,
@@ -11045,7 +11230,8 @@
       "map": "",
       "location": "",
       "description": "精致迷人的饰品，以优雅的舞姿和别致的设计捕捉人们的目光，为佩戴者带来独特的魅力与气质。",
-      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15080050012.png"
+      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15080050012.png",
+      "rarity": "C"
     },
     {
       "id": 15080050021,
@@ -11055,7 +11241,8 @@
       "map": "",
       "location": "",
       "description": "展示阿萨拉地区的时尚风采，为读者带来独特的审美体验。",
-      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15080050021.png"
+      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15080050021.png",
+      "rarity": "C"
     },
     {
       "id": 15080050023,
@@ -11065,7 +11252,8 @@
       "map": "",
       "location": "",
       "description": "工具材料，一套精密的组件，用于制造可靠而高效的初级弹药。",
-      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15080050023.png"
+      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15080050023.png",
+      "rarity": "C"
     },
     {
       "id": 15080050026,
@@ -11075,7 +11263,8 @@
       "map": "",
       "location": "",
       "description": "游戏光盘，带你深入三角洲特种部队在索马里的战斗，身临其境地感受战争的残酷和荣耀。",
-      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15080050026.png"
+      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15080050026.png",
+      "rarity": "C"
     },
     {
       "id": 15080050027,
@@ -11085,7 +11274,8 @@
       "map": "",
       "location": "",
       "description": "游戏光盘，带你踏上一段充满挑战的旅程，进入三角洲特种部队刺刀特遣队的战斗世界。",
-      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15080050027.png"
+      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15080050027.png",
+      "rarity": "C"
     },
     {
       "id": 15080050039,
@@ -11095,7 +11285,8 @@
       "map": "",
       "location": "",
       "description": "电子温度计，具备液晶屏幕，实时显示室温及湿度。",
-      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15080050039.png"
+      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15080050039.png",
+      "rarity": "C"
     },
     {
       "id": 15080050065,
@@ -11105,7 +11296,8 @@
       "map": "",
       "location": "",
       "description": "医疗道具，锯齿采用便于切削骨部的材质可以减缓手术时不必要的痛苦。",
-      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15080050065.png"
+      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15080050065.png",
+      "rarity": "C"
     },
     {
       "id": 15080050072,
@@ -11115,7 +11307,8 @@
       "map": "",
       "location": "",
       "description": "传统的咖啡冲泡器具，利用蒸汽压力萃取咖啡，制作出浓郁香醇的意式浓缩咖啡，适合家庭或小型聚会使用。",
-      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15080050072.png"
+      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15080050072.png",
+      "rarity": "C"
     },
     {
       "id": 15080050073,
@@ -11125,7 +11318,8 @@
       "map": "",
       "location": "",
       "description": "香橙口味，用于补充维生素，将泡腾片溶解于200毫升水中服用。",
-      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15080050073.png"
+      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15080050073.png",
+      "rarity": "C"
     },
     {
       "id": 15080050074,
@@ -11135,7 +11329,8 @@
       "map": "",
       "location": "",
       "description": "使用轻薄纱布将茶叶封装，冲泡简便，香气浓郁，随时随地享受英式下午荼的典雅。",
-      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15080050074.png"
+      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15080050074.png",
+      "rarity": "C"
     },
     {
       "id": 15080050075,
@@ -11145,7 +11340,8 @@
       "map": "",
       "location": "",
       "description": "由阿萨拉匠人选用优质木材，手工雕刻，实用轻便，纹理美观。",
-      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15080050075.png"
+      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15080050075.png",
+      "rarity": "C"
     },
     {
       "id": 15080050076,
@@ -11155,7 +11351,8 @@
       "map": "",
       "location": "",
       "description": "呈三角形状的特制甜品，点缀用的金边也由可食用材料制成，热量极高。",
-      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15080050076.png"
+      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15080050076.png",
+      "rarity": "C"
     },
     {
       "id": 15080050096,
@@ -11165,7 +11362,8 @@
       "map": "",
       "location": "",
       "description": "存有某次作战中指挥系统绝密通信录音的通信终端。",
-      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15080050096.png"
+      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15080050096.png",
+      "rarity": "C"
     },
     {
       "id": 15090010041,
@@ -11175,7 +11373,8 @@
       "map": "",
       "location": "",
       "description": "利用无线电遥控设备和自备的程序控制装置操纵的不载人飞机，用于运载医疗物品。",
-      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15090010041.png"
+      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15090010041.png",
+      "rarity": "A"
     },
     {
       "id": 15010010013,
@@ -11185,7 +11384,8 @@
       "map": "",
       "location": "",
       "description": "生活用品。小型取火装置。主要用于取火吸烟，也用于炊事及其他取火。",
-      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15010010013.png"
+      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15010010013.png",
+      "rarity": "C"
     },
     {
       "id": 15010010015,
@@ -11195,7 +11395,8 @@
       "map": "",
       "location": "",
       "description": "生活用品。小型的氢燃料电池，具有环保、高能量和长续航特点。",
-      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15010010015.png"
+      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15010010015.png",
+      "rarity": "C"
     },
     {
       "id": 15020010005,
@@ -11205,7 +11406,8 @@
       "map": "",
       "location": "",
       "description": "工具&材料，用来拧转螺丝使其就位的工具。",
-      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15020010005.png"
+      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15020010005.png",
+      "rarity": "C"
     },
     {
       "id": 15020010007,
@@ -11215,7 +11417,8 @@
       "map": "",
       "location": "",
       "description": "工具&材料，高效的破碎设备，利用电力驱动，对砖石等硬质材料快速破碎，广泛应用于建筑工程。",
-      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15020010007.png"
+      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15020010007.png",
+      "rarity": "C"
     },
     {
       "id": 15020010008,
@@ -11225,7 +11428,8 @@
       "map": "",
       "location": "",
       "description": "工具&材料，采用完整的木材制成的木板材，坚固耐用、纹路自然，是装修中优中之选，是建筑常用材料。",
-      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15020010008.png"
+      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15020010008.png",
+      "rarity": "C"
     },
     {
       "id": 15020010012,
@@ -11235,7 +11439,8 @@
       "map": "",
       "location": "",
       "description": "工具&材料，由铜、铝等高导电特性材料制成电流导线。",
-      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15020010012.png"
+      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15020010012.png",
+      "rarity": "C"
     },
     {
       "id": 15020010017,
@@ -11245,7 +11450,8 @@
       "map": "",
       "location": "",
       "description": "工具&材料，使用液压力转动螺栓，紧固和松弛不同规格的螺母螺栓的一种安装与拆卸工具。",
-      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15020010017.png"
+      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15020010017.png",
+      "rarity": "C"
     },
     {
       "id": 15020010019,
@@ -11255,7 +11461,8 @@
       "map": "",
       "location": "",
       "description": "工具&材料，专用切削设备，加工精度高，刀刃锋利，耐久性强。",
-      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15020010019.png"
+      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15020010019.png",
+      "rarity": "C"
     },
     {
       "id": 15020010020,
@@ -11265,7 +11472,8 @@
       "map": "",
       "location": "",
       "description": "工具&材料，是一种电工工具。",
-      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15020010020.png"
+      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15020010020.png",
+      "rarity": "C"
     },
     {
       "id": 15020010021,
@@ -11275,7 +11483,8 @@
       "map": "",
       "location": "",
       "description": "工具&材料，主要用于切割、研磨及刷抛金属石材。",
-      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15020010021.png"
+      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15020010021.png",
+      "rarity": "C"
     },
     {
       "id": 15020010026,
@@ -11285,7 +11494,8 @@
       "map": "",
       "location": "",
       "description": "工具&材料，柔性耐压管件，具有柔性好、质量轻、耐腐蚀、抗疲劳、耐高低温等多项特点。",
-      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15020010026.png"
+      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15020010026.png",
+      "rarity": "C"
     },
     {
       "id": 15020010027,
@@ -11295,7 +11505,8 @@
       "map": "",
       "location": "",
       "description": "工具&材料，模拟温度计提供仿真模拟系统，进行数据收集。",
-      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15020010027.png"
+      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15020010027.png",
+      "rarity": "C"
     },
     {
       "id": 15020010030,
@@ -11305,7 +11516,8 @@
       "map": "",
       "location": "",
       "description": "工具&材料，一种便捷的涂料工具，适用于各种表面，能够喷涂出颜色，满足各类装饰和修补需求。",
-      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15020010030.png"
+      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15020010030.png",
+      "rarity": "C"
     },
     {
       "id": 15020010032,
@@ -11315,7 +11527,8 @@
       "map": "",
       "location": "",
       "description": "工具&材料，高效节能的照明设备，采用先进的LED技术，提供持久稳定的光源，满足各种环境下的照明需求。",
-      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15020010032.png"
+      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15020010032.png",
+      "rarity": "C"
     },
     {
       "id": 15020040003,
@@ -11325,7 +11538,8 @@
       "map": "",
       "location": "",
       "description": "工具&材料，高精度的压力检测设备，操作简便、性能稳定、读数直观。",
-      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15020040003.png"
+      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15020040003.png",
+      "rarity": "C"
     },
     {
       "id": 15020040004,
@@ -11335,7 +11549,8 @@
       "map": "",
       "location": "",
       "description": "工具&材料，水平仪是一种测量小角度的常用量具。",
-      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15020040004.png"
+      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15020040004.png",
+      "rarity": "C"
     },
     {
       "id": 15020050007,
@@ -11345,7 +11560,8 @@
       "map": "",
       "location": "",
       "description": "工具&材料，绝大多数电子产品都包含的零件材料。",
-      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15020050007.png"
+      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15020050007.png",
+      "rarity": "C"
     },
     {
       "id": 15030010002,
@@ -11355,7 +11571,8 @@
       "map": "",
       "location": "",
       "description": "电子物品，锂电池，为手机提供电力的储能装置。",
-      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15030010002.png"
+      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15030010002.png",
+      "rarity": "C"
     },
     {
       "id": 15030010007,
@@ -11365,7 +11582,8 @@
       "map": "",
       "location": "",
       "description": "电子物品，可以读取DVD碟片的光驱。",
-      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15030010007.png"
+      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15030010007.png",
+      "rarity": "C"
     },
     {
       "id": 15030010011,
@@ -11375,7 +11593,8 @@
       "map": "",
       "location": "",
       "description": "电子物品，家用的110V-220V 交流电源。",
-      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15030010011.png"
+      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15030010011.png",
+      "rarity": "C"
     },
     {
       "id": 15030010013,
@@ -11385,7 +11604,8 @@
       "map": "",
       "location": "",
       "description": "电子物品，高品质多层PCB,可提供电子元器件之间的电气连接。",
-      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15030010013.png"
+      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15030010013.png",
+      "rarity": "C"
     },
     {
       "id": 15030010014,
@@ -11395,7 +11615,8 @@
       "map": "",
       "location": "",
       "description": "电子物品，用于操作计算机设备运行的一种指令和数据输入装置。",
-      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15030010014.png"
+      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15030010014.png",
+      "rarity": "C"
     },
     {
       "id": 15030010018,
@@ -11405,7 +11626,8 @@
       "map": "",
       "location": "",
       "description": "电子物品，可提供计算机集成电路的降温保护。",
-      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15030010018.png"
+      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15030010018.png",
+      "rarity": "C"
     },
     {
       "id": 15030010019,
@@ -11415,7 +11637,8 @@
       "map": "",
       "location": "",
       "description": "电子物品，传统普通硬盘，拥有防震抗摔性。数据储存速度较慢，功耗低。",
-      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15030010019.png"
+      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15030010019.png",
+      "rarity": "C"
     },
     {
       "id": 15030040011,
@@ -11425,7 +11648,8 @@
       "map": "",
       "location": "",
       "description": "电子物品，超高频读卡器，内置高性能模块和天线，结合专有的高效处理算法，实现快速读写处理。",
-      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15030040011.png"
+      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15030040011.png",
+      "rarity": "C"
     },
     {
       "id": 15040010003,
@@ -11435,7 +11659,8 @@
       "map": "",
       "location": "",
       "description": "阿萨拉著名艺术家创作的小型古代雕像。",
-      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15040010003.png"
+      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15040010003.png",
+      "rarity": "C"
     },
     {
       "id": 15040010012,
@@ -11445,7 +11670,8 @@
       "map": "",
       "location": "",
       "description": "杂物，一种电路转换器。",
-      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15040010012.png"
+      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15040010012.png",
+      "rarity": "C"
     },
     {
       "id": 15060010001,
@@ -11455,7 +11681,8 @@
       "map": "",
       "location": "",
       "description": "医疗道具，均匀稳定的混合物。",
-      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15060010001.png"
+      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15060010001.png",
+      "rarity": "C"
     },
     {
       "id": 15060010002,
@@ -11465,7 +11692,8 @@
       "map": "",
       "location": "",
       "description": "医疗道具，用于持夹和提起组织。请记得仔细消毒后使用。",
-      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15060010002.png"
+      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15060010002.png",
+      "rarity": "C"
     },
     {
       "id": 15060010003,
@@ -11475,7 +11703,8 @@
       "map": "",
       "location": "",
       "description": "医疗道具，用玻璃制成，用于储存药片、胶囊、保健品的容器。",
-      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15060010003.png"
+      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15060010003.png",
+      "rarity": "C"
     },
     {
       "id": 15060010010,
@@ -11485,7 +11714,8 @@
       "map": "",
       "location": "",
       "description": "医疗道具，主要用针头抽取或者注入气体或者液体。",
-      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15060010010.png"
+      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15060010010.png",
+      "rarity": "C"
     },
     {
       "id": 15060010012,
@@ -11495,7 +11725,8 @@
       "map": "",
       "location": "",
       "description": "医疗道具，重要医用消耗品，输液时使用。",
-      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15060010012.png"
+      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15060010012.png",
+      "rarity": "B"
     },
     {
       "id": 15060080001,
@@ -11505,7 +11736,8 @@
       "map": "",
       "location": "",
       "description": "口感鲜美、营养丰富的水果，含有丰富的维生素和矿物质，是健康的零食选择。",
-      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15060080001.png"
+      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15060080001.png",
+      "rarity": "C"
     },
     {
       "id": 15060080004,
@@ -11515,7 +11747,8 @@
       "map": "",
       "location": "",
       "description": "补充能量的棒状食品，主要由碳水化合物、蛋白质组成。可帮助肌肉在运动后的舒解与能量提升。",
-      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15060080004.png"
+      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15060080004.png",
+      "rarity": "C"
     },
     {
       "id": 15060080006,
@@ -11525,7 +11758,8 @@
       "map": "",
       "location": "",
       "description": "经过多道工序处理、提纯和净化，纯洁干净，不含有杂质或细菌。",
-      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15060080006.png"
+      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15060080006.png",
+      "rarity": "C"
     },
     {
       "id": 15060080009,
@@ -11535,7 +11769,8 @@
       "map": "",
       "location": "",
       "description": "精良、高规格制作而成的军用能量棒，富含了野外战斗所需的各种能量，可提升肌肉肝糖储存，免于酸痛。",
-      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15060080009.png"
+      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15060080009.png",
+      "rarity": "C"
     },
     {
       "id": 15070010005,
@@ -11545,7 +11780,8 @@
       "map": "",
       "location": "",
       "description": "情报道具，一份建筑地图，上面有人划过一些记号。",
-      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15070010005.png"
+      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15070010005.png",
+      "rarity": "C"
     },
     {
       "id": 15070010006,
@@ -11555,7 +11791,8 @@
       "map": "",
       "location": "",
       "description": "情报道具，一份建筑地图，上面有人划过一些记号。",
-      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15070010006.png"
+      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15070010006.png",
+      "rarity": "C"
     },
     {
       "id": 15070010007,
@@ -11565,7 +11802,8 @@
       "map": "",
       "location": "",
       "description": "情报道具，一份建筑地图，上面有人划过一些记号。",
-      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15070010007.png"
+      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15070010007.png",
+      "rarity": "C"
     },
     {
       "id": 15070010008,
@@ -11575,7 +11813,8 @@
       "map": "",
       "location": "",
       "description": "情报道具，一份建筑地图，上面有人划过一些记号。",
-      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15070010008.png"
+      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15070010008.png",
+      "rarity": "C"
     },
     {
       "id": 15070010009,
@@ -11585,7 +11824,8 @@
       "map": "",
       "location": "",
       "description": "情报道具，一份建筑地图，上面有人划过一些记号。",
-      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15070010009.png"
+      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15070010009.png",
+      "rarity": "C"
     },
     {
       "id": 15080010003,
@@ -11595,7 +11835,8 @@
       "map": "",
       "location": "",
       "description": "敲击起来有低沉的声音。",
-      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15080010003.png"
+      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15080010003.png",
+      "rarity": "C"
     },
     {
       "id": 15080010004,
@@ -11605,7 +11846,8 @@
       "map": "",
       "location": "",
       "description": "五彩斑斓，非常好看。",
-      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15080010004.png"
+      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15080010004.png",
+      "rarity": "C"
     },
     {
       "id": 15080040004,
@@ -11615,7 +11857,8 @@
       "map": "",
       "location": "",
       "description": "子弹象征着战争和生命的结束，而现如今被精心制成项链。",
-      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15080040004.png"
+      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15080040004.png",
+      "rarity": "C"
     },
     {
       "id": 15080040005,
@@ -11625,7 +11868,8 @@
       "map": "",
       "location": "",
       "description": "一种独特的艺术品，雕刻得非常精致，展现了非洲文化的魅力。",
-      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15080040005.png"
+      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15080040005.png",
+      "rarity": "C"
     },
     {
       "id": 15080050007,
@@ -11635,7 +11879,8 @@
       "map": "",
       "location": "",
       "description": "古老的阿萨拉海盗铜币，已经生锈。",
-      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15080050007.png"
+      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15080050007.png",
+      "rarity": "C"
     },
     {
       "id": 15080050017,
@@ -11645,7 +11890,8 @@
       "map": "",
       "location": "",
       "description": "特色陶瓷，传承着古老阿萨拉文化的精髓，充满了无尽的故事与魅力。",
-      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15080050017.png"
+      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15080050017.png",
+      "rarity": "C"
     },
     {
       "id": 15080050019,
@@ -11655,7 +11901,8 @@
       "map": "",
       "location": "",
       "description": "以精美的画面和煽动人心的话语，展示酒店舒适的环境和优质的服务，让人心生向往。",
-      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15080050019.png"
+      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15080050019.png",
+      "rarity": "C"
     },
     {
       "id": 15080050020,
@@ -11665,7 +11912,8 @@
       "map": "",
       "location": "",
       "description": "一本内容丰富、贴近民生的杂志，紧密关注阿萨拉地区的时事动态，引领读者洞悉社会风貌、畅享人文故事。",
-      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15080050020.png"
+      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15080050020.png",
+      "rarity": "C"
     },
     {
       "id": 15080050022,
@@ -11675,7 +11923,8 @@
       "map": "",
       "location": "",
       "description": "汇聚阿萨拉地区的娱乐资讯，为读者提供欢乐与轻松的精神享受。",
-      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15080050022.png"
+      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15080050022.png",
+      "rarity": "C"
     },
     {
       "id": 15080050077,
@@ -11685,7 +11934,8 @@
       "map": "",
       "location": "",
       "description": "用于存放五种不同调味料的密封罐，不锈钢质地。",
-      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15080050077.png"
+      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15080050077.png",
+      "rarity": "C"
     },
     {
       "id": 15080050078,
@@ -11695,7 +11945,8 @@
       "map": "",
       "location": "",
       "description": "精选上好阿萨拉咖啡豆，密封包装保存，适合手冲或咖啡机制作，是咖啡爱好者的理想选择。",
-      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15080050078.png"
+      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15080050078.png",
+      "rarity": "C"
     },
     {
       "id": 15080050079,
@@ -11705,7 +11956,8 @@
       "map": "",
       "location": "",
       "description": "将临期的速溶咖啡再包装并上架，一般以促销形式推广销售。",
-      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15080050079.png"
+      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15080050079.png",
+      "rarity": "C"
     },
     {
       "id": 15080050080,
@@ -11715,7 +11967,8 @@
       "map": "",
       "location": "",
       "description": "高强度粘合剂，能迅速粘合多种材料，如金属、塑料和陶瓷，干燥后坚固耐用。",
-      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15080050080.png"
+      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15080050080.png",
+      "rarity": "C"
     },
     {
       "id": 15080050084,
@@ -11725,7 +11978,8 @@
       "map": "",
       "location": "",
       "description": "小锤四十，大锤八十。",
-      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15080050084.png"
+      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15080050084.png",
+      "rarity": "C"
     },
     {
       "id": 15080050087,
@@ -11735,7 +11989,8 @@
       "map": "",
       "location": "",
       "description": "可用于木材、金属和塑料等材料的切割，切口干净利落。",
-      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15080050087.png"
+      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15080050087.png",
+      "rarity": "C"
     },
     {
       "id": 15090910017,
@@ -11745,7 +12000,8 @@
       "map": "",
       "location": "",
       "description": "阿萨拉卫队看守兵记录货物的日记本，上面有货物运输的详细信息和看守兵的日常。日记上写有：5月8日。今天的货物仍然是上次那批，每天的日子都非常无聊……，也不能插个缝出去游荡游荡。那些个零件工人打娘胎里就是些活该吃鞭子的懒鬼，从不好好干活，害我得在这一直守着！",
-      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15090910017.png"
+      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15090910017.png",
+      "rarity": "C"
     },
     {
       "id": 15090910022,
@@ -11755,7 +12011,8 @@
       "map": "",
       "location": "",
       "description": "相关通过人：哈姆克。武器接收具体日期模糊。最后附有一句话：”这批货物由我方全权接手，哈夫克无异议。” This shipment will be taken over by us with full authority. Hudson has no objection. 落款处标有阿萨拉卫队的公用盖章证明。",
-      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15090910022.png"
+      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15090910022.png",
+      "rarity": "C"
     },
     {
       "id": 15090910023,
@@ -11765,7 +12022,8 @@
       "map": "",
       "location": "",
       "description": "“……真的非常生气，哈夫克那群家伙背着我们在阿萨拉搞鬼。另外，之前洛伦佐那家伙还告诉我，三角洲小队内部有一名背叛者，甚至还怀疑是我们的人，呵呵，这家伙……从现在开始，哈夫克是阿萨拉卫队不共戴天的敌人。” 落款是谢尔科斯的名字花体，信件日期处标注：两年前，“蓝色火花”发生后不久，但具体时间已模糊不清。",
-      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15090910023.png"
+      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15090910023.png",
+      "rarity": "C"
     },
     {
       "id": 15010010004,
@@ -11775,7 +12033,8 @@
       "map": "",
       "location": "",
       "description": "生活用品。使牙齿美观、保护牙龈健康和防止口臭。",
-      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15010010004.png"
+      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15010010004.png",
+      "rarity": "C"
     },
     {
       "id": 15010010008,
@@ -11785,7 +12044,8 @@
       "map": "",
       "location": "",
       "description": "生活用品。根据物体摩擦生热的原理，制造出的一种能摩擦发火的取火工具。",
-      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15010010008.png"
+      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15010010008.png",
+      "rarity": "C"
     },
     {
       "id": 15020010001,
@@ -11795,7 +12055,8 @@
       "map": "",
       "location": "",
       "description": "工具&材料，一套包含各种专业细小工具的组合，适用于精修或组装设备。",
-      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15020010001.png"
+      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15020010001.png",
+      "rarity": "B"
     },
     {
       "id": 15020010002,
@@ -11805,7 +12066,8 @@
       "map": "",
       "location": "",
       "description": "工具&材料，防水橡胶布，应用于渠道防渗工作，具备防水密封功能。",
-      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15020010002.png"
+      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15020010002.png",
+      "rarity": "C"
     },
     {
       "id": 15020010003,
@@ -11815,7 +12077,8 @@
       "map": "",
       "location": "",
       "description": "工具&材料，由超细纤维制成，用于包扎裸露的线头或金属使之达到绝缘的效果。",
-      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15020010003.png"
+      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15020010003.png",
+      "rarity": "C"
     },
     {
       "id": 15020010004,
@@ -11825,7 +12088,8 @@
       "map": "",
       "location": "",
       "description": "工具&材料，使用范围广泛，长期保存时需防虫蛀，应保存在干燥场所。",
-      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15020010004.png"
+      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15020010004.png",
+      "rarity": "C"
     },
     {
       "id": 15020010006,
@@ -11835,7 +12099,8 @@
       "map": "",
       "location": "",
       "description": "工具&材料，建筑切割用具，具有可怕的穿刺力与强大的切割力，材料是决定工具刀切削性能的根本因素。",
-      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15020010006.png"
+      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15020010006.png",
+      "rarity": "B"
     },
     {
       "id": 15020010010,
@@ -11845,7 +12110,8 @@
       "map": "",
       "location": "",
       "description": "工具&材料，高精度的测量工具，利用音波技术迅速、准确地测量距离，适用于各种场景，提高了测量效率和准确性。",
-      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15020010010.png"
+      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15020010010.png",
+      "rarity": "C"
     },
     {
       "id": 15020010014,
@@ -11855,7 +12121,8 @@
       "map": "",
       "location": "",
       "description": "工具&材料，是检验和划线工作中常用的量具，适用于机床、机械设备及零部件的检验。",
-      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15020010014.png"
+      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15020010014.png",
+      "rarity": "C"
     },
     {
       "id": 15030010009,
@@ -11865,7 +12132,8 @@
       "map": "",
       "location": "",
       "description": "电子物品，计算机的一种外接输入设备。",
-      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15030010009.png"
+      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15030010009.png",
+      "rarity": "C"
     },
     {
       "id": 15040010007,
@@ -11875,7 +12143,8 @@
       "map": "",
       "location": "",
       "description": "杂物，扑克牌中的Jack，代表骑士/侍卫的意思。",
-      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15040010007.png"
+      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15040010007.png",
+      "rarity": "C"
     },
     {
       "id": 15040010008,
@@ -11885,7 +12154,8 @@
       "map": "",
       "location": "",
       "description": "杂物，扑克牌中的Queen，代表皇后的意思。",
-      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15040010008.png"
+      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15040010008.png",
+      "rarity": "C"
     },
     {
       "id": 15040010009,
@@ -11895,7 +12165,8 @@
       "map": "",
       "location": "",
       "description": "杂物，扑克牌中的King，代表国王的意思。",
-      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15040010009.png"
+      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15040010009.png",
+      "rarity": "C"
     },
     {
       "id": 15040010016,
@@ -11905,7 +12176,8 @@
       "map": "",
       "location": "",
       "description": "杂物，网线。可以用来在网络内传递信息。特点是价格便宜，所以被广泛应用。",
-      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15040010016.png"
+      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15040010016.png",
+      "rarity": "C"
     },
     {
       "id": 15060010008,
@@ -11915,7 +12187,8 @@
       "map": "",
       "location": "",
       "description": "医疗道具，手术剪刀为临床手术常用医疗器械。也可用来分离组织，即利用剪刀的尖端插入组织间隙，分离血管组织等。",
-      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15060010008.png"
+      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15060010008.png",
+      "rarity": "C"
     },
     {
       "id": 15060010009,
@@ -11925,7 +12198,8 @@
       "map": "",
       "location": "",
       "description": "医疗道具，能够避免细菌感染的医疗器械产品。",
-      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15060010009.png"
+      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15060010009.png",
+      "rarity": "C"
     },
     {
       "id": 15060080002,
@@ -11935,7 +12209,8 @@
       "map": "",
       "location": "",
       "description": "由牛奶发酵而成的乳制品，具有丰富的营养成分和独特的口感，有助于消化和增强免疫力。",
-      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15060080002.png"
+      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15060080002.png",
+      "rarity": "C"
     },
     {
       "id": 15060080003,
@@ -11945,7 +12220,8 @@
       "map": "",
       "location": "",
       "description": "高蛋白营养补充品，有助于增肌和恢复体力。",
-      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15060080003.png"
+      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15060080003.png",
+      "rarity": "C"
     },
     {
       "id": 15060080007,
@@ -11955,7 +12231,8 @@
       "map": "",
       "location": "",
       "description": "口味独特鲜香，把干脆面捏碎了加上调料捏着吃，好玩又有趣，咀嚼起来爽歪歪，怎么也吃不腻。深受当地孩子的喜爱。",
-      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15060080007.png"
+      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15060080007.png",
+      "rarity": "C"
     },
     {
       "id": 15080050046,
@@ -11965,7 +12242,8 @@
       "map": "",
       "location": "",
       "description": "成套扑克牌的其中一张，这张牌为数字10。",
-      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15080050046.png"
+      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15080050046.png",
+      "rarity": "C"
     },
     {
       "id": 15080050047,
@@ -11975,7 +12253,8 @@
       "map": "",
       "location": "",
       "description": "成套扑克牌的其中一张，这张牌为数字9。",
-      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15080050047.png"
+      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15080050047.png",
+      "rarity": "C"
     },
     {
       "id": 15080050048,
@@ -11985,7 +12264,8 @@
       "map": "",
       "location": "",
       "description": "成套扑克牌的其中一张，这张牌为数字8。",
-      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15080050048.png"
+      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15080050048.png",
+      "rarity": "C"
     },
     {
       "id": 15080050049,
@@ -11995,7 +12275,8 @@
       "map": "",
       "location": "",
       "description": "成套扑克牌的其中一张，这张牌为数字7。",
-      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15080050049.png"
+      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15080050049.png",
+      "rarity": "C"
     },
     {
       "id": 15080050050,
@@ -12005,7 +12286,8 @@
       "map": "",
       "location": "",
       "description": "成套扑克牌的其中一张，这张牌为数字6。",
-      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15080050050.png"
+      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15080050050.png",
+      "rarity": "C"
     },
     {
       "id": 15080050051,
@@ -12015,7 +12297,8 @@
       "map": "",
       "location": "",
       "description": "成套扑克牌的其中一张，这张牌为数字5。",
-      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15080050051.png"
+      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15080050051.png",
+      "rarity": "C"
     },
     {
       "id": 15080050052,
@@ -12025,7 +12308,8 @@
       "map": "",
       "location": "",
       "description": "成套扑克牌的其中一张，这张牌为数字4。",
-      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15080050052.png"
+      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15080050052.png",
+      "rarity": "C"
     },
     {
       "id": 15080050053,
@@ -12035,7 +12319,8 @@
       "map": "",
       "location": "",
       "description": "成套扑克牌的其中一张，这张牌为数字3。",
-      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15080050053.png"
+      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15080050053.png",
+      "rarity": "C"
     },
     {
       "id": 15080050054,
@@ -12045,7 +12330,8 @@
       "map": "",
       "location": "",
       "description": "成套扑克牌的其中一张，这张牌为数字2。",
-      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15080050054.png"
+      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15080050054.png",
+      "rarity": "C"
     },
     {
       "id": 15080050055,
@@ -12055,7 +12341,8 @@
       "map": "",
       "location": "",
       "description": "成套扑克牌的其中一张，这张牌为A。",
-      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15080050055.png"
+      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15080050055.png",
+      "rarity": "C"
     },
     {
       "id": 15080050056,
@@ -12065,7 +12352,8 @@
       "map": "",
       "location": "",
       "description": "一张记有部分手写文字的资料残页，或许还有可挖掘的情报。",
-      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15080050056.png"
+      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15080050056.png",
+      "rarity": "C"
     },
     {
       "id": 15080050059,
@@ -12075,7 +12363,8 @@
       "map": "",
       "location": "",
       "description": "成套扑克牌的其中一张，这张牌为小王牌。",
-      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15080050059.png"
+      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15080050059.png",
+      "rarity": "C"
     },
     {
       "id": 15080050060,
@@ -12085,7 +12374,8 @@
       "map": "",
       "location": "",
       "description": "成套扑克牌的其中一张，这张牌为大王牌。",
-      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15080050060.png"
+      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15080050060.png",
+      "rarity": "C"
     },
     {
       "id": 15080050081,
@@ -12095,7 +12385,8 @@
       "map": "",
       "location": "",
       "description": "厨房常用调料容器，设计通常带有小孔或研磨功能，便于控制胡椒用量。",
-      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15080050081.png"
+      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15080050081.png",
+      "rarity": "C"
     },
     {
       "id": 15080050085,
@@ -12105,7 +12396,8 @@
       "map": "",
       "location": "",
       "description": "一端为锤头，另一端为羊角形，常用于敲击、拔钉或撬动物体。",
-      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15080050085.png"
+      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15080050085.png",
+      "rarity": "C"
     },
     {
       "id": 15080050086,
@@ -12115,7 +12407,8 @@
       "map": "",
       "location": "",
       "description": "生活中不可或缺的五金配件，于阿萨拉地区的五金店有售。",
-      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15080050086.png"
+      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15080050086.png",
+      "rarity": "C"
     },
     {
       "id": 15090010024,
@@ -12125,7 +12418,8 @@
       "map": "",
       "location": "",
       "description": "一张承载着重要信息和秘密任务的珍贵影像，仅限于军队内部人员传阅。",
-      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15090010024.png"
+      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15090010024.png",
+      "rarity": "C"
     },
     {
       "id": 15090010026,
@@ -12135,7 +12429,8 @@
       "map": "",
       "location": "",
       "description": "一张摄于阿萨拉当地的人像照片，相中人面容模糊，需要情报专家加以辨识。",
-      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15090010026.png"
+      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15090010026.png",
+      "rarity": "C"
     },
     {
       "id": 15090010077,
@@ -12145,7 +12440,8 @@
       "map": "",
       "location": "",
       "description": "村民的样本试管。",
-      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15090010077.png"
+      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15090010077.png",
+      "rarity": "C"
     },
     {
       "id": 15090910016,
@@ -12155,7 +12451,8 @@
       "map": "",
       "location": "",
       "description": "关于阿萨拉当地的科技材料的报道：科技惠民的当下，黑市依然存在。正品零件无人问津，翻新元器件却在市场上大肆流通，法律规章形同虚设。经由记者暗访得知，有人在暗中大规模拆解科技电子垃圾、将可用的电子元件翻新处理后再以高价回流市场，造成假冒伪劣的电子元器件泛滥成灾……但目前无人知晓幕后黑手究竟是谁。",
-      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15090910016.png"
+      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15090910016.png",
+      "rarity": "C"
     },
     {
       "id": 15090910019,
@@ -12165,7 +12462,8 @@
       "map": "",
       "location": "",
       "description": "上面记录着阿萨拉卫队和哈夫克之间的资金交易流水，然而具体数据已经有些模糊不清——这些账单可能揭示了双方之间一些不为人知的勾当。",
-      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15090910019.png"
+      "icon": "https://playerhub.df.qq.com/playerhub/60004/object/p_15090910019.png",
+      "rarity": "C"
     }
   ],
   "armor": {
