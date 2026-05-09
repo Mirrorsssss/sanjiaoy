@@ -1,0 +1,115 @@
+{
+  "meta": {
+    "game": "三角洲行动 (Delta Force: Hawk Ops)",
+    "version": "2024-2026",
+    "lastUpdated": "2026-05-09",
+    "source": "dfhub.cn, 游戏实战经验"
+  },
+  "workshopSystem": {
+    "description": "工坊系统可以制造各种消耗品和装备",
+    "note": "利润计算需要考虑制造成本、材料成本和售价"
+  },
+  "craftingRecipes": [
+    {
+      "id": "recipe_001",
+      "name": "T1医疗包",
+      "grade": 1,
+      "materials": [
+        {"item": "绷带", "quantity": 2},
+        {"item": "消毒剂", "quantity": 1}
+      ],
+      "craftTime": "10分钟",
+      "sellPrice": "5-8万",
+      "profitRate": "中等",
+      "recommendation": "新手推荐，材料易得"
+    },
+    {
+      "id": "recipe_002",
+      "name": "T2能量饮料",
+      "grade": 2,
+      "materials": [
+        {"item": "T1能量饮料", "quantity": 2},
+        {"item": "兴奋剂", "quantity": 1}
+      ],
+      "craftTime": "15分钟",
+      "sellPrice": "12-18万",
+      "profitRate": "高",
+      "recommendation": "高利润，材料较易得"
+    },
+    {
+      "id": "recipe_003",
+      "name": "T3肾上腺素",
+      "grade": 3,
+      "materials": [
+        {"item": "T2肾上腺素", "quantity": 2},
+        {"item": "高级激素", "quantity": 1}
+      ],
+      "craftTime": "20分钟",
+      "sellPrice": "25-35万",
+      "profitRate": "极高",
+      "recommendation": "顶级利润，但材料稀有"
+    },
+    {
+      "id": "recipe_004",
+      "name": "T2烟雾弹",
+      "grade": 2,
+      "materials": [
+        {"item": "T1烟雾弹", "quantity": 2},
+        {"item": "发烟剂", "quantity": 1}
+      ],
+      "craftTime": "12分钟",
+      "sellPrice": "8-12万",
+      "profitRate": "中等",
+      "recommendation": "战术装备，稳定需求"
+    },
+    {
+      "id": "recipe_005",
+      "name": "T3破片手雷",
+      "grade": 3,
+      "materials": [
+        {"item": "T2破片手雷", "quantity": 2},
+        {"item": "高性能炸药", "quantity": 1}
+      ],
+      "craftTime": "18分钟",
+      "sellPrice": "20-28万",
+      "profitRate": "高",
+      "recommendation": "高需求消耗品，利润可观"
+    }
+  ],
+  "profitAnalysis": {
+    "note": "利润分析基于当前市场价格",
+    "highProfitItems": [
+      {"item": "T3肾上腺素", "profitRate": "150-200%", "risk": "材料稀有"},
+      {"item": "T3破片手雷", "profitRate": "120-180%", "risk": "中等"},
+      {"item": "T2能量饮料", "profitRate": "100-150%", "risk": "低"}
+    ],
+    "stableItems": [
+      {"item": "T1医疗包", "profitRate": "50-80%", "risk": "极低"},
+      {"item": "T2烟雾弹", "profitRate": "60-90%", "risk": "低"}
+    ]
+  },
+  "craftingTips": {
+    "general": [
+      "优先制造高利润物品，但考虑材料获取难度",
+      "关注市场价格波动，及时调整制造策略",
+      "低级物品材料易得，适合新手练手",
+      "高级物品利润高，但材料稀有，风险大"
+    ],
+    "materialSaving": [
+      "尽量在游戏内搜索材料，降低成本",
+      "优先使用工坊制造的材料，而不是直接购买",
+      "关注特殊活动，可能有材料折扣"
+    ],
+    "timeManagement": [
+      "合理安排制造队列，避免工坊空闲",
+      "高级物品制造时间长，提前规划",
+      "可以考虑多开工坊（如果有条件）"
+    ]
+  },
+  "marketStrategy": {
+    "note": "市场策略建议",
+    "bestSellTime": "晚上8-11点，玩家在线高峰",
+    "worstSellTime": "早上6-9点，玩家在线低谷",
+    "priceFluctuation": "周末价格通常较高，工作日较低"
+  }
+}

@@ -1,0 +1,700 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>战备配置推荐 - 三角眼</title>
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎯</text></svg>">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #0f0f23 0%, #1a1a2e 50%, #16213e 100%);
+            min-height: 100vh;
+            color: #fff;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        
+        /* 头部 */
+        header {
+            text-align: center;
+            padding: 40px 20px;
+            margin-bottom: 30px;
+        }
+        
+        header h1 {
+            font-size: 36px;
+            background: linear-gradient(135deg, #00d9ff, #00ff88);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 10px;
+        }
+        
+        header p {
+            color: #888;
+            font-size: 16px;
+        }
+        
+        /* 输入区 */
+        .input-section {
+            background: rgba(255,255,255,0.05);
+            border-radius: 20px;
+            padding: 30px;
+            margin-bottom: 30px;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+        
+        .input-row {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+        
+        .input-group {
+            flex: 1;
+            min-width: 200px;
+        }
+        
+        .input-group label {
+            display: block;
+            font-size: 14px;
+            color: #888;
+            margin-bottom: 8px;
+        }
+        
+        .input-group input,
+        .input-group select {
+            width: 100%;
+            padding: 14px 16px;
+            background: rgba(255,255,255,0.05);
+            border: 2px solid rgba(255,255,255,0.1);
+            border-radius: 12px;
+            color: #fff;
+            font-size: 16px;
+            transition: all 0.3s;
+        }
+        
+        .input-group input:focus,
+        .input-group select:focus {
+            outline: none;
+            border-color: #00d9ff;
+            box-shadow: 0 0 20px rgba(0,217,255,0.2);
+        }
+        
+        .calc-btn {
+            width: 100%;
+            padding: 16px;
+            background: linear-gradient(135deg, #00d9ff, #00ff88);
+            border: none;
+            border-radius: 12px;
+            color: #1a1a2e;
+            font-size: 18px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin-top: 20px;
+        }
+        
+        .calc-btn:hover {
+            transform: scale(1.02);
+            box-shadow: 0 0 30px rgba(0,217,255,0.4);
+        }
+        
+        /* 快捷选项 */
+        .quick-options {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-top: 15px;
+        }
+        
+        .quick-btn {
+            padding: 8px 16px;
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.2);
+            border-radius: 8px;
+            color: #888;
+            font-size: 13px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .quick-btn:hover {
+            border-color: #00d9ff;
+            color: #00d9ff;
+        }
+        
+        .quick-btn.active {
+            background: rgba(0,217,255,0.2);
+            border-color: #00d9ff;
+            color: #00d9ff;
+        }
+        
+        /* 结果区 */
+        .result {
+            display: none;
+            animation: fadeIn 0.5s;
+        }
+        
+        .result.show {
+            display: block;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        /* 总结卡片 */
+        .summary-card {
+            background: linear-gradient(135deg, rgba(0,255,136,0.15), rgba(0,217,255,0.15));
+            border-radius: 20px;
+            padding: 30px;
+            margin-bottom: 25px;
+            border: 1px solid rgba(0,255,136,0.3);
+            text-align: center;
+        }
+        
+        .summary-card .target {
+            font-size: 14px;
+            color: #888;
+            margin-bottom: 8px;
+        }
+        
+        .summary-card .combat-value {
+            font-size: 56px;
+            font-weight: 800;
+            background: linear-gradient(135deg, #00ff88, #00d9ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .summary-card .combat-value small {
+            font-size: 24px;
+        }
+        
+        .summary-card .cost {
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255,255,255,0.1);
+        }
+        
+        .summary-card .cost-label {
+            font-size: 14px;
+            color: #888;
+        }
+        
+        .summary-card .cost-value {
+            font-size: 32px;
+            font-weight: 700;
+            color: #ffcc00;
+            margin-top: 5px;
+        }
+        
+        .summary-card .cost-value small {
+            font-size: 16px;
+            color: #888;
+        }
+        
+        /* 装备列表 */
+        .gear-list {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+        
+        .gear-item {
+            background: rgba(255,255,255,0.05);
+            border-radius: 16px;
+            padding: 20px;
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            border: 1px solid rgba(255,255,255,0.1);
+            transition: all 0.3s;
+        }
+        
+        .gear-item:hover {
+            border-color: rgba(0,217,255,0.5);
+            background: rgba(0,217,255,0.05);
+        }
+        
+        .gear-icon {
+            width: 56px;
+            height: 56px;
+            background: linear-gradient(135deg, rgba(0,217,255,0.3), rgba(0,255,136,0.3));
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 28px;
+            flex-shrink: 0;
+        }
+        
+        .gear-info {
+            flex: 1;
+        }
+        
+        .gear-info .type {
+            font-size: 12px;
+            color: #888;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 4px;
+        }
+        
+        .gear-info .name {
+            font-size: 18px;
+            font-weight: 600;
+        }
+        
+        .gear-info .reason {
+            font-size: 13px;
+            color: #69ff94;
+            margin-top: 4px;
+        }
+        
+        .gear-stats {
+            text-align: right;
+            flex-shrink: 0;
+        }
+        
+        .gear-stats .cv {
+            font-size: 20px;
+            font-weight: 700;
+            color: #00ff88;
+        }
+        
+        .gear-stats .cv small {
+            font-size: 12px;
+            color: #888;
+        }
+        
+        .gear-stats .price {
+            font-size: 14px;
+            color: #ffcc00;
+            margin-top: 4px;
+        }
+        
+        /* 武器推荐 */
+        .weapon-section {
+            background: rgba(255,217,0,0.1);
+            border: 1px solid rgba(255,217,0,0.3);
+            border-radius: 16px;
+            padding: 20px;
+            margin-top: 20px;
+        }
+        
+        .weapon-section h3 {
+            font-size: 16px;
+            color: #ffcc00;
+            margin-bottom: 12px;
+        }
+        
+        .weapon-chips {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        
+        .weapon-chip {
+            background: rgba(255,217,0,0.15);
+            border-radius: 8px;
+            padding: 10px 16px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .weapon-chip .icon {
+            font-size: 20px;
+        }
+        
+        .weapon-chip .name {
+            font-weight: 600;
+        }
+        
+        .weapon-chip .stats {
+            font-size: 12px;
+            color: #888;
+        }
+        
+        /* 技巧提示 */
+        .tips-section {
+            background: rgba(0,217,255,0.1);
+            border-radius: 16px;
+            padding: 20px;
+            margin-top: 25px;
+            border: 1px solid rgba(0,217,255,0.2);
+        }
+        
+        .tips-section h3 {
+            font-size: 16px;
+            color: #00d9ff;
+            margin-bottom: 12px;
+        }
+        
+        .tips-section ul {
+            list-style: none;
+        }
+        
+        .tips-section li {
+            padding: 6px 0;
+            font-size: 14px;
+            color: #aaa;
+            padding-left: 20px;
+            position: relative;
+        }
+        
+        .tips-section li::before {
+            content: '💡';
+            position: absolute;
+            left: 0;
+        }
+        
+        /* 空状态 */
+        .empty-state {
+            text-align: center;
+            padding: 60px 20px;
+            color: #888;
+        }
+        
+        .empty-state .icon {
+            font-size: 64px;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🎯 战备配置推荐</h1>
+            <p>输入预算，自动计算最优配置方案</p>
+        </header>
+        
+        <div class="input-section">
+            <div class="input-row">
+                <div class="input-group">
+                    <label>🎒 预算（万哈夫币）</label>
+                    <input type="number" id="budget" placeholder="例如：10" min="1" max="100">
+                </div>
+                <div class="input-group">
+                    <label>🗺️ 目标地图</label>
+                    <select id="map">
+                        <option value="">自动选择最优地图</option>
+                        <option value="zeroDam_classified">零号大坝 - 机密（13万）</option>
+                        <option value="longbow_classified">长弓溪谷 - 机密（13万）</option>
+                        <option value="spacePort_classified">航天基地 - 机密（18.7万）</option>
+                        <option value="buckish_classified">巴克什 - 机密（18.7万）</option>
+                        <option value="spacePort_topSecret">航天基地 - 绝密（45万）</option>
+                        <option value="buckish_topSecret">巴克什 - 绝密（55万）</option>
+                        <option value="tidalPrison_topSecret">潮汐监狱 - 绝密（69万）</option>
+                    </select>
+                </div>
+            </div>
+            
+            <div class="quick-options">
+                <span style="color: #888; font-size: 13px; margin-right: 10px;">快捷选择：</span>
+                <button class="quick-btn" data-budget="10" data-map="zeroDam_classified">10万机密</button>
+                <button class="quick-btn" data-budget="15" data-map="spacePort_classified">15万机密</button>
+                <button class="quick-btn" data-budget="25" data-map="spacePort_topSecret">25万绝密</button>
+                <button class="quick-btn" data-budget="40" data-map="buckish_topSecret">40万绝密</button>
+                <button class="quick-btn" data-budget="60" data-map="tidalPrison_topSecret">60万绝密</button>
+            </div>
+            
+            <button class="calc-btn" id="calcBtn">🚀 计算最优配置</button>
+        </div>
+        
+        <div class="result" id="result">
+            <div class="summary-card">
+                <div class="target">目标战备值</div>
+                <div class="combat-value"><span id="targetCV">0</span><small>万</small></div>
+                <div class="cost">
+                    <div class="cost-label">预估总花费</div>
+                    <div class="cost-value"><span id="totalCost">0</span><small> 万</small></div>
+                </div>
+            </div>
+            
+            <div class="gear-list" id="gearList"></div>
+            
+            <div class="weapon-section">
+                <h3>🔫 推荐武器搭配</h3>
+                <div class="weapon-chips" id="weaponList"></div>
+            </div>
+            
+            <div class="tips-section">
+                <h3>💡 优化建议</h3>
+                <ul id="tipsList"></ul>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        // 装备数据库
+        const gearDB = {
+            helmets: [
+                { name: '户外棒球帽', type: 'helmet', cv: 0.5, price: 0.5, icon: '🧢', reason: '最低配，战备值几乎为0' },
+                { name: '老式钢盔 (几乎全新)', type: 'helmet', cv: 1.3, price: 0.13, icon: '⛑️', reason: '便宜' },
+                { name: 'MC防弹头盔 (几乎全新)', type: 'helmet', cv: 9.3, price: 0.93, icon: '⛑️', reason: '高性价比' },
+                { name: 'DRO 战术头盔', type: 'helmet', cv: 8.4, price: 0.84, icon: '⛑️', reason: '8万战备只需8400' },
+                { name: 'H09 防暴头盔 (几乎全新)', type: 'helmet', cv: 15, price: 1.5, icon: '⛑️', reason: '15万战备性价比最高' },
+                { name: '破损的DICH训练头盔', type: 'helmet', cv: 45, price: 4.5, icon: '⛑️', reason: '绝密图推荐，耐久低但战备不缩水' },
+                { name: 'GN 久战重型夜视头盔', type: 'helmet', cv: 224.8, price: 22.5, icon: '⛑️', reason: '绝密顶级头盔' },
+            ],
+            armors: [
+                { name: '安保防弹衣', type: 'armor', cv: 2.4, price: 0.24, icon: '🦺', reason: '基础款' },
+                { name: '尼龙防弹衣 (几乎全新)', type: 'armor', cv: 2.6, price: 0.26, icon: '🦺', reason: '便宜' },
+                { name: '射手战术背心 (破损)', type: 'armor', cv: 36.2, price: 3.6, icon: '🦺', reason: '高性价比破损装' },
+                { name: '武士防弹背心 (破损)', type: 'armor', cv: 76.3, price: 7.6, icon: '🦺', reason: '绝密级性价比' },
+                { name: '精英防弹背心 (破损)', type: 'armor', cv: 260.7, price: 26, icon: '🦺', reason: '绝密顶级' },
+                { name: 'DT-AVS防弹衣', type: 'armor', cv: 199.9, price: 20, icon: '🦺', reason: '绝密标配' },
+            ],
+            backpacks: [
+                { name: '帆布背囊', type: 'backpack', cv: 1.2, price: 0.12, icon: '🎒', reason: '基础款' },
+                { name: '战术快拆背包', type: 'backpack', cv: 4.5, price: 0.45, icon: '🎒', reason: '4.5万战备只需4500' },
+                { name: '雨林猎手背包', type: 'backpack', cv: 35, price: 3.5, icon: '🎒', reason: '21格容量，性价比极高' },
+                { name: 'MAP侦察背包', type: 'backpack', cv: 41.9, price: 4.2, icon: '🎒', reason: '高战备值' },
+            ],
+            chestRigs: [
+                { name: 'G01战术弹挂', type: 'chestRig', cv: 3.5, price: 0.35, icon: '📦', reason: '基础款' },
+                { name: 'GIR野战胸挂', type: 'chestRig', cv: 25, price: 2.5, icon: '📦', reason: '绝密入门级' },
+                { name: 'DRC先进侦察胸挂', type: 'chestRig', cv: 65, price: 6.5, icon: '📦', reason: '绝密级胸挂' },
+            ]
+        };
+        
+        // 武器数据库
+        const weaponDB = {
+            budget: [
+                { name: 'MP5冲锋枪', type: 'primary', cv: 2, price: 1, ammo: '9×19mm', icon: '🔫', note: '裸枪+30发弹鼓' },
+                { name: 'CAR-15突击步枪', type: 'primary', cv: 2.5, price: 1, ammo: '5.56×45mm', icon: '🔫', note: '平民毕业枪' },
+                { name: 'M870霰弹枪', type: 'primary', cv: 3, price: 4, ammo: '12 Gauge', icon: '🔫', note: '清AI神器' },
+                { name: 'AKM突击步枪', type: 'primary', cv: 4, price: 4.5, ammo: '7.62×39mm', icon: '🔫', note: '高伤害' },
+            ],
+            mid: [
+                { name: 'K416突击步枪', type: 'primary', cv: 7, price: 8, ammo: '5.56×45mm', icon: '🔫', note: '全能型' },
+                { name: 'P90冲锋枪', type: 'primary', cv: 5, price: 6, ammo: '5.7×28mm', icon: '🔫', note: '高射速' },
+                { name: 'M249轻机枪', type: 'primary', cv: 10, price: 12, ammo: '5.56×45mm', icon: '🔫', note: '火力压制' },
+                { name: 'M7战斗步枪', type: 'primary', cv: 12, price: 14, ammo: '6.8×51mm', icon: '🔫', note: '绝密级' },
+            ],
+            high: [
+                { name: 'PKM通用机枪', type: 'primary', cv: 14, price: 14, ammo: '7.62×54mmR', icon: '🔫', note: '绝密标配' },
+                { name: 'AS Val突击步枪', type: 'primary', cv: 15, price: 18, ammo: '9×39mm', icon: '🔫', note: '微声神器' },
+                { name: 'R93狙击步枪', type: 'primary', cv: 18, price: 20, ammo: '7.62×51mm', icon: '🔫', note: '远程狙杀' },
+            ]
+        };
+        
+        // 地图门槛
+        const mapThresholds = {
+            'zeroDam_classified': { name: '零号大坝-机密', threshold: 13 },
+            'longbow_classified': { name: '长弓溪谷-机密', threshold: 13 },
+            'spacePort_classified': { name: '航天基地-机密', threshold: 18.7 },
+            'buckish_classified': { name: '巴克什-机密', threshold: 18.7 },
+            'spacePort_topSecret': { name: '航天基地-绝密', threshold: 45 },
+            'buckish_topSecret': { name: '巴克什-绝密', threshold: 55 },
+            'tidalPrison_topSecret': { name: '潮汐监狱-绝密', threshold: 69 },
+        };
+        
+        // 计算最优配置
+        function calculateOptimal(budget, targetMap) {
+            // 确定目标门槛
+            let threshold, mapName;
+            if (targetMap && mapThresholds[targetMap]) {
+                threshold = mapThresholds[targetMap].threshold;
+                mapName = mapThresholds[targetMap].name;
+            } else {
+                // 自动选择最合适的地图
+                if (budget >= 69) {
+                    threshold = 69; mapName = '潮汐监狱-绝密';
+                } else if (budget >= 55) {
+                    threshold = 55; mapName = '巴克什-绝密';
+                } else if (budget >= 45) {
+                    threshold = 45; mapName = '航天基地-绝密';
+                } else if (budget >= 18.7) {
+                    threshold = 18.7; mapName = '航天基地-机密';
+                } else {
+                    threshold = 13; mapName = '零号大坝-机密';
+                }
+            }
+            
+            const result = {
+                map: mapName,
+                threshold: threshold,
+                gear: [],
+                weapons: [],
+                totalCost: 0,
+                totalCV: 0
+            };
+            
+            // 确定装备等级
+            let gearTier = budget < 15 ? 'budget' : budget < 40 ? 'mid' : 'high';
+            
+            // 选择最优装备组合
+            let remainingCV = threshold;
+            let remainingBudget = budget;
+            
+            // 1. 选择头盔
+            let helmet = null;
+            if (gearTier === 'high') {
+                helmet = gearDB.helmets.find(h => h.cv >= 40 && h.cv <= 50 && h.price <= remainingBudget * 0.3);
+                if (!helmet) helmet = gearDB.helmets.find(h => h.cv >= 40);
+            } else if (gearTier === 'mid') {
+                helmet = gearDB.helmets.find(h => h.cv >= 10 && h.cv <= 20 && h.price <= remainingBudget * 0.2);
+                if (!helmet) helmet = gearDB.helmets.find(h => h.cv <= 20);
+            } else {
+                helmet = gearDB.helmets[1]; // 老式钢盔
+            }
+            if (helmet) {
+                result.gear.push(helmet);
+                remainingCV -= helmet.cv;
+                remainingBudget -= helmet.price;
+            }
+            
+            // 2. 选择防弹衣
+            let armor = null;
+            if (gearTier === 'high') {
+                armor = gearDB.armors.find(a => a.cv >= 60 && a.cv <= 80 && a.price <= remainingBudget * 0.3);
+                if (!armor) armor = gearDB.armors.find(a => a.cv >= 60);
+            } else if (gearTier === 'mid') {
+                armor = gearDB.armors.find(a => a.cv >= 30 && a.cv <= 40 && a.price <= remainingBudget * 0.25);
+                if (!armor) armor = gearDB.armors.find(a => a.cv <= 40);
+            } else {
+                armor = gearDB.armors.find(a => a.cv <= 5);
+            }
+            if (armor) {
+                result.gear.push(armor);
+                remainingCV -= armor.cv;
+                remainingBudget -= armor.price;
+            }
+            
+            // 3. 选择背包
+            let backpack = null;
+            if (gearTier === 'high') {
+                backpack = gearDB.backpacks.find(b => b.cv >= 30);
+            } else {
+                backpack = gearDB.backpacks.find(b => b.cv <= 10);
+            }
+            if (backpack) {
+                result.gear.push(backpack);
+                remainingCV -= backpack.cv;
+                remainingBudget -= backpack.price;
+            }
+            
+            // 4. 选择胸挂
+            let chestRig = null;
+            if (gearTier === 'high') {
+                chestRig = gearDB.chestRigs.find(c => c.cv >= 20);
+            } else {
+                chestRig = gearDB.chestRigs.find(c => c.cv <= 10);
+            }
+            if (chestRig) {
+                result.gear.push(chestRig);
+                remainingCV -= chestRig.cv;
+                remainingBudget -= chestRig.price;
+            }
+            
+            // 5. 选择武器
+            let weaponPool = gearTier === 'high' ? weaponDB.high : gearTier === 'mid' ? weaponDB.mid : weaponDB.budget;
+            let weapon = weaponPool.find(w => w.cv <= remainingCV + 5 && w.price <= remainingBudget);
+            if (!weapon) {
+                weapon = weaponPool[0];
+            }
+            result.weapons.push(weapon);
+            remainingBudget -= weapon.price;
+            remainingCV -= weapon.cv;
+            
+            // 计算总计
+            result.totalCost = result.gear.reduce((sum, g) => sum + g.price, 0) + result.weapons.reduce((sum, w) => sum + w.price, 0);
+            result.totalCV = result.gear.reduce((sum, g) => sum + g.cv, 0) + result.weapons.reduce((sum, w) => sum + w.cv, 0);
+            
+            // 生成提示
+            result.tips = [
+                `战备值刚好达到${threshold}万门槛即可，多一分都是浪费`,
+                '建议中午12点前后购买装备，价格通常更低',
+                '破损装备耐久低但战备值不缩水，性价比极高',
+                `当前预算${budget}万，实际花费约${result.totalCost.toFixed(1)}万`
+            ];
+            
+            return result;
+        }
+        
+        // 渲染结果
+        function renderResult(result) {
+            document.getElementById('targetCV').textContent = result.threshold;
+            document.getElementById('totalCost').textContent = result.totalCost.toFixed(1);
+            
+            // 渲染装备
+            const gearList = document.getElementById('gearList');
+            gearList.innerHTML = result.gear.map(g => `
+                <div class="gear-item">
+                    <div class="gear-icon">${g.icon}</div>
+                    <div class="gear-info">
+                        <div class="type">${g.type === 'helmet' ? '头盔' : g.type === 'armor' ? '防弹衣' : g.type === 'backpack' ? '背包' : '胸挂'}</div>
+                        <div class="name">${g.name}</div>
+                        <div class="reason">${g.reason}</div>
+                    </div>
+                    <div class="gear-stats">
+                        <div class="cv">${g.cv}<small>万</small></div>
+                        <div class="price">${g.price.toFixed(2)}万</div>
+                    </div>
+                </div>
+            `).join('');
+            
+            // 渲染武器
+            const weaponList = document.getElementById('weaponList');
+            weaponList.innerHTML = result.weapons.map(w => `
+                <div class="weapon-chip">
+                    <span class="icon">${w.icon}</span>
+                    <div>
+                        <div class="name">${w.name}</div>
+                        <div class="stats">${w.ammo} · 战备${w.cv}万 · ${w.note}</div>
+                    </div>
+                </div>
+            `).join('');
+            
+            // 渲染提示
+            const tipsList = document.getElementById('tipsList');
+            tipsList.innerHTML = result.tips.map(t => `<li>${t}</li>`).join('');
+            
+            document.getElementById('result').classList.add('show');
+        }
+        
+        // 事件绑定
+        document.getElementById('calcBtn').addEventListener('click', () => {
+            const budget = parseFloat(document.getElementById('budget').value) || 0;
+            const map = document.getElementById('map').value;
+            
+            if (budget <= 0) {
+                alert('请输入有效预算');
+                return;
+            }
+            
+            const result = calculateOptimal(budget, map);
+            renderResult(result);
+        });
+        
+        // 快捷按钮
+        document.querySelectorAll('.quick-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                document.getElementById('budget').value = btn.dataset.budget;
+                document.getElementById('map').value = btn.dataset.map;
+                
+                document.querySelectorAll('.quick-btn').forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                
+                const result = calculateOptimal(parseFloat(btn.dataset.budget), btn.dataset.map);
+                renderResult(result);
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,254 @@
+{
+  "meta": {
+    "game": "三角洲行动 (Delta Force: Hawk Ops)",
+    "version": "2024-2026",
+    "lastUpdated": "2026-05-09",
+    "source": "游戏攻略、社区经验",
+    "note": "战备值计算规则：只计算身上装备，子弹和药品不计入"
+  },
+  "combatReadinessCalculation": {
+    "rule": "只计算身上装备的价值（头盔+防弹衣+背包+胸挂+武器+配件）",
+    "notIncluded": ["子弹", "药品", "消耗品"],
+    "note": "战备值=装备的军需处价值或市场价值"
+  },
+  "mapThresholds": {
+    "note": "各地图的战备值门槛（单位：万）",
+    "zeroDam": {
+      "name": "零号大坝",
+      "classified": 13,
+      "topSecret": null
+    },
+    "longbowValley": {
+      "name": "长弓溪谷",
+      "classified": 13,
+      "topSecret": null
+    },
+    "spacePort": {
+      "name": "航天基地",
+      "classified": 18.7,
+      "topSecret": 45
+    },
+    "buckish": {
+      "name": "巴克什",
+      "classified": 18.7,
+      "topSecret": 55
+    },
+    "tidalPrison": {
+      "name": "潮汐监狱",
+      "classified": null,
+      "topSecret": 69
+    }
+  },
+  "gearCategories": {
+    "helmet": {
+      "name": "头盔",
+      "description": "头部防具，影响战备值"
+    },
+    "armor": {
+      "name": "防弹衣",
+      "description": "身体防具，影响战备值"
+    },
+    "backpack": {
+      "name": "背包",
+      "description": "储物装备，影响战备值"
+    },
+    "chestRig": {
+      "name": "胸挂",
+      "description": "战术装备，影响战备值"
+    }
+  },
+  "budgetGear": {
+    "note": "高性价比装备推荐（战备值高，价格低）",
+    "helmet": [
+      {
+        "name": "破损的DICH训练头盔",
+        "grade": 5,
+        "combatValue": "高",
+        "price": "约2万",
+        "性价比": "极高",
+        "note": "耐久低但战备值不缩水，绝密图推荐"
+      },
+      {
+        "name": "户外棒球帽",
+        "grade": 0,
+        "combatValue": "低",
+        "price": "很低",
+        "性价比": "高（新手）",
+        "note": "基础配置，适合入门"
+      },
+      {
+        "name": "GN重型头盔",
+        "grade": 5,
+        "combatValue": "极高",
+        "price": "约18万",
+        "性价比": "中",
+        "note": "顶级头盔，价格较高"
+      }
+    ],
+    "backpack": [
+      {
+        "name": "雨林猎手背包",
+        "capacity": 21,
+        "combatValue": "高",
+        "price": "中等",
+        "性价比": "高",
+        "note": "21格容量，战备值高"
+      },
+      {
+        "name": "战术快拆背包",
+        "capacity": null,
+        "combatValue": "中",
+        "price": "低",
+        "性价比": "高（新手）",
+        "note": "基础配置"
+      }
+    ],
+    "chestRig": [
+      {
+        "name": "GIR野战胸挂",
+        "combatValue": "高",
+        "price": "中等",
+        "性价比": "高",
+        "note": "战备值高，价格相对低"
+      },
+      {
+        "name": "G01战术弹挂",
+        "combatValue": "中",
+        "price": "低",
+        "性价比": "高（新手）",
+        "note": "基础配置"
+      },
+      {
+        "name": "DRC先进侦察胸挂",
+        "combatValue": "极高",
+        "price": "高",
+        "性价比": "中",
+        "note": "顶级胸挂"
+      }
+    ]
+  },
+  "recommendedLoadouts": {
+    "note": "推荐卡战备方案",
+    "zeroDam_classified": {
+      "name": "零号大坝-机密",
+      "threshold": 13,
+      "targetValue": 13,
+      "gear": {
+        "helmet": "户外棒球帽",
+        "backpack": "战术快拆背包",
+        "chestRig": "G01战术弹挂",
+        "weapon": "MP5冲锋枪+50发弹鼓",
+        "totalCost": "约10万",
+        "note": "10万卡12万战备"
+      }
+    },
+    "spacePort_classified": {
+      "name": "航天基地-机密",
+      "threshold": 18.7,
+      "targetValue": 18.7,
+      "gear": {
+        "helmet": "户外棒球帽",
+        "backpack": "战术快拆背包",
+        "chestRig": "G01战术弹挂",
+        "weapon": "AKM突击步枪+基础配件",
+        "totalCost": "约16万",
+        "note": "16万卡18.7万战备"
+      }
+    },
+    "spacePort_topSecret": {
+      "name": "航天基地-绝密",
+      "threshold": 45,
+      "targetValue": 45,
+      "gear": {
+        "helmet": "破损的DICH训练头盔",
+        "backpack": "雨林猎手背包",
+        "chestRig": "GIR野战胸挂",
+        "weapon": "PKM通用机枪+简化配件",
+        "totalCost": "约40.2万",
+        "note": "40.2万卡45万战备"
+      }
+    },
+    "tidalPrison_topSecret": {
+      "name": "潮汐监狱-绝密",
+      "threshold": 69,
+      "targetValue": 78,
+      "gear": {
+        "helmet": "破损的DICH训练头盔",
+        "backpack": "雨林猎手背包",
+        "chestRig": "GIR野战胸挂",
+        "weapon": "PKM通用机枪+满配配件",
+        "totalCost": "约60万",
+        "note": "卡78万战备可拿满收益"
+      }
+    }
+  },
+  "weaponRecommendations": {
+    "note": "各预算等级武器推荐",
+    "budget": [
+      {
+        "weapon": "MP5冲锋枪",
+        "cost": "约1万",
+        "combatValue": "中等",
+        "maps": ["零号大坝-机密", "长弓溪谷-机密"],
+        "note": "裸枪便宜，配50发弹鼓后战备值足够"
+      },
+      {
+        "weapon": "M870霰弹枪",
+        "cost": "约4万",
+        "combatValue": "中等",
+        "maps": ["零号大坝-机密"],
+        "note": "近战神器，清AI效率高"
+      }
+    ],
+    "midRange": [
+      {
+        "weapon": "AKM突击步枪",
+        "cost": "约4.56万",
+        "combatValue": "高",
+        "maps": ["航天基地-机密", "巴克什-机密"],
+        "note": "7.62×39mm弹药伤害高"
+      },
+      {
+        "weapon": "CAR-15突击步枪",
+        "cost": "约1万",
+        "combatValue": "中高",
+        "maps": ["航天基地-机密", "巴克什-机密"],
+        "note": "平民毕业神枪"
+      }
+    ],
+    "highEnd": [
+      {
+        "weapon": "PKM通用机枪",
+        "cost": "约14万",
+        "combatValue": "极高",
+        "maps": ["航天基地-绝密", "巴克什-绝密", "潮汐监狱-绝密"],
+        "note": "绝密图标配，战备值极高"
+      },
+      {
+        "weapon": "M7突击步枪",
+        "cost": "约14万",
+        "combatValue": "极高",
+        "maps": ["航天基地-绝密", "巴克什-绝密"],
+        "note": "冷门神器"
+      }
+    ]
+  },
+  "tips": {
+    "general": [
+      "战备值刚好达到门槛即可，多一分都是浪费",
+      "优先选择战备值高但价格低的装备",
+      "破损装备耐久低但战备值不缩水，性价比极高",
+      "中午购买装备价格可能更低"
+    ],
+    "purchaseTiming": [
+      "破损DICH训练头盔：中午价格最低",
+      "GIR野战胸挂：中午提前买点",
+      "其他装备：关注市场波动"
+    ],
+    "optimization": [
+      "使用卡战备工具精准计算配置",
+      "根据地图选择武器：开阔地图用步枪，城市地图用冲锋枪",
+      "配件选择：优先加战备值高的配件"
+    ]
+  }
+}

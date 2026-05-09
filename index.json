@@ -1,0 +1,140 @@
+{
+  "meta": {
+    "game": "三角洲行动",
+    "gameEn": "Delta Force: Hawk Ops",
+    "publisher": "腾讯游戏 / 琳琅天上",
+    "platforms": ["PC", "Mobile"],
+    "plannedPlatforms": ["Console"],
+    "lastUpdated": "2026-05-09",
+    "dataVersion": "1.0.0"
+  },
+  "overview": {
+    "gameModes": [
+      {
+        "id": "battlezone",
+        "name": "烽火地带",
+        "type": "搜打撤 (Extraction Shooter)",
+        "description": "搜索物资、战斗、撤离的核心玩法模式"
+      },
+      {
+        "id": "fullscale",
+        "name": "全面战场",
+        "type": "大规模载具战斗",
+        "description": "大规模多人载具战斗模式"
+      },
+      {
+        "id": "ranked",
+        "name": "竞技排位",
+        "type": "公平竞技",
+        "description": "公平竞技排位赛"
+      }
+    ],
+    "currentSeason": {
+      "id": "s9",
+      "name": "回声",
+      "startDate": "2025-04-16"
+    }
+  },
+  "dataFiles": {
+    "weapons": {
+      "file": "weapons.json",
+      "description": "武器系统完整数据",
+      "stats": {
+        "totalCategories": 7,
+        "totalWeapons": 44,
+        "dataPoints": ["名称", "弹药类型", "伤害", "射速", "描述"]
+      }
+    },
+    "ammunition": {
+      "file": "ammunition.json",
+      "description": "弹药系统数据",
+      "stats": {
+        "totalCalibers": 16,
+        "dataPoints": ["弹药口径", "适用武器", "穿透等级", "弹药特性"]
+      }
+    },
+    "maps": {
+      "file": "maps.json",
+      "description": "地图系统数据",
+      "stats": {
+        "battlezoneMaps": 4,
+        "fullscaleMaps": 5,
+        "eventMaps": 1
+      }
+    },
+    "items": {
+      "file": "items.json",
+      "description": "物资系统数据",
+      "stats": {
+        "raritySystem": "T0-T5 或 S/A/B/C/D",
+        "dataPoints": ["物品名称", "稀有度", "分类", "价值"]
+      }
+    },
+    "loadout": {
+      "file": "loadout.json",
+      "description": "战备系统数据",
+      "status": "部分完成",
+      "note": "需要更多详细信息"
+    },
+    "workshop": {
+      "file": "workshop.json",
+      "description": "工坊系统数据",
+      "status": "部分完成",
+      "note": "需要更多详细信息"
+    }
+  },
+  "dataSources": [
+    {
+      "name": "Delta Force Tools",
+      "url": "https://deltaforcetools.gg",
+      "dataTypes": ["武器", "物品"]
+    },
+    {
+      "name": "BitTopup Wiki",
+      "url": "https://wiki.bittopup.com",
+      "dataTypes": ["武器百科"]
+    },
+    {
+      "name": "三角洲数据站",
+      "url": "https://www.dfhub.cn",
+      "dataTypes": ["工坊利润", "特勤处升级"]
+    },
+    {
+      "name": "游民星空",
+      "url": "https://www.gamersky.com",
+      "dataTypes": ["游戏攻略", "枪械数据"]
+    },
+    {
+      "name": "TapTap",
+      "url": "https://www.taptap.cn",
+      "dataTypes": ["玩家攻略", "进阶技巧"]
+    },
+    {
+      "name": "腾讯游戏官网",
+      "url": "https://df.qq.com",
+      "dataTypes": ["官方信息", "游戏下载"]
+    }
+  ],
+  "relatedTools": [
+    {
+      "name": "Bili.bi 三角洲行动地图工具",
+      "url": "https://bili.bi/tag/delta-force",
+      "description": "互动地图工具"
+    },
+    {
+      "name": "Ali213 地图助手",
+      "url": "https://m.ali213.net/aznew/704401.html",
+      "description": "地图工具下载"
+    },
+    {
+      "name": "三角洲零号站",
+      "url": "https://sjz.jbskins.com/Item/index",
+      "description": "物品价格查询"
+    },
+    {
+      "name": "腾讯游戏工具助手",
+      "url": "https://df.qq.com/cp/a20241230webmp/index.html",
+      "description": "官方百科资料"
+    }
+  ]
+}

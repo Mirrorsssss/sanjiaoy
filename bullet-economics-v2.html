@@ -1,0 +1,815 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>子弹经济学 - 三角眼</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #1a1a2e 0%, #2d1f3d 50%, #1a1a2e 100%);
+            min-height: 100vh;
+            color: #fff;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+        
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        header h1 {
+            font-size: 28px;
+            background: linear-gradient(90deg, #ff9500, #ff6b00);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 8px;
+        }
+        
+        header p {
+            color: #888;
+            font-size: 14px;
+        }
+        
+        /* 子弹类型说明 */
+        .info-banner {
+            background: rgba(255,149,0,0.1);
+            border: 1px solid rgba(255,149,0,0.3);
+            border-radius: 12px;
+            padding: 16px;
+            margin-bottom: 20px;
+        }
+        
+        .info-banner .title {
+            font-size: 14px;
+            color: #ff9500;
+            margin-bottom: 8px;
+        }
+        
+        .info-banner .types {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+            font-size: 12px;
+        }
+        
+        .type-tag {
+            background: rgba(255,149,0,0.2);
+            padding: 4px 10px;
+            border-radius: 4px;
+        }
+        
+        .type-tag.ap { background: rgba(255,0,0,0.2); color: #ff6b6b; }
+        .type-tag.hp { background: rgba(0,255,0,0.2); color: #69ff94; }
+        .type-tag.fm { background: rgba(200,200,200,0.2); color: #ccc; }
+        
+        /* 分类标签 */
+        .tabs {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+        
+        .tab {
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 8px;
+            padding: 10px 16px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 14px;
+        }
+        
+        .tab:hover {
+            border-color: rgba(255,149,0,0.5);
+        }
+        
+        .tab.active {
+            background: rgba(255,149,0,0.2);
+            border-color: #ff9500;
+            color: #ff9500;
+        }
+        
+        /* 子弹卡片 */
+        .caliber-section {
+            display: none;
+        }
+        
+        .caliber-section.active {
+            display: block;
+            animation: fadeIn 0.3s;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        .caliber-title {
+            font-size: 20px;
+            margin-bottom: 16px;
+            padding-bottom: 8px;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+        
+        .caliber-title .caliber-name {
+            color: #ff9500;
+        }
+        
+        .caliber-title .weapon-list {
+            font-size: 12px;
+            color: #888;
+            margin-top: 4px;
+        }
+        
+        .bullet-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            gap: 12px;
+            margin-bottom: 24px;
+        }
+        
+        .bullet-card {
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 12px;
+            padding: 16px;
+            transition: all 0.3s;
+        }
+        
+        .bullet-card:hover {
+            border-color: rgba(255,149,0,0.5);
+            transform: translateY(-2px);
+        }
+        
+        .bullet-card.ap {
+            border-left: 3px solid #ff6b6b;
+        }
+        
+        .bullet-card.hp {
+            border-left: 3px solid #69ff94;
+        }
+        
+        .bullet-card.fm {
+            border-left: 3px solid #ccc;
+        }
+        
+        .bullet-card.balanced {
+            border-left: 3px solid #ffd700;
+        }
+        
+        .bullet-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 8px;
+        }
+        
+        .bullet-name {
+            font-size: 16px;
+            font-weight: 600;
+        }
+        
+        .bullet-type {
+            font-size: 11px;
+            padding: 3px 8px;
+            border-radius: 4px;
+            text-transform: uppercase;
+        }
+        
+        .bullet-type.ap { background: rgba(255,0,0,0.2); color: #ff6b6b; }
+        .bullet-type.hp { background: rgba(0,255,0,0.2); color: #69ff94; }
+        .bullet-type.fm { background: rgba(200,200,200,0.2); color: #ccc; }
+        .bullet-type.balanced { background: rgba(255,215,0,0.2); color: #ffd700; }
+        
+        .bullet-price {
+            font-size: 24px;
+            font-weight: 700;
+            color: #ffcc00;
+            margin-bottom: 4px;
+        }
+        
+        .bullet-price small {
+            font-size: 14px;
+            color: #888;
+        }
+        
+        .bullet-desc {
+            font-size: 12px;
+            color: #888;
+            line-height: 1.4;
+        }
+        
+        .bullet-analysis {
+            background: rgba(255,149,0,0.1);
+            border-radius: 8px;
+            padding: 12px;
+            margin-top: 12px;
+        }
+        
+        .bullet-analysis .label {
+            font-size: 11px;
+            color: #ff9500;
+            margin-bottom: 4px;
+        }
+        
+        .bullet-analysis .value {
+            font-size: 13px;
+        }
+        
+        /* 推荐卡片 */
+        .recommendation-section {
+            background: rgba(0,255,136,0.1);
+            border: 1px solid rgba(0,255,136,0.3);
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 24px;
+        }
+        
+        .recommendation-section .title {
+            font-size: 16px;
+            color: #00ff88;
+            margin-bottom: 12px;
+        }
+        
+        .rec-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 12px;
+        }
+        
+        .rec-card {
+            background: rgba(255,255,255,0.05);
+            border-radius: 8px;
+            padding: 12px;
+        }
+        
+        .rec-card .use-case {
+            font-size: 12px;
+            color: #888;
+            margin-bottom: 4px;
+        }
+        
+        .rec-card .bullet-name {
+            font-size: 15px;
+            margin-bottom: 4px;
+        }
+        
+        .rec-card .why {
+            font-size: 11px;
+            color: #69ff94;
+        }
+        
+        /* 底部提示 */
+        .footer-tips {
+            background: rgba(255,255,255,0.05);
+            border-radius: 12px;
+            padding: 16px;
+            margin-top: 20px;
+        }
+        
+        .footer-tips .title {
+            font-size: 14px;
+            color: #888;
+            margin-bottom: 8px;
+        }
+        
+        .footer-tips ul {
+            list-style: none;
+            font-size: 13px;
+            color: #aaa;
+        }
+        
+        .footer-tips li {
+            padding: 4px 0;
+            padding-left: 16px;
+            position: relative;
+        }
+        
+        .footer-tips li::before {
+            content: '•';
+            position: absolute;
+            left: 0;
+            color: #ff9500;
+        }
+        
+        /* 价格状态指示器 */
+        .price-indicator {
+            display: inline-block;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            margin-right: 4px;
+        }
+        
+        .price-indicator.low { background: #69ff94; }
+        .price-indicator.mid { background: #ffcc00; }
+        .price-indicator.high { background: #ff6b6b; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>💰 子弹经济学</h1>
+            <p>同口径不同类型子弹价格分析 · 选对子弹省钱又高效</p>
+        </header>
+        
+        <div class="info-banner">
+            <div class="title">子弹类型说明</div>
+            <div class="types">
+                <span class="type-tag ap">AP 穿甲弹</span>
+                <span class="type-tag hp">HP 空尖弹</span>
+                <span class="type-tag fm">FMJ 全金属被甲</span>
+                <span class="type-tag">其他/特殊</span>
+            </div>
+        </div>
+        
+        <!-- 分类标签 -->
+        <div class="tabs" id="tabs">
+            <div class="tab active" data-caliber="5.56x45mm">5.56×45mm</div>
+            <div class="tab" data-caliber="7.62x39mm">7.62×39mm</div>
+            <div class="tab" data-caliber="9x19mm">9×19mm</div>
+            <div class="tab" data-caliber="5.45x39mm">5.45×39mm</div>
+            <div class="tab" data-caliber="7.62x51mm">7.62×51mm</div>
+            <div class="tab" data-caliber="7.62x54mm">7.62×54mmR</div>
+            <div class="tab" data-caliber="5.7x28mm">5.7×28mm</div>
+            <div class="tab" data-caliber="4.6x30mm">4.6×30mm</div>
+        </div>
+        
+        <!-- 5.56×45mm -->
+        <div class="caliber-section active" id="section-5.56x45mm">
+            <div class="caliber-title">
+                <div class="caliber-name">5.56×45mm NATO</div>
+                <div class="weapon-list">武器: M4A1, K416, M16A4, AUG, CAR-15, M249, Mini-14</div>
+            </div>
+            
+            <div class="recommendation-section">
+                <div class="title">🎯 使用场景推荐</div>
+                <div class="rec-grid">
+                    <div class="rec-card">
+                        <div class="use-case">PVE 打AI</div>
+                        <div class="bullet-name">M995 穿甲弹</div>
+                        <div class="why">穿甲值最高，克制AI护甲</div>
+                    </div>
+                    <div class="rec-card">
+                        <div class="use-case">PVP 对枪</div>
+                        <div class="bullet-name">M855A1</div>
+                        <div class="why">平衡伤害与穿透</div>
+                    </div>
+                    <div class="rec-card">
+                        <div class="use-case">省钱扫货</div>
+                        <div class="bullet-name">RRLP</div>
+                        <div class="why">仅35发，最便宜</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="bullet-grid">
+                <div class="bullet-card ap">
+                    <div class="bullet-header">
+                        <div class="bullet-name">M995</div>
+                        <div class="bullet-type ap">AP</div>
+                    </div>
+                    <div class="bullet-price">4212<span> $/发</span></div>
+                    <div class="bullet-desc">高穿透穿甲弹，穿透力极强，适合打高等级护甲</div>
+                    <div class="bullet-analysis">
+                        <div class="label">分析</div>
+                        <div class="value">最贵的5.56子弹，PVE打AI必备，PVP穿甲效果好</div>
+                    </div>
+                </div>
+                
+                <div class="bullet-card balanced">
+                    <div class="bullet-header">
+                        <div class="bullet-name">M855A1</div>
+                        <div class="bullet-type balanced">增强</div>
+                    </div>
+                    <div class="bullet-price">1671<span> $/发</span></div>
+                    <div class="bullet-desc">增强型穿甲弹，平衡伤害与穿透</div>
+                    <div class="bullet-analysis">
+                        <div class="label">分析</div>
+                        <div class="value">性价比之选，PVP综合表现优秀</div>
+                    </div>
+                </div>
+                
+                <div class="bullet-card fm">
+                    <div class="bullet-header">
+                        <div class="bullet-name">M855</div>
+                        <div class="bullet-type fm">FMJ</div>
+                    </div>
+                    <div class="bullet-price">391<span> $/发</span></div>
+                    <div class="bullet-desc">标准穿甲弹，基础性能</div>
+                    <div class="bullet-analysis">
+                        <div class="label">分析</div>
+                        <div class="value">价格适中，适合日常使用</div>
+                    </div>
+                </div>
+                
+                <div class="bullet-card hp">
+                    <div class="bullet-header">
+                        <div class="bullet-name">FMJ</div>
+                        <div class="bullet-type fm">FMJ</div>
+                    </div>
+                    <div class="bullet-price">79<span> $/发</span></div>
+                    <div class="bullet-desc">全金属被甲弹，基础弹药</div>
+                    <div class="bullet-analysis">
+                        <div class="label">分析</div>
+                        <div class="value">便宜但穿透一般，近距离够用</div>
+                    </div>
+                </div>
+                
+                <div class="bullet-card hp">
+                    <div class="bullet-header">
+                        <div class="bullet-name">RRLP</div>
+                        <div class="bullet-type hp">HP</div>
+                    </div>
+                    <div class="bullet-price">35<span> $/发</span></div>
+                    <div class="bullet-desc">空尖弹，最便宜的5.56子弹</div>
+                    <div class="bullet-analysis">
+                        <div class="label">分析</div>
+                        <div class="value">价格最低，近距离伤害高，但穿透差</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 7.62×39mm -->
+        <div class="caliber-section" id="section-7.62x39mm">
+            <div class="caliber-title">
+                <div class="caliber-name">7.62×39mm</div>
+                <div class="weapon-list">武器: AKM, PTR-32, SKS</div>
+            </div>
+            
+            <div class="recommendation-section">
+                <div class="title">🎯 使用场景推荐</div>
+                <div class="rec-grid">
+                    <div class="rec-card">
+                        <div class="use-case">PVE 打AI</div>
+                        <div class="bullet-name">AP 穿甲弹</div>
+                        <div class="why">穿甲最高，克制重甲AI</div>
+                    </div>
+                    <div class="rec-card">
+                        <div class="use-case">中距离战斗</div>
+                        <div class="bullet-name">BP 穿甲弹</div>
+                        <div class="why">平衡型，高性价比</div>
+                    </div>
+                    <div class="rec-card">
+                        <div class="use-case">近距离rush</div>
+                        <div class="bullet-name">LP 空尖弹</div>
+                        <div class="why">仅43发，伤害高</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="bullet-grid">
+                <div class="bullet-card ap">
+                    <div class="bullet-header">
+                        <div class="bullet-name">AP</div>
+                        <div class="bullet-type ap">AP</div>
+                    </div>
+                    <div class="bullet-price">4671<span> $/发</span></div>
+                    <div class="bullet-desc">高穿透穿甲弹，穿透力极强</div>
+                    <div class="bullet-analysis">
+                        <div class="label">分析</div>
+                        <div class="value">7.62系列最贵的子弹，PVE必备</div>
+                    </div>
+                </div>
+                
+                <div class="bullet-card ap">
+                    <div class="bullet-header">
+                        <div class="bullet-name">BP</div>
+                        <div class="bullet-type ap">AP</div>
+                    </div>
+                    <div class="bullet-price">1156<span> $/发</span></div>
+                    <div class="bullet-desc">穿甲弹，中等价格</div>
+                    <div class="bullet-analysis">
+                        <div class="label">分析</div>
+                        <div class="value">性价比最高的7.62穿甲弹</div>
+                    </div>
+                </div>
+                
+                <div class="bullet-card fm">
+                    <div class="bullet-header">
+                        <div class="bullet-name">PS</div>
+                        <div class="bullet-type fm">FMJ</div>
+                    </div>
+                    <div class="bullet-price">446<span> $/发</span></div>
+                    <div class="bullet-desc">标准弹，价格适中</div>
+                    <div class="bullet-analysis">
+                        <div class="label">分析</div>
+                        <div class="value">日常使用足够</div>
+                    </div>
+                </div>
+                
+                <div class="bullet-card hp">
+                    <div class="bullet-header">
+                        <div class="bullet-name">T45M</div>
+                        <div class="bullet-type hp">HP</div>
+                    </div>
+                    <div class="bullet-price">111<span> $/发</span></div>
+                    <div class="bullet-desc">空尖弹，低价选择</div>
+                    <div class="bullet-analysis">
+                        <div class="label">分析</div>
+                        <div class="value">便宜，近距离伤害高</div>
+                    </div>
+                </div>
+                
+                <div class="bullet-card hp">
+                    <div class="bullet-header">
+                        <div class="bullet-name">LP</div>
+                        <div class="bullet-type hp">HP</div>
+                    </div>
+                    <div class="bullet-price">43<span> $/发</span></div>
+                    <div class="bullet-desc">最便宜的7.62子弹</div>
+                    <div class="bullet-analysis">
+                        <div class="label">分析</div>
+                        <div class="value">省钱首选，近战够用</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 9×19mm -->
+        <div class="caliber-section" id="section-9x19mm">
+            <div class="caliber-title">
+                <div class="caliber-name">9×19mm</div>
+                <div class="weapon-list">武器: MP5, UZI, 野牛, 勇士, QSZ92G, G18, G17</div>
+            </div>
+            
+            <div class="recommendation-section">
+                <div class="title">🎯 使用场景推荐</div>
+                <div class="rec-grid">
+                    <div class="rec-card">
+                        <div class="use-case">PVE 打AI</div>
+                        <div class="bullet-name">PBP 穿甲弹</div>
+                        <div class="why">穿甲效果最好</div>
+                    </div>
+                    <div class="rec-card">
+                        <div class="use-case">PVP 手枪战</div>
+                        <div class="bullet-name">AP6.3</div>
+                        <div class="why">穿透与伤害平衡</div>
+                    </div>
+                    <div class="rec-card">
+                        <div class="use-case">省钱练枪</div>
+                        <div class="bullet-name">PSO</div>
+                        <div class="why">仅29发，冲锋枪首选</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="bullet-grid">
+                <div class="bullet-card ap">
+                    <div class="bullet-header">
+                        <div class="bullet-name">PBP</div>
+                        <div class="bullet-type ap">AP</div>
+                    </div>
+                    <div class="bullet-price">1096<span> $/发</span></div>
+                    <div class="bullet-desc">穿甲弹，高穿透</div>
+                    <div class="bullet-analysis">
+                        <div class="label">分析</div>
+                        <div class="value">9mm系列穿甲最强</div>
+                    </div>
+                </div>
+                
+                <div class="bullet-card ap">
+                    <div class="bullet-header">
+                        <div class="bullet-name">AP6.3</div>
+                        <div class="bullet-type ap">AP</div>
+                    </div>
+                    <div class="bullet-price">276<span> $/发</span></div>
+                    <div class="bullet-desc">穿甲弹，高性价比</div>
+                    <div class="bullet-analysis">
+                        <div class="label">分析</div>
+                        <div class="value">穿甲+便宜，PVP首选</div>
+                    </div>
+                </div>
+                
+                <div class="bullet-card hp">
+                    <div class="bullet-header">
+                        <div class="bullet-name">RIP</div>
+                        <div class="bullet-type hp">HP</div>
+                    </div>
+                    <div class="bullet-price">558<span> $/发</span></div>
+                    <div class="bullet-desc">空尖弹，高停止力</div>
+                    <div class="bullet-analysis">
+                        <div class="label">分析</div>
+                        <div class="value">近距离伤害极高，一枪倒地</div>
+                    </div>
+                </div>
+                
+                <div class="bullet-card fm">
+                    <div class="bullet-header">
+                        <div class="bullet-name">Pst</div>
+                        <div class="bullet-type fm">FMJ</div>
+                    </div>
+                    <div class="bullet-price">88<span> $/发</span></div>
+                    <div class="bullet-desc">标准弹，便宜</div>
+                    <div class="bullet-analysis">
+                        <div class="label">分析</div>
+                        <div class="value">日常使用足够</div>
+                    </div>
+                </div>
+                
+                <div class="bullet-card hp">
+                    <div class="bullet-header">
+                        <div class="bullet-name">PSO</div>
+                        <div class="bullet-type hp">HP</div>
+                    </div>
+                    <div class="bullet-price">29<span> $/发</span></div>
+                    <div class="bullet-desc">最便宜的9mm子弹</div>
+                    <div class="bullet-analysis">
+                        <div class="label">分析</div>
+                        <div class="value">省钱首选，扫货练枪</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 其他口径 (简化显示) -->
+        <div class="caliber-section" id="section-5.45x39mm">
+            <div class="caliber-title">
+                <div class="caliber-name">5.45×39mm</div>
+                <div class="weapon-list">武器: AKS-74U, AK-12</div>
+            </div>
+            <div class="bullet-grid">
+                <div class="bullet-card ap">
+                    <div class="bullet-header"><div class="bullet-name">BS</div><div class="bullet-type ap">AP</div></div>
+                    <div class="bullet-price">4144<span> $/发</span></div>
+                    <div class="bullet-desc">高穿透穿甲弹</div>
+                </div>
+                <div class="bullet-card ap">
+                    <div class="bullet-header"><div class="bullet-name">BT</div><div class="bullet-type ap">AP</div></div>
+                    <div class="bullet-price">916<span> $/发</span></div>
+                    <div class="bullet-desc">穿甲弹</div>
+                </div>
+                <div class="bullet-card fm">
+                    <div class="bullet-header"><div class="bullet-name">PS</div><div class="bullet-type fm">FMJ</div></div>
+                    <div class="bullet-price">399<span> $/发</span></div>
+                    <div class="bullet-desc">标准弹</div>
+                </div>
+                <div class="bullet-card hp">
+                    <div class="bullet-header"><div class="bullet-name">T</div><div class="bullet-type hp">HP</div></div>
+                    <div class="bullet-price">100<span> $/发</span></div>
+                    <div class="bullet-desc">空尖弹，便宜</div>
+                </div>
+                <div class="bullet-card hp">
+                    <div class="bullet-header"><div class="bullet-name">PRS</div><div class="bullet-type hp">HP</div></div>
+                    <div class="bullet-price">40<span> $/发</span></div>
+                    <div class="bullet-desc">最便宜</div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="caliber-section" id="section-7.62x51mm">
+            <div class="caliber-title">
+                <div class="caliber-name">7.62×51mm NATO</div>
+                <div class="weapon-list">武器: SCAR-H, G3, M14, R93, M700</div>
+            </div>
+            <div class="bullet-grid">
+                <div class="bullet-card ap">
+                    <div class="bullet-header"><div class="bullet-name">M62</div><div class="bullet-type ap">AP</div></div>
+                    <div class="bullet-price">5567<span> $/发</span></div>
+                    <div class="bullet-desc">穿甲弹，最高穿透</div>
+                </div>
+                <div class="bullet-card fm">
+                    <div class="bullet-header"><div class="bullet-name">M80</div><div class="bullet-type fm">FMJ</div></div>
+                    <div class="bullet-price">1378<span> $/发</span></div>
+                    <div class="bullet-desc">标准全威力弹</div>
+                </div>
+                <div class="bullet-card fm">
+                    <div class="bullet-header"><div class="bullet-name">BPZ</div><div class="bullet-type fm">FMJ</div></div>
+                    <div class="bullet-price">548<span> $/发</span></div>
+                    <div class="bullet-desc">低价选择</div>
+                </div>
+                <div class="bullet-card hp">
+                    <div class="bullet-header"><div class="bullet-name">Ultra Nosler</div><div class="bullet-type hp">HP</div></div>
+                    <div class="bullet-price">119<span> $/发</span></div>
+                    <div class="bullet-desc">空尖弹，最便宜</div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="caliber-section" id="section-7.62x54mm">
+            <div class="caliber-title">
+                <div class="caliber-name">7.62×54mmR</div>
+                <div class="weapon-list">武器: PKM, SVD, SV-98</div>
+            </div>
+            <div class="bullet-grid">
+                <div class="bullet-card ap">
+                    <div class="bullet-header"><div class="bullet-name">BT</div><div class="bullet-type ap">AP</div></div>
+                    <div class="bullet-price">4294<span> $/发</span></div>
+                    <div class="bullet-desc">穿甲弹</div>
+                </div>
+                <div class="bullet-card fm">
+                    <div class="bullet-header"><div class="bullet-name">LPS</div><div class="bullet-type fm">FMJ</div></div>
+                    <div class="bullet-price">2010<span> $/发</span></div>
+                    <div class="bullet-desc">标准弹</div>
+                </div>
+                <div class="bullet-card hp">
+                    <div class="bullet-header"><div class="bullet-name">T46M</div><div class="bullet-type hp">HP</div></div>
+                    <div class="bullet-price">522<span> $/发</span></div>
+                    <div class="bullet-desc">空尖弹，便宜</div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="caliber-section" id="section-5.7x28mm">
+            <div class="caliber-title">
+                <div class="caliber-name">5.7×28mm</div>
+                <div class="weapon-list">武器: P90</div>
+            </div>
+            <div class="bullet-grid">
+                <div class="bullet-card ap">
+                    <div class="bullet-header"><div class="bullet-name">SS190</div><div class="bullet-type ap">AP</div></div>
+                    <div class="bullet-price">4377<span> $/发</span></div>
+                    <div class="bullet-desc">高穿透穿甲弹</div>
+                </div>
+                <div class="bullet-card ap">
+                    <div class="bullet-header"><div class="bullet-name">SS193</div><div class="bullet-type ap">AP</div></div>
+                    <div class="bullet-price">1713<span> $/发</span></div>
+                    <div class="bullet-desc">穿甲弹</div>
+                </div>
+                <div class="bullet-card hp">
+                    <div class="bullet-header"><div class="bullet-name">R37.F</div><div class="bullet-type hp">HP</div></div>
+                    <div class="bullet-price">457<span> $/发</span></div>
+                    <div class="bullet-desc">空尖弹</div>
+                </div>
+                <div class="bullet-card fm">
+                    <div class="bullet-header"><div class="bullet-name">SS197SR</div><div class="bullet-type fm">FMJ</div></div>
+                    <div class="bullet-price">97<span> $/发</span></div>
+                    <div class="bullet-desc">标准弹，便宜</div>
+                </div>
+                <div class="bullet-card hp">
+                    <div class="bullet-header"><div class="bullet-name">SS198LF</div><div class="bullet-type hp">HP</div></div>
+                    <div class="bullet-price">38<span> $/发</span></div>
+                    <div class="bullet-desc">最便宜</div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="caliber-section" id="section-4.6x30mm">
+            <div class="caliber-title">
+                <div class="caliber-name">4.6×30mm</div>
+                <div class="weapon-list">武器: MP7</div>
+            </div>
+            <div class="bullet-grid">
+                <div class="bullet-card ap">
+                    <div class="bullet-header"><div class="bullet-name">AP SX</div><div class="bullet-type ap">AP</div></div>
+                    <div class="bullet-price">3612<span> $/发</span></div>
+                    <div class="bullet-desc">高穿透穿甲弹</div>
+                </div>
+                <div class="bullet-card fm">
+                    <div class="bullet-header"><div class="bullet-name">FMJ SX</div><div class="bullet-type fm">FMJ</div></div>
+                    <div class="bullet-price">1220<span> $/发</span></div>
+                    <div class="bullet-desc">标准弹</div>
+                </div>
+                <div class="bullet-card hp">
+                    <div class="bullet-header"><div class="bullet-name">Subsonic SX</div><div class="bullet-type hp">HP</div></div>
+                    <div class="bullet-price">387<span> $/发</span></div>
+                    <div class="bullet-desc">亚音速弹，便宜</div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="footer-tips">
+            <div class="title">💡 选弹建议</div>
+            <ul>
+                <li>PVE模式优先选择AP穿甲弹，能有效击穿AI护甲</li>
+                <li>PVP模式根据对手护甲选择，预算充足用AP，紧张用平衡型</li>
+                <li>扫货练枪用最便宜的子弹（如PSO/RRLP），省下的钱买好装备</li>
+                <li>狙击步枪建议用高穿透子弹，保证远程击杀</li>
+                <li>冲锋枪近战用HP空尖弹，伤害更高</li>
+            </ul>
+        </div>
+    </div>
+    
+    <script>
+        // Tab切换
+        document.querySelectorAll('.tab').forEach(tab => {
+            tab.addEventListener('click', () => {
+                // 切换tab高亮
+                document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+                tab.classList.add('active');
+                
+                // 切换内容
+                const caliber = tab.dataset.caliber;
+                document.querySelectorAll('.caliber-section').forEach(section => {
+                    section.classList.remove('active');
+                });
+                document.getElementById('section-' + caliber).classList.add('active');
+            });
+        });
+    </script>
+</body>
+</html>

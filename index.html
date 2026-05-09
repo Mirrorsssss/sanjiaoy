@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>三角眼 - 三角洲行动攻略站</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #0a0e1a 0%, #1a1f3a 100%);
+            color: #e0e0e0;
+            min-height: 100vh;
+        }
+
+        .header {
+            background: linear-gradient(135deg, rgba(255, 107, 0, 0.2) 0%, rgba(255, 107, 0, 0.05) 100%);
+            border-bottom: 3px solid #ff6b00;
+            padding: 30px 20px;
+            text-align: center;
+        }
+
+        .header h1 {
+            color: #ff6b00;
+            font-size: 3em;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+
+        .header p {
+            color: #888;
+            font-size: 1.2em;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        .today-recommendation {
+            background: linear-gradient(135deg, rgba(255, 107, 0, 0.15) 0%, rgba(255, 107, 0, 0.05) 100%);
+            border: 3px solid #ff6b00;
+            border-radius: 15px;
+            padding: 30px;
+            margin-bottom: 50px;
+            animation: glow 2s ease-in-out infinite;
+        }
+
+        @keyframes glow {
+            0%, 100% { box-shadow: 0 0 20px rgba(255, 107, 0, 0.3); }
+            50% { box-shadow: 0 0 40px rgba(255, 107, 0, 0.6); }
+        }
+
+        .recommendation-title {
+            color: #ff6b00;
+            font-size: 2em;
+            margin-bottom: 25px;
+            text-align: center;
+            font-weight: bold;
+        }
+
+        .recommendation-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 25px;
+        }
+
+        .rec-card {
+            background: rgba(255, 255, 255, 0.05);
+            border: 2px solid #333;
+            border-radius: 12px;
+            padding: 25px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .rec-card:hover {
+            border-color: #ff6b00;
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(255, 107, 0, 0.4);
+        }
+
+        .rec-card-header {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .rec-icon {
+            font-size: 3em;
+        }
+
+        .rec-card-title {
+            color: #ff6b00;
+            font-size: 1.5em;
+            font-weight: bold;
+        }
+
+        .rec-card-desc {
+            color: #888;
+            margin-bottom: 15px;
+            line-height: 1.6;
+        }
+
+        .rec-card-action {
+            background: rgba(255, 107, 0, 0.2);
+            border: 2px solid #ff6b00;
+            border-radius: 8px;
+            padding: 12px 20px;
+            color: #ff6b00;
+            font-weight: bold;
+            text-align: center;
+            transition: all 0.3s;
+        }
+
+        .rec-card:hover .rec-card-action {
+            background: #ff6b00;
+            color: #000;
+        }
+
+        .tools-section {
+            margin-bottom: 50px;
+        }
+
+        .section-title {
+            color: #ff6b00;
+            font-size: 2em;
+            margin-bottom: 30px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #333;
+            font-weight: bold;
+        }
+
+        .tools-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 25px;
+        }
+
+        .tool-card {
+            background: rgba(255, 255, 255, 0.05);
+            border: 2px solid #333;
+            border-radius: 12px;
+            padding: 25px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .tool-card:hover {
+            border-color: #ff6b00;
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(255, 107, 0, 0.3);
+        }
+
+        .tool-icon {
+            font-size: 3em;
+            margin-bottom: 15px;
+        }
+
+        .tool-title {
+            color: #fff;
+            font-size: 1.5em;
+            margin-bottom: 12px;
+            font-weight: bold;
+        }
+
+        .tool-desc {
+            color: #888;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+
+        .tool-tags {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .tag {
+            padding: 5px 12px;
+            background: rgba(255, 107, 0, 0.15);
+            border: 1px solid #ff6b00;
+            border-radius: 15px;
+            color: #ff6b00;
+            font-size: 0.85em;
+        }
+
+        .footer {
+            background: rgba(255, 255, 255, 0.02);
+            border-top: 2px solid #333;
+            padding: 30px;
+            text-align: center;
+            color: #666;
+        }
+
+        .footer a {
+            color: #ff6b00;
+            text-decoration: none;
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2em;
+            }
+
+            .recommendation-cards,
+            .tools-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>🎯 三角眼</h1>
+        <p>Delta Force: Hawk Ops - 终极攻略站</p>
+    </div>
+
+    <div class="container">
+        <!-- 今日推荐区 -->
+        <div class="today-recommendation">
+            <div class="recommendation-title">🌟 今日推荐</div>
+            <div class="recommendation-cards">
+                <div class="rec-card" onclick="location.href='smart-loadout.html'">
+                    <div class="rec-card-header">
+                        <div class="rec-icon">🎯</div>
+                        <div class="rec-card-title">今日战备</div>
+                    </div>
+                    <div class="rec-card-desc">
+                        根据当前地图和预算，智能推荐最优战备配置方案。点击即查看今日推荐装备。
+                    </div>
+                    <div class="rec-card-action">📌 查看推荐战备</div>
+                </div>
+
+                <div class="rec-card" onclick="location.href='bullet-economics-v2.html'">
+                    <div class="rec-card-header">
+                        <div class="rec-icon">💰</div>
+                        <div class="rec-card-title">最赚钱工坊</div>
+                    </div>
+                    <div class="rec-card-desc">
+                        实时计算工坊配方利润，找出当前最赚钱的急造物品。ROI高达189%！
+                    </div>
+                    <div class="rec-card-action">💡 查看利润排行</div>
+                </div>
+
+                <div class="rec-card" onclick="location.href='smart-bullet.html'">
+                    <div class="rec-card-header">
+                        <div class="rec-icon">🔫</div>
+                        <div class="rec-card-title">子弹推荐</div>
+                    </div>
+                    <div class="rec-card-desc">
+                        根据目标和预算，推荐最适合的子弹类型。M995、M855A1、PBP一键对比。
+                    </div>
+                    <div class="rec-card-action">🔍 查看子弹推荐</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 工具区 -->
+        <div class="tools-section">
+            <div class="section-title">🛠️ 攻略工具</div>
+            <div class="tools-grid">
+                <div class="tool-card" onclick="location.href='evacuation-map.html'">
+                    <div class="tool-icon">🗺️</div>
+                    <div class="tool-title">撤离路线图</div>
+                    <div class="tool-desc">
+                        详细的撤离点信息与路线规划，包含零号大坝、航天基地、巴克什、潮汐监狱四大地图。
+                    </div>
+                    <div class="tool-tags">
+                        <span class="tag">撤离点</span>
+                        <span class="tag">路线规划</span>
+                        <span class="tag">风险提示</span>
+                    </div>
+                </div>
+
+                <div class="tool-card" onclick="location.href='smart-loadout.html'">
+                    <div class="tool-icon">🎯</div>
+                    <div class="tool-title">智能战备推荐</div>
+                    <div class="tool-desc">
+                        根据地图、预算、模式智能推荐战备配置，包含武器、防具、配件完整方案。
+                    </div>
+                    <div class="tool-tags">
+                        <span class="tag">战备值</span>
+                        <span class="tag">假账技巧</span>
+                        <span class="tag">配置优化</span>
+                    </div>
+                </div>
+
+                <div class="tool-card" onclick="location.href='smart-bullet.html'">
+                    <div class="tool-icon">🔫</div>
+                    <div class="tool-title">智能子弹推荐</div>
+                    <div class="tool-desc">
+                        根据目标防具等级和预算，推荐最适合的子弹类型，穿透力一目了然。
+                    </div>
+                    <div class="tool-tags">
+                        <span class="tag">穿透力</span>
+                        <span class="tag">性价比</span>
+                        <span class="tag">停止力</span>
+                    </div>
+                </div>
+
+                <div class="tool-card" onclick="location.href='bullet-economics-v2.html'">
+                    <div class="tool-icon">💰</div>
+                    <div class="tool-title">工坊利润计算器</div>
+                    <div class="tool-desc">
+                        计算工坊配方利润，找出最赚钱的急造物品。支持实时价格，自动计算ROI。
+                    </div>
+                    <div class="tool-tags">
+                        <span class="tag">工坊</span>
+                        <span class="tag">利润</span>
+                        <span class="tag">ROI</span>
+                    </div>
+                </div>
+
+                <div class="tool-card" onclick="location.href='card-combat-calculator-v2.html'">
+                    <div class="tool-icon">⚔️</div>
+                    <div class="tool-title">卡战斗计算器</div>
+                    <div class="tool-desc">
+                        计算TTK（击杀时间）、DPS、穿甲能力，对比不同武器和子弹组合。
+                    </div>
+                    <div class="tool-tags">
+                        <span class="tag">TTK</span>
+                        <span class="tag">DPS</span>
+                        <span class="tag">穿甲</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 数据区 -->
+        <div class="tools-section">
+            <div class="section-title">📊 游戏数据</div>
+            <div class="tools-grid">
+                <div class="tool-card">
+                    <div class="tool-icon">🔫</div>
+                    <div class="tool-title">武器数据库</div>
+                    <div class="tool-desc">
+                        包含全部28+把武器的详细属性：伤害、射速、后坐力、腰射精准度等。
+                    </div>
+                    <div class="tool-tags">
+                        <span class="tag">武器</span>
+                        <span class="tag">属性</span>
+                        <span class="tag">28+把</span>
+                    </div>
+                </div>
+
+                <div class="tool-card">
+                    <div class="tool-icon">🔧</div>
+                    <div class="tool-title">配件数据库</div>
+                    <div class="tool-desc">
+                        350+个配件详细信息，包含属性加成、价格、适配武器等数据。
+                    </div>
+                    <div class="tool-tags">
+                        <span class="tag">配件</span>
+                        <span class="tag">350+个</span>
+                        <span class="tag">属性加成</span>
+                    </div>
+                </div>
+
+                <div class="tool-card">
+                    <div class="tool-icon">🗺️</div>
+                    <div class="tool-title">地图数据</div>
+                    <div class="tool-desc">
+                        零号大坝、长弓溪谷、巴克什、航天基地、潮汐监狱 - 全面数据。
+                    </div>
+                    <div class="tool-tags">
+                        <span class="tag">地图</span>
+                        <span class="tag">撤离点</span>
+                        <span class="tag">物资分布</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="footer">
+        <p>© 2026 三角眼 - 三角洲行动攻略站 | 数据来源：官方Wiki、游民星空、游侠网</p>
+        <p>本站为玩家自发整理，非官方站点 | <a href="https://github.com/yourusername/sanjiaoyan">GitHub</a></p>
+    </div>
+</body>
+</html>

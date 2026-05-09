@@ -1,0 +1,487 @@
+{
+  "meta": {
+    "game": "三角洲行动 (Delta Force: Hawk Ops)",
+    "version": "2024-2026",
+    "lastUpdated": "2026-05-09",
+    "source": "deltaforcetools.gg, wiki.bittopup.com"
+  },
+  "weaponCategories": [
+    {
+      "id": "assault_rifle",
+      "name": "突击步枪",
+      "nameEn": "Assault Rifles",
+      "weapons": [
+        {
+          "id": "m4a1",
+          "name": "M4A1突击步枪",
+          "ammo": "5.56×45mm",
+          "damage": 27,
+          "fireRate": 800,
+          "description": "火力十分可靠"
+        },
+        {
+          "id": "akm",
+          "name": "AKM突击步枪",
+          "ammo": "7.62×39mm",
+          "damage": 40,
+          "fireRate": 600,
+          "description": "强大火力但需要足够技巧"
+        },
+        {
+          "id": "qbz95_1",
+          "name": "QBZ95-1突击步枪",
+          "ammo": "5.8×42mm",
+          "damage": 27,
+          "fireRate": 679,
+          "description": "较快射速和舒适操控，改进后拥有空仓挂机功能"
+        },
+        {
+          "id": "aks_74u",
+          "name": "AKS-74U突击步枪",
+          "ammo": "5.45×39mm",
+          "damage": 34,
+          "fireRate": 533,
+          "description": "1979年列装的短突击步枪"
+        },
+        {
+          "id": "ash_12",
+          "name": "ASh-12战斗步枪",
+          "ammo": "12.7×55mm",
+          "damage": 56,
+          "fireRate": 500,
+          "description": "大口径无托突击步枪，近战及城市作战专用"
+        },
+        {
+          "id": "k416",
+          "name": "K416突击步枪",
+          "ammo": "5.56×45mm",
+          "damage": 29,
+          "fireRate": 880,
+          "description": "德国制造，高度可靠性和优秀射击性能"
+        },
+        {
+          "id": "m16a4",
+          "name": "M16A4突击步枪",
+          "ammo": "5.56×45mm",
+          "damage": 33,
+          "fireRate": 672,
+          "description": "三连发点射模式，较高精确度"
+        },
+        {
+          "id": "aug",
+          "name": "AUG突击步枪",
+          "ammo": "5.56×45mm",
+          "damage": 29,
+          "fireRate": 679,
+          "description": "精确稳定无托突击步枪，适合中远距离"
+        },
+        {
+          "id": "m7",
+          "name": "M7战斗步枪",
+          "ammo": "6.8×51mm",
+          "damage": 40,
+          "fireRate": 649,
+          "description": "新式步枪，使用全威力弹药"
+        },
+        {
+          "id": "sg552",
+          "name": "SG552突击步枪",
+          "ammo": "5.56×45mm",
+          "damage": 22,
+          "fireRate": 906,
+          "description": "枪机设计与AK类似"
+        },
+        {
+          "id": "ak_12",
+          "name": "AK-12突击步枪",
+          "ammo": "5.45×39mm",
+          "damage": 27,
+          "fireRate": 735,
+          "description": "俄罗斯生产，模块化设计，高精度和可靠性"
+        },
+        {
+          "id": "scar_h",
+          "name": "SCAR-H战斗步枪",
+          "ammo": "7.62×51mm",
+          "damage": 40,
+          "fireRate": 585,
+          "description": "比利时生产，模块化设计，军警部队广泛应用"
+        },
+        {
+          "id": "g3",
+          "name": "G3战斗步枪",
+          "ammo": "7.62×51mm",
+          "damage": 39,
+          "fireRate": 533,
+          "description": "经典、可靠全威力弹药战斗步枪"
+        },
+        {
+          "id": "ptr_32",
+          "name": "PTR-32突击步枪",
+          "ammo": "7.62×39mm",
+          "damage": 34,
+          "fireRate": 632,
+          "description": "基于G3改进，通用AKM弹匣"
+        },
+        {
+          "id": "car_15",
+          "name": "CAR-15突击步枪",
+          "ammo": "5.56×45mm",
+          "damage": 27,
+          "fireRate": 632,
+          "description": "缩短卡宾型AR步枪（723型）"
+        },
+        {
+          "id": "as_val",
+          "name": "AS Val突击步枪",
+          "ammo": "9×39mm",
+          "damage": 29,
+          "fireRate": 972,
+          "description": "俄式微声突击步枪，穿透性能强大"
+        },
+        {
+          "id": "type_191",
+          "name": "191式突击步枪",
+          "ammo": "5.8×42mm",
+          "damage": 35,
+          "fireRate": 706,
+          "description": "新式国产，模块化设计"
+        }
+      ]
+    },
+    {
+      "id": "smg",
+      "name": "冲锋枪",
+      "nameEn": "Submachine Guns",
+      "weapons": [
+        {
+          "id": "mp5",
+          "name": "MP5冲锋枪",
+          "ammo": "9×19mm",
+          "damage": 30,
+          "fireRate": 820,
+          "description": "各项性能达到完美平衡"
+        },
+        {
+          "id": "p90",
+          "name": "P90冲锋枪",
+          "ammo": "5.7×28mm",
+          "damage": 32,
+          "fireRate": 898,
+          "description": "无托式，独特顶置弹匣设计"
+        },
+        {
+          "id": "vector",
+          "name": "Vector冲锋枪",
+          "ammo": ".45口径",
+          "damage": 32,
+          "fireRate": 1091,
+          "description": "超高射速，近距离强大爆发力"
+        },
+        {
+          "id": "uzi",
+          "name": "UZI冲锋枪",
+          "ammo": "9×19mm",
+          "damage": 28,
+          "fireRate": 780,
+          "description": "以色列制造，紧凑尺寸和高速射击"
+        },
+        {
+          "id": "bison",
+          "name": "野牛冲锋枪",
+          "ammo": "9×19mm",
+          "damage": 32,
+          "fireRate": 659,
+          "description": "俄罗斯制造，独特圆筒形供弹具"
+        },
+        {
+          "id": "smg_45",
+          "name": "SMG-45冲锋枪",
+          "ammo": ".45口径",
+          "damage": 35,
+          "fireRate": 605,
+          "description": "人体工学设计上乘，性能稳定"
+        },
+        {
+          "id": "sr_3m",
+          "name": "SR-3M紧凑型突击步枪",
+          "ammo": "9×39mm",
+          "damage": 36,
+          "fireRate": 747,
+          "description": "俄罗斯制造，紧凑尺寸强大火力"
+        },
+        {
+          "id": "warrior",
+          "name": "勇士冲锋枪",
+          "ammo": "9×19mm",
+          "damage": 36,
+          "fireRate": 700,
+          "description": "基于PP-19野牛改进，支持各种配件"
+        },
+        {
+          "id": "mp7",
+          "name": "MP7",
+          "ammo": "4.6×30mm",
+          "damage": 29,
+          "fireRate": 950,
+          "description": "个人防护武器，紧凑便携"
+        }
+      ]
+    },
+    {
+      "id": "shotgun",
+      "name": "霰弹枪",
+      "nameEn": "Shotguns",
+      "weapons": [
+        {
+          "id": "m1014",
+          "name": "M1014霰弹枪",
+          "ammo": "12号口径",
+          "damage": 14,
+          "fireRate": 261,
+          "description": "可靠且功能全面，每次发射8颗弹丸"
+        },
+        {
+          "id": "s12k",
+          "name": "S12K霰弹枪",
+          "ammo": "12号口径",
+          "damage": 13,
+          "fireRate": 300,
+          "description": "弹匣供弹，连续射击后座力较大"
+        },
+        {
+          "id": "m870",
+          "name": "M870霰弹枪",
+          "ammo": "12号口径",
+          "damage": 14,
+          "fireRate": 74,
+          "description": "经典可靠泵动式，每次发射8粒子弹"
+        }
+      ]
+    },
+    {
+      "id": "lmg",
+      "name": "轻机枪",
+      "nameEn": "Light Machine Guns",
+      "weapons": [
+        {
+          "id": "pkm",
+          "name": "PKM通用机枪",
+          "ammo": "7.62×54mmR",
+          "damage": 45,
+          "fireRate": 669,
+          "description": "中等射速且具备强大压制力"
+        },
+        {
+          "id": "m249",
+          "name": "M249轻机枪",
+          "ammo": "5.56×45mm",
+          "damage": 30,
+          "fireRate": 858,
+          "description": "火力强大，必要时可使用弹匣供弹"
+        },
+        {
+          "id": "m250",
+          "name": "M250通用机枪",
+          "ammo": "6.8×51mm",
+          "damage": 55,
+          "fireRate": 550,
+          "description": "弹链供弹，受弹盖特殊设计"
+        }
+      ]
+    },
+    {
+      "id": "dmr",
+      "name": "精确射手步枪",
+      "nameEn": "Designated Marksman Rifles",
+      "weapons": [
+        {
+          "id": "mini_14",
+          "name": "Mini-14射手步枪",
+          "ammo": "5.56×45mm",
+          "damage": 32,
+          "fireRate": 590,
+          "description": "后座力较小，精准度较高"
+        },
+        {
+          "id": "vss",
+          "name": "VSS射手步枪",
+          "ammo": "9×39mm",
+          "damage": 35,
+          "fireRate": 480,
+          "description": "内置消音器，用于隐蔽和特种作战"
+        },
+        {
+          "id": "svd",
+          "name": "SVD狙击步枪",
+          "ammo": "7.62×54mmR",
+          "damage": 56,
+          "fireRate": 300,
+          "description": "半自动狙击步枪，优秀精度和射程"
+        },
+        {
+          "id": "m14",
+          "name": "M14射手步枪",
+          "ammo": "7.62×51mm",
+          "damage": 40,
+          "fireRate": 727,
+          "description": "全自动模式有强大火力"
+        },
+        {
+          "id": "sks",
+          "name": "SKS射手步枪",
+          "ammo": "7.62×39mm",
+          "damage": 44,
+          "fireRate": 510,
+          "description": "可靠灵活，不错操控性和射速"
+        },
+        {
+          "id": "sr_25",
+          "name": "SR-25射手步枪",
+          "ammo": "7.62×51mm",
+          "damage": 50,
+          "fireRate": 364,
+          "description": "AR系统，人体工学设计上乘"
+        },
+        {
+          "id": "psg_1",
+          "name": "PSG-1射手步枪",
+          "ammo": "7.62×51mm",
+          "damage": 50,
+          "fireRate": 300,
+          "description": "高精度，可使用部分G3改装部件"
+        }
+      ]
+    },
+    {
+      "id": "sniper",
+      "name": "狙击步枪",
+      "nameEn": "Sniper Rifles",
+      "weapons": [
+        {
+          "id": "sv_98",
+          "name": "SV-98狙击步枪",
+          "ammo": "7.62×54mmR",
+          "damage": 55,
+          "fireRate": 40,
+          "description": "栓动式，极高准确度"
+        },
+        {
+          "id": "r93",
+          "name": "R93狙击步枪",
+          "ammo": "7.62×51mm",
+          "damage": 55,
+          "fireRate": 50,
+          "description": "直拉栓式"
+        },
+        {
+          "id": "m700",
+          "name": "M700狙击步枪",
+          "ammo": "7.62×51mm",
+          "damage": 55,
+          "fireRate": 48,
+          "description": "稳定性与射程兼具"
+        },
+        {
+          "id": "awm",
+          "name": "AWM狙击步枪",
+          "ammo": ".338 Lapua Magnum",
+          "damage": 100,
+          "fireRate": 35,
+          "description": "英国生产，极高精度和射程，顶级狙击武器"
+        }
+      ]
+    },
+    {
+      "id": "pistol",
+      "name": "手枪",
+      "nameEn": "Pistols",
+      "weapons": [
+        {
+          "id": "qsz92g",
+          "name": "QSZ92G",
+          "ammo": "9×19mm",
+          "damage": 34,
+          "fireRate": 375,
+          "description": "双动半自动，改进型双排单进供弹"
+        },
+        {
+          "id": "revolver_357",
+          "name": ".357左轮",
+          "ammo": ".357 Magnum",
+          "damage": 56,
+          "fireRate": 182,
+          "description": "大威力双动左轮"
+        },
+        {
+          "id": "desert_eagle",
+          "name": "沙漠之鹰",
+          "ammo": ".50口径",
+          "damage": 50,
+          "fireRate": 207,
+          "description": "大威力半自动手枪"
+        },
+        {
+          "id": "g18",
+          "name": "G18",
+          "ammo": "9×19mm",
+          "damage": 22,
+          "fireRate": 1172,
+          "description": "G系列全自动型号，超高射速"
+        },
+        {
+          "id": "93r",
+          "name": "93R",
+          "ammo": "9×19mm",
+          "damage": 34,
+          "fireRate": 672,
+          "description": "意大利生产，三连发手枪"
+        },
+        {
+          "id": "g17",
+          "name": "G17",
+          "ammo": "9×19mm",
+          "damage": 27,
+          "fireRate": 462,
+          "description": "奥地利制造，经典可靠耐用"
+        },
+        {
+          "id": "m1911",
+          "name": "M1911",
+          "ammo": ".45 ACP",
+          "damage": 40,
+          "fireRate": 373,
+          "description": "经典半自动手枪，三角洲特种部队特制版"
+        }
+      ]
+    }
+  ],
+  "weaponStats": {
+    "damageRanking": {
+      "top": [
+        {"weapon": "AWM", "damage": 100},
+        {"weapon": "ASh-12", "damage": 56},
+        {"weapon": "SVD", "damage": 56},
+        {"weapon": "M250", "damage": 55},
+        {"weapon": "SV-98", "damage": 55}
+      ]
+    },
+    "fireRateRanking": {
+      "top": [
+        {"weapon": "G18", "fireRate": 1172},
+        {"weapon": "Vector", "fireRate": 1091},
+        {"weapon": "SG552", "fireRate": 906},
+        {"weapon": "MP7", "fireRate": 950}
+      ]
+    }
+  },
+  "attachmentTypes": [
+    {"id": "optic", "name": "瞄准镜", "examples": ["红点、全息、二倍、四倍、八倍"]},
+    {"id": "barrel", "name": "枪管", "examples": ["消音器、枪口补偿器"]},
+    {"id": "grip", "name": "握把", "examples": ["垂直握把、角握把"]},
+    {"id": "magazine", "name": "弹匣", "examples": ["扩容弹匣、快速弹匣"]},
+    {"id": "stock", "name": "枪托", "examples": ["伸缩枪托、全稳定枪托"]},
+    {"id": "laser", "name": "激光瞄具", "examples": ["战术激光"]},
+    {"id": "light", "name": "战术灯", "examples": ["手电筒"]}
+  ]
+}

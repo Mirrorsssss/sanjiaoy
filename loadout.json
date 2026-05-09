@@ -1,0 +1,110 @@
+{
+  "meta": {
+    "game": "三角洲行动 (Delta Force: Hawk Ops)",
+    "version": "2024-2026",
+    "lastUpdated": "2026-05-09",
+    "source": "游戏实战经验、社区攻略"
+  },
+  "gameModes": {
+    "raid": {
+      "id": "raid",
+      "name": "烽火地带（Raid）",
+      "nameEn": "Raid Mode",
+      "description": "搜打撤核心玩法，搜索物资、战斗、撤离"
+    },
+    "battle": {
+      "id": "battle",
+      "name": "全面战场",
+      "nameEn": "Full Scale War",
+      "description": "大规模多人载具战斗模式"
+    },
+    "ranked": {
+      "id": "ranked",
+      "name": "竞技排位",
+      "nameEn": "Ranked",
+      "description": "公平竞技排位赛"
+    }
+  },
+  "budgetTiers": {
+    "penny": {"name": "穷逼配置", "budget": "0-50万", "description": "最低预算，使用基础装备"},
+    "normal": {"name": "普通配置", "budget": "50-150万", "description": "标准预算，平衡性能"},
+    "rich": {"name": "富裕配置", "budget": "150-300万", "description": "较高预算，追求高性能"},
+    "vip": {"name": "VIP配置", "budget": "300万+", "description": "最高预算，顶级装备"}
+  },
+  "raidLoadouts": {
+    "note": "烽火地带模式推荐配置",
+    "penny": {
+      "name": "穷逼配置",
+      "budget": "0-50万",
+      "weapon": {
+        "primary": "AKM突击步枪",
+        "reason": "7.62×39mm弹药伤害高，适合近中距离战斗"
+      },
+      "attachments": ["基础瞄具", "标准弹匣"],
+      "armor": "T3防弹衣 + T3防弹头盔",
+      "backpack": "T2战术背包",
+      "consumables": ["T1医疗包", "T1能量饮料"],
+      "strategy": "避免正面交战，专注搜索物资，快速撤离"
+    },
+    "normal": {
+      "name": "普通配置",
+      "budget": "50-150万",
+      "weapon": {
+        "primary": "M4A1突击步枪",
+        "reason": "5.56×45mm平衡性好，配件丰富"
+      },
+      "attachments": ["T2红点瞄具", "T2握把", "T2枪口"],
+      "armor": "T4防弹衣 + T4防弹头盔",
+      "backpack": "T3战术背包",
+      "consumables": ["T2医疗包", "T2能量饮料", "T1肾上腺素"],
+      "strategy": "平衡战斗和搜索，可以应对大多数情况"
+    },
+    "rich": {
+      "name": "富裕配置",
+      "budget": "150-300万",
+      "weapon": {
+        "primary": "K416突击步枪",
+        "reason": "高射速高操控，适合中近距离战斗"
+      },
+      "attachments": ["T3全息瞄具", "T3垂直握把", "T3消音器", "T3弹匣"],
+      "armor": "T5防弹衣 + T5防弹头盔",
+      "backpack": "T4战术背包",
+      "consumables": ["T3医疗包", "T3能量饮料", "T2肾上腺素", "T1烟雾弹"],
+      "strategy": "主动寻找战斗，击败敌人获取更好装备"
+    },
+    "vip": {
+      "name": "VIP配置",
+      "budget": "300万+",
+      "weapon": {
+        "primary": "AS Val微声步枪",
+        "secondary": "R93狙击步枪",
+        "reason": "AS Val近距离无声击杀，R93远程狙击"
+      },
+      "attachments": ["T4夜视瞄具", "T4握把", "T4消音器", "T4弹匣"],
+      "armor": "T6防弹衣 + T6防弹头盔",
+      "backpack": "T5战术背包",
+      "consumables": ["T4医疗包", "T4能量饮料", "T3肾上腺素", "T2烟雾弹", "T1破片手雷"],
+      "strategy": "无敌配置，可以应对任何情况，适合高手"
+    }
+  },
+  "loadoutTips": {
+    "general": [
+      "根据地图选择武器：开阔地图用狙击步枪，城市地图用冲锋枪",
+      "弹药选择：PVE用高伤害弹，PVP用高穿透弹",
+      "防具等级：至少T4才能有效防御高等级弹药",
+      "背包容量：平衡携带物资和机动性"
+    ],
+    "weaponSelection": {
+      "closeRange": ["MP5", "P90", "Vector", "AS Val"],
+      "mediumRange": ["M4A1", "AKM", "K416", "CAR-15"],
+      "longRange": ["R93", "AWM", "SVD", "M700"],
+      "note": "根据交战距离选择武器"
+    },
+    "attachmentPriority": {
+      "first": "瞄具 - 影响瞄准速度和精度",
+      "second": "握把 - 影响后坐力控制",
+      "third": "枪口 - 影响后坐力和声音",
+      "note": "优先升级这三个配件"
+    }
+  }
+}

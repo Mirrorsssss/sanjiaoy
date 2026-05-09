@@ -1,0 +1,116 @@
+{
+  "meta": {
+    "game": "三角洲行动 (Delta Force: Hawk Ops)",
+    "version": "2024-2026",
+    "lastUpdated": "2026-05-09",
+    "source": "github.com/jiansenc/DeltaForceData, game-data.json"
+  },
+  "gameModes": {
+    "battlezone": {
+      "name": "烽火地带",
+      "nameEn": "Battlezone",
+      "description": "搜打撤核心玩法模式，搜索物资、战斗、撤离",
+      "features": ["物资搜索", "战斗撤离", "首领挑战", "武器安全箱"],
+      "difficulty": ["普通", "机密", "绝密"]
+    },
+    "fullScale": {
+      "name": "全面战场",
+      "nameEn": "Full Scale War",
+      "description": "大规模多人载具战斗模式",
+      "maps": ["工业码头", "乌姆斯运河", "穆达县", "卡塔拉绿洲", "荒漠出击"]
+    },
+    "ranked": {
+      "name": "竞技排位",
+      "nameEn": "Ranked",
+      "description": "公平竞技排位赛"
+    }
+  },
+  "battlezoneMaps": [
+    {
+      "id": "zero_dam",
+      "name": "零号大坝",
+      "nameEn": "Zero Dam",
+      "difficulty": ["普通", "机密", "绝密"],
+      "type": "烽火地带",
+      "description": "以大型水坝为主题的地图，地形复杂，适合伏击",
+      "keyLocations": ["大坝顶部", "发电机房", "控制室", "地下通道"],
+      "evacPoints": [
+        {"name": "大坝正门", "type": "标准撤离", "requirements": []},
+        {"name": "大坝顶部", "type": "绳降撤离", "requirements": []},
+        {"name": "地下通道", "type": "隐藏撤离", "requirements": ["可能需要钥匙卡"]}
+      ]
+    },
+    {
+      "id": "longbow_valley",
+      "name": "长弓溪谷",
+      "nameEn": "Longbow Valley",
+      "difficulty": ["普通", "机密", "绝密"],
+      "type": "烽火地带",
+      "description": "以峡谷地形为主题的地图，视野开阔，适合狙击",
+      "keyLocations": ["溪谷村庄", "雷达站", "通讯塔", "地下掩体"],
+      "evacPoints": [
+        {"name": "溪谷正门", "type": "标准撤离", "requirements": []},
+        {"name": "雷达站顶部", "type": "绳降撤离", "requirements": []},
+        {"name": "通讯塔", "type": "无线电撤离", "requirements": ["启动通讯设备"]}
+      ]
+    },
+    {
+      "id": "buckish",
+      "name": "巴克什",
+      "nameEn": "Buckish",
+      "difficulty": ["普通", "机密", "绝密"],
+      "type": "烽火地带",
+      "description": "城市作战地图，建筑密集，适合近战",
+      "keyLocations": ["行政楼", "商业区", "地下车库", "屋顶"],
+      "evacPoints": [
+        {"name": "行政楼前门", "type": "标准撤离", "requirements": []},
+        {"name": "地下车库", "type": "车辆撤离", "requirements": ["找到车辆钥匙"]},
+        {"name": "屋顶直升机", "type": "直升机撤离", "requirements": ["启动直升机"]}
+      ]
+    },
+    {
+      "id": "space_port",
+      "name": "航天基地",
+      "nameEn": "Space Port",
+      "difficulty": ["普通", "机密", "绝密"],
+      "type": "烽火地带",
+      "description": "航天发射基地地图，科技感强，地形复杂",
+      "keyLocations": ["发射台", "控制中心", "装配车间", "燃料库"],
+      "evacPoints": [
+        {"name": "基地正门", "type": "标准撤离", "requirements": []},
+        {"name": "发射台电梯", "type": "电梯撤离", "requirements": ["启动电梯电源"]},
+        {"name": "地下通道", "type": "隐藏撤离", "requirements": ["钥匙卡"]}
+      ]
+    },
+    {
+      "id": "tidal_prison",
+      "name": "潮汐监狱",
+      "nameEn": "Tidal Prison",
+      "difficulty": ["普通", "机密", "绝密"],
+      "type": "烽火地带",
+      "description": "海上监狱地图，多层结构，垂直作战",
+      "keyLocations": ["监狱正门", "监狱长办公室", "地下通道", "监狱顶部"],
+      "evacPoints": [
+        {"name": "监狱正门", "type": "标准撤离", "requirements": ["监狱正门钥匙卡"]},
+        {"name": "监狱侧门", "type": "侧门撤离", "requirements": ["监狱侧门钥匙卡"]},
+        {"name": "监狱顶部", "type": "绳降撤离", "requirements": ["监狱顶部钥匙卡"]},
+        {"name": "地下通道", "type": "隐藏撤离", "requirements": ["监狱地下通道钥匙卡"]}
+      ]
+    }
+  ],
+  "evacMechanics": {
+    "note": "撤离机制说明",
+    "types": [
+      {"type": "标准撤离", "description": "最简单，到达撤离点等待倒计时"},
+      {"type": "钥匙卡撤离", "description": "需要对应钥匙卡，可在局内搜索或购买"},
+      {"type": "启动设备撤离", "description": "需要启动设备（如无线电、电梯、直升机）"},
+      {"type": "隐藏撤离", "description": "需要发现隐藏撤离点，通常条件更苛刻"}
+    ],
+    "tips": [
+      "撤离倒计时会吸引其他玩家注意",
+      "优先规划撤离路线，不要贪恋物资",
+      "组队撤离时确保所有队员都到达撤离点",
+      "携带钥匙卡以备不时之需"
+    ]
+  }
+}
