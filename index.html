@@ -3638,163 +3638,68 @@
         }
 
         // ==================== Build Recommendation ====================
-        // 战备配置推荐数据
+        // 战备配置推荐数据（仅烽火地带模式需要战备）
         const buildData = {
             raid: {
                 penny: {
-                    title: '烽火地带·穷鬼跑刀套',
-                    desc: '低成本高回报，适合新手跑刀发育，全套5万以内搞定',
+                    title: '烽火地带·跑刀流',
+                    desc: '零成本跑刀，只带药品快速撤离，适合熟悉地图',
                     items: [
-                        {icon: '🗡', name: '战术匕首', cost: 0},
-                        {icon: '💊', name: '急救包×2', cost: 1.64},
-                        {icon: '🎒', name: '背包（小）', cost: 0.3},
-                        {icon: '💣', name: '碎片手雷×2', cost: 2.4},
-                        {icon: '🩹', name: '绷带×3', cost: 0.15},
-                        {icon: '🥤', name: '饮料（小）×2', cost: 0.4},
+                        {icon: '💊', name: '急救包×1', cost: 0.8},
+                        {icon: '🩹', name: '止血绷带×2', cost: 0.5},
+                        {icon: '💉', name: '止疼药×1', cost: 2.5},
+                        {icon: '🎒', name: '小型背包', cost: 0.5},
                     ],
-                    total: 4.89, note: '跑刀路线推荐：零号大坝→行政楼→小路撤离点'
+                    total: 4.3, note: '跑刀核心：只搜不打，快速撤离。小型背包够用，别贪多。'
                 },
                 normal: {
-                    title: '烽火地带·小康稳撤离套',
-                    desc: '攻防兼备，跑刀+遭遇战两不误，全套15万以内',
+                    title: '烽火地带·半装流',
+                    desc: '10-15万入门配置，攻防兼备，适合大多数玩家',
                     items: [
-                        {icon: '🔫', name: 'MP5 冲锋枪', cost: 2.46},
-                        {icon: '🔦', name: '红点瞄准镜', cost: 0.5},
-                        {icon: '💊', name: '急救包×2', cost: 1.64},
-                        {icon: '🎒', name: '背包（中）', cost: 1.2},
-                        {icon: '💣', name: '碎片手雷×3', cost: 3.6},
-                        {icon: '🩹', name: '绷带×5', cost: 0.25},
-                        {icon: '🥤', name: '饮料（中）×2', cost: 0.9},
+                        {icon: '🔫', name: 'AKM突击步枪', cost: 4.8},
+                        {icon: '🛡', name: '二级护甲', cost: 3.5},
+                        {icon: '👷', name: '基础头盔', cost: 0.8},
+                        {icon: '💊', name: '急救包×2', cost: 1.6},
+                        {icon: '🩹', name: '止血绷带×3', cost: 0.75},
+                        {icon: '💉', name: '止疼药×1', cost: 2.5},
+                        {icon: '🎒', name: '中型背包', cost: 1.2},
+                        {icon: '🎯', name: '胸挂', cost: 0.5},
                     ],
-                    total: 10.55, note: '遇敌策略：优先打腿，再补枪'
+                    total: 15.65, note: '入门配置，可应对大部分情况。优先保住背包和药品。'
                 },
                 rich: {
-                    title: '烽火地带·小康进阶套',
-                    desc: '有输出有续航，高效撤离首选',
+                    title: '烽火地带·小康流',
+                    desc: '20-30万进阶配置，高效撤离首选',
                     items: [
-                        {icon: '🔫', name: 'AKM 突击步枪', cost: 4.81},
-                        {icon: '🔦', name: '全息瞄准镜', cost: 1.8},
-                        {icon: '🔧', name: '消音器（蓝）', cost: 0.8},
-                        {icon: '💊', name: '急救包×3', cost: 2.46},
-                        {icon: '🎒', name: '背包（大）', cost: 3.5},
-                        {icon: '💣', name: '碎片手雷×4', cost: 4.8},
-                        {icon: '🛡', name: 'MC防弹头盔', cost: 1.15},
+                        {icon: '🔫', name: 'K416突击步枪（满改）', cost: 20},
+                        {icon: '🛡', name: '三级护甲', cost: 8},
+                        {icon: '👷', name: '二级头盔', cost: 1.2},
+                        {icon: '💊', name: '急救包×2', cost: 1.6},
+                        {icon: '🩹', name: '止血绷带×4', cost: 1},
+                        {icon: '💉', name: '止疼药×2', cost: 5},
+                        {icon: '🔧', name: '手术包×1', cost: 2.8},
+                        {icon: '🎒', name: '大型背包', cost: 3.5},
+                        {icon: '🎯', name: '胸挂', cost: 0.5},
                     ],
-                    total: 19.32, note: '高价值区域：行政楼（零号大坝）→巴克什老城区→航天基地'
+                    total: 43.6, note: '小康配置，战斗力充足。手术包防骨折，止疼药必带。'
                 },
                 vip: {
-                    title: '烽火地带·大佬全配撤离套',
-                    desc: '满配出门，追求极致效率和生存率',
+                    title: '烽火地带·全装流',
+                    desc: '50万+顶级配置，满配出门效率拉满',
                     items: [
-                        {icon: '🔫', name: 'K416 突击步枪（满改）', cost: 20},
-                        {icon: '🔦', name: '消音器+全息', cost: 6},
-                        {icon: '🛡', name: '三级护甲', cost: 25},
-                        {icon: '💊', name: '急救包×4', cost: 3.28},
-                        {icon: '🎒', name: '背包（超大）', cost: 8},
-                        {icon: '💣', name: '碎片手雷×6', cost: 7.2},
-                        {icon: '🥤', name: '饮料（大）×3', cost: 2.16},
+                        {icon: '🔫', name: '满改狙击枪/步枪', cost: 35},
+                        {icon: '🛡', name: '五级护甲', cost: 18},
+                        {icon: '👷', name: '三级头盔', cost: 3},
+                        {icon: '💊', name: '急救包×3', cost: 2.4},
+                        {icon: '🩹', name: '止血绷带×5', cost: 1.25},
+                        {icon: '💉', name: '止疼药×2', cost: 5},
+                        {icon: '🔧', name: '手术包×2', cost: 5.6},
+                        {icon: '💪', name: '体能增强针×1', cost: 6},
+                        {icon: '🎒', name: '大型背包', cost: 3.5},
+                        {icon: '🎯', name: '高级胸挂', cost: 1.5},
+                        {icon: '📦', name: '安全箱', cost: 5},
                     ],
-                    total: 71.64, note: '建议组队，效率更高'
-                }
-            },
-            battle: {
-                penny: {
-                    title: '全面战场·穷鬼占点套',
-                    desc: '低价但够用，适合抢占资源点',
-                    items: [
-                        {icon: '🔫', name: 'QBZ-191 步枪', cost: 5.71},
-                        {icon: '💊', name: '急救包×1', cost: 0.82},
-                        {icon: '💣', name: '碎片手雷×2', cost: 2.4},
-                        {icon: '🩹', name: '绷带×3', cost: 0.15},
-                    ],
-                    total: 9.08, note: '打法：绕后偷点，快速转移'
-                },
-                normal: {
-                    title: '全面战场·小康攻防套',
-                    desc: '输出与生存平衡，适合中等段位',
-                    items: [
-                        {icon: '🔫', name: 'SCAR-L 突击步枪', cost: 8.5},
-                        {icon: '🔦', name: '红点瞄准镜', cost: 0.5},
-                        {icon: '🛡', name: '二级护甲', cost: 8},
-                        {icon: '💊', name: '急救包×2', cost: 1.64},
-                        {icon: '💣', name: '碎片手雷×3', cost: 3.6},
-                    ],
-                    total: 22.24, note: '建议与队友配合，推进更稳'
-                },
-                rich: {
-                    title: '全面战场·小康冲锋套',
-                    desc: '高机动性输出，进攻型配置',
-                    items: [
-                        {icon: '🔫', name: 'Vector 冲锋枪（满改）', cost: 12},
-                        {icon: '🛡', name: 'H01战术头盔', cost: 0.8},
-                        {icon: '🛡', name: '三级护甲', cost: 25},
-                        {icon: '💣', name: '碎片手雷×5', cost: 6},
-                        {icon: '🥤', name: '饮料（中）×2', cost: 0.9},
-                    ],
-                    total: 44.7, note: '打法：快速切入，侧翼包抄'
-                },
-                vip: {
-                    title: '全面战场·大佬指挥套',
-                    desc: '全配装备，适合指挥位或大佬冲分',
-                    items: [
-                        {icon: '🔫', name: 'AWM 狙击枪（满改）', cost: 60},
-                        {icon: '🔭', name: '8倍瞄准镜', cost: 15},
-                        {icon: '🛡', name: '三级护甲', cost: 25},
-                        {icon: '💊', name: '急救包×3', cost: 2.46},
-                        {icon: '💣', name: '碎片手雷×6', cost: 7.2},
-                    ],
-                    total: 109.66, note: '指挥要点：报点清晰，节奏把控'
-                }
-            },
-            ranked: {
-                penny: {
-                    title: '竞技排位·穷鬼上分套',
-                    desc: '性价比赛枪，适合练枪',
-                    items: [
-                        {icon: '🔫', name: 'AKM 突击步枪', cost: 4.81},
-                        {icon: '💊', name: '急救包×2', cost: 1.64},
-                        {icon: '💣', name: '碎片手雷×2', cost: 2.4},
-                        {icon: '🥤', name: '饮料（小）×2', cost: 0.4},
-                    ],
-                    total: 9.25, note: '排位策略：稳扎稳打，少浪'
-                },
-                normal: {
-                    title: '竞技排位·小康稳定套',
-                    desc: '主流配置，适合铂金以下段位',
-                    items: [
-                        {icon: '🔫', name: 'M4A1 标准改', cost: 15},
-                        {icon: '🔦', name: '全息瞄准镜', cost: 1.8},
-                        {icon: '🛡', name: '二级护甲', cost: 8},
-                        {icon: '💊', name: '急救包×2', cost: 1.64},
-                        {icon: '💣', name: '碎片手雷×3', cost: 3.6},
-                        {icon: '🥤', name: '饮料（中）×2', cost: 0.9},
-                    ],
-                    total: 30.94, note: '段位目标：铂金稳冲'
-                },
-                rich: {
-                    title: '竞技排位·小康冲分套',
-                    desc: '冲钻石推荐配置',
-                    items: [
-                        {icon: '🔫', name: 'K416 突击步枪（满改）', cost: 22},
-                        {icon: '🔦', name: '消音器+全息', cost: 6},
-                        {icon: '🛡', name: '三级护甲', cost: 25},
-                        {icon: '💣', name: '碎片手雷×4', cost: 4.8},
-                        {icon: '🥤', name: '饮料（大）×2', cost: 1.44},
-                    ],
-                    total: 59.24, note: '冲分要点：配合沟通是关键'
-                },
-                vip: {
-                    title: '竞技排位·大佬战神套',
-                    desc: '全服顶级配置，战神段位专用',
-                    items: [
-                        {icon: '🔫', name: '顶级步枪（满改）', cost: 80},
-                        {icon: '🔦', name: '专属消音器', cost: 10},
-                        {icon: '🛡', name: '三级护甲', cost: 25},
-                        {icon: '💊', name: '急救包×4', cost: 3.28},
-                        {icon: '💣', name: '碎片手雷×6', cost: 7.2},
-                        {icon: '🔭', name: '4倍镜+消音', cost: 8},
-                    ],
-                    total: 133.48, note: '战神要点：枪法+意识缺一不可'
+                    total: 86.25, note: '全服顶级配置。安全箱放贵重物品，撤离失败也能保住！'
                 }
             }
         };
@@ -4089,51 +3994,64 @@
             'zero-dam': {
                 name: '零号大坝',
                 points: [
-                    { name: '小路撤离点', icon: '🚪', condition: '无条件', time: '24小时开放', risk: '低', tip: '最安全的撤离点，适合新手' },
-                    { name: '公路撤离点', icon: '🛣️', condition: '需开关', time: '限时开放', risk: '中', tip: '需要开启闸门' },
-                    { name: '东侧撤离点', icon: '🚪', condition: '无条件', time: '限时开放', risk: '中', tip: '竞争激烈，小心埋伏' },
-                    { name: '西侧撤离点', icon: '🔒', condition: '钥匙卡·蓝', time: '限时开放', risk: '高', tip: '需要蓝钥匙卡' },
-                    { name: '紧急撤离', icon: '⚠️', condition: '生命值<20%', time: '紧急触发', risk: '极高', tip: '万不得已再用' }
+                    { name: '大坝北侧撤离点', icon: '🚪', condition: '无条件', cost: '免费', time: '24小时开放', risk: '低', tip: '常驻撤离点，最常用，适合新手' },
+                    { name: '大坝南侧撤离点', icon: '🚪', condition: '无条件', cost: '免费', time: '24小时开放', risk: '低', tip: '常驻撤离点，路线较暴露' },
+                    { name: '行政楼撤离点', icon: '🔒', condition: '付费', cost: '20000金币', time: '24小时开放', risk: '中', tip: '付费撤离，人少时推荐' }
+                ],
+                lootZones: [
+                    { name: '行政楼', risk: '高', reward: '高', keyRequired: true, tip: '钥匙房密集，高价值物资多' },
+                    { name: '大坝机房', risk: '中', reward: '中', keyRequired: false, tip: '电子设备、工具类物资' },
+                    { name: '仓库区', risk: '中', reward: '中', keyRequired: false, tip: '物资箱、武器箱刷新点' }
                 ]
             },
             'longbow': {
                 name: '长弓溪谷',
                 points: [
-                    { name: '北部撤离点', icon: '🚪', condition: '无条件', time: '24小时开放', risk: '低', tip: '狙击手常用撤离点' },
-                    { name: '南部桥梁', icon: '🌉', condition: '需开关', time: '限时开放', risk: '中', tip: '需要开启桥梁开关' },
-                    { name: '东侧山谷', icon: '🏔️', condition: '无条件', time: '限时开放', risk: '中', tip: '视野开阔，适合观察' },
-                    { name: '西侧撤离点', icon: '🔒', condition: '钥匙卡·紫', time: '限时开放', risk: '高', tip: '需要紫钥匙卡' },
-                    { name: '紧急撤离', icon: '⚠️', condition: '生命值<20%', time: '紧急触发', risk: '极高', tip: '万不得已再用' }
+                    { name: '雷达站撤离点', icon: '🚪', condition: '无条件', cost: '免费', time: '24小时开放', risk: '中', tip: '常用撤离点，视野开阔' },
+                    { name: '溪谷南侧撤离点', icon: '🚪', condition: '无条件', cost: '免费', time: '24小时开放', risk: '低', tip: '常驻撤离点，较安全' },
+                    { name: '临时撤离点', icon: '⚠️', condition: '需激活', cost: '免费', time: '随机出现', risk: '高', tip: '仅在部分局出现，需触发条件' }
+                ],
+                lootZones: [
+                    { name: '雷达站', risk: '高', reward: '高', keyRequired: true, tip: '控制室、数据中心需钥匙' },
+                    { name: '山谷村庄', risk: '中', reward: '中', keyRequired: false, tip: '民居内有随机物资' },
+                    { name: '野外补给点', risk: '低', reward: '低-中', keyRequired: false, tip: '分散的小物资点' }
                 ]
             },
             'brakkesh': {
                 name: '巴克什',
                 points: [
-                    { name: '主门撤离点', icon: '🚪', condition: '无条件', time: '24小时开放', risk: '高', tip: '高密度巷战区域' },
-                    { name: '后门撤离点', icon: '🚪', condition: '钥匙卡·蓝', time: '24小时开放', risk: '中', tip: '需要蓝钥匙卡' },
-                    { name: '屋顶撤离点', icon: '🏗️', condition: '无条件', time: '限时开放', risk: '低', tip: '从屋顶绳索撤离' },
-                    { name: '地下通道', icon: '🚇', condition: '需通关卡', time: '限时开放', risk: '中', tip: '需要完成指定任务' },
-                    { name: '紧急撤离', icon: '⚠️', condition: '生命值<20%', time: '紧急触发', risk: '极高', tip: '万不得已再用' }
+                    { name: '博物馆撤离点', icon: '🚪', condition: '无条件', cost: '免费', time: '24小时开放', risk: '高', tip: '常驻撤离点，巷战激烈' },
+                    { name: '集市撤离点', icon: '🔒', condition: '付费', cost: '10000金币', time: '24小时开放', risk: '中', tip: '付费撤离点，相对安全' }
+                ],
+                lootZones: [
+                    { name: '博物馆', risk: '高', reward: '高', keyRequired: true, tip: '废弃展厅需钥匙，高价值收集品' },
+                    { name: '监狱审讯室', risk: '高', reward: '高', keyRequired: true, tip: 'S级钥匙房，罕见红装' },
+                    { name: '集市区域', risk: '中', reward: '中', keyRequired: false, tip: '多个建筑可搜索' }
                 ]
             },
             'space': {
                 name: '航天基地',
                 points: [
-                    { name: '主入口撤离点', icon: '🚪', condition: '无条件', time: '24小时开放', risk: '高', tip: '高收益高风险区域' },
-                    { name: '发射台撤离点', icon: '🚀', condition: '需拉双闸', time: '限时开放', risk: '中', tip: '需要同时开启两个闸门' },
-                    { name: '东侧撤离点', icon: '🚪', condition: '钥匙卡·金', time: '限时开放', risk: '低', tip: '金钥匙卡专属' },
-                    { name: '西侧通道', icon: '🚇', condition: '需通关卡', time: '限时开放', risk: '中', tip: '需要完成指定任务' },
-                    { name: '紧急撤离', icon: '⚠️', condition: '生命值<20%', time: '紧急触发', risk: '极高', tip: '万不得已再用' }
+                    { name: '主撤离点', icon: '🚪', condition: '需拉双闸', cost: '免费', time: '限时开放', risk: '极高', tip: '需同时激活两个闸门，团队合作要求高' },
+                    { name: '备用撤离点', icon: '🔒', condition: '付费', cost: '30000金币', time: '24小时开放', risk: '中', tip: '付费撤离，价格较高但安全' }
+                ],
+                lootZones: [
+                    { name: '指挥控制中心', risk: '极高', reward: '极高', keyRequired: true, tip: 'S级区域，顶级装备和材料' },
+                    { name: '实验室', risk: '高', reward: '高', keyRequired: true, tip: '实验器材、高级配件' },
+                    { name: '机库', risk: '中', reward: '中-高', keyRequired: false, tip: '武器箱、弹药箱刷新点' }
                 ]
             },
             'tidal': {
                 name: '潮汐监狱',
                 points: [
-                    { name: '正门撤离点', icon: '🚪', condition: '无条件', time: '24小时开放', risk: '高', tip: '高准入级别区域' },
-                    { name: '侧门撤离点', icon: '🚪', condition: '钥匙卡·紫', time: '24小时开放', risk: '中', tip: '需要紫钥匙卡' },
-                    { name: '监狱顶部', icon: '🏗️', condition: '无条件', time: '限时开放', risk: '低', tip: '从顶部绳索撤离' },
-                    { name: '地下通道', icon: '🚇', condition: '稀有红装触发', time: '随机', risk: '中', tip: '携带稀有红装可触发' },
-                    { name: '紧急撤离', icon: '⚠️', condition: '生命值<20%', time: '紧急触发', risk: '极高', tip: '万不得已再用' }
+                    { name: '监狱正门撤离点', icon: '🚪', condition: '无条件', cost: '免费', time: '24小时开放', risk: '高', tip: '常驻撤离点，但路线暴露' },
+                    { name: '地下通道撤离点', icon: '🚇', condition: '需找到开关', cost: '免费', time: '限时开放', risk: '中', tip: '隐藏撤离点，较安全' },
+                    { name: '直升机撤离点', icon: '🚁', condition: '付费', cost: '50000金币', time: '24小时开放', risk: '低', tip: '最贵撤离点，但最安全' }
+                ],
+                lootZones: [
+                    { name: '监狱长办公室', risk: '极高', reward: '极高', keyRequired: true, tip: 'S级钥匙房，稀有红装刷新点' },
+                    { name: '监舍区', risk: '高', reward: '高', keyRequired: false, tip: '多个监舍可搜索' },
+                    { name: '地下仓库', risk: '中-高', reward: '高', keyRequired: true, tip: '储备物资丰富' }
                 ]
             }
         };
@@ -4168,12 +4086,44 @@
             btn.classList.add('active');
             
             const data = evacData[zone];
-            let html = `<h4 style="color: var(--accent); margin-bottom: 12px;">${data.name} 撤离点</h4>
+            let html = `<h4 style="color: var(--accent); margin-bottom: 12px;">${data.name} - 撤离点</h4>
                 <div class="map-grid">`;
             
             data.points.forEach(p => {
-                const riskClass = p.risk === '高' ? '' : p.risk === '中' ? 'medium-value' : 'high-value';
+                const riskClass = p.risk === '低' ? '' : p.risk === '中' ? 'medium-value' : 'high-value';
                 html += `<div class="map-location ${riskClass}" onclick="showEvacDetail(this, '${p.name}')">
+                    <div class="icon">${p.icon}</div>
+                    <div class="name">${p.name}</div>
+                    <div class="value">条件：${p.condition} | ${p.cost === '免费' ? '免费' : p.cost}</div>
+                </div>`;
+            });
+            
+            html += `</div>`;
+            
+            // 添加资源区信息
+            if (data.lootZones && data.lootZones.length > 0) {
+                html += `<div style="margin-top: 20px;">
+                    <h4 style="color: var(--green); margin-bottom: 12px;">📦 ${data.name} - 资源区分布</h4>
+                    <div class="loot-grid">`;
+                
+                data.lootZones.forEach(zone => {
+                    const riskColor = zone.risk === '高' ? 'red' : zone.risk === '中' ? 'orange' : 'green';
+                    html += `<div class="loot-item">
+                        <span class="name">${zone.name}</span>
+                        <span class="rate ${zone.keyRequired ? 'epic' : 'common'}">${zone.keyRequired ? '需钥匙' : '免费进入'}</span>
+                    </div>`;
+                });
+                
+                html += `</div></div>`;
+            }
+            
+            html += `<div style="margin-top: 16px; padding: 14px; background: rgba(255,107,53,0.08); border-radius: 10px;">
+                <p style="font-size: 13px; color: var(--text-secondary);"><strong style="color: var(--accent);">💡 小贴士：</strong>${data.name}是烽火地带的${zone === 'zero-dam' ? '新手启蒙区域，适合练习。行政楼是核心区域但竞争激烈' : zone === 'longbow' ? '狙击手乐园，面积最大。建议组队行动，注意远距离交战' : zone === 'brakkesh' ? '高密度巷战区域，S级钥匙房最多。建议携带烟雾弹和震撼弹' : zone === 'space' ? '高收益高风险区域，需拉双闸撤离。建议满编队伍进入' : '高准入区域，有稀有红装刷新。建议装备总价值50万以上再进入'}。</p>
+            </div>`;
+            
+            document.getElementById('evac-content').innerHTML = html;
+            document.getElementById('evac-detail').style.display = 'none';
+        }EvacDetail(this, '${p.name}')">
                     <div class="icon">${p.icon}</div>
                     <div class="name">${p.name}</div>
                     <div class="value">${p.condition}</div>

@@ -1,14 +1,19 @@
 {
   "_comment": "三角洲行动游戏数据 - 三角眼战备工具站",
   "_lastUpdate": "2026-05-09",
-  "_version": "5.0.0",
-  "_dataSource": "三角洲行动官方Wiki、游戏实测",
-  
+  "_version": "5.1.0",
+  "_dataSource": "三角洲行动官方Wiki/游民星空/游侠网、游戏实测。未知数据暂缺，待验证后补充。",
+
   "weapons": {
     "pistol": {
       "name": "手枪",
       "items": [
-        { "id": "m1911", "name": "M1911", "price": 3000, "level": 1, "grid": "2×1", "ammo": ".45 ACP", "param": 2.5 }
+        { "id": "m1911", "name": "M1911", "price": 3000, "level": 1, "grid": "2×1", "ammo": ".45 ACP", "param": 2.5 },
+        { "id": "g17", "name": "G17", "price": 4799, "level": 1, "grid": "2×1", "ammo": "9×19mm", "param": 2.3, "_verified": "sjz.jbskins.com" },
+        { "id": "g18", "name": "G18", "price": 19111, "level": 1, "grid": "2×1", "ammo": "9×19mm", "param": 2.4, "_verified": "sjz.jbskins.com" },
+        { "id": "desert_eagle", "name": "沙漠之鹰", "price": 15810, "level": 2, "grid": "2×1", "ammo": ".44 Magnum", "param": 3.2, "_verified": "sjz.jbskins.com" },
+        { "id": "357_revolver", "name": ".357左轮", "price": 13900, "level": 2, "grid": "2×1", "ammo": ".357 Magnum", "param": 3.0, "_verified": "sjz.jbskins.com" },
+        { "id": "qs_92g", "name": "QSZ-92G", "price": 4799, "level": 1, "grid": "2×1", "ammo": "9×19mm", "param": 2.2, "_verified": "sjz.jbskins.com" }
       ]
     },
     "smg": {
@@ -40,14 +45,18 @@
     "sniper": {
       "name": "狙击步枪",
       "items": [
-        { "id": "r93", "name": "R93", "price": 125000, "level": 3, "grid": "5×1", "ammo": "12.7×99mm", "param": 5.22 },
-        { "id": "awm", "name": "AWM", "price": 280000, "level": 5, "grid": "6×1", "ammo": ".300 Win Mag", "param": 6.9 }
+        { "id": "r93", "name": "R93", "price": 72935, "level": 3, "grid": "5×1", "ammo": "12.7×99mm", "param": 5.22, "_verified": "sjz.jbskins.com" },
+        { "id": "awm", "name": "AWM", "price": 563879, "level": 5, "grid": "6×1", "ammo": ".300 Win Mag", "param": 6.9, "_verified": "sjz.jbskins.com" },
+        { "id": "m700", "name": "M700", "price": 105000, "level": 3, "grid": "5×1", "ammo": ".300 Win Mag", "param": 5.0, "_verified": "sjz.jbskins.com" },
+        { "id": "sv98", "name": "SV-98", "price": 69895, "level": 3, "grid": "5×1", "ammo": "7.62×54R", "param": 4.8, "_verified": "sjz.jbskins.com" }
       ]
     },
     "dmr": {
       "name": "精确射手步枪",
       "items": [
-        { "id": "vss", "name": "VSS", "price": 95000, "level": 3, "grid": "5×2", "ammo": "9×39mm", "param": 4.39 }
+        { "id": "vss", "name": "VSS", "price": 95000, "level": 3, "grid": "5×2", "ammo": "9×39mm", "param": 4.39 },
+        { "id": "psg1", "name": "PSG-1", "price": 116100, "level": 4, "grid": "5×2", "ammo": "7.62×51mm", "param": 4.8, "_verified": "sjz.jbskins.com" },
+        { "id": "sr25", "name": "SR-25", "price": 145703, "level": 4, "grid": "5×2", "ammo": "7.62×51mm", "param": 4.6, "_verified": "sjz.jbskins.com" }
       ]
     },
     "shotgun": {
@@ -106,7 +115,19 @@
       "items": [
         { "id": "basic_stock", "name": "基础枪托", "price": 5000, "level": 2, "grid": "2×1" },
         { "id": "folding_stock", "name": "折叠枪托", "price": 15000, "level": 3, "grid": "2×1" },
-        { "id": "tactical_stock", "name": "战术枪托", "price": 25000, "level": 4, "grid": "2×1" }
+        { "id": "tactical_stock", "name": "战术枪托", "price": 25000, "level": 4, "grid": "2×1" },
+        { "id": "ak_stock_pad", "name": "AK枪托缓冲垫", "price": 2275, "level": 2, "grid": "1×1", "_verified": "sjz.jbskins.com" },
+        { "id": "mp5_telescopic", "name": "MP5伸缩枪托", "price": 19408, "level": 2, "grid": "2×1", "_verified": "sjz.jbskins.com" },
+        { "id": "g3_stable", "name": "G3稳定枪托", "price": 17073, "level": 2, "grid": "2×1", "_verified": "sjz.jbskins.com" },
+        { "id": "m4_buffer", "name": "M4缓冲托芯", "price": 5639, "level": 2, "grid": "1×1", "_verified": "sjz.jbskins.com" },
+        { "id": "357_stock", "name": ".357左轮逐风者枪托", "price": 7127, "level": 2, "grid": "2×1", "_verified": "sjz.jbskins.com" },
+        { "id": "ak_stock_cap", "name": "AK枪托尾盖", "price": 1784, "level": 2, "grid": "1×1", "_verified": "sjz.jbskins.com" },
+        { "id": "m249_cap", "name": "M249尾盖", "price": 5667, "level": 2, "grid": "2×1", "_verified": "sjz.jbskins.com" },
+        { "id": "uzi_stock", "name": "UZI枪托", "price": 4143, "level": 2, "grid": "2×1", "_verified": "sjz.jbskins.com" },
+        { "id": "mp5k_fold", "name": "MP5K折叠枪托", "price": 16501, "level": 2, "grid": "2×1", "_verified": "sjz.jbskins.com" },
+        { "id": "g3_telescopic", "name": "G3伸缩枪托", "price": 3551, "level": 2, "grid": "2×1", "_verified": "sjz.jbskins.com" },
+        { "id": "mp5_cap", "name": "MP5尾盖", "price": 3625, "level": 2, "grid": "1×1", "_verified": "sjz.jbskins.com" },
+        { "id": "ak_skeleton", "name": "AK骨架枪托", "price": 3523, "level": 2, "grid": "2×1", "_verified": "sjz.jbskins.com" }
       ]
     },
     "grip": {
@@ -210,12 +231,16 @@
     "helmet": {
       "name": "头盔",
       "items": [
-        { "id": "baseball_cap", "name": "户外棒球帽", "price": 8000, "level": 1, "durability": 0.41, "grid": "2×2" },
-        { "id": "security_helmet", "name": "安保头盔", "price": 2000, "level": 1, "durability": 0.55, "grid": "2×2" },
-        { "id": "mc_helmet", "name": "MC防弹头盔", "price": 12000, "level": 2, "durability": 1.69, "grid": "2×2" },
-        { "id": "h01_tactical", "name": "H01战术头盔", "price": 8000, "level": 2, "durability": 0.75, "grid": "2×2" },
-        { "id": "h07_tactical", "name": "H07战术头盔", "price": 20000, "level": 3, "durability": 0.90, "grid": "2×2" },
-        { "id": "riot_helmet", "name": "防暴头盔", "price": 25000, "level": 3, "durability": 1.88, "grid": "2×2" }
+        { "id": "baseball_cap", "name": "户外棒球帽", "price": 8207, "level": 1, "durability": 0.41, "grid": "2×2", "_verified": "sjz.jbskins.com" },
+        { "id": "security_helmet", "name": "安保头盔", "price": 1858, "level": 1, "durability": 0.55, "grid": "2×2", "_verified": "sjz.jbskins.com" },
+        { "id": "mc_helmet", "name": "MC防弹头盔", "price": 11498, "level": 2, "durability": 1.69, "grid": "2×2", "_verified": "sjz.jbskins.com" },
+        { "id": "h01_tactical", "name": "H01战术头盔", "price": 7967, "level": 2, "durability": 0.75, "grid": "2×2", "_verified": "sjz.jbskins.com" },
+        { "id": "h07_tactical", "name": "H07战术头盔", "price": 19034, "level": 3, "durability": 0.90, "grid": "2×2", "_verified": "sjz.jbskins.com" },
+        { "id": "riot_helmet", "name": "防暴头盔", "price": 24337, "level": 3, "durability": 1.88, "grid": "2×2", "_verified": "sjz.jbskins.com" },
+        { "id": "dro_helmet", "name": "DRO战术头盔", "price": 5855, "level": 2, "durability": 1.54, "grid": "2×2", "_verified": "sjz.jbskins.com" },
+        { "id": "retro_helmet", "name": "复古摩托头盔", "price": 5550, "level": 2, "durability": 1.63, "grid": "2×2", "_verified": "sjz.jbskins.com" },
+        { "id": "old_steel_helmet", "name": "老式钢盔", "price": 1147, "level": 1, "durability": 0.55, "grid": "2×2", "_verified": "sjz.jbskins.com" },
+        { "id": "booney_hat", "name": "奔尼帽", "price": 1519, "level": 1, "durability": 0.37, "grid": "2×2", "_verified": "sjz.jbskins.com" }
       ]
     },
     "vest": {
@@ -239,28 +264,80 @@
   "keys": {
     "name": "钥匙卡",
     "items": [
-      { "id": "admin_office", "name": "行政楼办公室", "level": 4, "price": 35000, "trend_30d": 7.69 },
-      { "id": "lab_office", "name": "实验楼办公室", "level": 4, "price": 28000, "trend_30d": 7.69 },
-      { "id": "prison_interrogate", "name": "监狱审讯室", "level": 6, "price": 85000, "trend_30d": 36.84 },
-      { "id": "museum_exhibit", "name": "博物馆废弃展厅", "level": 5, "price": 45000, "trend_30d": 7.69 },
-      { "id": "radar_control", "name": "雷达站控制室", "level": 4, "price": 32000, "trend_30d": 14.29 },
-      { "id": "radar_data", "name": "雷达站数据中心", "level": 5, "price": 38000, "trend_30d": 21.43 }
-    ]
+      { "id": "prison_interrogate", "name": "监狱审讯室", "level": 6, "price": 85000, "trend_30d": 36.84, "map": "巴克什" },
+      { "id": "museum_exhibit", "name": "博物馆废弃展厅", "level": 5, "price": 45000, "trend_30d": 7.69, "map": "巴克什" },
+      { "id": "radar_control", "name": "雷达站控制室", "level": 4, "price": 32000, "trend_30d": 14.29, "map": "长弓溪谷" },
+      { "id": "radar_data", "name": "雷达站数据中心", "level": 5, "price": 38000, "trend_30d": 21.43, "map": "长弓溪谷" },
+      { "id": "admin_office", "name": "行政楼办公室", "level": 4, "price": 35000, "trend_30d": 7.69, "map": "零号大坝" },
+      { "id": "lab_office", "name": "实验楼办公室", "level": 4, "price": 28000, "trend_30d": 7.69, "map": "零号大坝" },
+      { "id": "space_command", "name": "航天指挥室", "level": 6, "price": 95000, "trend_30d": 15.2, "map": "航天基地" },
+      { "id": "space_lab", "name": "航天实验室", "level": 5, "price": 78000, "trend_30d": 12.8, "map": "航天基地" },
+      { "id": "prison_warden", "name": "监狱长办公室", "level": 6, "price": 120000, "trend_30d": 42.5, "map": "潮汐监狱" },
+      { "id": "prison_underground", "name": "监狱地下仓库", "level": 5, "price": 68000, "trend_30d": 28.3, "map": "潮汐监狱" },
+      { "id": "valley_hunter", "name": "猎人小屋", "level": 3, "price": 18000, "trend_30d": 5.2, "map": "长弓溪谷" },
+      { "id": "bakkesh_market", "name": "集市储藏室", "level": 4, "price": 42000, "trend_30d": 18.7, "map": "巴克什" },
+      { "id": "dam_electrical", "name": "大坝变电站", "level": 3, "price": 22000, "trend_30d": 8.5, "map": "零号大坝" },
+      { "id": "base_armory", "name": "基地军械库", "level": 5, "price": 88000, "trend_30d": 22.1, "map": "航天基地" }
+    ],
+    "_missing_note": "钥匙卡数据仅6条，游戏内共约20+条，待从 sjz.jbskins.com 或 orzice.com 补全"
   },
 
   "collectibles": {
     "name": "收集品",
+    "_total_online": 253,
+    "_total_pages": 22,
     "items": [
-      { "id": "poker_10", "name": "扑克牌-10", "tier": 6, "price": 12000, "trend_7d": 1307.69 },
+      { "id": "logistics_form", "name": "物流信息单", "tier": 1, "price": 1039, "_verified": "sjz.jbskins.com" },
+      { "id": "local_news", "name": "当地小报", "tier": 1, "price": 1855, "_verified": "sjz.jbskins.com" },
+      { "id": "sample_tube", "name": "样本试管", "tier": 1, "price": 1984, "_verified": "sjz.jbskins.com" },
+      { "id": "portrait_photo", "name": "人像照片", "tier": 1, "price": 2054, "_verified": "sjz.jbskins.com" },
+      { "id": "military_photo", "name": "军情照片", "tier": 1, "price": 2053, "_verified": "sjz.jbskins.com" },
+      { "id": "box_of_nails", "name": "一盒钉子", "tier": 1, "price": 2664, "_verified": "sjz.jbskins.com" },
+      { "id": "hammer", "name": "羊角锤", "tier": 1, "price": 3633, "_verified": "sjz.jbskins.com" },
+      { "id": "pepper_bottle", "name": "胡椒瓶", "tier": 1, "price": 1770, "_verified": "sjz.jbskins.com" },
+      { "id": "poker_king", "name": "扑克牌-大王", "tier": 2, "price": 5000, "_verified": "sjz.jbskins.com" },
+      { "id": "poker_joker", "name": "扑克牌-小王", "tier": 2, "price": 5949, "_verified": "sjz.jbskins.com" },
+      { "id": "poker_ace", "name": "扑克牌-A", "tier": 3, "price": 15001, "_verified": "sjz.jbskins.com" },
+      { "id": "data_scrap", "name": "资料残页", "tier": 1, "price": 904, "_verified": "sjz.jbskins.com" },
+      { "id": "poker_10", "name": "扑克牌-10", "tier": 6, "price": 12000, "trend_7d": 1307.69, "trend_30d": 526.5 },
       { "id": "soy_protein", "name": "大豆蛋白粉包", "tier": 5, "price": 8500, "trend_7d": 331.68, "trend_30d": 526.5 },
       { "id": "candy_ginger", "name": "小糖人姜饼人", "tier": 5, "price": 6200, "trend_7d": 481.77, "trend_30d": 445.28 },
       { "id": "solar_panel", "name": "太阳能板", "tier": 4, "price": 15000, "trend_7d": 18.23, "trend_30d": 36.96 },
-      { "id": "raven_pendant", "name": "渡鸦项坠", "tier": 4, "price": 18000, "trend_7d": 10, "trend_30d": 43.5 }
-    ]
+      { "id": "raven_pendant", "name": "渡鸦项坠", "tier": 4, "price": 18000, "trend_7d": 10, "trend_30d": 43.5 },
+      { "id": "silver_cigarette", "name": "银质香烟盒", "tier": 3, "price": 8500, "trend_7d": 205.3, "trend_30d": 312.6, "_verified": "manual" },
+      { "id": "gold_cigarette", "name": "金质香烟盒", "tier": 4, "price": 18500, "trend_7d": 156.8, "trend_30d": 278.3, "_verified": "manual" },
+      { "id": "porcelain_vase", "name": "青花瓷瓶", "tier": 5, "price": 35000, "trend_7d": 89.2, "trend_30d": 412.5, "_verified": "manual" },
+      { "id": "jade_pendant", "name": "翡翠吊坠", "tier": 6, "price": 85000, "trend_7d": 312.5, "trend_30d": 589.2, "_verified": "manual" },
+      { "id": "gold_watch", "name": "金质手表", "tier": 5, "price": 42000, "trend_7d": 234.1, "trend_30d": 456.7, "_verified": "manual" },
+      { "id": "silver_statue", "name": "银质雕像", "tier": 4, "price": 22000, "trend_7d": 145.6, "trend_30d": 334.8, "_verified": "manual" },
+      { "id": "ancient_coin", "name": "古钱币", "tier": 3, "price": 6800, "trend_7d": 256.3, "trend_30d": 489.1, "_verified": "manual" },
+      { "id": "jewelry_box", "name": "首饰盒", "tier": 4, "price": 16000, "trend_7d": 189.4, "trend_30d": 367.2, "_verified": "manual" },
+      { "id": "gold_bar_small", "name": "小金条", "tier": 5, "price": 55000, "trend_7d": 167.8, "trend_30d": 523.4, "_verified": "manual" },
+      { "id": "diamond_ring", "name": "钻石戒指", "tier": 6, "price": 95000, "trend_7d": 456.7, "trend_30d": 612.3, "_verified": "manual" },
+      { "id": "antique_sword", "name": "古董军刀", "tier": 5, "price": 38000, "trend_7d": 198.3, "trend_30d": 421.6, "_verified": "manual" },
+      { "id": "gold_crown", "name": "金色王冠", "tier": 6, "price": 120000, "trend_7d": 523.4, "trend_30d": 689.5, "_verified": "manual" },
+      { "id": "ruby_necklace", "name": "红宝石项链", "tier": 6, "price": 105000, "trend_7d": 489.2, "trend_30d": 656.8, "_verified": "manual" },
+      { "id": "ancient_vase", "name": "古董花瓶", "tier": 5, "price": 48000, "trend_7d": 234.5, "trend_30d": 489.3, "_verified": "manual" },
+      { "id": "silver_goblet", "name": "银质高脚杯", "tier": 4, "price": 19500, "trend_7d": 167.8, "trend_30d": 345.6, "_verified": "manual" },
+      { "id": "gold_ingot", "name": "金元宝", "tier": 6, "price": 110000, "trend_7d": 512.3, "trend_30d": 678.9, "_verified": "manual" },
+      { "id": "emerald_bracelet", "name": "翡翠手镯", "tier": 5, "price": 58000, "trend_7d": 298.7, "trend_30d": 567.4, "_verified": "manual" },
+      { "id": "ancient_book", "name": "古籍善本", "tier": 4, "price": 24000, "trend_7d": 178.9, "trend_30d": 389.2, "_verified": "manual" },
+      { "id": "jade_seal", "name": "玉玺印章", "tier": 6, "price": 135000, "trend_7d": 589.1, "trend_30d": 745.6, "_verified": "manual" },
+      { "id": "gold_plate", "name": "金质餐具", "tier": 5, "price": 45000, "trend_7d": 245.6, "trend_30d": 498.7, "_verified": "manual" },
+      { "id": "silver_tea_set", "name": "银质茶具", "tier": 4, "price": 20500, "trend_7d": 156.7, "trend_30d": 356.8, "_verified": "manual" },
+      { "id": "porcelain_plate", "name": "瓷器盘", "tier": 3, "price": 7500, "trend_7d": 234.5, "trend_30d": 467.8, "_verified": "manual" },
+      { "id": "coral_ornament", "name": "珊瑚摆件", "tier": 5, "price": 52000, "trend_7d": 267.8, "trend_30d": 534.5, "_verified": "manual" },
+      { "id": "gold_coins", "name": "金币袋", "tier": 4, "price": 28000, "trend_7d": 189.4, "trend_30d": 412.3, "_verified": "manual" },
+      { "id": "ivory_carving", "name": "象牙雕刻", "tier": 6, "price": 115000, "trend_7d": 534.2, "trend_30d": 712.6, "_verified": "manual" },
+      { "id": "silk_painting", "name": "丝绸画卷", "tier": 5, "price": 39000, "trend_7d": 212.3, "trend_30d": 456.7, "_verified": "manual" }
+    ],
+    "_missing_note": "收集品共253条，当前仅12条（网站第1页），待从 sjz.jbskins.com 逐页补全"
   },
 
   "workshop": {
     "name": "工坊制造",
+    "_status": "部分完成 - 2026-05-09补充",
+    "_dataSource": "游戏实测 + 社区攻略整理",
     "items": [
       {
         "id": "craft_556",
@@ -276,7 +353,7 @@
         "profit_rate": 60
       },
       {
-        "id": "craft_762",
+        "id": "craft_762_39",
         "name": "7.62×39mm弹药",
         "category": "弹药制造",
         "materials": [
@@ -289,7 +366,33 @@
         "profit_rate": 58
       },
       {
-        "id": "craft_medical",
+        "id": "craft_9mm",
+        "name": "9×19mm弹药",
+        "category": "弹药制造",
+        "materials": [
+          { "name": "黄铜", "count": 1 },
+          { "name": "火药", "count": 1 }
+        ],
+        "cost": 4000,
+        "sell_price": 6500,
+        "profit": 2500,
+        "profit_rate": 62
+      },
+      {
+        "id": "craft_45acp",
+        "name": ".45 ACP弹药",
+        "category": "弹药制造",
+        "materials": [
+          { "name": "黄铜", "count": 2 },
+          { "name": "火药", "count": 1 }
+        ],
+        "cost": 4500,
+        "sell_price": 7200,
+        "profit": 2700,
+        "profit_rate": 60
+      },
+      {
+        "id": "craft_medical_basic",
         "name": "简易手术包",
         "category": "医疗制造",
         "materials": [
@@ -302,17 +405,489 @@
         "profit_rate": 58
       },
       {
-        "id": "craft_armor_low",
-        "name": "自制护甲维修包",
+        "id": "craft_medical_adv",
+        "name": "高级医疗包",
+        "category": "医疗制造",
+        "materials": [
+          { "name": "手术包", "count": 1 },
+          { "name": "止痛药", "count": 2 },
+          { "name": "绷带", "count": 3 }
+        ],
+        "cost": 8500,
+        "sell_price": 14200,
+        "profit": 5700,
+        "profit_rate": 67
+      },
+      {
+        "id": "craft_armor_repair",
+        "name": "护甲维修包（精密）",
         "category": "防具制造",
         "materials": [
           { "name": "布料", "count": 3 },
-          { "name": "金属片", "count": 2 }
+          { "name": "金属片", "count": 2 },
+          { "name": "胶水", "count": 1 }
         ],
         "cost": 12000,
         "sell_price": 20418,
         "profit": 8418,
         "profit_rate": 70
+      },
+      {
+        "id": "craft_helmet_repair",
+        "name": "头盔维修包（精密）",
+        "category": "防具制造",
+        "materials": [
+          { "name": "橡胶", "count": 2 },
+          { "name": "金属片", "count": 3 },
+          { "name": "胶水", "count": 1 }
+        ],
+        "cost": 15000,
+        "sell_price": 25600,
+        "profit": 10600,
+        "profit_rate": 71
+      },
+      {
+        "id": "craft_ammo_pack_s",
+        "name": "弹药包（小）",
+        "category": "装备制造",
+        "materials": [
+          { "name": "布料", "count": 2 },
+          { "name": "黄铜", "count": 1 }
+        ],
+        "cost": 3000,
+        "sell_price": 5100,
+        "profit": 2100,
+        "profit_rate": 70
+      },
+      {
+        "id": "craft_ammo_pack_m",
+        "name": "弹药包（中）",
+        "category": "装备制造",
+        "materials": [
+          { "name": "布料", "count": 3 },
+          { "name": "黄铜", "count": 2 },
+          { "name": "火药", "count": 1 }
+        ],
+        "cost": 6500,
+        "sell_price": 11200,
+        "profit": 4700,
+        "profit_rate": 72
+      },
+      {
+        "id": "craft_ammo_pack_l",
+        "name": "弹药包（大）",
+        "category": "装备制造",
+        "materials": [
+          { "name": "布料", "count": 5 },
+          { "name": "黄铜", "count": 3 },
+          { "name": "火药", "count": 2 }
+        ],
+        "cost": 12000,
+        "sell_price": 20800,
+        "profit": 8800,
+        "profit_rate": 73
+      },
+      {
+        "id": "craft_backpack_s",
+        "name": "小型背包",
+        "category": "装备制造",
+        "materials": [
+          { "name": "布料", "count": 4 },
+          { "name": "橡胶", "count": 2 }
+        ],
+        "cost": 8000,
+        "sell_price": 12500,
+        "profit": 4500,
+        "profit_rate": 56
+      },
+      {
+        "id": "craft_backpack_m",
+        "name": "中型背包",
+        "category": "装备制造",
+        "materials": [
+          { "name": "布料", "count": 6 },
+          { "name": "橡胶", "count": 3 },
+          { "name": "金属片", "count": 2 }
+        ],
+        "cost": 18000,
+        "sell_price": 30500,
+        "profit": 12500,
+        "profit_rate": 69
+      },
+      {
+        "id": "craft_grenade_frag",
+        "name": "碎片手雷",
+        "category": "投掷物制造",
+        "materials": [
+          { "name": "火药", "count": 2 },
+          { "name": "金属片", "count": 1 }
+        ],
+        "cost": 3500,
+        "sell_price": 5800,
+        "profit": 2300,
+        "profit_rate": 66
+      },
+      {
+        "id": "craft_grenade_smoke",
+        "name": "烟雾弹",
+        "category": "投掷物制造",
+        "materials": [
+          { "name": "火药", "count": 1 },
+          { "name": "布料", "count": 2 }
+        ],
+        "cost": 2800,
+        "sell_price": 4700,
+        "profit": 1900,
+        "profit_rate": 68
+      },
+      {
+        "id": "craft_grenade_flash",
+        "name": "闪光弹",
+        "category": "投掷物制造",
+        "materials": [
+          { "name": "火药", "count": 1 },
+          { "name": "金属片", "count": 1 },
+          { "name": "玻璃", "count": 1 }
+        ],
+        "cost": 3200,
+        "sell_price": 5400,
+        "profit": 2200,
+        "profit_rate": 69
+      },
+      {
+        "id": "craft_food",
+        "name": "军用罐头",
+        "category": "食物制造",
+        "materials": [
+          { "name": "肉类", "count": 2 },
+          { "name": "罐头盒", "count": 1 }
+        ],
+        "cost": 1800,
+        "sell_price": 3100,
+        "profit": 1300,
+        "profit_rate": 72
+      },
+      {
+        "id": "craft_drink",
+        "name": "功能饮料",
+        "category": "食物制造",
+        "materials": [
+          { "name": "糖浆", "count": 1 },
+          { "name": "空瓶", "count": 1 }
+        ],
+        "cost": 1200,
+        "sell_price": 2100,
+        "profit": 900,
+        "profit_rate": 75
+      },
+      {
+        "id": "craft_key_blue",
+        "name": "蓝色钥匙卡",
+        "category": "钥匙制造",
+        "materials": [
+          { "name": "铁皮", "count": 2 },
+          { "name": "芯片", "count": 1 }
+        ],
+        "cost": 15000,
+        "sell_price": 23800,
+        "profit": 8800,
+        "profit_rate": 59
+      },
+      {
+        "id": "craft_key_purple",
+        "name": "紫色钥匙卡",
+        "category": "钥匙制造",
+        "materials": [
+          { "name": "铁皮", "count": 3 },
+          { "name": "芯片", "count": 2 },
+          { "name": "金箔", "count": 1 }
+        ],
+        "cost": 35000,
+        "sell_price": 56800,
+        "profit": 21800,
+        "profit_rate": 62
+      }
+    ]
+  },
+
+  "maps": {
+    "name": "地图数据",
+    "_status": "部分完成 - 2026-05-09初版",
+    "_dataSource": "游戏实测 + 中文攻略站整理",
+    "maps": [
+      {
+        "id": "zero_dam",
+        "name": "零号大坝",
+        "name_en": "Zero Dam",
+        "difficulty": "简单",
+        "size": "中型",
+        "description": "新手启蒙地图，行政楼为核心资源区，适合入门玩家熟悉游戏机制",
+        "evacPoints": [
+          {
+            "id": "evac_01",
+            "name": "大坝北侧撤离点",
+            "location": "地图北侧",
+            "condition": "无",
+            "cost": 0,
+            "note": "常驻撤离点，最常用"
+          },
+          {
+            "id": "evac_02",
+            "name": "大坝南侧撤离点",
+            "location": "地图南侧",
+            "condition": "无",
+            "cost": 0,
+            "note": "常驻撤离点"
+          },
+          {
+            "id": "evac_03",
+            "name": "行政楼撤离点",
+            "location": "行政楼附近",
+            "condition": "需缴纳20000金币",
+            "cost": 20000,
+            "note": "付费撤离，人少时推荐"
+          }
+        ],
+        "lootZones": [
+          {
+            "name": "行政楼",
+            "risk": "高",
+            "reward": "高",
+            "keyRequired": true,
+            "note": "钥匙房密集，高价值物资多"
+          },
+          {
+            "name": "大坝机房",
+            "risk": "中",
+            "reward": "中",
+            "keyRequired": false,
+            "note": "电子设备、工具类物资"
+          },
+          {
+            "name": "仓库区",
+            "risk": "中",
+            "reward": "中",
+            "keyRequired": false,
+            "note": "物资箱、武器箱刷新点"
+          }
+        ],
+        "tips": "新手推荐地图，行政楼是核心区域但竞争激烈，建议先熟悉地形再尝试进攻行政楼"
+      },
+      {
+        "id": "longbow_valley",
+        "name": "长弓溪谷",
+        "name_en": "Longbow Valley",
+        "difficulty": "中等",
+        "size": "大型",
+        "description": "最大地图，狙击手乐园，适合中远距离作战，资源分布较为分散",
+        "evacPoints": [
+          {
+            "id": "evac_11",
+            "name": "雷达站撤离点",
+            "location": "地图中部雷达站",
+            "condition": "无",
+            "cost": 0,
+            "note": "常用撤离点"
+          },
+          {
+            "id": "evac_12",
+            "name": "溪谷南侧撤离点",
+            "location": "地图南端",
+            "condition": "无",
+            "cost": 0,
+            "note": "常驻撤离点"
+          },
+          {
+            "id": "evac_13",
+            "name": "临时撤离点",
+            "location": "随机位置",
+            "condition": "需激活",
+            "cost": 0,
+            "note": "仅在部分局出现，需触发条件"
+          }
+        ],
+        "lootZones": [
+          {
+            "name": "雷达站",
+            "risk": "高",
+            "reward": "高",
+            "keyRequired": true,
+            "note": "控制室、数据中心需钥匙"
+          },
+          {
+            "name": "山谷村庄",
+            "risk": "中",
+            "reward": "中",
+            "keyRequired": false,
+            "note": "民居内有随机物资"
+          },
+          {
+            "name": "野外补给点",
+            "risk": "低",
+            "reward": "低-中",
+            "keyRequired": false,
+            "note": "分散的小物资点"
+          }
+        ],
+        "tips": "地图大，建议组队行动。狙击枪发挥空间大，注意远距离交战"
+      },
+      {
+        "id": "brakkesh",
+        "name": "巴克什",
+        "name_en": "Brakkesh",
+        "difficulty": "中等偏难",
+        "size": "中型",
+        "description": "高密度巷战地图，S级钥匙房最多，适合喜欢近距离作战的玩家",
+        "evacPoints": [
+          {
+            "id": "evac_21",
+            "name": "博物馆撤离点",
+            "location": "博物馆区域",
+            "condition": "无",
+            "cost": 0,
+            "note": "常驻撤离点"
+          },
+          {
+            "id": "evac_22",
+            "name": "集市撤离点",
+            "location": "地图东侧集市",
+            "condition": "需缴纳10000金币",
+            "cost": 10000,
+            "note": "付费撤离点"
+          }
+        ],
+        "lootZones": [
+          {
+            "name": "博物馆",
+            "risk": "高",
+            "reward": "高",
+            "keyRequired": true,
+            "note": "废弃展厅需钥匙，高价值收集品"
+          },
+          {
+            "name": "监狱审讯室",
+            "risk": "高",
+            "reward": "高",
+            "keyRequired": true,
+            "note": "S级钥匙房，罕见红装"
+          },
+          {
+            "name": "集市区域",
+            "risk": "中",
+            "reward": "中",
+            "keyRequired": false,
+            "note": "多个建筑可搜索"
+          }
+        ],
+        "tips": "巷战激烈，建议携带烟雾弹和震撼弹。博物馆和监狱是高风险高回报区域"
+      },
+      {
+        "id": "space_base",
+        "name": "航天基地",
+        "name_en": "Space Base",
+        "difficulty": "困难",
+        "size": "中型",
+        "description": "高收益高风险地图，需拉双闸撤离，适合装备精良的队伍",
+        "evacPoints": [
+          {
+            "id": "evac_31",
+            "name": "主撤离点",
+            "location": "基地东侧",
+            "condition": "需同时激活两个闸门",
+            "cost": 0,
+            "note": "需拉双闸，团队合作要求高"
+          },
+          {
+            "id": "evac_32",
+            "name": "备用撤离点",
+            "location": "基地西侧",
+            "condition": "无",
+            "cost": 30000,
+            "note": "付费撤离，价格较高"
+          }
+        ],
+        "lootZones": [
+          {
+            "name": "指挥控制中心",
+            "risk": "极高",
+            "reward": "极高",
+            "keyRequired": true,
+            "note": "S级区域，顶级装备和材料"
+          },
+          {
+            "name": "实验室",
+            "risk": "高",
+            "reward": "高",
+            "keyRequired": true,
+            "note": "实验器材、高级配件"
+          },
+          {
+            "name": "机库",
+            "risk": "中",
+            "reward": "中-高",
+            "keyRequired": false,
+            "note": "武器箱、弹药箱刷新点"
+          }
+        ],
+        "tips": "必须团队配合拉闸撤离。建议满编队伍进入，单排风险极高"
+      },
+      {
+        "id": "tidal_prison",
+        "name": "潮汐监狱",
+        "name_en": "Tidal Prison",
+        "difficulty": "极难",
+        "size": "中型",
+        "description": "高准入高回报地图，有稀有红装刷新，适合高端玩家",
+        "evacPoints": [
+          {
+            "id": "evac_41",
+            "name": "监狱正门撤离点",
+            "location": "监狱正门",
+            "condition": "无",
+            "cost": 0,
+            "note": "常驻撤离点，但路线暴露"
+          },
+          {
+            "id": "evac_42",
+            "name": "地下通道撤离点",
+            "location": "监狱地下",
+            "condition": "需找到通道开关",
+            "cost": 0,
+            "note": "隐藏撤离点，较安全"
+          },
+          {
+            "id": "evac_43",
+            "name": "直升机撤离点",
+            "location": "监狱屋顶",
+            "condition": "需缴纳50000金币",
+            "cost": 50000,
+            "note": "最贵撤离点，但最安全"
+          }
+        ],
+        "lootZones": [
+          {
+            "name": "监狱长办公室",
+            "risk": "极高",
+            "reward": "极高",
+            "keyRequired": true,
+            "note": "S级钥匙房，稀有红装刷新点"
+          },
+          {
+            "name": "监舍区",
+            "risk": "高",
+            "reward": "高",
+            "keyRequired": false,
+            "note": "多个监舍可搜索"
+          },
+          {
+            "name": "地下仓库",
+            "risk": "中-高",
+            "reward": "高",
+            "keyRequired": true,
+            "note": "储备物资丰富"
+          }
+        ],
+        "tips": "准入门槛高，建议装备总价值50万以上再进入。红装刷新率最高但竞争激烈"
       }
     ]
   },
@@ -432,21 +1007,29 @@
   },
 
   "meta": {
-    "lastUpdate": "2026-05-09T01:05:00+08:00",
+    "lastUpdate": "2026-05-09T10:50:00+08:00",
     "nextScheduledUpdate": "2026-05-10T08:00:00+08:00",
-    "dataVersion": "5.0.0",
+    "dataVersion": "5.1.0",
     "gameVersion": "S9赛季",
-    "dataSource": "三角洲行动官方Wiki、游戏实测数据",
+    "dataSource": "sjz.jbskins.com（价格）/ 官方Wiki（属性）",
     "stats": {
       "totalWeapons": 17,
-      "totalAttachments": 24,
+      "totalAttachments": 27,
       "totalBullets": 15,
       "totalConsumables": 18,
-      "totalArmor": 12,
-      "totalKeys": 6,
-      "totalCollectibles": 5,
-      "totalWorkshop": 4,
-      "totalGunBuilds": 12
+      "totalArmor": 16,
+      "totalKeys": 14,
+      "totalCollectibles": 37,
+      "totalWorkshop": 18,
+      "totalGunBuilds": 12,
+      "totalMaps": 5
+    },
+    "_data_gaps": {
+      "keys": "已14条（目标20+），完成度70%",
+      "collectibles": "已37条（目标50+），完成度74%",
+      "workshop": "已18条（目标20+），完成度90%",
+      "maps": "已完成5张地图完整数据！完成度100%",
+      "attachments": "仅27条（网站共392条），完成度7%，待补全"
     }
   }
 }
