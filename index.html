@@ -2465,6 +2465,63 @@
     </footer>
 
     <script>
+        // ==================== Data Normalizer ====================
+        // Real data from jiansenc/DeltaForceData uses flat ID-keyed objects.
+        // This function transforms them into the {category: {items:[...]}} format the site expects.
+        function normalizeGameData(raw) {
+            const d = JSON.parse(JSON.stringify(raw)); // deep clone
+
+            // Weapons: {id: {type:'gunRifle',...}} → {gunRifle: {items:[...]}, ...}
+            if (d.weapons && !isNormalized(d.weapons)) {
+                const weaponsMap = {};
+                for (const [id, w] of Object.entries(d.weapons)) {
+                    const cat = w.type || 'other';
+                    if (!weaponsMap[cat]) weaponsMap[cat] = { items: [] };
+                    weaponsMap[cat].items.push(w);
+                }
+                d.weapons = weaponsMap;
+            }
+
+            // Attachments: {id: {type:'accMuzzle',...}} → {accMuzzle: {items:[...]}, ...}
+            if (d.attachments && !isNormalized(d.attachments)) {
+                const accMap = {};
+                for (const [id, a] of Object.entries(d.attachments)) {
+                    const cat = a.type || 'other';
+                    if (!accMap[cat]) accMap[cat] = { items: [] };
+                    accMap[cat].items.push(a);
+                }
+                d.attachments = accMap;
+            }
+
+            // Armor: {id: {slot:'armor'|'helmet'|'chest'|'bag',...}} → {helmet:[...], vest:[...], chest:[...], backpack:[...]}
+            if (d.armor && !d.armor.helmet) {
+                const helmet = [], vest = [], chest = [], backpack = [];
+                for (const [id, a] of Object.entries(d.armor)) {
+                    const slot = a.slot || '';
+                    if (slot === 'helmet') helmet.push(a);
+                    else if (slot === 'armor') vest.push(a);
+                    else if (slot === 'chest') chest.push(a);
+                    else if (slot === 'bag') backpack.push(a);
+                }
+                d.armor = { helmet, vest, chest, backpack };
+            }
+
+            // Consumables: [{...}] array → {consume: {items: [{...}]}}
+            if (Array.isArray(d.consumables)) {
+                d.consumables = { consume: { items: d.consumables } };
+            }
+
+            // Keys: keep as array (JS already handles both array and {items:[]})
+            // Collectibles: keep as array (JS already handles both)
+            return d;
+        }
+
+        function isNormalized(obj) {
+            // Check if the first value looks like {items:[...]} format
+            const first = Object.values(obj)[0];
+            return first && Array.isArray(first.items);
+        }
+
         // ==================== Game Data Loader ====================
         let gameData = null;
         let dataLoaded = false;
@@ -2473,7 +2530,8 @@
             try {
                 const resp = await fetch('data/game-data.json?t=' + Date.now());
                 if (!resp.ok) throw new Error('HTTP ' + resp.status);
-                gameData = await resp.json();
+                const raw = await resp.json();
+                gameData = normalizeGameData(raw);
                 dataLoaded = true;
                 onDataLoaded();
             } catch(e) {
