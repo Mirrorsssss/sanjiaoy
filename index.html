@@ -1860,8 +1860,11 @@
                         <span class="value accent" id="ws-rate">—</span>
                     </div>
                 </div>
-                <div class="coming-soon-overlay" id="ws-hint" style="display:none; padding: 20px; text-align:center; color: var(--text-muted)">
-                    <p>📌 战备配置数据展示 · 价格每日波动，建议多方参考后再做决策</p>
+                <!-- 推荐制造列表 -->
+                <div class="result-box" id="ws-recommend-box" style="margin-top: 16px;">
+                    <h4>🏆 推荐制造（按等级推荐）</h4>
+                    <p style="font-size:12px;color:var(--text-muted);margin:8px 0;">高等级物品通常有更高利润，建议根据材料成本选择</p>
+                    <div id="ws-recommend-list"></div>
                 </div>
             </div>
         </div>
@@ -1928,17 +1931,21 @@
                 <button class="modal-close" onclick="closeModal('bullet')">✕</button>
             </div>
             <div class="modal-body">
+                <div style="padding: 12px; background: rgba(255,107,53,0.08); border: 1px solid rgba(255,107,53,0.2); border-radius: 8px; margin-bottom: 16px;">
+                    <p style="font-size: 12px; color: var(--text-muted);">⚠️ 子弹数据基于游戏实测和社区反馈，数值可能随版本更新变化。实际效果以游戏内为准。</p>
+                </div>
                 <div class="form-group">
                     <label>子弹口径</label>
                     <select id="bullet-caliber" onchange="showBulletCompare()">
                         <option value="">— 选择口径 —</option>
-                        <option value="762">7.62mm</option>
-                        <option value="556">5.56mm</option>
-                        <option value="9mm">9mm</option>
-                        <option value="545">5.45mm</option>
+                        <option value="762">7.62mm（步枪/狙击）</option>
+                        <option value="556">5.56mm（北约制式）</option>
+                        <option value="545">5.45mm（俄系）</option>
+                        <option value="9mm">9mm（手枪/冲锋）</option>
                         <option value="12g">12号霰弹</option>
-                        <option value="338">.338</option>
-                        <option value="300">.300 BLK</option>
+                        <option value="338">.338 Lapua（栓狙）</option>
+                        <option value="300">.300 BLK（冲锋）</option>
+                        <option value="127">12.7mm（大口径）</option>
                     </select>
                 </div>
                 <div class="bullet-compare-grid" id="bullet-grid"></div>
@@ -2517,6 +2524,7 @@
         function onDataLoaded() {
             updateTickerFromData();
             updateWorkshopOptions();
+            showWorkshopRecommend();
             updateDiyData();
             initDIY(); // 在数据更新后重新渲染 DIY 选项
             updatePriceTableFromData();
@@ -3656,14 +3664,17 @@
             while (select.options.length > 1) select.remove(1);
             wsData = {};
 
-            if (!gameData || !gameData.consumables || !gameData.consumables.length) {
+            // 兼容 normalizeGameData 转换后的格式：{ consume: { items: [...] } } 和原始数组格式
+            const items = gameData?.consumables?.consume?.items || gameData?.consumables || [];
+            if (!items.length) {
+                console.warn('工坊数据加载失败，未找到 consumables');
                 return;
             }
 
             // 按等级分组
             const gradeNames = { 1: '1级·基础', 2: '2级·普通', 3: '3级·进阶', 4: '4级·稀有', 5: '5级·史诗', 6: '6级·传说' };
             const groups = {};
-            for (const item of gameData.consumables) {
+            for (const item of items) {
                 const g = item.grade || 1;
                 if (!groups[g]) {
                     groups[g] = { label: gradeNames[g] || `${g}级`, items: [] };
@@ -3724,11 +3735,9 @@
             const m3 = parseFloat(document.getElementById('ws-m3').value) || 0;
             const priceInput = parseFloat(document.getElementById('ws-price-input').value) || 0;
             const resultBox = document.getElementById('ws-result');
-            const hint = document.getElementById('ws-hint');
 
             if (!itemKey) {
                 resultBox.style.display = 'none';
-                if (hint) hint.style.display = 'none';
                 return;
             }
 
@@ -3755,7 +3764,62 @@
             rateEl.className = 'value ' + (profitRate >= 0 ? 'green' : 'red');
 
             resultBox.style.display = 'block';
-            if (hint) hint.style.display = 'block';
+        }
+
+        // 工坊推荐列表 - 基于等级推荐
+        function showWorkshopRecommend() {
+            const container = document.getElementById('ws-recommend-list');
+            if (!container) return;
+
+            const items = gameData?.consumables?.consume?.items || gameData?.consumables || [];
+            if (!items.length) {
+                container.innerHTML = '<p style="color:var(--text-muted);font-size:13px;">数据加载中...</p>';
+                return;
+            }
+
+            // 按等级分组推荐
+            const gradeNames = { 1: '基础', 2: '普通', 3: '进阶', 4: '稀有', 5: '史诗', 6: '传说' };
+            const gradeColors = { 1: '#9ca3af', 2: '#22c55e', 3: '#3b82f6', 4: '#a855f7', 5: '#f59e0b', 6: '#ef4444' };
+
+            // 每级选3个代表性物品
+            const byGrade = {};
+            for (const item of items) {
+                const g = item.grade || 1;
+                if (!byGrade[g]) byGrade[g] = [];
+                if (byGrade[g].length < 3) byGrade[g].push(item);
+            }
+
+            let html = '';
+            for (const [g, gradeItems] of Object.entries(byGrade)) {
+                const color = gradeColors[g] || '#9ca3af';
+                const name = gradeNames[g] || `${g}级`;
+                html += `<div style="margin-bottom:12px;">
+                    <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;">
+                        <span style="background:${color};color:#fff;padding:2px 8px;border-radius:10px;font-size:11px;font-weight:600;">${name}</span>
+                    </div>`;
+                for (const item of gradeItems) {
+                    html += `<div class="rec-item" onclick="selectWorkshopItem('${item.id}')" style="cursor:pointer;">
+                        <div class="rec-item-left">
+                            <div class="rec-item-icon">📦</div>
+                            <div>
+                                <div class="rec-item-name">${item.name}</div>
+                                <div style="font-size:11px;color:var(--text-muted);">${(item.description || '').substring(0, 40)}...</div>
+                            </div>
+                        </div>
+                    </div>`;
+                }
+                html += '</div>';
+            }
+
+            container.innerHTML = html;
+        }
+
+        function selectWorkshopItem(itemId) {
+            const select = document.getElementById('ws-item');
+            if (select) {
+                select.value = itemId;
+                onWorkshopItemChange();
+            }
         }
 
         // ==================== Build Recommendation ====================
@@ -3821,6 +3885,118 @@
                         {icon: '📦', name: '安全箱', cost: 5},
                     ],
                     total: 86.25, note: '全服顶级配置。安全箱放贵重物品，撤离失败也能保住！'
+                }
+            },
+            // 全面战场模式 - 攻防/占点，装备可重复使用
+            battle: {
+                penny: {
+                    title: '全面战场·新手枪',
+                    desc: '免费手枪出门，快速熟悉战场节奏',
+                    items: [
+                        {icon: '🔫', name: 'M1911手枪', cost: 0},
+                        {icon: '💊', name: '急救包×2', cost: 1.6},
+                        {icon: '💣', name: '碎片手雷×1', cost: 0.5},
+                    ],
+                    total: 2.1, note: '手枪局，熟悉地图和点位最重要'
+                },
+                normal: {
+                    title: '全面战场·步枪兵',
+                    desc: '10-20万标准配置，攻防兼备',
+                    items: [
+                        {icon: '🔫', name: 'M4A1突击步枪', cost: 8},
+                        {icon: '🔫', name: '备用弹匣×2', cost: 1},
+                        {icon: '🛡', name: '三级护甲', cost: 6},
+                        {icon: '👷', name: '三级头盔', cost: 2},
+                        {icon: '💊', name: '急救包×2', cost: 1.6},
+                        {icon: '💣', name: '碎片手雷×2', cost: 1},
+                    ],
+                    total: 19.6, note: '标准步枪配置，三级头甲是战场标配'
+                },
+                rich: {
+                    title: '全面战场·突击队',
+                    desc: '25-40万高配置，满编队首选',
+                    items: [
+                        {icon: '🔫', name: 'K416突击步枪', cost: 18},
+                        {icon: '🔫', name: 'M249机枪', cost: 12},
+                        {icon: '🛡', name: '四级护甲', cost: 10},
+                        {icon: '👷', name: '三级头盔', cost: 2},
+                        {icon: '💊', name: '急救包×3', cost: 2.4},
+                        {icon: '💣', name: '碎片手雷×3', cost: 1.5},
+                        {icon: '🔥', name: '燃烧瓶×2', cost: 1},
+                    ],
+                    total: 46.9, note: '突击队配置，机枪提供压制火力'
+                },
+                vip: {
+                    title: '全面战场·重装兵',
+                    desc: '50万+终极配置，重型武器',
+                    items: [
+                        {icon: '🔫', name: 'SCAR-H战斗步枪', cost: 25},
+                        {icon: '🔫', name: 'M249机枪', cost: 12},
+                        {icon: '🛡', name: '五级护甲', cost: 15},
+                        {icon: '👷', name: '三级头盔', cost: 2},
+                        {icon: '💊', name: '急救包×4', cost: 3.2},
+                        {icon: '💣', name: '碎片手雷×4', cost: 2},
+                        {icon: '🔥', name: '燃烧瓶×3', cost: 1.5},
+                        {icon: '🎯', name: '高级胸挂', cost: 1},
+                    ],
+                    total: 61.7, note: '重装配置，适合占点和防守'
+                }
+            },
+            // 竞技排位模式 - 稳定高效配置
+            ranked: {
+                penny: {
+                    title: '竞技·经济型',
+                    desc: '10万以内，够用就行',
+                    items: [
+                        {icon: '🔫', name: 'QBZ95-1突击步枪', cost: 5},
+                        {icon: '🛡', name: '二级护甲', cost: 4},
+                        {icon: '👷', name: '二级头盔', cost: 1},
+                        {icon: '💊', name: '急救包×2', cost: 1.6},
+                        {icon: '💉', name: '止疼药×1', cost: 2.5},
+                    ],
+                    total: 14.1, note: '够用配置，存钱是关键'
+                },
+                normal: {
+                    title: '竞技·标准型',
+                    desc: '15-25万，均衡配置',
+                    items: [
+                        {icon: '🔫', name: 'M4A1突击步枪', cost: 8},
+                        {icon: '🛡', name: '三级护甲', cost: 6},
+                        {icon: '👷', name: '二级头盔', cost: 1},
+                        {icon: '💊', name: '急救包×2', cost: 1.6},
+                        {icon: '💉', name: '止疼药×2', cost: 5},
+                        {icon: '🎯', name: '胸挂', cost: 0.5},
+                    ],
+                    total: 22.1, note: '排位标准配置，稳定性第一'
+                },
+                rich: {
+                    title: '竞技·上分型',
+                    desc: '30-50万，冲分专用',
+                    items: [
+                        {icon: '🔫', name: 'K416突击步枪', cost: 18},
+                        {icon: '🔫', name: '备用弹匣×3', cost: 1.5},
+                        {icon: '🛡', name: '四级护甲', cost: 10},
+                        {icon: '👷', name: '三级头盔', cost: 2},
+                        {icon: '💊', name: '急救包×3', cost: 2.4},
+                        {icon: '💉', name: '止疼药×2', cost: 5},
+                        {icon: '🔧', name: '手术包×1', cost: 3},
+                    ],
+                    total: 41.9, note: '冲分配置，手术包防止被偷人'
+                },
+                vip: {
+                    title: '竞技·碾压型',
+                    desc: '50万+，碾压对手',
+                    items: [
+                        {icon: '🔫', name: 'SCAR-H战斗步枪', cost: 25},
+                        {icon: '🔫', name: 'AWM狙击枪', cost: 20},
+                        {icon: '🛡', name: '五级护甲', cost: 15},
+                        {icon: '👷', name: '三级头盔', cost: 2},
+                        {icon: '💊', name: '急救包×4', cost: 3.2},
+                        {icon: '💉', name: '止疼药×2', cost: 5},
+                        {icon: '🔧', name: '手术包×2', cost: 6},
+                        {icon: '🎒', name: '大型背包', cost: 2},
+                    ],
+                    total: 78.2, note: '碾压配置，适合双排或组排'
                 }
             }
         };
@@ -3920,36 +4096,44 @@
                 {dept: '工程部', name: '5.56x45mm M856', damage: 36, pen: 35, price: 220, note: '穿甲略优'},
                 {dept: '健康部', name: '5.56x45mm Mk262', damage: 42, pen: 22, price: 250, note: '精度高'},
             ],
+            '545': [
+                {dept: '情报部', name: '5.45x39mm BS弹', damage: 40, pen: 30, price: 190, note: '穿透优秀'},
+                {dept: '工程部', name: '5.45x39mm PS弹', damage: 38, pen: 25, price: 110, note: '经济实惠'},
+            ],
             '9mm': [
                 {dept: '情报部', name: '9x19mm AP6.3', damage: 35, pen: 30, price: 160, note: '穿甲手枪弹首选'},
                 {dept: '工程部', name: '9x19mm Pst gzh', damage: 38, pen: 20, price: 100, note: '高伤害实惠'},
                 {dept: '健康部', name: '9x19mm RIP', damage: 42, pen: 10, price: 130, note: '停止力强'},
             ],
-            '545': [
-                {dept: '情报部', name: '5.45x39mm BS弹', damage: 40, pen: 30, price: 190, note: '穿透优秀'},
-                {dept: '工程部', name: '5.45x39mm PS弹', damage: 38, pen: 25, price: 110, note: '经济实惠'},
-            ],
             '12g': [
-                {dept: '工程部', name: '12号霰弹 slug', damage: 120, pen: 15, price: 300, note: '单发高伤害'},
-                {dept: '健康部', name: '12号霰弹 00 buckshot', damage: 90, pen: 5, price: 180, note: '散布大'},
+                {dept: '工程部', name: '12号霰弹 slug', damage: 120, pen: 15, price: 300, note: '单发精准中距离'},
+                {dept: '健康部', name: '12号霰弹 00 buckshot', damage: 90, pen: 5, price: 180, note: '近距离散布大'},
+                {dept: '工程部', name: '12号霰弹 flechette', damage: 80, pen: 20, price: 250, note: '穿刺型霰弹'},
             ],
             '338': [
-                {dept: '情报部', name: '.338 Lapua Magnum', damage: 85, pen: 45, price: 450, note: '狙击专用'},
+                {dept: '情报部', name: '.338 Lapua Magnum AP', damage: 85, pen: 45, price: 450, note: '狙击专用穿甲'},
+                {dept: '工程部', name: '.338 Lapua Magnum SIE', damage: 90, pen: 38, price: 480, note: '伤害更高'},
             ],
             '300': [
-                {dept: '工程部', name: '.300 Blackout sub', damage: 35, pen: 20, price: 200, note: '亚音速消音'},
+                {dept: '工程部', name: '.300 Blackout sub', damage: 35, pen: 20, price: 200, note: '亚音速消音冲锋'},
                 {dept: '情报部', name: '.300 Blackout sup', damage: 42, pen: 28, price: 280, note: '穿甲亚音速'},
+            ],
+            '127': [
+                {dept: '情报部', name: '12.7x55mm PS12B', damage: 56, pen: 55, price: 350, note: 'ASh-12专用穿甲'},
+                {dept: '工程部', name: '12.7x55mm PS12', damage: 52, pen: 45, price: 300, note: 'ASh-12标准弹'},
+                {dept: '健康部', name: '12.7x55mm SP13', damage: 60, pen: 30, price: 320, note: '对人高伤害'},
             ]
         };
 
         const bulletTips = {
             '762': '7.62mm口径穿甲选情报部BS弹，追求伤害选健康部HP弹，工程部PS弹性价比最高。',
             '556': '5.56mm综合选M855，冲排位选穿透M856，精准射击选Mk262。',
-            '9mm': '情报部AP6.3是穿甲首选，手枪里穿透天花板；健康部RIP停止力强适合近战。',
             '545': 'BS弹是5.45口径穿甲天花板；PS弹便宜够用，适合日常。',
-            '12g': 'slug单发精准适合中距离；00 buckshot适合近距离霰射。',
-            '338': '.338是狙击专用，口径大伤害高，没得选。',
+            '9mm': '情报部AP6.3是穿甲首选，手枪里穿透天花板；健康部RIP停止力强适合近战。',
+            '12g': 'slug单发精准适合中距离；00 buckshot适合近距离霰射；flechette穿透更好。',
+            '338': '.338是狙击专用，口径大伤害高。AP穿甲更强，SIE伤害更高。',
             '300': '消音冲锋选亚音速；需要穿甲选情报部版本。',
+            '127': '12.7mm是ASh-12专用口径。穿甲选PS12B，对人选SP13。',
         };
 
         function showBulletCompare() {
@@ -4004,81 +4188,143 @@
             if (!gameData) return;
             priceData = { weapon: [], attachment: [], armor: [], consumable: [], keys: [], collectible: [] };
 
-            // 武器：来自 weapons（id -> obj 格式）
-            const weapons = gameData.weapons || {};
-            for (const [id, w] of Object.entries(weapons)) {
-                priceData.weapon.push({
-                    name: w.name,
-                    type: w.typeCN || w.type || '',
-                    grade: w.grade || '?',
-                    caliber: w.caliber || '',
-                    fireRate: w.fireRate || 0,
-                    capacity: w.capacity || 0,
-                    recoil: w.recoil || 0,
-                    control: w.control || 0,
-                    stability: w.stability || 0,
-                    shootDistance: w.shootDistance || 0,
-                    meatHarm: w.meatHarm || 0,
-                    armorHarm: w.armorHarm || 0,
-                    fireMode: w.fireMode || '',
-                    description: w.description || ''
-                });
+            // 武器：兼容 normalizeGameData 转换后的格式 {type: {items:[]}}
+            const weaponsRaw = gameData.weapons || {};
+            if (weaponsRaw.gunRifle?.items) {
+                // 已归一化的格式
+                for (const w of Object.values(weaponsRaw).flatMap(cat => cat.items || [])) {
+                    priceData.weapon.push({
+                        name: w.name,
+                        type: w.typeCN || w.type || '',
+                        grade: w.grade || 0,
+                        caliber: w.caliber || '',
+                        fireRate: w.fireRate || 0,
+                        capacity: w.capacity || 0,
+                        recoil: w.recoil || 0,
+                        control: w.control || 0,
+                        stability: w.stability || 0,
+                        shootDistance: w.shootDistance || 0,
+                        meatHarm: w.meatHarm || 0,
+                        armorHarm: w.armorHarm || 0,
+                        fireMode: w.fireMode || '',
+                        description: w.description || ''
+                    });
+                }
+            } else {
+                // 原始 id->obj 格式
+                for (const [id, w] of Object.entries(weaponsRaw)) {
+                    priceData.weapon.push({
+                        name: w.name,
+                        type: w.typeCN || w.type || '',
+                        grade: w.grade || 0,
+                        caliber: w.caliber || '',
+                        fireRate: w.fireRate || 0,
+                        capacity: w.capacity || 0,
+                        recoil: w.recoil || 0,
+                        control: w.control || 0,
+                        stability: w.stability || 0,
+                        shootDistance: w.shootDistance || 0,
+                        meatHarm: w.meatHarm || 0,
+                        armorHarm: w.armorHarm || 0,
+                        fireMode: w.fireMode || '',
+                        description: w.description || ''
+                    });
+                }
             }
 
-            // 配件：来自 attachments（id -> obj 格式）
-            const attachments = gameData.attachments || {};
-            for (const [id, a] of Object.entries(attachments)) {
-                priceData.attachment.push({
-                    name: a.name,
-                    type: a.typeCN || a.type || '',
-                    slot: a.slot || '',
-                    grade: a.grade || '?',
-                    recoil: a.recoil || 0,
-                    control: a.control || 0,
-                    advantage: Array.isArray(a.advantage) ? a.advantage.join(' / ') : (a.advantage || ''),
-                    disadvantage: Array.isArray(a.disadvantage) ? a.disadvantage.join(' / ') : (a.disadvantage || ''),
-                    description: a.description || ''
-                });
+            // 配件：兼容两种格式
+            const attachmentsRaw = gameData.attachments || {};
+            if (attachmentsRaw.gunRifle?.items) {
+                for (const a of Object.values(attachmentsRaw).flatMap(cat => cat.items || [])) {
+                    priceData.attachment.push({
+                        name: a.name,
+                        type: a.typeCN || a.type || '',
+                        slot: a.slot || '',
+                        grade: a.grade || 0,
+                        recoil: a.recoil || 0,
+                        control: a.control || 0,
+                        advantage: Array.isArray(a.advantage) ? a.advantage.join(' / ') : (a.advantage || ''),
+                        disadvantage: Array.isArray(a.disadvantage) ? a.disadvantage.join(' / ') : (a.disadvantage || ''),
+                        description: a.description || ''
+                    });
+                }
+            } else {
+                for (const [id, a] of Object.entries(attachmentsRaw)) {
+                    priceData.attachment.push({
+                        name: a.name,
+                        type: a.typeCN || a.type || '',
+                        slot: a.slot || '',
+                        grade: a.grade || 0,
+                        recoil: a.recoil || 0,
+                        control: a.control || 0,
+                        advantage: Array.isArray(a.advantage) ? a.advantage.join(' / ') : (a.advantage || ''),
+                        disadvantage: Array.isArray(a.disadvantage) ? a.disadvantage.join(' / ') : (a.disadvantage || ''),
+                        description: a.description || ''
+                    });
+                }
             }
 
-            // 防具：来自 armor（id -> obj 格式）
-            const armor = gameData.armor || {};
-            for (const [id, a] of Object.entries(armor)) {
-                priceData.armor.push({
-                    name: a.name,
-                    type: a.typeCN || a.type || '',
-                    slot: a.slot || '',
-                    grade: a.grade || '?',
-                    weight: a.weight || 0,
-                    description: a.description || ''
-                });
+            // 防具：兼容两种格式
+            const armorRaw = gameData.armor || {};
+            if (armorRaw.helmet) {
+                // 已归一化为 {helmet:[], vest:[], ...}
+                for (const arr of Object.values(armorRaw)) {
+                    for (const a of arr) {
+                        priceData.armor.push({
+                            name: a.name,
+                            type: a.typeCN || a.type || '',
+                            slot: a.slot || '',
+                            grade: a.grade || 0,
+                            weight: a.weight || 0,
+                            description: a.description || ''
+                        });
+                    }
+                }
+            } else {
+                // 原始 id->obj 格式
+                for (const [id, a] of Object.entries(armorRaw)) {
+                    priceData.armor.push({
+                        name: a.name,
+                        type: a.typeCN || a.type || '',
+                        slot: a.slot || '',
+                        grade: a.grade || 0,
+                        weight: a.weight || 0,
+                        description: a.description || ''
+                    });
+                }
             }
 
-            // 消耗品：来自 consumables（列表格式）
-            const consumables = gameData.consumables || [];
-            for (const c of consumables) {
+            // 消耗品：兼容 normalizeGameData 转换后的格式 { consume: { items: [...] } }
+            const consumablesRaw = gameData.consumables;
+            let consumablesArr = [];
+            if (consumablesRaw?.consume?.items) {
+                consumablesArr = consumablesRaw.consume.items;
+            } else if (Array.isArray(consumablesRaw)) {
+                consumablesArr = consumablesRaw;
+            }
+            for (const c of consumablesArr) {
                 priceData.consumable.push({
                     name: c.name,
                     type: c.typeCN || c.type || '',
-                    grade: c.grade || '?',
+                    grade: c.grade || 0,
                     weight: c.weight || 0,
                     description: c.description || ''
                 });
             }
 
-            // 钥匙卡：来自 keys（列表格式）
+            // 钥匙卡：直接是数组
             const keys = gameData.keys || [];
             for (const k of keys) {
                 priceData.keys.push({
                     name: k.name,
                     map: k.map || '',
                     location: k.location || '',
-                    durability: k.durability || '?',
+                    durability: k.durability || 0,
                     description: k.description || ''
                 });
             }
 
-            // 收集品：来自 collectibles（列表格式）
+            // 收集品：直接是数组
             const collectibles = gameData.collectibles || [];
             for (const c of collectibles) {
                 priceData.collectible.push({
@@ -4180,7 +4426,7 @@
         // ==================== Evacuation Map Data Loader ====================
         // 撤离路线图钥匙卡数据（从 gameData.keys 加载）
         function updateKeysFromData() {
-            if (!gameData || !gameData.keys) return;
+            if (!gameData || !gameData.keys || !gameData.keys.length) return;
             const mapKeyNames = {
                 '零号大坝': 'zero-dam',
                 '长弓溪谷': 'longbow',
@@ -4195,6 +4441,7 @@
                     window.evacKeyCards[mapId].push(k);
                 }
             }
+            console.log('钥匙卡数据已加载:', window.evacKeyCards);
         }
 
         // 物资分布图收藏品数据（从 gameData.collectibles 加载）
@@ -4473,41 +4720,44 @@
 
         function renderLootGrid(tier) {
             const grid = document.getElementById('loot-grid');
-            const data = lootData[tier] || [];
             const mapFilter = document.getElementById('loot-map-filter')?.value || '';
             const searchFilter = document.getElementById('loot-search')?.value.toLowerCase() || '';
 
-            // 合并真实收藏品数据
-            let allItems = [...data];
-            if (window.lootCollectibles && tier !== 'low') {
-                const rarityMap = { S: 'legendary', A: 'epic', B: 'rare', C: 'common' };
-                for (const c of window.lootCollectibles) {
-                    const mapName = c.map || '';
-                    const mapId = { '零号大坝': 'zero-dam', '长弓溪谷': 'longbow', '巴克什': 'brakkesh', '航天基地': 'space', '潮汐监狱': 'tidal' }[mapName] || '';
-                    const rarity = rarityMap[c.rarity] || rarityMap[c.grade] || 'common';
-                    const tierMatch = tier === 'all' || (tier === 'high' && (rarity === 'legendary' || rarity === 'epic')) || (tier === 'medium' && rarity !== 'legendary');
-                    if (!tierMatch) continue;
-                    allItems.push({
-                        name: c.name,
-                        rate: rarity,
-                        zone: mapName,
-                        location: c.location || c.type || '',
-                        value: rarity === 'legendary' ? '极高' : rarity === 'epic' ? '高' : '中',
-                        tip: c.description || c.type || '',
-                        isCollectible: true
-                    });
-                }
+            // 优先使用真实收藏品数据
+            const collectibles = window.lootCollectibles || [];
+
+            if (collectibles.length === 0) {
+                grid.innerHTML = '<p style="text-align:center;color:var(--text-secondary);padding:40px;">📦 收藏品数据加载中...</p>';
+                return;
             }
 
-            let filtered = allItems;
+            // 过滤和分组
+            let filtered = [...collectibles];
+
+            // 地图过滤
             if (mapFilter) {
-                filtered = filtered.filter(item => item.zone === mapFilter || item.zone === '通用');
+                filtered = filtered.filter(c => c.map === mapFilter);
             }
+
+            // 搜索过滤
             if (searchFilter) {
-                filtered = filtered.filter(item =>
-                    item.name.toLowerCase().includes(searchFilter) ||
-                    (item.location || '').toLowerCase().includes(searchFilter)
+                filtered = filtered.filter(c =>
+                    (c.name || '').toLowerCase().includes(searchFilter) ||
+                    (c.location || '').toLowerCase().includes(searchFilter) ||
+                    (c.description || '').toLowerCase().includes(searchFilter)
                 );
+            }
+
+            // 按稀有度分级显示
+            const rarityOrder = { 'S': 0, 'A': 1, 'B': 2, 'C': 3 };
+            const rarityCN = { 'S': '传说', 'A': '史诗', 'B': '稀有', 'C': '普通' };
+            const rarityColor = { 'S': '#ef4444', 'A': '#a855f7', 'B': '#3b82f6', 'C': '#9ca3af' };
+
+            // 根据 tier 过滤
+            if (tier === 'high') {
+                filtered = filtered.filter(c => (c.rarity || c.grade || 'C') >= 'B');
+            } else if (tier === 'medium') {
+                filtered = filtered.filter(c => (c.rarity || c.grade || 'C') === 'B' || (c.rarity || c.grade || 'C') === 'C');
             }
 
             if (filtered.length === 0) {
@@ -4515,18 +4765,36 @@
                 return;
             }
 
-            grid.innerHTML = filtered.map(item => `
-                <div class="loot-item" style="cursor:pointer;" onclick="showLootDetail('${item.name}', ${item.isCollectible ? 'true' : 'false'})">
+            // 按稀有度和名称排序
+            filtered.sort((a, b) => {
+                const ra = (a.rarity || a.grade || 'C')[0];
+                const rb = (b.rarity || b.grade || 'C')[0];
+                return (rarityOrder[ra] || 3) - (rarityOrder[rb] || 3);
+            });
+
+            grid.innerHTML = filtered.slice(0, 100).map(c => {
+                const rarity = c.rarity || c.grade || 'C';
+                const rarityText = rarityCN[rarity] || rarity;
+                const color = rarityColor[rarity] || '#9ca3af';
+                const desc = (c.description || '').replace(/\n/g, ' ').substring(0, 60);
+
+                return `
+                <div class="loot-item" style="cursor:pointer;" onclick="showLootDetail('${c.name}', true)">
                     <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;">
-                        <span class="name" style="font-weight:600;">${item.name}</span>
-                        <span class="rate ${item.rate}">${item.rate === 'legendary' ? '传说' : item.rate === 'epic' ? '史诗' : item.rate === 'rare' ? '稀有' : '普通'}${item.isCollectible ? ' 📦' : ''}</span>
+                        <span class="name" style="font-weight:600;">${c.name}</span>
+                        <span style="background:${color};color:#fff;padding:2px 8px;border-radius:10px;font-size:11px;font-weight:600;">${rarityText}</span>
                     </div>
                     <div style="font-size:11px;color:var(--text-secondary);">
-                        <span style="color:var(--accent);">📍 ${item.location || item.zone}</span>
-                        <span style="margin-left:8px;">💰 ${item.value}</span>
+                        <span style="color:var(--accent);">📍 ${c.map || c.location || '未知位置'}</span>
+                        <span style="margin-left:8px;">📋 ${c.typeCN || c.type || '收集品'}</span>
                     </div>
-                </div>
-            `).join('');
+                    ${desc ? `<div style="font-size:10px;color:var(--text-muted);margin-top:4px;">${desc}...</div>` : ''}
+                </div>`;
+            }).join('');
+
+            if (filtered.length > 100) {
+                grid.innerHTML += `<p style="text-align:center;color:var(--text-muted);padding:12px;font-size:12px;">显示前100条，共${filtered.length}条收藏品</p>`;
+            }
         }
 
         function showLootDetail(name, isCollectible) {
