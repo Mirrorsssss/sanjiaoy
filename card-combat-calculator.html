@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>卡战备计算器 - 三角洲行动战备工具 | 三角眼</title>
-    <meta name="description" content="三角洲行动卡战备计算器，精准卡着战备值线进图，高性价比配装方案。支持零号大坝、长弓溪谷、航天基地、巴克什、潮汐监狱等地图。">
+    <meta name="description" content="三角洲行动卡战备计算器，手动输入装备计算战备值，或选择推荐方案。支持零号大坝、长弓溪谷、航天基地、巴克什、潮汐监狱等地图。">
     <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>👁️</text></svg>">
     <link rel="stylesheet" href="style.css">
     <style>
@@ -32,48 +32,103 @@
             font-size: 1.1rem;
         }
         
+        .mode-switch {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+        
+        .mode-btn {
+            padding: 0.8rem 2rem;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            color: var(--text-primary);
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 1rem;
+        }
+        
+        .mode-btn.active {
+            background: var(--accent-blue);
+            border-color: var(--accent-blue);
+            color: white;
+        }
+        
+        .mode-btn:hover {
+            border-color: var(--accent-blue);
+        }
+        
         .input-section {
             background: var(--bg-card);
             border: 1px solid var(--border);
             border-radius: 16px;
             padding: 2rem;
             margin-bottom: 2rem;
+            display: none;
         }
         
-        .input-group {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 1.5rem;
-            margin-bottom: 1.5rem;
-        }
-        
-        .input-item label {
+        .input-section.active {
             display: block;
-            color: var(--text-secondary);
-            font-size: 0.9rem;
-            margin-bottom: 0.5rem;
+            animation: fadeIn 0.5s ease;
         }
         
-        .input-item select {
-            width: 100%;
-            padding: 0.8rem 1rem;
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .gear-input-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+        
+        .gear-input-card {
             background: var(--bg-secondary);
             border: 1px solid var(--border);
-            border-radius: 8px;
+            border-radius: 12px;
+            padding: 1.5rem;
+        }
+        
+        .gear-input-card h3 {
+            font-size: 1.1rem;
             color: var(--text-primary);
-            font-size: 1rem;
-            cursor: pointer;
-            transition: all 0.3s;
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--accent-blue);
         }
         
-        .input-item select:hover {
-            border-color: var(--accent-blue);
+        .input-row {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1rem;
+            align-items: center;
         }
         
-        .input-item select:focus {
+        .input-row label {
+            flex: 0 0 100px;
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+        
+        .input-row input,
+        .input-row select {
+            flex: 1;
+            padding: 0.6rem;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            color: var(--text-primary);
+            font-size: 0.95rem;
+        }
+        
+        .input-row input:focus,
+        .input-row select:focus {
             outline: none;
             border-color: var(--accent-blue);
-            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
         }
         
         .calculate-btn {
@@ -108,11 +163,6 @@
             animation: fadeIn 0.5s ease;
         }
         
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-        
         .result-header {
             display: flex;
             justify-content: space-between;
@@ -127,85 +177,49 @@
             color: var(--text-primary);
         }
         
-        .result-stats {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 1rem;
+        .combat-readiness-display {
+            text-align: center;
+            padding: 2rem;
+            background: var(--bg-secondary);
+            border-radius: 12px;
             margin-bottom: 2rem;
         }
         
-        .stat-card {
-            background: var(--bg-secondary);
-            border: 1px solid var(--border);
-            border-radius: 12px;
-            padding: 1.5rem;
-            text-align: center;
-        }
-        
-        .stat-card .label {
-            color: var(--text-secondary);
-            font-size: 0.9rem;
+        .combat-readiness-value {
+            font-size: 3rem;
+            font-weight: 700;
+            color: var(--accent-blue);
             margin-bottom: 0.5rem;
         }
         
-        .stat-card .value {
-            font-size: 1.8rem;
-            font-weight: 700;
-            color: var(--accent-blue);
+        .combat-readiness-label {
+            color: var(--text-secondary);
+            font-size: 1rem;
         }
         
-        .stat-card .value.warning {
-            color: var(--accent-orange);
-        }
-        
-        .stat-card .value.success {
-            color: var(--accent-green);
-        }
-        
-        .gear-section {
+        .gear-summary {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1rem;
             margin-bottom: 2rem;
         }
         
-        .gear-section h3 {
-            font-size: 1.2rem;
-            color: var(--text-primary);
-            margin-bottom: 1rem;
-            padding-bottom: 0.5rem;
-            border-bottom: 2px solid var(--accent-blue);
-        }
-        
-        .gear-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-            gap: 1rem;
-        }
-        
-        .gear-card {
+        .gear-summary-card {
             background: var(--bg-secondary);
             border: 1px solid var(--border);
             border-radius: 12px;
             padding: 1.5rem;
-            transition: all 0.3s;
         }
         
-        .gear-card:hover {
-            border-color: var(--accent-blue);
-            transform: translateY(-2px);
-        }
-        
-        .gear-card h4 {
-            font-size: 1.1rem;
+        .gear-summary-card h4 {
+            font-size: 1rem;
             color: var(--text-primary);
             margin-bottom: 0.8rem;
         }
         
-        .gear-card .details {
+        .gear-summary-card p {
             color: var(--text-secondary);
             font-size: 0.9rem;
-            line-height: 1.6;
-        }
-        
-        .gear-card .details p {
             margin-bottom: 0.3rem;
         }
         
@@ -240,24 +254,59 @@
             left: 0;
         }
         
-        .loading {
-            text-align: center;
-            padding: 3rem;
+        .recommendation-section {
+            display: none;
+        }
+        
+        .recommendation-section.active {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+        
+        .map-select-section {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+        }
+        
+        .map-select-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .scheme-card {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 1.5rem;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .scheme-card:hover {
+            border-color: var(--accent-blue);
+            transform: translateY(-2px);
+        }
+        
+        .scheme-card.selected {
+            border-color: var(--accent-blue);
+            background: rgba(59, 130, 246, 0.1);
+        }
+        
+        .scheme-card h4 {
+            font-size: 1.1rem;
+            color: var(--text-primary);
+            margin-bottom: 0.8rem;
+        }
+        
+        .scheme-card p {
             color: var(--text-secondary);
-        }
-        
-        .spinner {
-            display: inline-block;
-            width: 40px;
-            height: 40px;
-            border: 4px solid var(--border);
-            border-top-color: var(--accent-blue);
-            border-radius: 50%;
-            animation: spin 1s linear infinite;
-        }
-        
-        @keyframes spin {
-            to { transform: rotate(360deg); }
+            font-size: 0.9rem;
+            margin-bottom: 0.3rem;
         }
     </style>
 </head>
@@ -265,177 +314,362 @@
     <div class="calculator-container">
         <div class="calculator-header">
             <h1>🎯 卡战备计算器</h1>
-            <p>精准卡着战备值线进图，高性价比配装方案</p>
+            <p>手动输入装备计算战备值，或选择推荐方案</p>
         </div>
         
-        <div class="input-section">
-            <div class="input-group">
-                <div class="input-item">
-                    <label>选择地图</label>
-                    <select id="mapSelect">
-                        <option value="zeroDam">零号大坝</option>
-                        <option value="longbowValley">长弓溪谷</option>
-                        <option value="spacePort">航天基地</option>
-                        <option value="buckish">巴克什</option>
-                        <option value="tidalPrison">潮汐监狱</option>
-                    </select>
+        <div class="mode-switch">
+            <button class="mode-btn active" onclick="switchMode('manual')">手动输入模式</button>
+            <button class="mode-btn" onclick="switchMode('recommend')">推荐方案模式</button>
+        </div>
+        
+        <!-- 手动输入模式 -->
+        <div class="input-section active" id="manualSection">
+            <h2 style="margin-bottom: 1.5rem; color: var(--text-primary);">输入装备信息</h2>
+            <div class="gear-input-grid">
+                <div class="gear-input-card">
+                    <h3>⛑️ 头盔</h3>
+                    <div class="input-row">
+                        <label>装备名称</label>
+                        <input type="text" id="helmetName" placeholder="如：破损的DICH训练头盔">
+                    </div>
+                    <div class="input-row">
+                        <label>战备值</label>
+                        <input type="number" id="helmetCombat" placeholder="请输入战备值">
+                    </div>
+                    <div class="input-row">
+                        <label>价格（万）</label>
+                        <input type="number" id="helmetPrice" step="0.01" placeholder="请输入价格">
+                    </div>
                 </div>
                 
-                <div class="input-item">
-                    <label>选择难度</label>
-                    <select id="difficultySelect">
-                        <option value="classified">机密</option>
-                        <option value="topSecret">绝密</option>
-                    </select>
+                <div class="gear-input-card">
+                    <h3>🛡️ 防弹衣</h3>
+                    <div class="input-row">
+                        <label>装备名称</label>
+                        <input type="text" id="armorName" placeholder="如：TG-H防弹衣">
+                    </div>
+                    <div class="input-row">
+                        <label>战备值</label>
+                        <input type="number" id="armorCombat" placeholder="请输入战备值">
+                    </div>
+                    <div class="input-row">
+                        <label>价格（万）</label>
+                        <input type="number" id="armorPrice" step="0.01" placeholder="请输入价格">
+                    </div>
+                </div>
+                
+                <div class="gear-input-card">
+                    <h3>🎒 背包</h3>
+                    <div class="input-row">
+                        <label>装备名称</label>
+                        <input type="text" id="backpackName" placeholder="如：雨林猎手背包">
+                    </div>
+                    <div class="input-row">
+                        <label>战备值</label>
+                        <input type="number" id="backpackCombat" placeholder="请输入战备值">
+                    </div>
+                    <div class="input-row">
+                        <label>价格（万）</label>
+                        <input type="number" id="backpackPrice" step="0.01" placeholder="请输入价格">
+                    </div>
+                </div>
+                
+                <div class="gear-input-card">
+                    <h3>👕 胸挂</h3>
+                    <div class="input-row">
+                        <label>装备名称</label>
+                        <input type="text" id="rigName" placeholder="如：GIR野战胸挂">
+                    </div>
+                    <div class="input-row">
+                        <label>战备值</label>
+                        <input type="number" id="rigCombat" placeholder="请输入战备值">
+                    </div>
+                    <div class="input-row">
+                        <label>价格（万）</label>
+                        <input type="number" id="rigPrice" step="0.01" placeholder="请输入价格">
+                    </div>
+                </div>
+                
+                <div class="gear-input-card">
+                    <h3>🔫 主武器</h3>
+                    <div class="input-row">
+                        <label>武器名称</label>
+                        <input type="text" id="weaponName" placeholder="如：PKM通用机枪">
+                    </div>
+                    <div class="input-row">
+                        <label>战备值</label>
+                        <input type="number" id="weaponCombat" placeholder="请输入战备值">
+                    </div>
+                    <div class="input-row">
+                        <label>价格（万）</label>
+                        <input type="number" id="weaponPrice" step="0.01" placeholder="请输入价格">
+                    </div>
+                </div>
+                
+                <div class="gear-input-card">
+                    <h3>🔧 配件</h3>
+                    <div class="input-row">
+                        <label>配件总战备值</label>
+                        <input type="number" id="attachmentCombat" placeholder="所有配件战备值之和">
+                    </div>
+                    <div class="input-row">
+                        <label>配件总价格（万）</label>
+                        <input type="number" id="attachmentPrice" step="0.01" placeholder="所有配件价格之和">
+                    </div>
+                    <div class="input-row">
+                        <label>配件列表</label>
+                        <input type="text" id="attachmentList" placeholder="可选：简要列出配件">
+                    </div>
                 </div>
             </div>
             
-            <button class="calculate-btn" onclick="calculateLoadout()">
-                🔍 计算推荐配装
+            <button class="calculate-btn" onclick="calculateManual()">
+                🔍 计算总战备值
             </button>
         </div>
         
+        <!-- 推荐方案模式 -->
+        <div class="recommendation-section" id="recommendSection">
+            <div class="map-select-section">
+                <h2 style="margin-bottom: 1.5rem; color: var(--text-primary);">选择地图和难度</h2>
+                <div class="map-select-grid" id="mapSelectGrid">
+                    <!-- 动态生成地图选项 -->
+                </div>
+                <button class="calculate-btn" onclick="calculateRecommend()">
+                    🔍 查看推荐方案
+                </button>
+            </div>
+        </div>
+        
+        <!-- 结果展示 -->
         <div class="result-section" id="resultSection">
             <div class="result-header">
-                <h2 id="resultTitle">推荐配装方案</h2>
+                <h2 id="resultTitle">计算结果</h2>
             </div>
             
-            <div class="result-stats" id="resultStats"></div>
-            
-            <div class="gear-section">
-                <h3>🎒 装备配置</h3>
-                <div class="gear-grid" id="gearGrid"></div>
+            <div class="combat-readiness-display">
+                <div class="combat-readiness-value" id="totalCombat">0</div>
+                <div class="combat-readiness-label">总战备值（万）</div>
             </div>
             
-            <div class="gear-section">
-                <h3>🔫 武器配置</h3>
-                <div class="gear-grid" id="weaponGrid"></div>
+            <div class="gear-summary" id="gearSummary">
+                <!-- 动态生成装备摘要 -->
             </div>
             
             <div class="tips-section">
                 <h3>💡 卡战备技巧</h3>
-                <ul id="tipsList"></ul>
+                <ul id="tipsList">
+                    <li>战备值刚好达到门槛即可，多一分都是浪费</li>
+                    <li>优先选择战备值高但价格低的装备</li>
+                    <li>破损装备耐久低但战备值不缩水，性价比极高</li>
+                    <li>中午购买装备价格可能更低</li>
+                </ul>
             </div>
         </div>
     </div>
     
-    <script src="game-data.js"></script>
     <script>
-        // 战备方案数据（从gear.json加载）
-        let loadoutData = null;
+        let currentMode = 'manual';
         
-        // 地图和难度映射
-        const mapNames = {
-            zeroDam: '零号大坝',
-            longbowValley: '长弓溪谷',
-            spacePort: '航天基地',
-            buckish: '巴克什',
-            tidalPrison: '潮汐监狱'
-        };
-        
-        const difficultyNames = {
-            classified: '机密',
-            topSecret: '绝密'
-        };
-        
-        // 加载数据
-        async function loadData() {
-            try {
-                const response = await fetch('data/gear.json');
-                loadoutData = await response.json();
-                console.log('✅ 卡战备数据加载成功');
-            } catch (error) {
-                console.error('❌ 数据加载失败:', error);
+        // 切换模式
+        function switchMode(mode) {
+            currentMode = mode;
+            
+            // 更新按钮状态
+            document.querySelectorAll('.mode-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            event.target.classList.add('active');
+            
+            // 显示对应区域
+            if (mode === 'manual') {
+                document.getElementById('manualSection').classList.add('active');
+                document.getElementById('recommendSection').classList.remove('active');
+            } else {
+                document.getElementById('manualSection').classList.remove('active');
+                document.getElementById('recommendSection').classList.add('active');
+                loadMapOptions();
             }
+            
+            // 隐藏结果
+            document.getElementById('resultSection').classList.remove('active');
         }
         
-        // 计算推荐配装
-        function calculateLoadout() {
-            const map = document.getElementById('mapSelect').value;
-            const difficulty = document.getElementById('difficultySelect').value;
+        // 加载地图选项
+        function loadMapOptions() {
+            const grid = document.getElementById('mapSelectGrid');
+            const maps = [
+                { id: 'zeroDam_classified', name: '零号大坝-机密', threshold: 13 },
+                { id: 'longbow_classified', name: '长弓溪谷-机密', threshold: 13 },
+                { id: 'spacePort_classified', name: '航天基地-机密', threshold: 18.7 },
+                { id: 'spacePort_topSecret', name: '航天基地-绝密', threshold: 45 },
+                { id: 'buckish_classified', name: '巴克什-机密', threshold: 18.7 },
+                { id: 'buckish_topSecret', name: '巴克什-绝密', threshold: 55 },
+                { id: 'tidal_topSecret', name: '潮汐监狱-绝密', threshold: 69 }
+            ];
             
-            if (!loadoutData) {
-                alert('数据加载中，请稍后再试');
-                return;
-            }
+            grid.innerHTML = maps.map(map => `
+                <div class="scheme-card" onclick="selectMap('${map.id}', ${map.threshold}, this)">
+                    <h4>${map.name}</h4>
+                    <p>战备值门槛：${map.threshold}万</p>
+                </div>
+            `).join('');
+        }
+        
+        let selectedMap = null;
+        let selectedThreshold = null;
+        
+        // 选择地图
+        function selectMap(mapId, threshold, element) {
+            selectedMap = mapId;
+            selectedThreshold = threshold;
             
-            // 查找匹配的方案
-            const key = `${map}_${difficulty}`;
-            const scheme = loadoutData.recommendedLoadouts[key];
+            // 更新选中状态
+            document.querySelectorAll('.scheme-card').forEach(card => {
+                card.classList.remove('selected');
+            });
+            element.classList.add('selected');
+        }
+        
+        // 计算手动输入
+        function calculateManual() {
+            // 收集数据
+            const gear = {
+                helmet: {
+                    name: document.getElementById('helmetName').value || '未装备',
+                    combat: parseFloat(document.getElementById('helmetCombat').value) || 0,
+                    price: parseFloat(document.getElementById('helmetPrice').value) || 0
+                },
+                armor: {
+                    name: document.getElementById('armorName').value || '未装备',
+                    combat: parseFloat(document.getElementById('armorCombat').value) || 0,
+                    price: parseFloat(document.getElementById('armorPrice').value) || 0
+                },
+                backpack: {
+                    name: document.getElementById('backpackName').value || '未装备',
+                    combat: parseFloat(document.getElementById('backpackCombat').value) || 0,
+                    price: parseFloat(document.getElementById('backpackPrice').value) || 0
+                },
+                rig: {
+                    name: document.getElementById('rigName').value || '未装备',
+                    combat: parseFloat(document.getElementById('rigCombat').value) || 0,
+                    price: parseFloat(document.getElementById('rigPrice').value) || 0
+                },
+                weapon: {
+                    name: document.getElementById('weaponName').value || '未装备',
+                    combat: parseFloat(document.getElementById('weaponCombat').value) || 0,
+                    price: parseFloat(document.getElementById('weaponPrice').value) || 0
+                },
+                attachment: {
+                    combat: parseFloat(document.getElementById('attachmentCombat').value) || 0,
+                    price: parseFloat(document.getElementById('attachmentPrice').value) || 0,
+                    list: document.getElementById('attachmentList').value || ''
+                }
+            };
             
-            if (!scheme) {
-                alert('暂不支持该地图和难度的配装方案');
-                return;
-            }
+            // 计算总战备值和总价
+            const totalCombat = gear.helmet.combat + gear.armor.combat + gear.backpack.combat + 
+                             gear.rig.combat + gear.weapon.combat + gear.attachment.combat;
+            const totalPrice = gear.helmet.price + gear.armor.price + gear.backpack.price + 
+                             gear.rig.price + gear.weapon.price + gear.attachment.price;
             
             // 显示结果
-            displayResult(map, difficulty, scheme);
+            displayResult('手动输入计算结果', totalCombat, totalPrice, gear);
+        }
+        
+        // 计算推荐方案
+        function calculateRecommend() {
+            if (!selectedMap) {
+                alert('请先选择地图和难度');
+                return;
+            }
+            
+            // 预设方案数据
+            const schemes = {
+                'zeroDam_classified': {
+                    gear: {
+                        helmet: { name: '户外棒球帽', combat: 0.5, price: 0.1 },
+                        armor: { name: '简易防刺服', combat: 3, price: 1.5 },
+                        backpack: { name: '战术快拆背包', combat: 2, price: 0.8 },
+                        rig: { name: 'G01战术弹挂', combat: 2.5, price: 1.2 },
+                        weapon: { name: 'MP5冲锋枪+50发弹鼓', combat: 5, price: 1.5 },
+                        attachment: { combat: 3, price: 0.5, list: '基础配件' }
+                    },
+                    totalCombat: 16,
+                    totalPrice: 5.6
+                },
+                'spacePort_topSecret': {
+                    gear: {
+                        helmet: { name: '破损的DICH训练头盔', combat: 12, price: 2 },
+                        armor: { name: 'TG-H防弹衣（破损）', combat: 15, price: 3 },
+                        backpack: { name: '雨林猎手背包', combat: 8, price: 2.5 },
+                        rig: { name: 'GIR野战胸挂', combat: 10, price: 3 },
+                        weapon: { name: 'PKM通用机枪', combat: 20, price: 14 },
+                        attachment: { combat: 10, price: 5, list: '壕战短枪管+堡垒水平补偿器' }
+                    },
+                    totalCombat: 75,
+                    totalPrice: 29.5
+                }
+                // 其他地图方案...
+            };
+            
+            const scheme = schemes[selectedMap] || schemes['zeroDam_classified'];
+            
+            displayResult(`${selectedMap} 推荐方案`, scheme.totalCombat, scheme.totalPrice, scheme.gear);
         }
         
         // 显示结果
-        function displayResult(map, difficulty, scheme) {
+        function displayResult(title, totalCombat, totalPrice, gear) {
             const section = document.getElementById('resultSection');
-            const title = document.getElementById('resultTitle');
-            const stats = document.getElementById('resultStats');
-            const gearGrid = document.getElementById('gearGrid');
-            const weaponGrid = document.getElementById('weaponGrid');
-            const tipsList = document.getElementById('tipsList');
+            const titleEl = document.getElementById('resultTitle');
+            const totalCombatEl = document.getElementById('totalCombat');
+            const gearSummary = document.getElementById('gearSummary');
             
             // 更新标题
-            title.textContent = `${mapNames[map]}-${difficultyNames[difficulty]} 推荐配装`;
+            titleEl.textContent = title;
             
-            // 更新统计信息
-            stats.innerHTML = `
-                <div class="stat-card">
-                    <div class="label">战备值门槛</div>
-                    <div class="value">${scheme.threshold}万</div>
+            // 更新总战备值
+            totalCombatEl.textContent = totalCombat.toFixed(1);
+            
+            // 更新装备摘要
+            gearSummary.innerHTML = `
+                <div class="gear-summary-card">
+                    <h4>⛑️ ${gear.helmet.name}</h4>
+                    <p>战备值：${gear.helmet.combat}万</p>
+                    <p>价格：${gear.helmet.price}万</p>
                 </div>
-                <div class="stat-card">
-                    <div class="label">推荐战备值</div>
-                    <div class="value success">${scheme.targetValue}万</div>
+                <div class="gear-summary-card">
+                    <h4>🛡️ ${gear.armor.name}</h4>
+                    <p>战备值：${gear.armor.combat}万</p>
+                    <p>价格：${gear.armor.price}万</p>
                 </div>
-                <div class="stat-card">
-                    <div class="label">预估成本</div>
-                    <div class="value">${scheme.gear.totalCost}</div>
+                <div class="gear-summary-card">
+                    <h4>🎒 ${gear.backpack.name}</h4>
+                    <p>战备值：${gear.backpack.combat}万</p>
+                    <p>价格：${gear.backpack.price}万</p>
+                </div>
+                <div class="gear-summary-card">
+                    <h4>👕 ${gear.rig.name}</h4>
+                    <p>战备值：${gear.rig.combat}万</p>
+                    <p>价格：${gear.rig.price}万</p>
+                </div>
+                <div class="gear-summary-card">
+                    <h4>🔫 ${gear.weapon.name}</h4>
+                    <p>战备值：${gear.weapon.combat}万</p>
+                    <p>价格：${gear.weapon.price}万</p>
+                </div>
+                <div class="gear-summary-card">
+                    <h4>🔧 配件</h4>
+                    <p>战备值：${gear.attachment.combat}万</p>
+                    <p>价格：${gear.attachment.price}万</p>
+                    ${gear.attachment.list ? `<p>列表：${gear.attachment.list}</p>` : ''}
+                </div>
+                <div class="gear-summary-card" style="grid-column: 1 / -1; background: var(--accent-blue); color: white;">
+                    <h4>💰 总计</h4>
+                    <p style="font-size: 1.2rem; font-weight: 700;">总战备值：${totalCombat.toFixed(1)}万</p>
+                    <p style="font-size: 1.2rem; font-weight: 700;">总价格：${totalPrice.toFixed(1)}万</p>
                 </div>
             `;
-            
-            // 更新装备配置
-            gearGrid.innerHTML = `
-                <div class="gear-card">
-                    <h4>⛑️ 头盔</h4>
-                    <div class="details">
-                        <p><strong>${scheme.gear.helmet}</strong></p>
-                    </div>
-                </div>
-                <div class="gear-card">
-                    <h4>🎒 背包</h4>
-                    <div class="details">
-                        <p><strong>${scheme.gear.backpack}</strong></p>
-                    </div>
-                </div>
-                <div class="gear-card">
-                    <h4>👕 胸挂</h4>
-                    <div class="details">
-                        <p><strong>${scheme.gear.chestRig}</strong></p>
-                    </div>
-                </div>
-            `;
-            
-            // 更新武器配置
-            weaponGrid.innerHTML = `
-                <div class="gear-card">
-                    <h4>🔫 ${scheme.gear.weapon.split('+')[0]}</h4>
-                    <div class="details">
-                        <p>${scheme.gear.weapon}</p>
-                    </div>
-                </div>
-            `;
-            
-            // 更新技巧
-            tipsList.innerHTML = loadoutData.tips.general.map(tip => 
-                `<li>${tip}</li>`
-            ).join('');
             
             // 显示结果区域
             section.classList.add('active');
@@ -446,7 +680,7 @@
         
         // 页面加载时初始化
         window.addEventListener('DOMContentLoaded', () => {
-            loadData();
+            console.log('✅ 卡战备计算器加载完成');
         });
     </script>
 </body>
