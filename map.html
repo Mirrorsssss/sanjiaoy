@@ -232,19 +232,41 @@ async function loadMap() {
 
         currentData = { map: mapData, diff: diff };
 
-        // Get bounds from map data
-        const w = mapData.width, h = mapData.height;
-        const bounds = [[-h/128, 0], [0, w/128]];
+        // 计算边界：用数据里所有点位的 x/y 极值
+        const items = diff.items || [];
+        let minX=Infinity, maxX=-Infinity, minY=Infinity, maxY=-Infinity;
+        for (const it of items) {
+            const x = parseFloat(it.x) || 0, y = parseFloat(it.y) || 0;
+            if (x < minX) minX = x; if (x > maxX) maxX = x;
+            if (y < minY) minY = y; if (y > maxY) maxY = y;
+        }
+        // 若没有数据则用 map_info 里的宽高
+        const w = mapData.width / 128, h = mapData.height / 128;
+        if (!isFinite(minX)) { minX = 0; minY = -h; maxX = w; maxY = 0; }
+        const padX = (maxX - minX) * 0.05 || 1;
+        const padY = (maxY - minY) * 0.05 || 1;
+        const bounds = [[minY - padY, minX - padX], [maxY + padY, maxX + padX]];
 
-        // Try to find the map image
-        const imgMap = mapKey + '.jpg';
-        const imgUrl = `https://sqimg.sjzy.qq.com/sanjiaoy/map_tiles/${imgMap}`;
-
+        // 移除旧图层
         if (map._layers) {
             Object.values(map._layers).forEach(l => map.removeLayer(l));
         }
 
-        L.imageOverlay(imgUrl, bounds, { opacity: 0.9, errorOverlayUrl: '' }).addTo(map);
+        // 无底图：用半透明矩形表示地图区域 + 坐标网格
+        L.rectangle(bounds, {
+            color: '#475569', fillColor: '#1e293b', fillOpacity: 0.4,
+            weight: 1, dashArray: '6 4'
+        }).addTo(map);
+
+        // 画坐标网格（每 100 单位一格）
+        const gridStep = 100;
+        for (let gx = Math.floor(minX / gridStep) * gridStep; gx <= maxX; gx += gridStep) {
+            L.polyline([[minY, gx], [maxY, gx]], { color: '#334155', weight: 0.5, opacity: 0.4 }).addTo(map);
+        }
+        for (let gy = Math.floor(minY / gridStep) * gridStep; gy <= maxY; gy += gridStep) {
+            L.polyline([[gy, minX], [gy, maxX]], { color: '#334155', weight: 0.5, opacity: 0.4 }).addTo(map);
+        }
+
         map.fitBounds(bounds);
 
         renderMarkers(diff.items);
