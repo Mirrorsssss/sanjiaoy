@@ -367,12 +367,9 @@
     </div>
 
     <script>
-        let ammoData = null;
         let priceData = null;
 
         window.addEventListener('DOMContentLoaded', async () => {
-            await loadAmmoData();
-            await loadPriceData();
             initTabs();
             renderCaliberTable();
             renderAmmoTypes();
@@ -381,17 +378,10 @@
             renderGearPriceTable();
         });
 
-        // ========== 数据加载 ==========
-        async function loadAmmoData() {
-            try {
-                const resp = await fetch('data/ammunition.json');
-                ammoData = await resp.json();
-            } catch(e) {
-                console.warn('ammunition.json 加载失败，使用内嵌数据');
-                ammoData = getFallbackAmmoData();
-            }
-        }
+        // ========== 弹药数据（内嵌，无需网络请求）==========
+        const AMMO_DATA = {"calibers":[{"caliber":"5.56×45mm","category":"NATO","typicalDamage":"27-32","penetration":"中等","weapons":["M4A1","K416","M16A4","AUG","SG552","CAR-15","M249","Mini-14"],"description":"北约标准小口径步枪弹，平衡性好"},{"caliber":"7.62×39mm","category":"Soviet","typicalDamage":"40-45","penetration":"中高","weapons":["AKM","PTR-32","SKS"],"description":"苏联经典中间威力步枪弹，停止力强"},{"caliber":"5.45×39mm","category":"Soviet","typicalDamage":"34-38","penetration":"高","weapons":["AKS-74U","AK-12"],"description":"苏联小口径步枪弹，穿透力强"},{"caliber":"7.62×51mm","category":"NATO","typicalDamage":"44-52","penetration":"高","weapons":["SCAR-H","G3","SR-25","M14","R93","M700"],"description":"北约全威力步枪弹，威力大但后坐力强"},{"caliber":"7.62×54mmR","category":"Soviet","typicalDamage":"48-56","penetration":"极高","weapons":["PKM","SVD","SV-98"],"description":"苏联全威力步枪弹，用于机枪和狙击步枪"},{"caliber":"9×19mm","category":"NATO","typicalDamage":"25-35","penetration":"低","weapons":["MP5","UZI","野牛","勇士","QSZ92G","G18","93R","G17"],"description":"全球最流行的手枪弹，平衡性好"},{"caliber":"9×39mm","category":"Soviet","typicalDamage":"40-48","penetration":"极高（亚音速）","weapons":["AS Val","VSS","SR-3M"],"description":"苏联特种微声步枪弹，穿透力极强"},{"caliber":"5.7×28mm","category":"FN","typicalDamage":"28-32","penetration":"极高","weapons":["P90"],"description":"FN公司小口径高速手枪弹，穿透力强"},{"caliber":"12.7×55mm","category":"Soviet","typicalDamage":"56-65","penetration":"极高","weapons":["ASh-12"],"description":"俄罗斯大口径短程步枪弹，近战神器"},{"caliber":"5.8×42mm","category":"China","typicalDamage":"27-31","penetration":"高","weapons":["QBZ95-1","QJB95-1"],"description":"中国制式小口径步枪弹，性能优异"},{"caliber":"12GA","category":"Shotgun","typicalDamage":"80-250（距离衰减）","penetration":"低（独头弹高）","weapons":["M870","M1014"],"description":"12号霰弹，近战威力极大"},{"caliber":"4.6×30mm","category":"HK","typicalDamage":"28-32","penetration":"极高","weapons":["MP7"],"description":"HK公司小口径高速弹，穿透力强"}],"ammoTypes":{"note":"同种口径下有不同的弹药型号，影响伤害和穿透","examples":[{"caliber":"5.56×45mm","types":[{"name":"M193","damage":27,"penetration":32,"note":"标准弹"},{"name":"M855","damage":28,"penetration":38,"note":"穿甲弹"},{"name":"M995","damage":26,"penetration":55,"note":"高穿透穿甲弹"}]},{"caliber":"7.62×39mm","types":[{"name":"M43","damage":40,"penetration":28,"note":"标准弹"},{"name":"M67","damage":42,"penetration":30,"note":"改进弹"},{"name":"BP","damage":38,"penetration":50,"note":"穿甲弹"}]}]},"recommendations":{"note":"弹药选择建议","general":["PVE模式优先选择高穿透弹药对抗AI护甲","PVP模式平衡伤害和穿透，根据对手护甲选择","狙击步枪优先选择高穿透弹药保证远程击杀","冲锋枪在近战中使用高伤害弹药"]}};
 
+        // ========== 数据加载 ==========
         async function loadPriceData() {
             try {
                 const resp = await fetch('/price.json');
@@ -416,7 +406,7 @@
 
         // ========== 口径对比表 ==========
         function renderCaliberTable() {
-            const calibers = ammoData?.calibers || [];
+            const calibers = AMMO_DATA?.calibers || [];
             let html = `<table class="caliber-table">
                 <thead><tr>
                     <th>口径</th><th>阵营</th><th>典型伤害</th><th>穿透力</th><th>适用武器</th><th>描述</th>
@@ -444,7 +434,7 @@
 
         // ========== 弹药类型对比 ==========
         function renderAmmoTypes() {
-            const ammoTypes = ammoData?.ammoTypes?.examples || [];
+            const ammoTypes = AMMO_DATA?.ammoTypes?.examples || [];
             if (!ammoTypes.length) return;
             let html = '<h3 style="color:#f59e0b;margin-bottom:1rem;">🔬 同口径不同弹药类型对比</h3>';
             html += '<div class="ammo-types-grid">';
@@ -468,7 +458,7 @@
 
         // ========== 推荐建议 ==========
         function renderRecommendations() {
-            const tips = ammoData?.recommendations?.general || [];
+            const tips = AMMO_DATA?.recommendations?.general || [];
             if (!tips.length) return;
             const defaultTips = [
                 {title:'🎯 PVE模式', content:'优先选择高穿透弹药对抗AI护甲，AI护甲等级固定，高穿深弹药用起来更轻松。'},
