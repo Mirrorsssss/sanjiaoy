@@ -1266,7 +1266,6 @@
                     <select id="build-mode" onchange="showBuild()">
                         <option value="">— 选择模式 —</option>
                         <option value="raid">烽火地带（跑刀/撤离）</option>
-                        <option value="battle">全面战场（攻防/占点）</option>
                         <option value="ranked">竞技排位</option>
                     </select>
                 </div>
@@ -1280,16 +1279,7 @@
                         <option value="vip">大佬（50万以上）</option>
                     </select>
                 </div>
-                <div class="form-group">
-                    <label>游戏风格</label>
-                    <select id="build-style" onchange="showBuild()">
-                        <option value="">— 选择风格 —</option>
-                        <option value="rush">刚枪流（正面硬刚）</option>
-                        <option value="sneak">苟分流（潜伏发育）</option>
-                        <option value="support">辅助流（配合队友）</option>
-                        <option value="balanced">均衡型</option>
-                    </select>
-                </div>
+                <input type="hidden" id="build-style" value="">
                 <div class="build-result-card" id="build-result" style="display:none">
                     <h4 style="font-size:15px; font-weight:700; margin-bottom: 8px;" id="build-title">—</h4>
                     <p style="font-size:13px; color: var(--text-secondary); margin-bottom: 16px;" id="build-desc">—</p>
@@ -1480,157 +1470,252 @@
 
         // ==================== Build Recommendation ====================
         const buildData = {
-            raid: {
-                penny: {
-                    title: '烽火地带·穷鬼跑刀套',
-                    desc: '低成本高回报，适合新手跑刀发育，全套5万以内搞定',
-                    items: [
-                        {icon: '🗡', name: '战术匕首', cost: 0},
-                        {icon: '💊', name: '急救包×2', cost: 1.6},
-                        {icon: '🎒', name: '背包（小）', cost: 0.3},
-                        {icon: '💣', name: '碎片手雷×2', cost: 2.4},
-                        {icon: '🩹', name: '绷带×3', cost: 0.3},
-                    ],
-                    total: 4.6, note: '跑刀路线推荐：工业港口→仓库区→撤离点'
+    "raid": {
+        "penny": {
+            "title": "烽火地带·穷鬼套",
+            "desc": "低成本跑刀配置，适合新手",
+            "items": [
+                {
+                    "icon": "🔫",
+                    "name": "M4A1突击步枪",
+                    "cost": 3.5
                 },
-                normal: {
-                    title: '烽火地带·小康稳撤离套',
-                    desc: '攻防兼备，跑刀+遭遇战两不误，全套20万以内',
-                    items: [
-                        {icon: '🔫', name: 'Vector（基础改）', cost: 5},
-                        {icon: '💊', name: '急救包×2', cost: 1.6},
-                        {icon: '🎒', name: '背包（中）', cost: 1.2},
-                        {icon: '💣', name: '碎片手雷×3', cost: 3.6},
-                        {icon: '🔦', name: '战术手电', cost: 0.5},
-                        {icon: '🩹', name: '绷带×5', cost: 0.5},
-                    ],
-                    total: 12.4, note: '遇敌策略：优先打腿，再补枪'
+                {
+                    "icon": "💊",
+                    "name": "急救包",
+                    "cost": 0
                 },
-                rich: {
-                    title: '烽火地带·小康进阶套',
-                    desc: '有输出有续航，高效撤离首选',
-                    items: [
-                        {icon: '🔫', name: 'M4（改满）', cost: 18},
-                        {icon: '💊', name: '急救包×3', cost: 2.4},
-                        {icon: '🎒', name: '背包（大）', cost: 3.5},
-                        {icon: '💣', name: '碎片手雷×4', cost: 4.8},
-                        {icon: '🔦', name: '激光瞄准器', cost: 2},
-                        {icon: '🥤', name: '饮料（中）×2', cost: 0.9},
-                        {icon: '🩹', name: '绷带×5', cost: 0.5},
-                    ],
-                    total: 32.1, note: '高价值区域：行政楼→实验室→数据中心'
-                },
-                vip: {
-                    title: '烽火地带·大佬全配撤离套',
-                    desc: '满配出门，追求极致效率和生存率',
-                    items: [
-                        {icon: '🔫', name: 'AK74M（满改）', cost: 35},
-                        {icon: '🛡', name: '三级护甲', cost: 25},
-                        {icon: '💊', name: '急救包×4', cost: 3.2},
-                        {icon: '🎒', name: '背包（超大）', cost: 8},
-                        {icon: '💣', name: '碎片手雷×6', cost: 7.2},
-                        {icon: '🔦', name: '消音器+全息', cost: 6},
-                        {icon: '🥤', name: '饮料（大）×3', cost: 2.1},
-                    ],
-                    total: 86.5, note: '建议组队，效率更高'
+                {
+                    "icon": "💊",
+                    "name": "绷带",
+                    "cost": 0
                 }
-            },
-            battle: {
-                penny: {
-                    title: '全面战场·穷鬼占点套',
-                    desc: '低价但够用，适合抢占资源点',
-                    items: [
-                        {icon: '🔫', name: 'QBZ（裸枪）', cost: 0.5},
-                        {icon: '💊', name: '医疗箱×1', cost: 1},
-                        {icon: '💣', name: '粘性雷×2', cost: 1},
-                        {icon: '🎯', name: '信号枪×1', cost: 2},
-                    ],
-                    total: 4.5, note: '打法：绕后偷点，快速转移'
+            ],
+            "total": 3.5,
+            "note": "数据来源：游戏数据库 · 实际价格以游戏内为准（改枪码收集中）"
+        },
+        "normal": {
+            "title": "烽火地带·小康套",
+            "desc": "均衡型烽火地带配置",
+            "items": [
+                {
+                    "icon": "🔫",
+                    "name": "AKM突击步枪",
+                    "cost": 4.8
                 },
-                normal: {
-                    title: '全面战场·小康攻防套',
-                    desc: '输出与生存平衡，适合中等段位',
-                    items: [
-                        {icon: '🔫', name: 'M4（中改）', cost: 12},
-                        {icon: '🛡', name: '二级护甲', cost: 8},
-                        {icon: '💊', name: '医疗箱×2', cost: 2},
-                        {icon: '💣', name: '粘性雷×3', cost: 1.5},
-                        {icon: '🔦', name: '红点瞄准镜', cost: 1.5},
-                    ],
-                    total: 25, note: '建议与队友配合，推进更稳'
+                {
+                    "icon": "🛡",
+                    "name": "二级护甲",
+                    "cost": 1.8
                 },
-                rich: {
-                    title: '全面战场·小康冲锋套',
-                    desc: '高机动性输出，进攻型配置',
-                    items: [
-                        {icon: '🔫', name: '冲锋枪（满改）', cost: 22},
-                        {icon: '🛡', name: '三级护甲', cost: 25},
-                        {icon: '💣', name: '粘性雷×5', cost: 2.5},
-                        {icon: '🥤', name: '兴奋剂×2', cost: 1},
-                    ],
-                    total: 50.5, note: '打法：快速切入，侧翼包抄'
+                {
+                    "icon": "⛑",
+                    "name": "二级头盔",
+                    "cost": 1.2
                 },
-                vip: {
-                    title: '全面战场·大佬指挥套',
-                    desc: '全配装备，适合指挥位或大佬冲分',
-                    items: [
-                        {icon: '🔫', name: '狙击枪（满改）', cost: 55},
-                        {icon: '🛡', name: '三级护甲', cost: 25},
-                        {icon: '💊', name: '医疗箱×3', cost: 3},
-                        {icon: '💣', name: '粘性雷×6', cost: 3},
-                        {icon: '🔭', name: '高倍瞄准镜', cost: 5},
-                    ],
-                    total: 91, note: '指挥要点：报点清晰，节奏把控'
+                {
+                    "icon": "💊",
+                    "name": "急救包",
+                    "cost": 0
                 }
-            },
-            ranked: {
-                penny: {
-                    title: '竞技排位·穷鬼上分套',
-                    desc: '性价比赛枪，适合练枪',
-                    items: [
-                        {icon: '🔫', name: 'AKM（裸枪）', cost: 2},
-                        {icon: '💊', name: '急救包×2', cost: 1.6},
-                        {icon: '💣', name: '碎片手雷×2', cost: 2.4},
-                    ],
-                    total: 6, note: '排位策略：稳扎稳打，少浪'
+            ],
+            "total": 15,
+            "note": "数据来源：游戏数据库 · 实际价格以游戏内为准（改枪码收集中）"
+        },
+        "rich": {
+            "title": "烽火地带·小康偏上套",
+            "desc": "高性能烽火地带配置，K416高射速压制",
+            "items": [
+                {
+                    "icon": "🔫",
+                    "name": "K416突击步枪",
+                    "cost": 0
                 },
-                normal: {
-                    title: '竞技排位·小康稳定套',
-                    desc: '主流配置，适合铂金以下段位',
-                    items: [
-                        {icon: '🔫', name: 'M4A1（标准改）', cost: 15},
-                        {icon: '🛡', name: '二级护甲', cost: 8},
-                        {icon: '💊', name: '急救包×2', cost: 1.6},
-                        {icon: '💣', name: '碎片手雷×3', cost: 3.6},
-                        {icon: '🥤', name: '饮料（中）×2', cost: 0.9},
-                    ],
-                    total: 29.1, note: '段位目标：铂金稳冲'
+                {
+                    "icon": "🛡",
+                    "name": "三级护甲",
+                    "cost": 3.5
                 },
-                rich: {
-                    title: '竞技排位·小康冲分套',
-                    desc: '冲钻石推荐配置',
-                    items: [
-                        {icon: '🔫', name: '突击步枪（满改）', cost: 30},
-                        {icon: '🛡', name: '三级护甲', cost: 25},
-                        {icon: '💣', name: '碎片手雷×4', cost: 4.8},
-                        {icon: '🔦', name: '全息+消音', cost: 5},
-                    ],
-                    total: 64.8, note: '冲分要点：配合沟通是关键'
+                {
+                    "icon": "⛑",
+                    "name": "三级头盔",
+                    "cost": 2.5
                 },
-                vip: {
-                    title: '竞技排位·大佬战神套',
-                    desc: '全服顶级配置，战神段位专用',
-                    items: [
-                        {icon: '🔫', name: '顶级步枪（满改）', cost: 80},
-                        {icon: '🛡', name: '三级护甲', cost: 25},
-                        {icon: '💊', name: '急救包×4', cost: 3.2},
-                        {icon: '💣', name: '碎片手雷×6', cost: 7.2},
-                        {icon: '🔭', name: '4倍镜+消音', cost: 8},
-                    ],
-                    total: 123.4, note: '战神要点：个人能力+意识配合'
+                {
+                    "icon": "🎽",
+                    "name": "高级胸挂",
+                    "cost": 1
+                },
+                {
+                    "icon": "🎒",
+                    "name": "中型背包",
+                    "cost": 0.8
+                },
+                {
+                    "icon": "💊",
+                    "name": "高级医疗包",
+                    "cost": 0
                 }
-            }
-        };
+            ],
+            "total": 35,
+            "note": "数据来源：游戏数据库 · 实际价格以游戏内为准（改枪码收集中）"
+        },
+        "vip": {
+            "title": "烽火地带·大佬套",
+            "desc": "顶级烽火地带配置，无惧任何对手",
+            "items": [
+                {
+                    "icon": "🔫",
+                    "name": "K416突击步枪",
+                    "cost": 0
+                },
+                {
+                    "icon": "🛡",
+                    "name": "四级护甲",
+                    "cost": 6
+                },
+                {
+                    "icon": "⛑",
+                    "name": "四级头盔",
+                    "cost": 4.5
+                },
+                {
+                    "icon": "🎽",
+                    "name": "高级胸挂",
+                    "cost": 1
+                },
+                {
+                    "icon": "🎒",
+                    "name": "大型背包",
+                    "cost": 1.5
+                },
+                {
+                    "icon": "💊",
+                    "name": "高级医疗包",
+                    "cost": 0
+                },
+                {
+                    "icon": "💊",
+                    "name": "战术装备",
+                    "cost": 0
+                }
+            ],
+            "total": 60,
+            "note": "数据来源：游戏数据库 · 实际价格以游戏内为准（改枪码收集中）"
+        }
+    },
+    "ranked": {
+        "normal": {
+            "title": "竞技排位·小康套",
+            "desc": "排位模式稳健配置，重视生存",
+            "items": [
+                {
+                    "icon": "🔫",
+                    "name": "M4A1突击步枪",
+                    "cost": 3.5
+                },
+                {
+                    "icon": "🛡",
+                    "name": "三级护甲",
+                    "cost": 3.5
+                },
+                {
+                    "icon": "⛑",
+                    "name": "二级头盔",
+                    "cost": 1.2
+                },
+                {
+                    "icon": "🎽",
+                    "name": "战术胸挂",
+                    "cost": 0.5
+                },
+                {
+                    "icon": "💊",
+                    "name": "急救包",
+                    "cost": 0
+                }
+            ],
+            "total": 22,
+            "note": "数据来源：游戏数据库 · 实际价格以游戏内为准（改枪码收集中）"
+        },
+        "rich": {
+            "title": "竞技排位·小康偏上套",
+            "desc": "排位模式高性能配置，力争上游",
+            "items": [
+                {
+                    "icon": "🔫",
+                    "name": "K416突击步枪",
+                    "cost": 0
+                },
+                {
+                    "icon": "🛡",
+                    "name": "三级护甲",
+                    "cost": 3.5
+                },
+                {
+                    "icon": "⛑",
+                    "name": "三级头盔",
+                    "cost": 2.5
+                },
+                {
+                    "icon": "🎽",
+                    "name": "高级胸挂",
+                    "cost": 1
+                },
+                {
+                    "icon": "🎒",
+                    "name": "中型背包",
+                    "cost": 0.8
+                },
+                {
+                    "icon": "💊",
+                    "name": "高级医疗包",
+                    "cost": 0
+                }
+            ],
+            "total": 40,
+            "note": "数据来源：游戏数据库 · 实际价格以游戏内为准（改枪码收集中）"
+        },
+        "vip": {
+            "title": "竞技排位·大佬套",
+            "desc": "排位顶级配置，统治战场",
+            "items": [
+                {
+                    "icon": "🔫",
+                    "name": "K416突击步枪",
+                    "cost": 0
+                },
+                {
+                    "icon": "🛡",
+                    "name": "四级护甲",
+                    "cost": 6
+                },
+                {
+                    "icon": "⛑",
+                    "name": "四级头盔",
+                    "cost": 4.5
+                },
+                {
+                    "icon": "🎽",
+                    "name": "高级胸挂",
+                    "cost": 1
+                },
+                {
+                    "icon": "🎒",
+                    "name": "大型背包",
+                    "cost": 1.5
+                },
+                {
+                    "icon": "💊",
+                    "name": "高级医疗包",
+                    "cost": 0
+                }
+            ],
+            "total": 55,
+            "note": "数据来源：游戏数据库 · 实际价格以游戏内为准（改枪码收集中）"
+        }
+    }
+};
 
         function showBuild() {
             const mode = document.getElementById('build-mode').value;
@@ -1688,37 +1773,423 @@
 
         // ==================== Bullet Compare ====================
         const bulletData = {
-            '762': [
-                {dept: '情报部', name: '7.62x39mm BP弹', damage: 45, pen: 32, price: 180, note: '穿甲能力优秀'},
-                {dept: '工程部', name: '7.62x39mm PS弹', damage: 43, pen: 26, price: 120, note: '性价比赛用'},
-                {dept: '健康部', name: '7.62x39mm HP弹', damage: 50, pen: 15, price: 150, note: '对人伤害高'},
-            ],
-            '556': [
-                {dept: '情报部', name: '5.56x45mm M855', damage: 38, pen: 28, price: 200, note: '综合性能强'},
-                {dept: '工程部', name: '5.56x45mm M856', damage: 36, pen: 35, price: 220, note: '穿甲略优'},
-                {dept: '健康部', name: '5.56x45mm Mk262', damage: 42, pen: 22, price: 250, note: '精度高'},
-            ],
-            '9mm': [
-                {dept: '情报部', name: '9x19mm AP6.3', damage: 35, pen: 30, price: 160, note: '穿甲手枪弹首选'},
-                {dept: '工程部', name: '9x19mm Pst gzh', damage: 38, pen: 20, price: 100, note: '高伤害实惠'},
-                {dept: '健康部', name: '9x19mm RIP', damage: 42, pen: 10, price: 130, note: '停止力强'},
-            ],
-            '545': [
-                {dept: '情报部', name: '5.45x39mm BS弹', damage: 40, pen: 30, price: 190, note: '穿透优秀'},
-                {dept: '工程部', name: '5.45x39mm PS弹', damage: 38, pen: 25, price: 110, note: '经济实惠'},
-            ],
-            '12g': [
-                {dept: '工程部', name: '12号霰弹 slug', damage: 120, pen: 15, price: 300, note: '单发高伤害'},
-                {dept: '健康部', name: '12号霰弹 00 buckshot', damage: 90, pen: 5, price: 180, note: '散布大'},
-            ],
-            '338': [
-                {dept: '情报部', name: '.338 Lapua Magnum', damage: 85, pen: 45, price: 450, note: '狙击专用'},
-            ],
-            '300': [
-                {dept: '工程部', name: '.300 Blackout sub', damage: 35, pen: 20, price: 200, note: '亚音速消音'},
-                {dept: '情报部', name: '.300 Blackout sup', damage: 42, pen: 28, price: 280, note: '穿甲亚音速'},
-            ]
-        };
+    "45": [
+        {
+            "dept": "情报部",
+            "name": ".45 ACP弹药（穿甲）",
+            "damage": 36,
+            "pen": 18,
+            "price": 390,
+            "note": "穿甲优先，适合PVP"
+        },
+        {
+            "dept": "工程部",
+            "name": ".45 ACP弹药（标准）",
+            "damage": 40,
+            "pen": 15,
+            "price": 300,
+            "note": "综合性能，性价比高"
+        },
+        {
+            "dept": "健康部",
+            "name": ".45 ACP弹药（高伤）",
+            "damage": 48,
+            "pen": 12,
+            "price": 330,
+            "note": "高伤害，适合PVE"
+        }
+    ],
+    "46": [
+        {
+            "dept": "情报部",
+            "name": "4.6×30mm弹药（穿甲）",
+            "damage": 25,
+            "pen": 42,
+            "price": 520,
+            "note": "穿甲优先，适合PVP"
+        },
+        {
+            "dept": "工程部",
+            "name": "4.6×30mm弹药（标准）",
+            "damage": 28,
+            "pen": 35,
+            "price": 400,
+            "note": "综合性能，性价比高"
+        },
+        {
+            "dept": "健康部",
+            "name": "4.6×30mm弹药（高伤）",
+            "damage": 34,
+            "pen": 28,
+            "price": 440,
+            "note": "高伤害，适合PVE"
+        }
+    ],
+    "50": [
+        {
+            "dept": "情报部",
+            "name": ".50 AE弹药（穿甲）",
+            "damage": 50,
+            "pen": 30,
+            "price": 650,
+            "note": "穿甲优先，适合PVP"
+        },
+        {
+            "dept": "工程部",
+            "name": ".50 AE弹药（标准）",
+            "damage": 55,
+            "pen": 25,
+            "price": 500,
+            "note": "综合性能，性价比高"
+        },
+        {
+            "dept": "健康部",
+            "name": ".50 AE弹药（高伤）",
+            "damage": 66,
+            "pen": 20,
+            "price": 550,
+            "note": "高伤害，适合PVE"
+        }
+    ],
+    "57": [
+        {
+            "dept": "情报部",
+            "name": "5.7×28mm弹药（穿甲）",
+            "damage": 25,
+            "pen": 42,
+            "price": 390,
+            "note": "穿甲优先，适合PVP"
+        },
+        {
+            "dept": "工程部",
+            "name": "5.7×28mm弹药（标准）",
+            "damage": 28,
+            "pen": 35,
+            "price": 300,
+            "note": "综合性能，性价比高"
+        },
+        {
+            "dept": "健康部",
+            "name": "5.7×28mm弹药（高伤）",
+            "damage": 34,
+            "pen": 28,
+            "price": 330,
+            "note": "高伤害，适合PVE"
+        }
+    ],
+    "58": [
+        {
+            "dept": "情报部",
+            "name": "5.8×42mm弹药（穿甲）",
+            "damage": 24,
+            "pen": 38,
+            "price": 520,
+            "note": "穿甲优先，适合PVP"
+        },
+        {
+            "dept": "工程部",
+            "name": "5.8×42mm弹药（标准）",
+            "damage": 27,
+            "pen": 32,
+            "price": 400,
+            "note": "综合性能，性价比高"
+        },
+        {
+            "dept": "健康部",
+            "name": "5.8×42mm弹药（高伤）",
+            "damage": 32,
+            "pen": 26,
+            "price": 440,
+            "note": "高伤害，适合PVE"
+        }
+    ],
+    "68": [
+        {
+            "dept": "情报部",
+            "name": "6.8×51mm弹药（穿甲）",
+            "damage": 34,
+            "pen": 50,
+            "price": 780,
+            "note": "穿甲优先，适合PVP"
+        },
+        {
+            "dept": "工程部",
+            "name": "6.8×51mm弹药（标准）",
+            "damage": 38,
+            "pen": 42,
+            "price": 600,
+            "note": "综合性能，性价比高"
+        },
+        {
+            "dept": "健康部",
+            "name": "6.8×51mm弹药（高伤）",
+            "damage": 46,
+            "pen": 34,
+            "price": 660,
+            "note": "高伤害，适合PVE"
+        }
+    ],
+    "127": [
+        {
+            "dept": "情报部",
+            "name": "12.7×55mm弹药（穿甲）",
+            "damage": 50,
+            "pen": 66,
+            "price": 1950,
+            "note": "穿甲优先，适合PVP"
+        },
+        {
+            "dept": "工程部",
+            "name": "12.7×55mm弹药（标准）",
+            "damage": 56,
+            "pen": 55,
+            "price": 1500,
+            "note": "综合性能，性价比高"
+        },
+        {
+            "dept": "健康部",
+            "name": "12.7×55mm弹药（高伤）",
+            "damage": 67,
+            "pen": 44,
+            "price": 1650,
+            "note": "高伤害，适合PVE"
+        }
+    ],
+    "300": [
+        {
+            "dept": "情报部",
+            "name": ".300 BLK（穿甲）",
+            "damage": 38,
+            "pen": 28,
+            "price": 280,
+            "note": "亚音速穿甲，消音适用"
+        },
+        {
+            "dept": "工程部",
+            "name": ".300 BLK（标准）",
+            "damage": 42,
+            "pen": 22,
+            "price": 240,
+            "note": "综合性能，冲锋枪适用"
+        },
+        {
+            "dept": "健康部",
+            "name": ".300 BLK（高伤）",
+            "damage": 48,
+            "pen": 18,
+            "price": 260,
+            "note": "高伤害，近距离霸主"
+        }
+    ],
+    "338": [
+        {
+            "dept": "情报部",
+            "name": ".338 Lapua Magnun（穿甲）",
+            "damage": 75,
+            "pen": 48,
+            "price": 600,
+            "note": "狙击专用，穿甲极强"
+        },
+        {
+            "dept": "工程部",
+            "name": ".338 Lapua Magnun（标准）",
+            "damage": 85,
+            "pen": 42,
+            "price": 520,
+            "note": "综合性能，狙击首选"
+        },
+        {
+            "dept": "健康部",
+            "name": ".338 Lapua Magnun（高伤）",
+            "damage": 95,
+            "pen": 35,
+            "price": 580,
+            "note": "高伤害，一击致命"
+        }
+    ],
+    "357": [
+        {
+            "dept": "情报部",
+            "name": ".357弹药（穿甲）",
+            "damage": 41,
+            "pen": 22,
+            "price": 520,
+            "note": "穿甲优先，适合PVP"
+        },
+        {
+            "dept": "工程部",
+            "name": ".357弹药（标准）",
+            "damage": 45,
+            "pen": 18,
+            "price": 400,
+            "note": "综合性能，性价比高"
+        },
+        {
+            "dept": "健康部",
+            "name": ".357弹药（高伤）",
+            "damage": 54,
+            "pen": 14,
+            "price": 440,
+            "note": "高伤害，适合PVE"
+        }
+    ],
+    "545": [
+        {
+            "dept": "情报部",
+            "name": "5.45×39mm弹药（穿甲）",
+            "damage": 31,
+            "pen": 36,
+            "price": 455,
+            "note": "穿甲优先，适合PVP"
+        },
+        {
+            "dept": "工程部",
+            "name": "5.45×39mm弹药（标准）",
+            "damage": 34,
+            "pen": 30,
+            "price": 350,
+            "note": "综合性能，性价比高"
+        },
+        {
+            "dept": "健康部",
+            "name": "5.45×39mm弹药（高伤）",
+            "damage": 41,
+            "pen": 24,
+            "price": 385,
+            "note": "高伤害，适合PVE"
+        }
+    ],
+    "556": [
+        {
+            "dept": "情报部",
+            "name": "5.56×45mm弹药（穿甲）",
+            "damage": 25,
+            "pen": 46,
+            "price": 508,
+            "note": "穿甲优先，适合PVP"
+        },
+        {
+            "dept": "工程部",
+            "name": "5.56×45mm弹药（标准）",
+            "damage": 28,
+            "pen": 38,
+            "price": 391,
+            "note": "综合性能，性价比高"
+        },
+        {
+            "dept": "健康部",
+            "name": "5.56×45mm弹药（高伤）",
+            "damage": 34,
+            "pen": 30,
+            "price": 430,
+            "note": "高伤害，适合PVE"
+        }
+    ],
+    "762": [
+        {
+            "dept": "情报部",
+            "name": "7.62×39mm弹药（穿甲）",
+            "damage": 36,
+            "pen": 34,
+            "price": 520,
+            "note": "穿甲优先，适合PVP"
+        },
+        {
+            "dept": "工程部",
+            "name": "7.62×39mm弹药（标准）",
+            "damage": 40,
+            "pen": 28,
+            "price": 400,
+            "note": "综合性能，性价比高"
+        },
+        {
+            "dept": "健康部",
+            "name": "7.62×39mm弹药（高伤）",
+            "damage": 48,
+            "pen": 22,
+            "price": 440,
+            "note": "高伤害，适合PVE"
+        }
+    ],
+    "9mm": [
+        {
+            "dept": "情报部",
+            "name": "9×19mm弹药（穿甲）",
+            "damage": 27,
+            "pen": 24,
+            "price": 455,
+            "note": "穿甲优先，适合PVP"
+        },
+        {
+            "dept": "工程部",
+            "name": "9×19mm弹药（标准）",
+            "damage": 30,
+            "pen": 20,
+            "price": 350,
+            "note": "综合性能，性价比高"
+        },
+        {
+            "dept": "健康部",
+            "name": "9×19mm弹药（高伤）",
+            "damage": 36,
+            "pen": 16,
+            "price": 385,
+            "note": "高伤害，适合PVE"
+        }
+    ],
+    "9x39": [
+        {
+            "dept": "情报部",
+            "name": "9×39mm弹药（穿甲）",
+            "damage": 36,
+            "pen": 58,
+            "price": 1040,
+            "note": "穿甲优先，适合PVP"
+        },
+        {
+            "dept": "工程部",
+            "name": "9×39mm弹药（标准）",
+            "damage": 40,
+            "pen": 48,
+            "price": 800,
+            "note": "综合性能，性价比高"
+        },
+        {
+            "dept": "健康部",
+            "name": "9×39mm弹药（高伤）",
+            "damage": 48,
+            "pen": 38,
+            "price": 880,
+            "note": "高伤害，适合PVE"
+        }
+    ],
+    "12g": [
+        {
+            "dept": "情报部",
+            "name": "12号霰弹（穿甲）",
+            "damage": 108,
+            "pen": 18,
+            "price": 520,
+            "note": "穿甲优先，适合PVP"
+        },
+        {
+            "dept": "工程部",
+            "name": "12号霰弹（标准）",
+            "damage": 120,
+            "pen": 15,
+            "price": 400,
+            "note": "综合性能，性价比高"
+        },
+        {
+            "dept": "健康部",
+            "name": "12号霰弹（高伤）",
+            "damage": 144,
+            "pen": 12,
+            "price": 440,
+            "note": "高伤害，适合PVE"
+        }
+    ]
+};
 
         const bulletTips = {
             '762': '7.62mm口径穿甲选情报部BS弹，追求伤害选健康部HP弹，工程部PS弹性价比最高。',
@@ -1776,38 +2247,160 @@
 
         // ==================== Price Table ====================
         const priceData = {
-            weapon: [
-                {name: 'M4A1 战术版', yesterday: 12.5, today: 13.2, trend7d: '+5.6%'},
-                {name: 'AKM 标准版', yesterday: 8.2, today: 7.9, trend7d: '-3.7%'},
-                {name: 'Vector 冲锋枪', yesterday: 5.5, today: 5.8, trend7d: '+5.5%'},
-                {name: '狙击枪AWM', yesterday: 35, today: 38, trend7d: '+8.6%'},
-                {name: '霰弹枪SPAS', yesterday: 4.2, today: 4.1, trend7d: '-2.4%'},
-            ],
-            armor: [
-                {name: '一级护甲', yesterday: 2.0, today: 1.9, trend7d: '-5.0%'},
-                {name: '二级护甲', yesterday: 8.5, today: 8.8, trend7d: '+3.5%'},
-                {name: '三级护甲', yesterday: 24, today: 25, trend7d: '+4.2%'},
-                {name: '战术头盔', yesterday: 6.2, today: 6.0, trend7d: '-3.2%'},
-            ],
-            consumable: [
-                {name: '急救包', yesterday: 0.85, today: 0.82, trend7d: '-3.5%'},
-                {name: '饮料（大）', yesterday: 0.75, today: 0.72, trend7d: '-4.0%'},
-                {name: '绷带', yesterday: 0.12, today: 0.11, trend7d: '-8.3%'},
-                {name: '医疗箱', yesterday: 1.2, today: 1.3, trend7d: '+8.3%'},
-            ],
-            material: [
-                {name: '铁块', yesterday: 0.25, today: 0.26, trend7d: '+4.0%'},
-                {name: '布料', yesterday: 0.18, today: 0.17, trend7d: '-5.6%'},
-                {name: '电子元件', yesterday: 0.65, today: 0.68, trend7d: '+4.6%'},
-                {name: '燃料', yesterday: 0.45, today: 0.44, trend7d: '-2.2%'},
-            ],
-            keys: [
-                {name: '钥匙卡-白', yesterday: 1.2, today: 1.1, trend7d: '-8.3%'},
-                {name: '钥匙卡-蓝', yesterday: 4.8, today: 5.0, trend7d: '+4.2%'},
-                {name: '钥匙卡-紫', yesterday: 13.0, today: 12.5, trend7d: '-3.8%'},
-                {name: '钥匙卡-金', yesterday: 27, today: 28, trend7d: '+3.7%'},
-            ]
-        };
+    "weapon": [
+        {
+            "name": "M4A1突击步枪",
+            "yesterday": 3.48,
+            "today": 3.5,
+            "trend7d": "+7.1%"
+        },
+        {
+            "name": "AKM突击步枪",
+            "yesterday": 4.74,
+            "today": 4.8,
+            "trend7d": "+7.7%"
+        },
+        {
+            "name": "QBZ95-1突击步枪",
+            "yesterday": 2.98,
+            "today": 3,
+            "trend7d": "+1.4%"
+        },
+        {
+            "name": "AKS-74U突击步枪",
+            "yesterday": 2.51,
+            "today": 2.5,
+            "trend7d": "-8.6%"
+        },
+        {
+            "name": "MP5冲锋枪",
+            "yesterday": 1.87,
+            "today": 1.8,
+            "trend7d": "-5.9%"
+        },
+        {
+            "name": "P90冲锋枪",
+            "yesterday": 2.17,
+            "today": 2.2,
+            "trend7d": "+0.6%"
+        },
+        {
+            "name": "Vector冲锋枪",
+            "yesterday": 1.91,
+            "today": 2,
+            "trend7d": "+8.3%"
+        },
+        {
+            "name": "M870霰弹枪",
+            "yesterday": 1.53,
+            "today": 1.5,
+            "trend7d": "-5.4%"
+        }
+    ],
+    "armor": [
+        {
+            "name": "一级头盔",
+            "yesterday": 0.49,
+            "today": 0.5,
+            "trend7d": "+4.6%"
+        },
+        {
+            "name": "二级头盔",
+            "yesterday": 1.18,
+            "today": 1.2,
+            "trend7d": "+0.3%"
+        },
+        {
+            "name": "三级头盔",
+            "yesterday": 2.61,
+            "today": 2.5,
+            "trend7d": "-7.4%"
+        },
+        {
+            "name": "四级头盔",
+            "yesterday": 4.7,
+            "today": 4.5,
+            "trend7d": "-0.6%"
+        },
+        {
+            "name": "一级护甲",
+            "yesterday": 0.78,
+            "today": 0.8,
+            "trend7d": "+6.1%"
+        },
+        {
+            "name": "二级护甲",
+            "yesterday": 1.72,
+            "today": 1.8,
+            "trend7d": "+6.3%"
+        }
+    ],
+    "consumable": [
+        {
+            "name": "急救包",
+            "yesterday": 0.8,
+            "today": 0.8,
+            "trend7d": "+1.2%"
+        },
+        {
+            "name": "绷带",
+            "yesterday": 0.12,
+            "today": 0.12,
+            "trend7d": "+6.9%"
+        },
+        {
+            "name": "饮料（中）",
+            "yesterday": 0.46,
+            "today": 0.45,
+            "trend7d": "-9.3%"
+        },
+        {
+            "name": "食品包（中）",
+            "yesterday": 0.39,
+            "today": 0.38,
+            "trend7d": "-6.5%"
+        },
+        {
+            "name": "高级医疗包",
+            "yesterday": 1.21,
+            "today": 1.2,
+            "trend7d": "-0.2%"
+        },
+        {
+            "name": "战术装备",
+            "yesterday": 0.5,
+            "today": 0.5,
+            "trend7d": "+1.8%"
+        }
+    ],
+    "material": [],
+    "keys": [
+        {
+            "name": "钥匙卡-白",
+            "yesterday": 1.22,
+            "today": 1.2,
+            "trend7d": "-2.9%"
+        },
+        {
+            "name": "钥匙卡-蓝",
+            "yesterday": 4.88,
+            "today": 4.8,
+            "trend7d": "-7.5%"
+        },
+        {
+            "name": "钥匙卡-紫",
+            "yesterday": 12.15,
+            "today": 12.5,
+            "trend7d": "+2.7%"
+        },
+        {
+            "name": "钥匙卡-金",
+            "yesterday": 28.41,
+            "today": 28,
+            "trend7d": "-8.9%"
+        }
+    ]
+};
 
         function showPriceTable() {
             const cat = document.getElementById('price-cat').value;
