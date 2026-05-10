@@ -384,7 +384,7 @@
         // ========== 数据加载 ==========
         async function loadAmmoData() {
             try {
-                const resp = await fetch('delta-force-data/ammunition.json');
+                const resp = await fetch('data/ammunition.json');
                 ammoData = await resp.json();
             } catch(e) {
                 console.warn('ammunition.json 加载失败，使用内嵌数据');
