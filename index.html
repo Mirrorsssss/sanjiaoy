@@ -2858,9 +2858,23 @@
                 gameData = normalizeGameData(raw);
                 dataLoaded = true;
                 onDataLoaded();
+                console.log('✅ 游戏数据加载成功');
             } catch(e) {
-                console.warn('无法加载 game-data.json，使用内置数据', e);
+                console.warn('⚠️ 无法加载 game-data.json，使用内置数据', e);
+                showDataError('数据加载失败，正在使用内置数据。部分功能可能受限。');
             }
+        }
+        
+        function showDataError(msg) {
+            // 创建错误提示UI
+            let errorDiv = document.getElementById('data-error-tip');
+            if (!errorDiv) {
+                errorDiv = document.createElement('div');
+                errorDiv.id = 'data-error-tip';
+                errorDiv.style.cssText = 'position:fixed;top:0;left:0;right:0;background:linear-gradient(135deg,rgba(239,68,68,0.9),rgba(239,68,68,0.7));color:white;padding:12px 20px;text-align:center;z-index:9999;font-size:14px;';
+                document.body.prepend(errorDiv);
+            }
+            errorDiv.innerHTML = `⚠️ ${msg} <button onclick="this.parentNode.remove()" style="background:rgba(255,255,255,0.2);border:1px solid rgba(255,255,255,0.3);color:white;padding:4px 12px;border-radius:4px;margin-left:10px;cursor:pointer;">关闭</button>`;
         }
 
         function onDataLoaded() {
@@ -2941,17 +2955,26 @@
             for (const [weaponId, modData] of Object.entries(gameData.mods)) {
                 const key = weaponKeyMap[weaponId] || weaponId;
                 
-                // 初始化gearData[key]（如果不存在）
+                // 总是用mods数据更新gearData（覆盖硬编码）
                 if (!gearData[key]) {
+                    // 如果不存在，初始化
                     gearData[key] = {
                         name: modData.name,
                         icon: modData.icon || '🔫',
                         builds: {}
                     };
+                } else {
+                    // 如果存在（硬编码），用mods数据更新name和icon
+                    gearData[key].name = modData.name;
+                    gearData[key].icon = modData.icon || gearData[key].icon;
                 }
                 
-                // 转换builds
+                // 转换builds（总是覆盖）
                 if (modData.builds) {
+                    if (!gearData[key].builds) {
+                        gearData[key].builds = {};
+                    }
+                    
                     for (const [mode, budgetObj] of Object.entries(modData.builds)) {
                         if (!gearData[key].builds[mode]) {
                             gearData[key].builds[mode] = {};
