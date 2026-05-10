@@ -131,7 +131,7 @@
     </div>
 </div>
 
-<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script src="leaflet.js"></script>
 <script>
 const MAP_FILES = {
     '0haoDaba':  'map_零hao大坝.json',
@@ -218,9 +218,9 @@ let selectedAreas = new Set();
 
 function getFilteredItems(items) {
     return items.filter(i => {
-        const matchCategory = activeCategories.has(i.c);
-        const matchSearch = !searchKeyword || i.n.toLowerCase().includes(searchKeyword.toLowerCase());
-        const matchArea = selectedAreas.size === 0 || selectedAreas.has(i.area);
+        const matchCategory = activeCategories.has(item.c);
+        const matchSearch = !searchKeyword || item.n.toLowerCase().includes(searchKeyword.toLowerCase());
+        const matchArea = selectedAreas.size === 0 || selectedAreas.has(item.area);
         return matchCategory && matchSearch && matchArea;
     });
 }
@@ -291,7 +291,7 @@ async function loadMap() {
         renderMarkers(diff.items);
         renderSidebar(mapData, diff);
         // 渲染区域筛选
-        const areas = [...new Set(diff.items.map(i => i.area))].sort();
+        const areas = [...new Set(diff.items.map(i => item.area))].sort();
         renderAreaFilter(areas);
 
     } catch(e) {
@@ -307,21 +307,21 @@ function renderMarkers(items) {
     const filtered = getFilteredItems(items);
 
     for (const item of filtered) {
-        const color = CATEGORY_COLORS[i.c] || '#6b7280';
+        const color = CATEGORY_COLORS[item.c] || '#6b7280';
         const icon = L.divIcon({
             html: `<div style="width:12px;height:12px;border-radius:50%;background:${color};border:2px solid rgba(255,255,255,0.5);box-shadow:0 0 6px ${color}"></div>`,
             className: '', iconSize: [12, 12], iconAnchor: [6, 6]
         });
 
         const m = L.marker([item.y, item.x], { icon }).addTo(map);
-        const catIcon = CATEGORY_ICONS[i.c] || '📍';
+        const catIcon = CATEGORY_ICONS[item.c] || '📍';
         m.bindPopup(`
             <div class="popup-name">${catIcon} ${item.n}</div>
             <div class="popup-meta">
-                <div>分类: ${i.c}</div>
+                <div>分类: ${item.c}</div>
                 <div>区域: ${item.area}</div>
-                <div>刷新: ${i.sc || '固定'}</div>
-                ${i.isR ? '<div style="color:#f59e0b">⚡ 随机位置</div>' : ''}
+                <div>刷新: ${item.sc || '固定'}</div>
+                ${item.isR ? '<div style="color:#f59e0b">⚡ 随机位置</div>' : ''}
             </div>
         `);
 
@@ -340,7 +340,7 @@ function renderMarkers(items) {
 
 function renderSidebar(mapData, diff) {
     // Legend
-    const cats = [...new Set(diff.items.map(i => i.c))].sort();
+    const cats = [...new Set(diff.items.map(i => item.c))].sort();
     document.getElementById('legend').innerHTML = cats.map(c => `
         <label class="legend-item">
             <input type="checkbox" checked onchange="toggleCategory('${c}', this.checked)">
@@ -405,7 +405,7 @@ function exportCSV() {
     if (items.length === 0) { alert('没有可导出的数据'); return; }
     
     const headers = ['名称', '分类', '区域', 'X', 'Y', '刷新', '随机位置'];
-    const rows = items.map(i => [i.n, i.c, i.area, i.x, i.y, i.sc || '固定', i.isR ? '是' : '否']);
+    const rows = items.map(i => [item.n, item.c, item.area, i.x, i.y, item.sc || '固定', item.isR ? '是' : '否']);
     
     const csv = [headers.join(','), ...rows.map(r => r.map(c => `"${c}"`).join(','))].join('\n');
     const bom = '\uFEFF';
