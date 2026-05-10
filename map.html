@@ -125,6 +125,9 @@
             <div class="loading"><div class="spinner"></div></div>
         </div>
         <div class="stats" id="stats"></div>
+        <div style="padding:8px 12px;border-top:1px solid var(--border);">
+            <button onclick="exportCSV()" style="width:100%;padding:6px;background:var(--accent);border:none;color:#fff;border-radius:6px;cursor:pointer;font-size:12px;">📥 导出当前列表 (CSV)</button>
+        </div>
     </div>
 </div>
 
@@ -394,6 +397,25 @@ function renderAreaFilter(areas) {
             ${a}
         </label>
     `).join('');
+}
+
+function exportCSV() {
+    if (!currentData) return;
+    const items = getFilteredItems(currentData.diff.items);
+    if (items.length === 0) { alert('没有可导出的数据'); return; }
+    
+    const headers = ['名称', '分类', '区域', 'X', 'Y', '刷新', '随机位置'];
+    const rows = items.map(i => [i.n, i.c, i.area, i.x, i.y, i.sc || '固定', i.isR ? '是' : '否']);
+    
+    const csv = [headers.join(','), ...rows.map(r => r.map(c => `"${c}"`).join(','))].join('\n');
+    const bom = '\uFEFF';
+    const blob = new Blob([bom + csv], { type: 'text/csv;charset=utf-8;' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `三角眼_物资列表_${currentData.map.name}_${currentData.diff.label}.csv`;
+    a.click();
+    URL.revokeObjectURL(url);
 }
 
 // Event listeners
