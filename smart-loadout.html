@@ -615,41 +615,58 @@
                 if (gameData.weapons) {
                     const weaponsArr = Object.values(gameData.weapons);
                     
-                    // 简单分类：按price分为budget(<5万), mid(5-15万), high(>15万)
-                    weaponDB.budget = weaponsArr
-                        .filter(w => w.price < 50000)
+                    // 根据武器类型估算价格（万哈夫币）
+                    const typePriceMap = {
+                        'gunPistol': 2,      // 手枪：2万
+                        'gunSMG': 5,          // 冲锋枪：5万
+                        'gunShotgun': 8,      // 霰弹枪：8万
+                        'gunRifle': 12,       // 步枪：12万
+                        'gunMP': 15,          // 射手步枪：15万
+                        'gunLMG': 18,         // 轻机枪：18万
+                        'gunSniper': 22       // 狙击步枪：22万
+                    };
+                    
+                    // 为每把武器添加估算价格
+                    const weaponsWithPrice = weaponsArr.map(w => ({
+                        ...w,
+                        estimatedPrice: typePriceMap[w.type] || 10
+                    }));
+                    
+                    // 按估算价格分类：budget(<10万), mid(10-20万), high(>20万)
+                    weaponDB.budget = weaponsWithPrice
+                        .filter(w => w.estimatedPrice < 10)
                         .map(w => ({
                             name: w.name,
                             type: 'primary',
-                            cv: w.price / 10000,
-                            price: w.price / 10000,
+                            cv: w.estimatedPrice,
+                            price: w.estimatedPrice,
                             ammo: w.caliber || '未知',
                             icon: '🔫',
-                            note: w.description || `${w.typeCN}，射速${w.fireRate||0}`
+                            note: w.description || `${w.typeCN}`
                         }));
                     
-                    weaponDB.mid = weaponsArr
-                        .filter(w => w.price >= 50000 && w.price <= 150000)
+                    weaponDB.mid = weaponsWithPrice
+                        .filter(w => w.estimatedPrice >= 10 && w.estimatedPrice <= 20)
                         .map(w => ({
                             name: w.name,
                             type: 'primary',
-                            cv: w.price / 10000,
-                            price: w.price / 10000,
+                            cv: w.estimatedPrice,
+                            price: w.estimatedPrice,
                             ammo: w.caliber || '未知',
                             icon: '🔫',
-                            note: w.description || `${w.typeCN}，射速${w.fireRate||0}`
+                            note: w.description || `${w.typeCN}`
                         }));
                     
-                    weaponDB.high = weaponsArr
-                        .filter(w => w.price > 150000)
+                    weaponDB.high = weaponsWithPrice
+                        .filter(w => w.estimatedPrice > 20)
                         .map(w => ({
                             name: w.name,
                             type: 'primary',
-                            cv: w.price / 10000,
-                            price: w.price / 10000,
+                            cv: w.estimatedPrice,
+                            price: w.estimatedPrice,
                             ammo: w.caliber || '未知',
                             icon: '🔫',
-                            note: w.description || `${w.typeCN}，射速${w.fireRate||0}`
+                            note: w.description || `${w.typeCN}`
                         }));
                 }
                 
