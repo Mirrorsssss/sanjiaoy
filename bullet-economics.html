@@ -3,100 +3,58 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>子弹经济学 - 实时价格版 - 三角洲行动 | 三角眼</title>
-    <meta name="description" content="子弹经济学工具，实时追踪子弹价格波动，计算倒子弹收益。基于真实交易行数据，助你低买高卖。">
+    <title>子弹经济学 - 三角洲行动弹药百科 + 价格计算器 | 三角眼</title>
+    <meta name="description" content="三角洲行动弹药百科：口径对比、穿深分析、弹药推荐，以及装备价格计算器。">
     <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📈</text></svg>">
     <style>
+        :root {
+            --bg-primary: #0a0e1a;
+            --bg-secondary: #111827;
+            --bg-card: #1e293b;
+            --border: #334155;
+            --text-primary: #f1f5f9;
+            --text-secondary: #94a3b8;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            min-height: 100vh;
+            padding: 1rem;
+        }
+
         .economics-container {
             max-width: 1200px;
             margin: 0 auto;
             padding: 2rem;
         }
-        
-        /* ========== 头部区域 ========== */
+
+        /* Hero */
         .hero-section {
             text-align: center;
             padding: 3rem 2rem;
-            background: linear-gradient(135deg, rgba(245, 158, 11, 0.1) 0%, rgba(239, 68, 68, 0.1) 100%);
+            background: linear-gradient(135deg, rgba(245,158,11,0.1) 0%, rgba(239,68,68,0.1) 100%);
             border-radius: 24px;
             margin-bottom: 2rem;
             position: relative;
             overflow: hidden;
         }
-        
-        .hero-section::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: radial-gradient(circle, rgba(245, 158, 11, 0.05) 0%, transparent 70%);
-            animation: pulse 8s ease-in-out infinite;
-        }
-        
-        @keyframes pulse {
-            0%, 100% { transform: scale(1); opacity: 0.5; }
-            50% { transform: scale(1.1); opacity: 1; }
-        }
-        
         .hero-section h1 {
-            font-size: 3rem;
+            font-size: 2.5rem;
             margin-bottom: 1rem;
             background: linear-gradient(135deg, #f59e0b, #ef4444);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            position: relative;
-            z-index: 1;
         }
-        
         .hero-section p {
             color: var(--text-secondary);
-            font-size: 1.2rem;
-            position: relative;
-            z-index: 1;
+            font-size: 1.1rem;
         }
-        
-        /* ========== 数据状态 ========== */
-        .data-status {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 0.8rem;
-            padding: 1rem 1.5rem;
-            margin-bottom: 2rem;
-            border-radius: 12px;
-            font-size: 0.95rem;
-        }
-        
-        .data-status .icon {
-            font-size: 1.2rem;
-        }
-        
-        .data-status .count {
-            font-weight: 700;
-            color: #f59e0b;
-        }
-        
-        .data-status.loading {
-            background: linear-gradient(135deg, rgba(245, 158, 11, 0.15), rgba(245, 158, 11, 0.05));
-            color: #f59e0b;
-            border: 1px solid rgba(245, 158, 11, 0.3);
-        }
-        
-        .data-status.loaded {
-            background: linear-gradient(135deg, rgba(16, 185, 129, 0.15), rgba(16, 185, 129, 0.05));
-            color: #10b981;
-            border: 1px solid rgba(16, 185, 129, 0.3);
-        }
-        
-        .data-status.error {
-            background: linear-gradient(135deg, rgba(239, 68, 68, 0.15), rgba(239, 68, 68, 0.05));
-            color: #ef4444;
-            border: 1px solid rgba(239, 68, 68, 0.3);
-        }
-        
-        /* ========== 标签切换 ========== */
+
+        /* Tabs */
         .tool-tabs {
             display: flex;
             justify-content: center;
@@ -104,7 +62,6 @@
             margin-bottom: 2rem;
             flex-wrap: wrap;
         }
-        
         .tab-btn {
             display: flex;
             align-items: center;
@@ -115,30 +72,18 @@
             border-radius: 16px;
             color: var(--text-primary);
             cursor: pointer;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            transition: all 0.3s;
             font-size: 1rem;
             font-weight: 600;
         }
-        
-        .tab-btn .icon {
-            font-size: 1.3rem;
-        }
-        
-        .tab-btn:hover {
-            border-color: #f59e0b;
-            transform: translateY(-2px);
-            box-shadow: 0 8px 24px rgba(245, 158, 11, 0.2);
-        }
-        
+        .tab-btn:hover { border-color: #f59e0b; transform: translateY(-2px); }
         .tab-btn.active {
             background: linear-gradient(135deg, #f59e0b, #ef4444);
             border-color: transparent;
             color: white;
-            transform: translateY(-2px);
-            box-shadow: 0 8px 24px rgba(245, 158, 11, 0.3);
         }
-        
-        /* ========== 工具面板 ========== */
+
+        /* Sections */
         .tool-section {
             background: var(--bg-card);
             border: 2px solid var(--border);
@@ -146,90 +91,118 @@
             padding: 2rem;
             display: none;
         }
-        
-        .tool-section.active {
-            display: block;
-            animation: slideUp 0.5s ease;
-        }
-        
+        .tool-section.active { display: block; animation: slideUp 0.4s ease; }
         @keyframes slideUp {
             from { opacity: 0; transform: translateY(20px); }
             to { opacity: 1; transform: translateY(0); }
         }
-        
         .tool-section h2 {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
             font-size: 1.5rem;
-            color: var(--text-primary);
             margin-bottom: 0.5rem;
+            color: var(--text-primary);
         }
-        
         .tool-section .subtitle {
             color: var(--text-secondary);
             margin-bottom: 1.5rem;
         }
-        
-        /* ========== 价格表格 ========== */
-        .ammo-table {
+
+        /* Caliber Table */
+        .caliber-table {
             width: 100%;
             border-collapse: collapse;
-            margin-top: 1.5rem;
+            margin-top: 1rem;
         }
-        
-        .ammo-table th {
+        .caliber-table th {
             background: var(--bg-secondary);
             padding: 1rem;
             text-align: left;
             color: var(--text-primary);
             font-weight: 600;
             border-bottom: 2px solid var(--border);
-            border-radius: 8px 8px 0 0;
         }
-        
-        .ammo-table td {
-            padding: 1.2rem 1rem;
+        .caliber-table td {
+            padding: 1rem;
             border-bottom: 1px solid var(--border);
             color: var(--text-secondary);
+            font-size: 0.95rem;
         }
-        
-        .ammo-table tr:hover td {
-            background: var(--bg-secondary);
-        }
-        
-        .ammo-table tr:last-child td {
-            border-bottom: none;
-        }
-        
+        .caliber-table tr:hover td { background: var(--bg-secondary); }
+
         .caliber-badge {
             display: inline-block;
-            padding: 0.4rem 1rem;
-            background: linear-gradient(135deg, rgba(245, 158, 11, 0.2), rgba(245, 158, 11, 0.1));
-            border: 1px solid rgba(245, 158, 11, 0.3);
+            padding: 0.35rem 0.8rem;
+            background: rgba(245,158,11,0.15);
+            border: 1px solid rgba(245,158,11,0.3);
             border-radius: 8px;
             color: #f59e0b;
             font-weight: 700;
-            font-size: 0.95rem;
-        }
-        
-        .item-name {
-            color: var(--text-primary);
-            font-weight: 500;
-        }
-        
-        .price-cell {
-            color: #f59e0b;
-            font-weight: 700;
-            font-size: 1.1rem;
-        }
-        
-        .time-cell {
-            color: var(--text-secondary);
             font-size: 0.9rem;
         }
-        
-        /* ========== 收益计算器 ========== */
+        .category-badge {
+            display: inline-block;
+            padding: 0.3rem 0.7rem;
+            border-radius: 6px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+        .cat-nato { background: rgba(59,130,246,0.2); color: #3b82f6; border: 1px solid rgba(59,130,246,0.3); }
+        .cat-soviet { background: rgba(239,68,68,0.2); color: #ef4444; border: 1px solid rgba(239,68,68,0.3); }
+        .cat-hk { background: rgba(139,92,246,0.2); color: #8b5cf6; border: 1px solid rgba(139,92,246,0.3); }
+        .cat-fn { background: rgba(16,185,129,0.2); color: #10b981; border: 1px solid rgba(16,185,129,0.3); }
+        .cat-china { background: rgba(245,158,11,0.2); color: #f59e0b; border: 1px solid rgba(245,158,11,0.3); }
+        .cat-shotgun { background: rgba(239,68,68,0.2); color: #ef4444; border: 1px solid rgba(239,68,68,0.3); }
+
+        .pen-low { color: #4ade80; }
+        .pen-medium { color: #facc15; }
+        .pen-high { color: #f97316; }
+        .pen-extreme { color: #ef4444; font-weight: 700; }
+
+        /* Ammo Types */
+        .ammo-types-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 1.5rem;
+            margin-top: 1.5rem;
+        }
+        .ammo-type-card {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 1.5rem;
+            transition: all 0.3s;
+        }
+        .ammo-type-card:hover { border-color: #f59e0b; transform: translateY(-2px); }
+        .ammo-type-card h3 { color: #f59e0b; margin-bottom: 1rem; font-size: 1.1rem; }
+        .ammo-type-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 0.6rem 0;
+            border-bottom: 1px solid var(--border);
+            font-size: 0.9rem;
+        }
+        .ammo-type-row:last-child { border-bottom: none; }
+        .ammo-name { color: var(--text-primary); font-weight: 600; }
+        .ammo-damage { color: #ef4444; }
+        .ammo-pen { color: #3b82f6; }
+        .ammo-note { color: var(--text-secondary); font-size: 0.85rem; }
+
+        /* Tips */
+        .tips-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+        .tip-card {
+            background: rgba(245,158,11,0.08);
+            border-left: 3px solid #f59e0b;
+            border-radius: 0 12px 12px 0;
+            padding: 1rem 1.2rem;
+        }
+        .tip-card h4 { color: #f59e0b; margin-bottom: 0.5rem; font-size: 1rem; }
+        .tip-card p { color: var(--text-secondary); font-size: 0.9rem; line-height: 1.5; }
+
+        /* Calculator */
         .calculator-card {
             max-width: 600px;
             margin: 0 auto;
@@ -237,11 +210,7 @@
             border-radius: 20px;
             padding: 2rem;
         }
-        
-        .input-group {
-            margin-bottom: 1.5rem;
-        }
-        
+        .input-group { margin-bottom: 1.5rem; }
         .input-group label {
             display: flex;
             align-items: center;
@@ -250,645 +219,374 @@
             margin-bottom: 0.5rem;
             font-weight: 600;
         }
-        
-        .input-group label .icon {
-            font-size: 1.2rem;
-        }
-        
         .input-group select,
         .input-group input {
             width: 100%;
-            padding: 1rem;
+            padding: 0.9rem;
             background: var(--bg-card);
             border: 2px solid var(--border);
             border-radius: 12px;
             color: var(--text-primary);
             font-size: 1rem;
-            transition: all 0.3s;
         }
-        
         .input-group select:focus,
         .input-group input:focus {
             outline: none;
             border-color: #f59e0b;
-            box-shadow: 0 0 0 4px rgba(245, 158, 11, 0.1);
         }
-        
         .calculate-btn {
             width: 100%;
-            padding: 1.2rem;
+            padding: 1.1rem;
             background: linear-gradient(135deg, #f59e0b, #ef4444);
             border: none;
             border-radius: 16px;
             color: white;
-            font-size: 1.2rem;
+            font-size: 1.1rem;
             font-weight: 700;
             cursor: pointer;
             transition: all 0.3s;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 0.5rem;
         }
-        
-        .calculate-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 12px 32px rgba(245, 158, 11, 0.4);
-        }
-        
+        .calculate-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(245,158,11,0.3); }
+
         .result-display {
             margin-top: 2rem;
-            padding: 2rem;
             background: var(--bg-card);
             border: 2px solid var(--border);
-            border-radius: 20px;
-            text-align: center;
+            border-radius: 16px;
+            padding: 1.5rem;
             display: none;
         }
-        
-        .result-display.show {
-            display: block;
-            animation: slideUp 0.3s ease;
-        }
-        
-        .result-value {
-            font-size: 2.5rem;
-            font-weight: 800;
-            margin: 1rem 0;
-        }
-        
-        .result-value.profit {
-            color: #10b981;
-        }
-        
-        .result-value.loss {
-            color: #ef4444;
-        }
-        
-        .result-label {
-            color: var(--text-secondary);
-            font-size: 1rem;
-        }
-        
-        .result-details {
-            margin-top: 1.5rem;
-            padding-top: 1.5rem;
-            border-top: 1px solid var(--border);
-            color: var(--text-secondary);
+        .result-display.active { display: block; animation: slideUp 0.3s ease; }
+        .result-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 0.7rem 0;
+            border-bottom: 1px solid var(--border);
             font-size: 0.95rem;
         }
-        
-        .result-details .row {
-            display: flex;
-            justify-content: space-between;
-            margin: 0.5rem 0;
+        .result-row:last-child { border-bottom: none; }
+        .result-label { color: var(--text-secondary); }
+        .result-value { color: #f59e0b; font-weight: 700; }
+        .result-profit { color: #10b981; font-weight: 700; }
+        .result-loss { color: #ef4444; font-weight: 700; }
+
+        /* Price Table */
+        .price-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 1rem;
         }
-        
-        .result-details .value {
-            color: var(--text-primary);
-            font-weight: 600;
-        }
-        
-        /* ========== 低价预测 ========== */
-        .prediction-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 1.5rem;
-            margin-top: 1.5rem;
-        }
-        
-        .prediction-card {
+        .price-table th {
             background: var(--bg-secondary);
-            border: 2px solid var(--border);
-            border-radius: 20px;
-            padding: 1.5rem;
-            transition: all 0.3s;
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .prediction-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 4px;
-            background: linear-gradient(90deg, #10b981, #059669);
-            opacity: 0;
-            transition: opacity 0.3s;
-        }
-        
-        .prediction-card:hover {
-            border-color: #10b981;
-            transform: translateY(-4px);
-            box-shadow: 0 12px 32px rgba(16, 185, 129, 0.15);
-        }
-        
-        .prediction-card:hover::before {
-            opacity: 1;
-        }
-        
-        .prediction-card .caliber {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            margin-bottom: 1rem;
-        }
-        
-        .prediction-card .badge {
-            padding: 0.4rem 1rem;
-            background: rgba(245, 158, 11, 0.15);
-            border: 1px solid rgba(245, 158, 11, 0.3);
-            border-radius: 8px;
-            color: #f59e0b;
-            font-weight: 700;
-        }
-        
-        .prediction-card .recommendation {
-            padding: 0.3rem 0.8rem;
-            border-radius: 6px;
-            font-size: 0.85rem;
+            padding: 0.9rem;
+            text-align: left;
+            color: var(--text-primary);
             font-weight: 600;
+            border-bottom: 2px solid var(--border);
+            font-size: 0.9rem;
         }
-        
-        .prediction-card .recommendation.strong {
-            background: rgba(16, 185, 129, 0.15);
-            color: #10b981;
-        }
-        
-        .prediction-card .recommendation.medium {
-            background: rgba(245, 158, 11, 0.15);
-            color: #f59e0b;
-        }
-        
-        .prediction-card .recommendation.low {
-            background: rgba(107, 114, 128, 0.15);
-            color: #6b7280;
-        }
-        
-        .prediction-card .price-row {
-            display: flex;
-            justify-content: space-between;
-            padding: 0.5rem 0;
+        .price-table td {
+            padding: 0.9rem;
             border-bottom: 1px solid var(--border);
-        }
-        
-        .prediction-card .price-row:last-of-type {
-            border-bottom: none;
-        }
-        
-        .prediction-card .price-label {
             color: var(--text-secondary);
+            font-size: 0.9rem;
         }
-        
-        .prediction-card .price-value {
-            font-weight: 600;
-            color: var(--text-primary);
-        }
-        
-        .prediction-card .price-value.discount {
-            color: #10b981;
-        }
-        
-        /* ========== 提示区域 ========== */
-        .tips-section {
-            margin-top: 2rem;
-            padding: 1.5rem;
-            background: linear-gradient(135deg, rgba(59, 130, 246, 0.1), rgba(139, 92, 246, 0.1));
-            border: 1px solid rgba(59, 130, 246, 0.2);
-            border-radius: 16px;
-        }
-        
-        .tips-section h3 {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            color: var(--text-primary);
+        .price-table tr:hover td { background: var(--bg-secondary); }
+        .item-name { color: var(--text-primary); font-weight: 500; }
+        .price-cell { color: #f59e0b; font-weight: 700; }
+
+        .section-desc {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
             margin-bottom: 1rem;
-            font-size: 1.1rem;
+            line-height: 1.6;
         }
-        
-        .tips-section ul {
-            list-style: none;
-            padding: 0;
-        }
-        
-        .tips-section li {
-            color: var(--text-secondary);
-            padding: 0.6rem 0;
-            padding-left: 1.5rem;
-            position: relative;
-        }
-        
-        .tips-section li::before {
-            content: '💡';
-            position: absolute;
-            left: 0;
-        }
-        
-        /* ========== 响应式 ========== */
+
         @media (max-width: 768px) {
-            .hero-section h1 {
-                font-size: 2rem;
-            }
-            
-            .tool-tabs {
-                flex-direction: column;
-            }
-            
-            .tab-btn {
-                width: 100%;
-                justify-content: center;
-            }
-            
-            .ammo-table {
-                font-size: 0.9rem;
-            }
-            
-            .prediction-grid {
-                grid-template-columns: 1fr;
-            }
+            .hero-section h1 { font-size: 1.8rem; }
+            .tool-tabs { gap: 0.5rem; }
+            .tab-btn { padding: 0.8rem 1.2rem; font-size: 0.9rem; }
+            .economics-container { padding: 1rem; }
         }
     </style>
 </head>
 <body>
-    <nav class="navbar">
-        <div class="nav-content">
-            <a href="index.html" class="nav-logo">
-                <span class="logo-icon">△</span>
-                <span>三角眼</span>
-            </a>
-            <div class="nav-links">
-                <a href="index.html" class="nav-link">首页</a>
-                <a href="bullet-economics.html" class="nav-link active">子弹经济学</a>
-                <a href="card-combat-calculator.html" class="nav-link">卡战备</a>
-            </div>
-        </div>
-    </nav>
-
     <div class="economics-container">
-        <!-- 头部区域 -->
         <div class="hero-section">
             <h1>📈 子弹经济学</h1>
-            <p>实时交易行价格，帮你倒子弹赚差价</p>
+            <p>弹药百科 · 口径对比 · 穿深分析 · 装备价格计算器</p>
         </div>
 
-        <!-- 数据状态 -->
-        <div id="dataStatus" class="data-status loading">
-            <span class="icon">⏳</span>
-            <span>正在加载实时价格数据...</span>
-        </div>
-
-        <!-- 标签切换 -->
         <div class="tool-tabs">
-            <button class="tab-btn active" onclick="switchTab('price', this)">
-                <span class="icon">📊</span>
-                <span>实时价格</span>
-            </button>
-            <button class="tab-btn" onclick="switchTab('profit', this)">
-                <span class="icon">💰</span>
-                <span>收益计算</span>
-            </button>
-            <button class="tab-btn" onclick="switchTab('prediction', this)">
-                <span class="icon">🔮</span>
-                <span>低价预测</span>
-            </button>
+            <button class="tab-btn active" data-tab="ammo-guide">🔫 弹药百科</button>
+            <button class="tab-btn" data-tab="calculator">💰 价格计算器</button>
+            <button class="tab-btn" data-tab="price-table">📊 装备价格表</button>
         </div>
 
-        <!-- 实时价格追踪 -->
-        <div class="tool-section active" id="priceSection">
-            <h2>📊 子弹实时价格</h2>
-            <p class="subtitle">数据每10分钟更新一次，来自真实交易行</p>
-            <table class="ammo-table">
-                <thead>
-                    <tr>
-                        <th>口径</th>
-                        <th>物品名称</th>
-                        <th>当前价格</th>
-                        <th>更新时间</th>
-                    </tr>
-                </thead>
-                <tbody id="ammoPriceBody">
-                    <tr>
-                        <td colspan="4" style="text-align: center; padding: 3rem;">
-                            加载中...
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
+        <!-- 弹药百科 -->
+        <div id="ammo-guide" class="tool-section active">
+            <h2>🔫 弹药百科 — 全口径对比</h2>
+            <p class="subtitle">包含12种常用口径的伤害、穿透力、适用武器对比，助你选出最合适的弹药</p>
+            <div id="caliberTableWrap"></div>
+            <div id="ammoTypesWrap" style="margin-top:2rem;"></div>
+            <div id="recommendationsWrap" style="margin-top:2rem;"></div>
         </div>
 
-        <!-- 收益计算器 -->
-        <div class="tool-section" id="profitSection">
-            <h2>💰 倒子弹收益计算</h2>
-            <p class="subtitle">输入买入卖出价格，计算你的利润</p>
+        <!-- 价格计算器 -->
+        <div id="calculator" class="tool-section">
+            <h2>💰 装备价格计算器</h2>
+            <p class="subtitle">选择装备，输入买入/卖出价格，计算利润</p>
             <div class="calculator-card">
                 <div class="input-group">
-                    <label><span class="icon">🎯</span> 选择子弹</label>
-                    <select id="ammoSelect">
-                        <option value="">-- 请选择子弹 --</option>
-                    </select>
+                    <label>📦 选择装备</label>
+                    <select id="itemSelect"></select>
                 </div>
-                
                 <div class="input-group">
-                    <label><span class="icon">📥</span> 买入价格（/发）</label>
-                    <input type="number" id="buyPrice" step="1" placeholder="如：3000">
+                    <label>💵 买入单价（万哈夫币）</label>
+                    <input type="number" id="buyPrice" placeholder="例如：1.5" step="0.01">
                 </div>
-                
                 <div class="input-group">
-                    <label><span class="icon">📤</span> 卖出价格（/发）</label>
-                    <input type="number" id="sellPrice" step="1" placeholder="如：3500">
+                    <label>💵 卖出单价（万哈夫币）</label>
+                    <input type="number" id="sellPrice" placeholder="例如：2.0" step="0.01">
                 </div>
-                
                 <div class="input-group">
-                    <label><span class="icon">📦</span> 数量（发）</label>
-                    <input type="number" id="ammoCount" placeholder="如：1000">
+                    <label>🔢 交易数量</label>
+                    <input type="number" id="quantity" placeholder="例如：10" value="1">
                 </div>
-                
-                <button class="calculate-btn" onclick="calculateProfit()">
-                    <span>💰</span>
-                    <span>计算收益</span>
-                </button>
-                
-                <div class="result-display" id="profitResult">
-                    <div class="result-value" id="profitValue">+0</div>
-                    <div class="result-label">总利润</div>
-                    <div class="result-details" id="profitDetails"></div>
-                </div>
-            </div>
-            
-            <div class="tips-section">
-                <h3>💡 倒子弹技巧</h3>
-                <ul>
-                    <li>选择价格波动大的子弹（如五级弹、六级弹）</li>
-                    <li>关注游戏活动，活动期间价格通常下跌</li>
-                    <li>批量交易可以降低单位成本</li>
-                    <li>设置价格提醒，及时买入卖出</li>
-                </ul>
+                <button class="calculate-btn" onclick="calcProfit()">📊 计算利润</button>
+                <div id="calcResult" class="result-display"></div>
             </div>
         </div>
 
-        <!-- 低价补货预测 -->
-        <div class="tool-section" id="predictionSection">
-            <h2>🔮 低价补货预测</h2>
-            <p class="subtitle">根据当前价格分析，以下子弹值得关注</p>
-            <div class="prediction-grid" id="predictionGrid">
-                <p style="text-align: center; color: var(--text-secondary); grid-column: 1 / -1; padding: 2rem;">
-                    加载中...
-                </p>
-            </div>
-            
-            <div class="tips-section">
-                <h3>💡 补货策略</h3>
-                <ul>
-                    <li>价格低于历史中位线时考虑买入</li>
-                    <li>分批次买入，避免一次性高位套牢</li>
-                    <li>关注游戏更新，新武器可能影响子弹需求</li>
-                    <li>保持现金流，不要全部投入</li>
-                </ul>
-            </div>
+        <!-- 装备价格表 -->
+        <div id="price-table" class="tool-section">
+            <h2>📊 实时装备价格表</h2>
+            <p class="subtitle">来自交易行的实时价格数据，每10分钟更新</p>
+            <div id="gearPriceTableWrap"></div>
         </div>
     </div>
 
     <script>
-        // 全局数据
-        let priceData = [];
-        let ammoData = [];
+        let ammoData = null;
+        let priceData = null;
 
-        // 页面加载时获取数据
         window.addEventListener('DOMContentLoaded', async () => {
+            await loadAmmoData();
             await loadPriceData();
+            initTabs();
+            renderCaliberTable();
+            renderAmmoTypes();
+            renderRecommendations();
+            populateItemSelect();
+            renderGearPriceTable();
         });
 
-        // 加载实时价格数据
-        async function loadPriceData() {
-            const statusEl = document.getElementById('dataStatus');
-            
+        // ========== 数据加载 ==========
+        async function loadAmmoData() {
             try {
-                const response = await fetch('/price.json');
-                if (!response.ok) throw new Error('Failed to load price data');
-                
-                priceData = await response.json();
-                
-                // 筛选子弹类物品
-                filterAmmoData();
-                
-                // 填充数据
-                populateAmmoTable();
-                populateAmmoSelect();
-                generatePredictions();
-                
-                const timestamp = formatTimestamp(priceData[0]?.is_get_time);
-                statusEl.className = 'data-status loaded';
-                statusEl.innerHTML = `
-                    <span class="icon">✅</span>
-                    <span>实时数据加载成功！共 <span class="count">${ammoData.length}</span> 种子弹</span>
-                    <span style="opacity: 0.7">| 更新于 ${timestamp}</span>
-                `;
-            } catch (error) {
-                statusEl.className = 'data-status error';
-                statusEl.innerHTML = `
-                    <span class="icon">❌</span>
-                    <span>数据加载失败：${error.message}</span>
-                `;
-                console.error('Price data load error:', error);
+                const resp = await fetch('delta-force-data/ammunition.json');
+                ammoData = await resp.json();
+            } catch(e) {
+                console.warn('ammunition.json 加载失败，使用内嵌数据');
+                ammoData = getFallbackAmmoData();
             }
         }
 
-        // 筛选子弹数据
-        function filterAmmoData() {
-            const caliberCategories = [
-                '9x19mm', '5.56x45mm', '7.62x39mm', '7.62x51mm',
-                '5.45x39mm', '5.7x28mm', '4.6x30mm', '6.8x51mm',
-                '12 Gauge', '.45 ACP', '.357 Magnum', '12.7x55mm',
-                '.50 AE', '7.62x54mm', '.45-70mm', '9x39mm', '7.62x35mm'
-            ];
-
-            ammoData = priceData.filter(item => 
-                caliberCategories.includes(item.secondClassCN)
-            );
-
-            // 按口径分组
-            const grouped = {};
-            ammoData.forEach(item => {
-                const caliber = item.secondClassCN;
-                if (!grouped[caliber]) {
-                    grouped[caliber] = [];
-                }
-                grouped[caliber].push(item);
-            });
-
-            // 转回数组，每个口径取最低价
-            ammoData = Object.entries(grouped).map(([caliber, items]) => {
-                items.sort((a, b) => a.price - b.price);
-                return {
-                    caliber: caliber,
-                    cheapest: items[0],
-                    allItems: items
-                };
-            }).sort((a, b) => a.caliber.localeCompare(b.caliber));
+        async function loadPriceData() {
+            try {
+                const resp = await fetch('/price.json');
+                priceData = await resp.json();
+            } catch(e) {
+                console.warn('price.json 加载失败');
+                priceData = [];
+            }
         }
 
-        // 填充子弹价格表格
-        function populateAmmoTable() {
-            const tbody = document.getElementById('ammoPriceBody');
-            
-            tbody.innerHTML = ammoData.map(ammo => `
-                <tr>
-                    <td><span class="caliber-badge">${ammo.caliber}</span></td>
-                    <td class="item-name">${ammo.cheapest.name}</td>
-                    <td class="price-cell">¥${ammo.cheapest.price.toLocaleString()}</td>
-                    <td class="time-cell">${formatTimestamp(ammo.cheapest.is_get_time)}</td>
-                </tr>
-            `).join('');
-        }
-
-        // 填充子弹选择下拉框
-        function populateAmmoSelect() {
-            const select = document.getElementById('ammoSelect');
-            
-            const allAmmoItems = [];
-            ammoData.forEach(ammo => {
-                ammo.allItems.forEach(item => {
-                    allAmmoItems.push({
-                        caliber: ammo.caliber,
-                        ...item
-                    });
+        // ========== Tab 切换 ==========
+        function initTabs() {
+            document.querySelectorAll('.tab-btn').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+                    document.querySelectorAll('.tool-section').forEach(s => s.classList.remove('active'));
+                    btn.classList.add('active');
+                    document.getElementById(btn.dataset.tab).classList.add('active');
                 });
             });
-
-            select.innerHTML = '<option value="">-- 请选择子弹 --</option>';
-            allAmmoItems.forEach(item => {
-                const option = document.createElement('option');
-                option.value = item.id;
-                option.textContent = `[${item.secondClassCN}] ${item.name} - ¥${item.price.toLocaleString()}`;
-                option.dataset.price = item.price;
-                select.appendChild(option);
-            });
         }
 
-        // 计算收益
-        function calculateProfit() {
-            const buyPrice = parseFloat(document.getElementById('buyPrice').value);
-            const sellPrice = parseFloat(document.getElementById('sellPrice').value);
-            const count = parseInt(document.getElementById('ammoCount').value);
-            
-            if (!buyPrice || !sellPrice || !count) {
-                alert('请填写完整信息！');
+        // ========== 口径对比表 ==========
+        function renderCaliberTable() {
+            const calibers = ammoData?.calibers || [];
+            let html = `<table class="caliber-table">
+                <thead><tr>
+                    <th>口径</th><th>阵营</th><th>典型伤害</th><th>穿透力</th><th>适用武器</th><th>描述</th>
+                </tr></thead><tbody>`;
+            calibers.forEach(c => {
+                const catClass = {
+                    'NATO': 'cat-nato', 'Soviet': 'cat-soviet', 'HK': 'cat-hk',
+                    'FN': 'cat-fn', 'China': 'cat-china', 'Shotgun': 'cat-shotgun'
+                }[c.category] || '';
+                const penClass = c.penetration.includes('极高') ? 'pen-extreme' :
+                               c.penetration.includes('高') ? 'pen-high' :
+                               c.penetration.includes('中') ? 'pen-medium' : 'pen-low';
+                html += `<tr>
+                    <td><span class="caliber-badge">${c.caliber}</span></td>
+                    <td><span class="category-badge ${catClass}">${c.category}</span></td>
+                    <td>${c.typicalDamage}</td>
+                    <td class="${penClass}">${c.penetration}</td>
+                    <td>${(c.weapons||[]).join('、')}</td>
+                    <td>${c.description}</td>
+                </tr>`;
+            });
+            html += '</tbody></table>';
+            document.getElementById('caliberTableWrap').innerHTML = html;
+        }
+
+        // ========== 弹药类型对比 ==========
+        function renderAmmoTypes() {
+            const ammoTypes = ammoData?.ammoTypes?.examples || [];
+            if (!ammoTypes.length) return;
+            let html = '<h3 style="color:#f59e0b;margin-bottom:1rem;">🔬 同口径不同弹药类型对比</h3>';
+            html += '<div class="ammo-types-grid">';
+            ammoTypes.forEach(group => {
+                let rows = (group.types||[]).map(t =>
+                    `<div class="ammo-type-row">
+                        <span class="ammo-name">${t.name}</span>
+                        <span class="ammo-damage">伤害${t.damage}</span>
+                        <span class="ammo-pen">穿深${t.penetration}</span>
+                        <span class="ammo-note">${t.note||''}</span>
+                    </div>`
+                ).join('');
+                html += `<div class="ammo-type-card">
+                    <h3>${group.caliber}</h3>
+                    ${rows}
+                </div>`;
+            });
+            html += '</div>';
+            document.getElementById('ammoTypesWrap').innerHTML = html;
+        }
+
+        // ========== 推荐建议 ==========
+        function renderRecommendations() {
+            const tips = ammoData?.recommendations?.general || [];
+            if (!tips.length) return;
+            const defaultTips = [
+                {title:'🎯 PVE模式', content:'优先选择高穿透弹药对抗AI护甲，AI护甲等级固定，高穿深弹药用起来更轻松。'},
+                {title:'⚔️ PVP模式', content:'平衡伤害和穿透，根据对手护甲选择。T4护甲用穿透40+的弹药，T5以上需要穿透50+。'},
+                {title:'🏹 狙击步枪', content:'优先选择高穿透弹药保证远程击杀，伤害略低也没关系，一枪入魂。'},
+                {title:'💨 冲锋枪', content:'近战优先高伤害弹药，穿透次要。霰弹枪独头弹近战一发入魂。'}
+            ];
+            let html = '<h3 style="color:#f59e0b;margin-bottom:1rem;">💡 弹药选择建议</h3>';
+            html += '<div class="tips-grid">';
+            defaultTips.forEach(t => {
+                html += `<div class="tip-card"><h4>${t.title}</h4><p>${t.content}</p></div>`;
+            });
+            tips.forEach(t => {
+                html += `<div class="tip-card"><h4>📌 提示</h4><p>${t}</p></div>`;
+            });
+            html += '</div>';
+            document.getElementById('recommendationsWrap').innerHTML = html;
+        }
+
+        // ========== 价格计算器 ==========
+        function populateItemSelect() {
+            const select = document.getElementById('itemSelect');
+            if (!priceData || !priceData.length) {
+                select.innerHTML = '<option>价格数据加载中...</option>';
                 return;
             }
-            
-            const totalCost = buyPrice * count;
-            const totalRevenue = sellPrice * count;
-            const profit = totalRevenue - totalCost;
-            const profitRate = (profit / totalCost * 100).toFixed(2);
-            const unitProfit = sellPrice - buyPrice;
-            
-            const resultEl = document.getElementById('profitResult');
-            const valueEl = document.getElementById('profitValue');
-            const detailsEl = document.getElementById('profitDetails');
-            
-            const isProfit = profit >= 0;
-            valueEl.textContent = (isProfit ? '+' : '') + profit.toLocaleString() + ' 哈夫币';
-            valueEl.className = 'result-value ' + (isProfit ? 'profit' : 'loss');
-            
-            detailsEl.innerHTML = `
-                <div class="row">
-                    <span>总成本</span>
-                    <span class="value">¥${totalCost.toLocaleString()}</span>
+            // 只显示有价格的装备类物品（过滤掉子弹/消耗品）
+            const gearCategories = ['头盔', '护甲', '胸挂', '背包', '步枪', '冲锋枪', '狙击枪', '霰弹枪', '轻机枪', '手枪'];
+            const items = priceData.filter(i => gearCategories.includes(i.secondClassCN)).slice(0, 200);
+            select.innerHTML = items.map(i =>
+                `<option value="${i.id}" data-price="${i.price}">${i.name} — ¥${i.price.toLocaleString()}</option>`
+            ).join('');
+        }
+
+        function calcProfit() {
+            const select = document.getElementById('itemSelect');
+            const opt = select.options[select.selectedIndex];
+            const buy = parseFloat(document.getElementById('buyPrice').value) || 0;
+            const sell = parseFloat(document.getElementById('sellPrice').value) || 0;
+            const qty = parseInt(document.getElementById('quantity').value) || 1;
+
+            if (!buy || !sell) {
+                alert('请输入买入和卖出价格');
+                return;
+            }
+
+            const cost = buy * qty;
+            const revenue = sell * qty;
+            const profit = revenue - cost;
+            const margin = buy > 0 ? ((profit / cost) * 100).toFixed(1) : 0;
+
+            const resultEl = document.getElementById('calcResult');
+            resultEl.innerHTML = `
+                <div class="result-row">
+                    <span class="result-label">📦 物品</span>
+                    <span class="result-value">${opt.text.split(' — ')[0]}</span>
                 </div>
-                <div class="row">
-                    <span>总收入</span>
-                    <span class="value">¥${totalRevenue.toLocaleString()}</span>
+                <div class="result-row">
+                    <span class="result-label">💰 总成本</span>
+                    <span class="result-value">${cost.toFixed(2)} 万</span>
                 </div>
-                <div class="row">
-                    <span>单价利润</span>
-                    <span class="value">¥${unitProfit.toLocaleString()}/发</span>
+                <div class="result-row">
+                    <span class="result-label">💰 总收入</span>
+                    <span class="result-value">${revenue.toFixed(2)} 万</span>
                 </div>
-                <div class="row">
-                    <span>利润率</span>
-                    <span class="value">${isProfit ? '+' : ''}${profitRate}%</span>
+                <div class="result-row">
+                    <span class="result-label">📊 利润</span>
+                    <span class="${profit >= 0 ? 'result-profit' : 'result-loss'}">${profit >= 0 ? '+' : ''}${profit.toFixed(2)} 万（${margin}%）</span>
                 </div>
             `;
-            
-            resultEl.classList.add('show');
+            resultEl.classList.add('active');
         }
 
-        // 生成低价预测
-        function generatePredictions() {
-            const grid = document.getElementById('predictionGrid');
-            
-            const predictions = ammoData
-                .map(ammo => {
-                    const avgPrice = ammo.allItems.reduce((sum, item) => sum + item.price, 0) / ammo.allItems.length;
-                    const minPrice = ammo.cheapest.price;
-                    const discount = ((avgPrice - minPrice) / avgPrice * 100).toFixed(1);
-                    
-                    let recommendation, recClass;
-                    if (discount > 10) {
-                        recommendation = '强烈推荐';
-                        recClass = 'strong';
-                    } else if (discount > 5) {
-                        recommendation = '推荐';
-                        recClass = 'medium';
-                    } else {
-                        recommendation = '观望';
-                        recClass = 'low';
-                    }
-                    
-                    return {
-                        caliber: ammo.caliber,
-                        currentPrice: minPrice,
-                        avgPrice: Math.round(avgPrice),
-                        discount: parseFloat(discount),
-                        recommendation,
-                        recClass
-                    };
-                })
-                .sort((a, b) => b.discount - a.discount)
-                .slice(0, 6);
-            
-            grid.innerHTML = predictions.map(pred => `
-                <div class="prediction-card">
-                    <div class="caliber">
-                        <span class="badge">${pred.caliber}</span>
-                        <span class="recommendation ${pred.recClass}">${pred.recommendation}</span>
-                    </div>
-                    <div class="price-row">
-                        <span class="price-label">当前最低价</span>
-                        <span class="price-value">¥${pred.currentPrice.toLocaleString()}</span>
-                    </div>
-                    <div class="price-row">
-                        <span class="price-label">平均价格</span>
-                        <span class="price-value">¥${pred.avgPrice.toLocaleString()}</span>
-                    </div>
-                    <div class="price-row">
-                        <span class="price-label">折扣幅度</span>
-                        <span class="price-value discount">-${pred.discount}%</span>
-                    </div>
-                </div>
-            `).join('');
-        }
-
-        // 切换标签页
-        function switchTab(tabName, btn) {
-            // 更新按钮状态
-            document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-            btn.classList.add('active');
-            
-            // 更新内容显示
-            document.querySelectorAll('.tool-section').forEach(section => {
-                section.classList.remove('active');
+        // ========== 装备价格表 ==========
+        function renderGearPriceTable() {
+            const wrap = document.getElementById('gearPriceTableWrap');
+            if (!priceData || !priceData.length) {
+                wrap.innerHTML = '<p style="color:var(--text-secondary);padding:2rem;text-align:center;">价格数据加载中，请稍候...</p>';
+                return;
+            }
+            // 按分类分组显示
+            const gearCategories = ['头盔', '护甲', '胸挂', '背包', '步枪', '冲锋枪', '精确射手步枪', '狙击枪', '霰弹枪', '轻机枪', '手枪'];
+            let html = '';
+            gearCategories.forEach(cat => {
+                const items = priceData.filter(i => i.secondClassCN === cat).sort((a,b) => a.price - b.price).slice(0, 20);
+                if (!items.length) return;
+                html += `<h3 style="color:#f59e0b;margin:1.5rem 0 0.8rem;">${cat}（最低价前20）</h3>`;
+                html += `<table class="price-table"><thead><tr><th>物品名</th><th>价格</th><th>更新时间</th></tr></thead><tbody>`;
+                items.forEach(item => {
+                    const ts = new Date(item.is_get_time * 1000).toLocaleString('zh-CN');
+                    html += `<tr>
+                        <td class="item-name">${item.name}</td>
+                        <td class="price-cell">¥${item.price.toLocaleString()}</td>
+                        <td style="color:var(--text-secondary);font-size:0.85rem;">${ts}</td>
+                    </tr>`;
+                });
+                html += '</tbody></table>';
             });
-            document.getElementById(tabName + 'Section').classList.add('active');
+            wrap.innerHTML = html || '<p style="color:var(--text-secondary);">暂无价格数据</p>';
         }
 
-        // 格式化时间戳
-        function formatTimestamp(timestamp) {
-            if (!timestamp) return '未知';
-            const date = new Date(timestamp * 1000);
-            return date.toLocaleString('zh-CN');
+        // ========== 兜底数据 ==========
+        function getFallbackAmmoData() {
+            return {
+                "ammoSystem": {"totalCalibers": 12, "description": "弹药系统决定武器的伤害类型和穿透力"},
+                "calibers": [
+                    {"caliber":"5.56×45mm","category":"NATO","typicalDamage":"27-32","penetration":"中等","weapons":["M4A1","K416","M16A4"],"description":"北约标准小口径步枪弹，平衡性好"},
+                    {"caliber":"7.62×39mm","category":"Soviet","typicalDamage":"40-45","penetration":"中高","weapons":["AKM","PTR-32","SKS"],"description":"苏联经典中间威力步枪弹，停止力强"},
+                    {"caliber":"7.62×51mm","category":"NATO","typicalDamage":"44-52","penetration":"高","weapons":["SCAR-H","G3","SR-25"],"description":"北约全威力步枪弹，威力大但后坐力强"},
+                    {"caliber":"9×19mm","category":"NATO","typicalDamage":"25-35","penetration":"低","weapons":["MP5","UZI","野牛"],"description":"全球最流行的手枪弹，平衡性好"},
+                    {"caliber":"12GA","category":"Shotgun","typicalDamage":"80-250","penetration":"低（独头弹高）","weapons":["M870","M1014"],"description":"12号霰弹，近战威力极大"}
+                ],
+                "ammoTypes": {"note": "同种口径下有不同的弹药型号，影响伤害和穿透","examples": [
+                    {"caliber":"5.56×45mm","types":[{"name":"M193","damage":27,"penetration":32,"note":"标准弹"},{"name":"M855","damage":28,"penetration":38,"note":"穿甲弹"},{"name":"M995","damage":26,"penetration":55,"note":"高穿透穿甲弹"}]},
+                    {"caliber":"7.62×39mm","types":[{"name":"M43","damage":40,"penetration":28,"note":"标准弹"},{"name":"M67","damage":42,"penetration":30,"note":"改进弹"},{"name":"BP","damage":38,"penetration":50,"note":"穿甲弹"}]}
+                ]},
+                "recommendations": {"note":"弹药选择建议","general":["PVP模式平衡伤害和穿透","狙击步枪用高穿透弹药"]}
+            };
         }
     </script>
 </body>

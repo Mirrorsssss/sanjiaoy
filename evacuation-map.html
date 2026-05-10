@@ -350,7 +350,7 @@
         // 加载数据
         async function loadData() {
             try {
-                const response = await fetch('game-mechanics.json');
+                const response = await fetch('data/game-mechanics.json');
                 gameMechanicsData = await response.json();
                 initMapSelector();
                 showMap('zeroDam');

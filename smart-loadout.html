@@ -6,6 +6,45 @@
     <title>战备配置推荐 - 三角眼</title>
     <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎯</text></svg>">
     <style>
+        /* 数据状态提示 */
+        .data-status {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.8rem;
+            padding: 1rem 1.5rem;
+            margin-bottom: 2rem;
+            border-radius: 12px;
+            font-size: 0.95rem;
+        }
+        
+        .data-status .icon {
+            font-size: 1.2rem;
+        }
+        
+        .data-status .count {
+            font-weight: 700;
+            color: #00d9ff;
+        }
+        
+        .data-status.loading {
+            background: linear-gradient(135deg, rgba(0, 217, 255, 0.15), rgba(0, 217, 255, 0.05));
+            color: #00d9ff;
+            border: 1px solid rgba(0, 217, 255, 0.3);
+        }
+        
+        .data-status.loaded {
+            background: linear-gradient(135deg, rgba(16, 185, 129, 0.15), rgba(16, 185, 129, 0.05));
+            color: #10b981;
+            border: 1px solid rgba(16, 185, 129, 0.3);
+        }
+        
+        .data-status.error {
+            background: linear-gradient(135deg, rgba(239, 68, 68, 0.15), rgba(239, 68, 68, 0.05));
+            color: #ef4444;
+            border: 1px solid rgba(239, 68, 68, 0.3);
+        }
+        
         * {
             margin: 0;
             padding: 0;
@@ -382,6 +421,12 @@
             <p>输入预算，自动计算最优配置方案</p>
         </header>
         
+        <!-- 数据状态提示 -->
+        <div id="dataStatus" class="data-status loading">
+            <span class="icon">⏳</span>
+            <span class="text">正在加载游戏数据...</span>
+        </div>
+        
         <div class="input-section">
             <div class="input-row">
                 <div class="input-group">
@@ -464,6 +509,30 @@
     </div>
     
     <script>
+        // 显示数据状态提示
+        function showDataStatus(status, message) {
+            const dataStatus = document.getElementById('dataStatus');
+            if (!dataStatus) return;
+            
+            dataStatus.className = 'data-status ' + status;
+            
+            switch(status) {
+                case 'loading':
+                    dataStatus.innerHTML = `<span class="icon">⏳</span><span class="text">${message || '正在加载游戏数据...'}</span>`;
+                    break;
+                case 'loaded':
+                    dataStatus.innerHTML = `<span class="icon">✅</span><span class="text">${message || '游戏数据加载成功'}</span>`;
+                    // 3秒后自动隐藏
+                    setTimeout(() => {
+                        dataStatus.style.display = 'none';
+                    }, 3000);
+                    break;
+                case 'error':
+                    dataStatus.innerHTML = `<span class="icon">⚠️</span><span class="text">${message || '数据加载失败，使用默认数据'}</span>`;
+                    break;
+            }
+        }
+        
         // 装备数据库 - 动态加载
         let gearDB = {
             helmets: [],
@@ -481,6 +550,7 @@
         // 从game-data.json加载数据
         async function loadGameData() {
             try {
+                showDataStatus('loading', '正在加载游戏数据...');
                 const resp = await fetch('data/game-data.json?t=' + Date.now());
                 const gameData = await resp.json();
                 
@@ -593,11 +663,14 @@
                     highWeapons: weaponDB.high.length
                 });
                 
+                showDataStatus('loaded', `游戏数据加载成功！头盔:${gearDB.helmets.length} | 护甲:${gearDB.armors.length} | 背包:${gearDB.backpacks.length} | 胸挂:${gearDB.chestRigs.length} | 武器:${weaponDB.budget.length + weaponDB.mid.length + weaponDB.high.length}`);
+                
                 // 数据加载完成后初始化页面
                 initPage();
                 
             } catch (err) {
                 console.error('❌ 加载游戏数据失败，使用默认数据', err);
+                showDataStatus('error', '数据加载失败，使用默认数据');
                 // 如果加载失败，使用硬编码的默认数据
                 useDefaultData();
                 initPage();
@@ -919,15 +992,17 @@
                 tips.push(`📈 预期收益率${result.roi.toFixed(0)}%，值得一试！`);
             } else if (result.roi > 0) {
                 tips.push(`📈 预期收益率${result.roi.toFixed(0)}%，微利`);
-            // 生成提示
-            result.tips = [
-                `战备值刚好达到${threshold}万门槛即可，多一分都是浪费`,
-                '建议中午12点前后购买装备，价格通常更低',
-                '破损装备耐久低但战备值不缩水，性价比极高',
-                `当前预算${budget}万，实际花费约${result.totalCost.toFixed(1)}万`
-            ];
+            } else {
+                tips.push(`📈 预期收益率${result.roi.toFixed(0)}%，可能亏损`);
+            }
             
-            return result;
+            // 添加通用提示
+            tips.push(`战备值刚好达到${result.threshold}万门槛即可，多一分都是浪费`);
+            tips.push('建议中午12点前后购买装备，价格通常更低');
+            tips.push('破损装备耐久低但战备值不缩水，性价比极高');
+            tips.push(`当前预算${document.getElementById('budget').value || 0}万，实际花费约${result.totalCost.toFixed(1)}万`);
+            
+            return tips;
         }
         
         // 渲染结果
