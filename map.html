@@ -104,6 +104,10 @@
                 <option value="unknown">机密+</option>
             </select>
         </div>
+        <div class="ctrl-group">
+            <span class="ctrl-label">搜索</span>
+            <input type="text" id="search-input" placeholder="搜索物资名称..." style="background:var(--card);border:1px solid var(--border);color:var(--text);padding:5px 10px;border-radius:6px;font-size:13px;width:150px;">
+        </div>
         <button id="toggle-sidebar">📋 侧边栏</button>
     </div>
 </header>
@@ -116,6 +120,7 @@
             <span id="item-count">--</span>
         </div>
         <div class="legend" id="legend"></div>
+        <div id="area-filter" style="padding:8px 12px;max-height:150px;overflow-y:auto;border-bottom:1px solid var(--border);"></div>
         <div class="item-list" id="item-list">
             <div class="loading"><div class="spinner"></div></div>
         </div>
@@ -205,6 +210,17 @@ const CATEGORY_ICONS = {
 let map, markers = [];
 let currentData = null;
 let activeCategories = new Set(Object.keys(CATEGORY_COLORS));
+let searchKeyword = '';
+let selectedAreas = new Set();
+
+function getFilteredItems(items) {
+    return items.filter(i => {
+        const matchCategory = activeCategories.has(i.c);
+        const matchSearch = !searchKeyword || i.n.toLowerCase().includes(searchKeyword.toLowerCase());
+        const matchArea = selectedAreas.size === 0 || selectedAreas.has(i.area);
+        return matchCategory && matchSearch && matchArea;
+    });
+}
 
 function init() {
     map = L.map('map', { crs: L.CRS.Simple, minZoom: -2, maxZoom: 5 });
@@ -271,6 +287,9 @@ async function loadMap() {
 
         renderMarkers(diff.items);
         renderSidebar(mapData, diff);
+        // 渲染区域筛选
+        const areas = [...new Set(diff.items.map(i => i.area))].sort();
+        renderAreaFilter(areas);
 
     } catch(e) {
         console.error('Load error:', e);
@@ -282,7 +301,7 @@ function renderMarkers(items) {
     markers.forEach(m => map.removeLayer(m));
     markers = [];
 
-    const filtered = items.filter(i => activeCategories.has(i.c));
+    const filtered = getFilteredItems(items);
 
     for (const item of filtered) {
         const color = CATEGORY_COLORS[i.c] || '#6b7280';
@@ -327,8 +346,9 @@ function renderSidebar(mapData, diff) {
         </label>
     `).join('');
 
-    // Item list
-    document.getElementById('item-list').innerHTML = diff.items.map(item => {
+    // Item list (filtered)
+    const filteredItems = getFilteredItems(diff.items);
+    document.getElementById('item-list').innerHTML = filteredItems.map(item => {
         const color = CATEGORY_COLORS[item.c] || '#6b7280';
         const isR = item.isR;
         return `
@@ -351,7 +371,29 @@ function panTo(y, x) {
 function toggleCategory(cat, checked) {
     if (checked) activeCategories.add(cat);
     else activeCategories.delete(cat);
-    if (currentData) renderMarkers(currentData.diff.items);
+    if (currentData) { renderMarkers(currentData.diff.items); renderSidebar(currentData.map, currentData.diff); }
+}
+
+function toggleArea(area, checked) {
+    if (checked) selectedAreas.add(area);
+    else selectedAreas.delete(area);
+    if (currentData) { renderMarkers(currentData.diff.items); renderSidebar(currentData.map, currentData.diff); }
+}
+
+function clearAreaFilter() {
+    selectedAreas.clear();
+    document.querySelectorAll('#area-filter input[type=checkbox]').forEach(cb => cb.checked = true);
+    if (currentData) { renderMarkers(currentData.diff.items); renderSidebar(currentData.map, currentData.diff); }
+}
+
+function renderAreaFilter(areas) {
+    const container = document.getElementById('area-filter');
+    container.innerHTML = areas.map(a => `
+        <label style="display:flex;align-items:center;gap:6px;padding:3px 0;font-size:11px;cursor:pointer;">
+            <input type="checkbox" checked onchange="toggleArea('${a}', this.checked)">
+            ${a}
+        </label>
+    `).join('');
 }
 
 // Event listeners
@@ -360,6 +402,11 @@ document.getElementById('diff-select').addEventListener('change', loadMap);
 document.getElementById('toggle-sidebar').addEventListener('click', () => {
     document.getElementById('sidebar').style.display =
         document.getElementById('sidebar').style.display === 'none' ? 'flex' : 'none';
+});
+
+document.getElementById('search-input').addEventListener('input', (e) => {
+    searchKeyword = e.target.value;
+    if (currentData) { renderMarkers(currentData.diff.items); renderSidebar(currentData.map, currentData.diff); }
 });
 
 init();
