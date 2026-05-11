@@ -1,10 +1,11 @@
 {
   "meta": {
     "game": "三角洲行动 (Delta Force: Hawk Ops)",
-    "version": "2024-2026",
-    "lastUpdated": "2026-05-09",
+    "version": "S9赛季-回声",
+    "lastUpdated": "2026-05-11",
     "source": "github.com/jiansenc/DeltaForceData, game-data.json",
-    "totalItems": 876
+    "totalItems": 876,
+    "s9Note": "S9赛季新增物品已标注"
   },
   "raritySystem": {
     "note": "物品稀有度等级系统",
@@ -22,6 +23,84 @@
       {"level": "B", "name": "中稀有", "color": "蓝色"},
       {"level": "C", "name": "低稀有", "color": "绿色"},
       {"level": "D", "name": "普通", "color": "白色"}
+    ]
+  },
+  "s9NewItems": {
+    "note": "S9赛季新增物品清单",
+    "items": [
+      {
+        "name": "钛合金板",
+        "type": "防具材料",
+        "grade": 3,
+        "price": 2100,
+        "description": "S9新增高级防具制作材料，可用于制作高级防具和动力外骨骼",
+        "tradeable": true,
+        "bindOnPickup": false,
+        "source": "工坊制造/地图掉落"
+      },
+      {
+        "name": "XCOG战术瞄准镜",
+        "type": "瞄具",
+        "grade": 4,
+        "price": 1500000,
+        "description": "S9新增高级瞄具，具有智能弹道计算功能",
+        "tradeable": true,
+        "bindOnPickup": false,
+        "source": "工坊制造/高级掉落"
+      },
+      {
+        "name": "动力外骨骼Mk-II组件",
+        "type": "特殊装备",
+        "grade": 5,
+        "price": 3000000,
+        "description": "S9核心装备，穿戴后移动速度+20%，载重+30%",
+        "tradeable": true,
+        "bindOnPickup": true,
+        "source": "工坊制造/蝰蛇首领掉落"
+      },
+      {
+        "name": "PAB9穿甲弹",
+        "type": "弹药",
+        "grade": 3,
+        "price": 2500,
+        "description": "S9新增4级弹，穿深40，性价比高，适合中距离",
+        "tradeable": true,
+        "bindOnPickup": false,
+        "source": "工坊制造"
+      },
+      {
+        "name": "7N39穿甲弹",
+        "type": "弹药",
+        "grade": 4,
+        "price": 9500,
+        "description": "S9新增最强步枪弹，穿深7级，无视高等级护甲",
+        "tradeable": true,
+        "bindOnPickup": false,
+        "source": "工坊制造"
+      }
+    ]
+  },
+  "materialBindStatus": {
+    "note": "材料绑定状态标注【重要】",
+    "bindOnPickup": [
+      "动力外骨骼Mk-II组件",
+      "高级属性石",
+      "A级宠物蛋",
+      "金色收藏品"
+    ],
+    "tradeable": [
+      "钛合金板",
+      "高级合金",
+      "稀有金属",
+      "精密元件",
+      "电子元件",
+      "显卡",
+      "CPU"
+    ],
+    "tips": [
+      "绑定物品拾取后无法交易，请确认后再拾取",
+      "可交易物品建议尽快出售，避免价格波动",
+      "工坊制造的材料默认为可交易状态"
     ]
   },
   "itemCategories": [

@@ -186,6 +186,60 @@
             border: 1px solid #FF5722;
         }
 
+        .type-packdrop {
+            background: rgba(33, 150, 243, 0.3);
+            color: #2196F3;
+            border: 1px solid #2196F3;
+        }
+
+        .boss-section {
+            background: rgba(255, 23, 68, 0.15);
+            border: 2px solid #FF1744;
+            border-radius: 12px;
+            padding: 25px;
+            margin-bottom: 30px;
+        }
+
+        .boss-header {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+
+        .boss-icon {
+            font-size: 2.5em;
+        }
+
+        .boss-title {
+            color: #FF1744;
+            font-size: 1.5em;
+            font-weight: bold;
+        }
+
+        .boss-info {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+        }
+
+        .boss-detail {
+            padding: 12px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 8px;
+        }
+
+        .boss-detail-label {
+            color: #888;
+            font-size: 0.85em;
+            margin-bottom: 5px;
+        }
+
+        .boss-detail-value {
+            color: #fff;
+            font-weight: bold;
+        }
+
         .evacuation-details {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
@@ -336,6 +390,7 @@
 
         <div class="map-selector">
             <button class="map-btn active" data-map="zeroDam">零号大坝</button>
+            <button class="map-btn" data-map="longbowValley">长弓溪谷</button>
             <button class="map-btn" data-map="spacePort">航天基地</button>
             <button class="map-btn" data-map="buckish">巴克什</button>
             <button class="map-btn" data-map="tidalPrison">潮汐监狱</button>
@@ -385,6 +440,7 @@
 
             const difficultyMap = {
                 'zeroDam': { text: '简单', color: '#4CAF50' },
+                'longbowValley': { text: '中等', color: '#FFC107' },
                 'spacePort': { text: '困难', color: '#FF5722' },
                 'buckish': { text: '中等', color: '#FFC107' },
                 'tidalPrison': { text: '极难', color: '#f44336' }
@@ -412,18 +468,48 @@
             `;
 
             mapData.points.forEach((point, index) => {
-                const typeClass = `type-${point.type === '标准撤离' ? 'standard' : 
-                                                  point.type === '钥匙卡撤离' ? 'keycard' : 
-                                                  point.type === '隐藏撤离' ? 'hidden' : 'device'}`;
-                
-                const riskClass = `risk-${point.risk === '低' ? 'low' : 
-                                            point.risk === '中' ? 'medium' : 
+                const typeClass = `type-${point.type === '标准撤离' ? 'standard' :
+                                                  point.type === '钥匙卡撤离' ? 'keycard' :
+                                                  point.type === '隐藏撤离' ? 'hidden' :
+                                                  point.type === '丢包撤离' ? 'packdrop' : 'device'}`;
+
+                const riskClass = `risk-${point.risk === '低' ? 'low' :
+                                            point.risk === '中' ? 'medium' :
                                             point.risk === '高' ? 'high' : 'extreme'}`;
 
                 const route = getEvacuationRoute(mapKey, index);
 
+                // 检查是否有BOSS信息
+                const hasBoss = mapData.boss && index === 0;
+
                 html += `
                     <div class="evacuation-card">
+                        ${hasBoss ? `
+                        <div class="boss-section">
+                            <div class="boss-header">
+                                <span class="boss-icon">🐍</span>
+                                <span class="boss-title">BOSS: ${mapData.boss.name}</span>
+                            </div>
+                            <div class="boss-info">
+                                <div class="boss-detail">
+                                    <div class="boss-detail-label">📍 位置</div>
+                                    <div class="boss-detail-value">${mapData.boss.location}</div>
+                                </div>
+                                <div class="boss-detail">
+                                    <div class="boss-detail-label">⚔️ 难度</div>
+                                    <div class="boss-detail-value">${mapData.boss.difficulty}</div>
+                                </div>
+                                <div class="boss-detail">
+                                    <div class="boss-detail-label">💎 掉落物</div>
+                                    <div class="boss-detail-value">${mapData.boss.loot}</div>
+                                </div>
+                                <div class="boss-detail">
+                                    <div class="boss-detail-label">🎯 攻略</div>
+                                    <div class="boss-detail-value">${mapData.boss.strategy}</div>
+                                </div>
+                            </div>
+                        </div>
+                        ` : ''}
                         <div class="evacuation-header">
                             <div class="evacuation-name">${point.name}</div>
                             <div class="evacuation-type ${typeClass}">${point.type}</div>
@@ -493,6 +579,32 @@
                         '启动3个发电机（位置：通道入口、中间平台、出口附近）',
                         '启动后等待10秒，撤离门打开',
                         '快速撤离，注意通道内可能有埋伏'
+                    ],
+                    [
+                        '【S9新增】从宿舍区北侧小路前往备用撤离点',
+                        '此撤离点为丢包撤离，需要在限定时间内到达',
+                        '适合从地图北侧撤离，避免正面冲突',
+                        '注意：此撤离点需要持有足够的背包空间'
+                    ]
+                ],
+                'longbowValley': [
+                    [
+                        '【蝰蛇首领BOSS】位于地图东北区域 - 加尔比旧址附近',
+                        'BOSS难度较高，建议组队前往',
+                        '击败蝰蛇后可获得高价值掉落和雷达站钥匙卡',
+                        '从雷达站向西移动到主撤离点'
+                    ],
+                    [
+                        '从钻石皇后酒店向西北方向撤离',
+                        '经过超星车站时注意两侧建筑可能有敌人埋伏',
+                        '沿公路向西北撤离点移动，保持警戒',
+                        '撤离点位于蓝港码头附近，适合带大量物资撤离'
+                    ],
+                    [
+                        '【S9新增丢包撤离点】',
+                        '从检查站向东侧移动到指定丢包区域',
+                        '在限定时间内将背包丢到指定位置即可触发撤离',
+                        '适用于需要快速撤离但又不想丢弃背包的情况'
                     ]
                 ],
                 'spacePort': [
@@ -548,7 +660,14 @@
                 'zeroDam': [
                     { title: '🎯 首选撤离点', content: '大坝顶部撤离点最安全，适合新手。地下通道适合快速撤离，但需要提前启动发电机。' },
                     { title: '⚠️ 注意事项', content: '地下通道撤退时要注意噪音，发电机启动声音会暴露位置。' },
+                    { title: '🔧 S9新增第二拉闸点', content: 'S9赛季零号大坝新增第二拉闸点，位于宿舍区北侧，可连接备用撤离点。' },
                     { title: '💼 物资建议', content: '零号大坝物资价值中等，建议携带中等容量背包（15-18格）。' }
+                ],
+                'longbowValley': [
+                    { title: '🐍 蝰蛇首领', content: '蝰蛇首领位于加尔比旧址附近（地图东北），击败后可获得雷达站钥匙卡和高价值掉落。' },
+                    { title: '🎯 首选撤离点', content: '蓝港码头撤离点相对安全，从雷达站方向撤离可避开主要冲突区域。' },
+                    { title: '📦 S9丢包撤离', content: 'S9新增丢包撤离机制，从检查站向东侧移动到指定区域即可触发。' },
+                    { title: '⚠️ 地形提醒', content: '长弓溪谷地形开阔，狙击手优势明显，建议携带中远距离武器。' }
                 ],
                 'spacePort': [
                     { title: '🎯 拉闸顺序', content: '建议先拉主控中心闸门，再拉仓库区闸门。拉闸后快速移动到正门撤离点。' },

@@ -283,7 +283,54 @@
 
   "workshopRecipes": {
     "description": "工坊所有配方及材料成本",
-    "taxRate": 0.08,
+    "note": "S9赛季税率更新为15%（10%手续费+5%保证金）",
+    "taxRate": 0.15,
+    "s9NewRecipes": [
+      {
+        "name": "XCOG战术瞄准镜",
+        "type": "瞄具",
+        "sellPrice": 100,
+        "materials": [
+          {"name": "光学镜片", "cost": 15},
+          {"name": "精密元件", "cost": 20},
+          {"name": "高级合金", "cost": 15}
+        ],
+        "totalCost": 50,
+        "profit": 45,
+        "profitAfterTax": 38.25,
+        "roi": 76,
+        "note": "S9新增瞄具，高端市场稀缺"
+      },
+      {
+        "name": "钛合金板",
+        "type": "防具材料",
+        "sellPrice": 20,
+        "materials": [
+          {"name": "高级合金", "cost": 6},
+          {"name": "稀有金属", "cost": 8}
+        ],
+        "totalCost": 14,
+        "profit": 5.1,
+        "profitAfterTax": 4.33,
+        "roi": 31,
+        "note": "S9新增材料，价格2100/个（已修正）"
+      },
+      {
+        "name": "动力外骨骼Mk-II组件",
+        "type": "特殊装备",
+        "sellPrice": 250,
+        "materials": [
+          {"name": "高级合金", "cost": 40},
+          {"name": "精密元件", "cost": 50},
+          {"name": "稀有金属", "cost": 40}
+        ],
+        "totalCost": 130,
+        "profit": 112.5,
+        "profitAfterTax": 95.63,
+        "roi": 74,
+        "note": "S9核心装备，移动速度+20%，载重+30%"
+      }
+    ],
     "recipes": [
       {
         "name": "急造子弹 M995",
@@ -351,7 +398,7 @@
         "roi": 111
       }
     ],
-    "note": "利润 = 售价 - 材料成本 - 制造税(8%)；ROI = 利润 / 材料成本 × 100%"
+    "note": "利润 = 售价 - 材料成本 - 制造税(15%，含10%手续费+5%保证金)；ROI = 利润 / 材料成本 × 100%"
   },
 
   "mapLoot": {
@@ -394,6 +441,13 @@
             "commonItems": ["航空电子", "稀有金属", "科研数据"],
             "钥匙需求": ["main-control-key", "server-room-key"],
             "note": "需要高级钥匙卡，但收益极高"
+          },
+          {
+            "name": "核心舱【S9新增】",
+            "lootTier": "S+级",
+            "commonItems": ["高级合金", "精密元件", "稀有金属", "动力外骨骼组件"],
+            "钥匙需求": ["核心舱钥匙卡"],
+            "note": "S9赛季新增高价值区域，位于发射台下方地下室"
           },
           {
             "name": "仓库区",
@@ -449,6 +503,7 @@
 
   "evacuationPoints": {
     "description": "各地图撤离点位置与触发条件",
+    "note": "S9赛季新增长弓溪谷撤离点、丢包撤离机制、第二拉闸点",
     "maps": {
       "zeroDam": {
         "name": "零号大坝",
@@ -468,6 +523,50 @@
             "condition": "需要启动3个发电机",
             "risk": "中",
             "note": "适合从行政楼撤离"
+          },
+          {
+            "name": "备用撤离点【S9新增】",
+            "type": "丢包撤离",
+            "location": "宿舍区北侧",
+            "condition": "在限定时间内到达指定区域",
+            "risk": "中",
+            "note": "S9新增撤离点，需要连接第二拉闸点使用"
+          }
+        ]
+      },
+      "longbowValley": {
+        "name": "长弓溪谷",
+        "boss": {
+          "name": "蝰蛇首领 🐍",
+          "location": "加尔比旧址（地图东北区域）",
+          "difficulty": "困难",
+          "loot": "雷达站钥匙卡、稀有电子元件、高级属性石",
+          "strategy": "建议组队挑战，注意躲避蝰蛇的毒液攻击"
+        },
+        "points": [
+          {
+            "name": "雷达站撤离点",
+            "type": "钥匙卡撤离",
+            "location": "哈夫克雷达站（地图西北）",
+            "condition": "需要雷达站钥匙卡（蝰蛇首领掉落）",
+            "risk": "中",
+            "note": "击败蝰蛇首领后获得钥匙卡"
+          },
+          {
+            "name": "蓝港码头撤离点",
+            "type": "标准撤离",
+            "location": "蓝港码头（地图西侧）",
+            "condition": "等待30秒",
+            "risk": "低",
+            "note": "从钻石皇后酒店方向撤离相对安全"
+          },
+          {
+            "name": "丢包撤离点【S9新增】",
+            "type": "丢包撤离",
+            "location": "检查站东侧",
+            "condition": "在限定时间内将背包丢到指定位置",
+            "risk": "中",
+            "note": "S9新增机制，适合快速撤离但不想丢弃背包"
           }
         ]
       },
@@ -706,7 +805,8 @@
           {"name": "基地正门钥匙卡", "rarity": "绿色", "durability": 3, "location": "正门", "lootTier": "B", "note": "基础钥匙卡"},
           {"name": "发射台钥匙卡", "rarity": "紫色", "durability": 1, "location": "发射台", "lootTier": "S", "note": "最高价值区域"},
           {"name": "控制中心钥匙卡", "rarity": "蓝色", "durability": 2, "location": "主控中心", "lootTier": "A", "note": "可开启控制中心房间"},
-          {"name": "后勤通道钥匙卡", "rarity": "紫色", "durability": 1, "location": "撤离点", "lootTier": "S", "note": "用于后勤通道撤离"}
+          {"name": "后勤通道钥匙卡", "rarity": "紫色", "durability": 1, "location": "撤离点", "lootTier": "S", "note": "用于后勤通道撤离"},
+          {"name": "核心舱钥匙卡【S9新增】", "rarity": "金色", "durability": 1, "location": "发射台控制室", "lootTier": "S+", "note": "S9新增，核心舱专属钥匙卡，掉落极低"}
         ]
       },
       "buckish": {
@@ -749,6 +849,7 @@
 
   "bossGuide": {
     "description": "BOSS位置与击杀策略",
+    "note": "S9赛季新增蝰蛇首领，位于长弓溪谷",
     "bosses": [
       {
         "name": "大坝守卫队长",
@@ -756,6 +857,14 @@
         "difficulty": "中等",
         "loot": "高级防具、金色钥匙卡、稀有收藏品",
         "strategy": "建议从楼梯间推进，利用掩体躲避射击，优先击杀其随从"
+      },
+      {
+        "name": "蝰蛇首领 🐍【S9新增】",
+        "location": "长弓溪谷 - 加尔比旧址（地图东北区域）",
+        "difficulty": "困难",
+        "loot": "雷达站钥匙卡、稀有电子元件、高级属性石",
+        "strategy": "建议组队挑战，注意躲避蝰蛇的毒液攻击，击败后可开启雷达站高价值区域",
+        "s9note": "S9赛季新增BOSS，位置已更新至加尔比旧址"
       },
       {
         "name": "航天基地指挥官",

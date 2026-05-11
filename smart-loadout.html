@@ -401,6 +401,14 @@
                         <option value="tidalPrison_topSecret">潮汐监狱 - 绝密（69万）</option>
                     </select>
                 </div>
+                <div class="input-group">
+                    <label>👥 组队模式</label>
+                    <select id="teamMode">
+                        <option value="solo">单排（个人配置）</option>
+                        <option value="duo">双排（增加医疗包）</option>
+                        <option value="squad">四排（满编队伍）</option>
+                    </select>
+                </div>
             </div>
             
             <div class="quick-options">
@@ -410,6 +418,8 @@
                 <button class="quick-btn" data-budget="25" data-map="spacePort_topSecret">25万绝密</button>
                 <button class="quick-btn" data-budget="40" data-map="buckish_topSecret">40万绝密</button>
                 <button class="quick-btn" data-budget="60" data-map="tidalPrison_topSecret">60万绝密</button>
+                <button class="quick-btn" data-budget="100" data-map="tidalPrison_topSecret">100万顶配</button>
+                <button class="quick-btn" data-budget="200" data-map="tidalPrison_topSecret">200万氪金</button>
             </div>
             
             <button class="calc-btn" id="calcBtn">🚀 计算最优配置</button>
@@ -2063,6 +2073,19 @@
             // 计算总计
             result.totalCost = result.gear.reduce((sum, g) => sum + g.price, 0) + result.weapons.reduce((sum, w) => sum + w.price, 0);
             result.totalCV = result.gear.reduce((sum, g) => sum + g.cv, 0) + result.weapons.reduce((sum, w) => sum + w.cv, 0);
+            
+            // S9新系统：动力外骨骼
+            if (budget >= 50) {
+                result.exoskeleton = {
+                    name: '动力外骨骼Mk-II',
+                    cv: 15,
+                    price: 50,
+                    icon: '🦾',
+                    reason: 'S9赛季新系统，移动速度+20%，载重+30%'
+                };
+                result.totalCost += result.exoskeleton.price;
+                result.totalCV += result.exoskeleton.cv;
+            }
             
             // 生成提示
             result.tips = [

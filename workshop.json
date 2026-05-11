@@ -7,7 +7,8 @@
   },
   "workshopSystem": {
     "description": "工坊系统可以制造各种消耗品和装备",
-    "note": "利润计算需要考虑制造成本、材料成本和售价"
+    "note": "S9赛季税率更新为15%（10%手续费+5%保证金）",
+    "taxRate": 0.15
   },
   "craftingRecipes": [
     {
@@ -22,6 +23,50 @@
       "sellPrice": "5-8万",
       "profitRate": "中等",
       "recommendation": "新手推荐，材料易得"
+    },
+    {
+      "id": "s9_001",
+      "name": "XCOG战术瞄准镜【S9新增】",
+      "grade": 4,
+      "materials": [
+        {"item": "光学镜片", "quantity": 2},
+        {"item": "精密元件", "quantity": 3},
+        {"item": "高级合金", "quantity": 2}
+      ],
+      "craftTime": "45分钟",
+      "sellPrice": "80-120万",
+      "profitRate": "极高",
+      "note": "S9新增瞄具，工坊独家配方，高端市场稀缺",
+      "recommendation": "高端玩家推荐，材料成本高但利润丰厚"
+    },
+    {
+      "id": "s9_002",
+      "name": "钛合金板【S9新增】",
+      "grade": 3,
+      "materials": [
+        {"item": "高级合金", "quantity": 3},
+        {"item": "稀有金属", "quantity": 2}
+      ],
+      "craftTime": "30分钟",
+      "sellPrice": "15-25万",
+      "profitRate": "高",
+      "note": "S9新增防具材料，价格2100/个（已修正）",
+      "recommendation": "中等预算玩家推荐，需求稳定"
+    },
+    {
+      "id": "s9_003",
+      "name": "动力外骨骼Mk-II组件【S9新增】",
+      "grade": 5,
+      "materials": [
+        {"item": "高级合金", "quantity": 5},
+        {"item": "精密元件", "quantity": 4},
+        {"item": "稀有金属", "quantity": 3}
+      ],
+      "craftTime": "90分钟",
+      "sellPrice": "200-300万",
+      "profitRate": "极高",
+      "note": "S9赛季核心装备，可提升移动速度20%和载重30%",
+      "recommendation": "土豪玩家推荐，制作成本高但市场需求极大"
     },
     {
       "id": "recipe_002",
@@ -77,7 +122,12 @@
     }
   ],
   "profitAnalysis": {
-    "note": "利润分析基于当前市场价格",
+    "note": "利润分析基于当前市场价格，S9税率15%",
+    "s9NewItems": [
+      {"item": "动力外骨骼Mk-II组件", "profitRate": "200-300%", "risk": "材料稀有", "demand": "极高"},
+      {"item": "XCOG战术瞄准镜", "profitRate": "150-250%", "risk": "材料难获取", "demand": "高"},
+      {"item": "钛合金板", "profitRate": "100-150%", "risk": "中等", "demand": "稳定"}
+    ],
     "highProfitItems": [
       {"item": "T3肾上腺素", "profitRate": "150-200%", "risk": "材料稀有"},
       {"item": "T3破片手雷", "profitRate": "120-180%", "risk": "中等"},
