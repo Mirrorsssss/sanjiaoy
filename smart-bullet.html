@@ -632,7 +632,7 @@
                 ]
         },
         "G3战斗步枪": {
-                "caliber": "mmo7.62x51",
+                "caliber": "7.62×51mm",
                 "weapons": [
                         "G3战斗步枪"
                 ]
@@ -861,6 +861,82 @@
         
         let selectedWeapon = null;
         let selectedScene = 'pvp';
+        
+        // 子弹数据库（价格数据来自price-realtime.json，哈夫币/发）
+        const bulletDB = {
+            "5.56x45mm": [
+                { name: "M995", type: "ap", price: 4212, penetration: 55, reason: "穿甲值最高，克制AI重甲，PVE必备" },
+                { name: "M855A1", type: "balanced", price: 1671, penetration: 42, reason: "平衡伤害与穿透，PVP综合表现优秀" },
+                { name: "M855", type: "fm", price: 391, penetration: 38, reason: "标准穿甲弹，日常使用足够" },
+                { name: "FMJ", type: "fm", price: 79, penetration: 25, reason: "最便宜的5.56子弹，近距离够用" },
+                { name: "RRLP", type: "hp", price: 35, penetration: 15, reason: "仅35发/发，最便宜的5.56子弹" }
+            ],
+            "7.62x39mm": [
+                { name: "AP", type: "ap", price: 4671, penetration: 60, reason: "穿甲值最高，克制重甲AI，PVE必备" },
+                { name: "BP", type: "ap", price: 1156, penetration: 50, reason: "高性价比穿甲弹，PVP首选" },
+                { name: "PS", type: "fm", price: 446, penetration: 28, reason: "标准弹，日常使用足够" },
+                { name: "T45M", type: "hp", price: 111, penetration: 22, reason: "空尖弹，便宜，近距离伤害高" },
+                { name: "LP", type: "hp", price: 43, penetration: 18, reason: "最便宜的7.62子弹，省钱首选" }
+            ],
+            "9x19mm": [
+                { name: "PBP", type: "ap", price: 1096, penetration: 45, reason: "穿甲效果最好，PVE打AI" },
+                { name: "AP6.3", type: "ap", price: 276, penetration: 40, reason: "穿甲+便宜，PVP手枪战首选" },
+                { name: "RIP", type: "hp", price: 558, penetration: 20, reason: "空尖弹，高停止力，近距离一枪倒地" },
+                { name: "Pst", type: "fm", price: 88, penetration: 18, reason: "标准弹，日常使用足够" },
+                { name: "PSO", type: "hp", price: 29, penetration: 12, reason: "最便宜的9mm子弹，冲锋枪省钱首选" }
+            ],
+            "5.45x39mm": [
+                { name: "BS", type: "ap", price: 4144, penetration: 58, reason: "高穿透穿甲弹，克制高等级护甲" },
+                { name: "BT", type: "ap", price: 916, penetration: 44, reason: "穿甲弹，高性价比" },
+                { name: "PS", type: "fm", price: 399, penetration: 30, reason: "标准弹，日常使用足够" },
+                { name: "T", type: "hp", price: 100, penetration: 20, reason: "空尖弹，便宜" },
+                { name: "PRS", type: "hp", price: 40, penetration: 12, reason: "最便宜的5.45子弹" }
+            ],
+            "7.62x51mm": [
+                { name: "M62", type: "ap", price: 5567, penetration: 65, reason: "穿甲弹，狙击步枪最高穿透" },
+                { name: "M80", type: "fm", price: 1378, penetration: 48, reason: "标准全威力弹，远距离狙击" },
+                { name: "BPZ", type: "fm", price: 548, penetration: 38, reason: "低价选择，日常使用" },
+                { name: "Ultra Nosler", type: "hp", price: 119, penetration: 25, reason: "空尖弹，最便宜的7.62 NATO子弹" }
+            ],
+            "7.62x54mmR": [
+                { name: "BT", type: "ap", price: 4294, penetration: 62, reason: "穿甲弹，狙击步枪用" },
+                { name: "LPS", type: "fm", price: 2010, penetration: 50, reason: "标准弹，PKM机枪常用" },
+                { name: "T46M", type: "hp", price: 522, penetration: 30, reason: "空尖弹，便宜实用" }
+            ],
+            "5.7x28mm": [
+                { name: "SS190", type: "ap", price: 4377, penetration: 55, reason: "高穿透穿甲弹，P90最强子弹" },
+                { name: "SS193", type: "ap", price: 1713, penetration: 45, reason: "穿甲弹，高性价比" },
+                { name: "R37.F", type: "hp", price: 457, penetration: 28, reason: "空尖弹，高停止力" },
+                { name: "SS197SR", type: "fm", price: 97, penetration: 22, reason: "标准弹，便宜" },
+                { name: "SS198LF", type: "hp", price: 38, penetration: 12, reason: "最便宜的5.7子弹" }
+            ],
+            "4.6x30mm": [
+                { name: "AP SX", type: "ap", price: 3612, penetration: 52, reason: "高穿透穿甲弹，MP7最强" },
+                { name: "FMJ SX", type: "fm", price: 1220, penetration: 35, reason: "标准弹" },
+                { name: "Subsonic SX", type: "hp", price: 387, penetration: 20, reason: "亚音速弹，便宜" }
+            ],
+            "9x39mm": [
+                { name: "BP", type: "ap", price: 4549, penetration: 58, reason: "穿甲效果最强，静音武器首选" },
+                { name: "SP6", type: "ap", price: 2001, penetration: 48, reason: "穿甲弹，高性价比" },
+                { name: "SP5", type: "fm", price: 524, penetration: 32, reason: "标准弹，静音武器常用" }
+            ],
+            "12.7x55mm": [
+                { name: "PS12B", type: "ap", price: 5323, penetration: 65, reason: "穿甲弹，ASh-12最强穿透" },
+                { name: "PD12双头弹", type: "ap", price: 3167, penetration: 55, reason: "双头弹，高伤害" },
+                { name: "PS12", type: "fm", price: 2367, penetration: 48, reason: "标准弹" },
+                { name: "PS12A", type: "hp", price: 589, penetration: 25, reason: "空尖弹，近距离高伤害" }
+            ],
+            "6.8x51mm": [
+                { name: "Hybrid", type: "ap", price: 4884, penetration: 58, reason: "混合弹，M7最强穿透" },
+                { name: "FMJ", type: "fm", price: 1979, penetration: 42, reason: "标准弹" }
+            ],
+            "5.8x42mm": [
+                { name: "DVC12", type: "ap", price: 4515, penetration: 55, reason: "穿甲弹，QBZ95-1最强穿透" },
+                { name: "DBP10", type: "ap", price: 1883, penetration: 45, reason: "穿甲弹" },
+                { name: "DVP88", type: "fm", price: 388, penetration: 30, reason: "标准弹" },
+                { name: "DBP87", type: "hp", price: 98, penetration: 18, reason: "最便宜的5.8子弹" }
+            ]
+        };
         
         // 生成武器按钮
         function initWeaponGrid() {
