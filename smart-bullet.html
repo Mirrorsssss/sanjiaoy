@@ -405,99 +405,459 @@
     <script>
         // 武器弹药数据库
         const weaponAmmoDB = {
-            // 突击步枪
-            'M4A1': { caliber: '5.56×45mm', weapons: ['M4A1', 'K416', 'M16A4', 'AUG', 'CAR-15', 'SG552'] },
-            'AKM': { caliber: '7.62×39mm', weapons: ['AKM', 'PTR-32'] },
-            'AK-12': { caliber: '5.45×39mm', weapons: ['AK-12', 'AKS-74U'] },
-            'QBZ95-1': { caliber: '5.8×42mm', weapons: ['QBZ95-1', 'QJB95-1'] },
-            'M7': { caliber: '6.8×51mm', weapons: ['M7', 'M250'] },
-            'SCAR-H': { caliber: '7.62×51mm', weapons: ['SCAR-H', 'G3', 'M14', 'SR-25'] },
-            // 冲锋枪
-            'MP5': { caliber: '9×19mm', weapons: ['MP5', 'UZI', '野牛', '勇士'] },
-            'P90': { caliber: '5.7×28mm', weapons: ['P90'] },
-            'Vector': { caliber: '.45口径', weapons: ['Vector', 'SMG-45'] },
-            'MP7': { caliber: '4.6×30mm', weapons: ['MP7'] },
-            // 狙击步枪
-            'PKM': { caliber: '7.62×54mmR', weapons: ['PKM', 'SVD', 'SV-98'] },
-            'R93': { caliber: '7.62×51mm', weapons: ['R93', 'M700'] },
-            'AWM': { caliber: '.338 Lapua', weapons: ['AWM'] },
-            'ASVal': { caliber: '9×39mm', weapons: ['AS Val', 'VSS', 'SR-3M'] },
-            // 霰弹枪
-            'M870': { caliber: '12 Gauge', weapons: ['M870', 'M1014', 'S12K'] },
-        };
-        
-        // 子弹数据
-        const bulletDB = {
-            '5.56×45mm': [
-                { name: 'M995', type: 'ap', price: 4212, desc: '穿甲弹，穿透力极强', reason: 'PVE打AI必选，能穿透高级护甲' },
-                { name: 'M855A1', type: 'balanced', price: 1671, desc: '增强型穿甲弹', reason: 'PVP首选，伤害与穿透平衡' },
-                { name: 'M855', type: 'fm', price: 391, desc: '标准穿甲弹', reason: '日常使用足够' },
-                { name: 'FMJ', type: 'fm', price: 79, desc: '全金属被甲弹', reason: '便宜，近距离够用' },
-                { name: 'RRLP', type: 'hp', price: 35, desc: '空尖弹', reason: '最便宜，省钱首选' },
-            ],
-            '7.62×39mm': [
-                { name: 'AP', type: 'ap', price: 4671, desc: '高穿透穿甲弹', reason: 'PVE打重甲AI必选' },
-                { name: 'BP', type: 'ap', price: 1156, desc: '穿甲弹', reason: '性价比最高的穿甲弹' },
-                { name: 'PS', type: 'fm', price: 446, desc: '标准弹', reason: '日常使用' },
-                { name: 'LP', type: 'hp', price: 43, desc: '空尖弹', reason: '最便宜，近距离高伤' },
-            ],
-            '9×19mm': [
-                { name: 'PBP', type: 'ap', price: 1096, desc: '穿甲弹', reason: '9mm穿甲最强' },
-                { name: 'AP6.3', type: 'ap', price: 276, desc: '穿甲弹', reason: '穿甲+便宜，PVP首选' },
-                { name: 'RIP', type: 'hp', price: 558, desc: '空尖弹', reason: '近距离一枪倒地' },
-                { name: 'Pst', type: 'fm', price: 88, desc: '标准弹', reason: '日常使用' },
-                { name: 'PSO', type: 'hp', price: 29, desc: '空尖弹', reason: '最便宜，扫货练枪' },
-            ],
-            '5.45×39mm': [
-                { name: 'BS', type: 'ap', price: 4144, desc: '高穿透穿甲弹', reason: '穿透力最强' },
-                { name: 'BT', type: 'ap', price: 916, desc: '穿甲弹', reason: '穿甲效果不错' },
-                { name: 'PS', type: 'fm', price: 399, desc: '标准弹', reason: '日常使用' },
-                { name: 'PRS', type: 'hp', price: 40, desc: '空尖弹', reason: '最便宜' },
-            ],
-            '7.62×51mm': [
-                { name: 'M62', type: 'ap', price: 5567, desc: '穿甲弹', reason: '狙击枪穿甲首选' },
-                { name: 'M80', type: 'fm', price: 1378, desc: '全威力弹', reason: '狙击标准弹' },
-                { name: 'Ultra Nosler', type: 'hp', price: 119, desc: '空尖弹', reason: '便宜' },
-            ],
-            '7.62×54mmR': [
-                { name: 'BT', type: 'ap', price: 4294, desc: '穿甲弹', reason: 'PKM/SVD穿甲弹' },
-                { name: 'LPS', type: 'fm', price: 2010, desc: '标准弹', reason: '狙击标准弹' },
-                { name: 'T46M', type: 'hp', price: 522, desc: '空尖弹', reason: '便宜' },
-            ],
-            '5.7×28mm': [
-                { name: 'SS190', type: 'ap', price: 4377, desc: '高穿透穿甲弹', reason: 'P90最强穿甲' },
-                { name: 'SS193', type: 'ap', price: 1713, desc: '穿甲弹', reason: '性价比穿甲' },
-                { name: 'SS197SR', type: 'fm', price: 97, desc: '标准弹', reason: '便宜日常' },
-                { name: 'SS198LF', type: 'hp', price: 38, desc: '空尖弹', reason: '最便宜' },
-            ],
-            '4.6×30mm': [
-                { name: 'AP SX', type: 'ap', price: 3612, desc: '高穿透穿甲弹', reason: 'MP7穿甲弹' },
-                { name: 'FMJ SX', type: 'fm', price: 1220, desc: '标准弹', reason: '日常使用' },
-                { name: 'Subsonic SX', type: 'hp', price: 387, desc: '亚音速弹', reason: '便宜+消音' },
-            ],
-            '.45口径': [
-                { name: 'AP', type: 'ap', price: 1540, desc: '穿甲弹', reason: '.45最强穿甲' },
-                { name: 'RIP', type: 'hp', price: 620, desc: '空尖弹', reason: '高停止力' },
-                { name: 'HS', type: 'hp', price: 43, desc: '空尖弹', reason: '最便宜' },
-            ],
-            '12 Gauge': [
-                { name: '龙息弹', type: 'fm', price: 2120, desc: '特殊弹', reason: '近战神器' },
-                { name: '独头 AP-20', type: 'ap', price: 591, desc: '穿甲独头弹', reason: '远程穿透' },
-                { name: '8.5鹿弹', type: 'fm', price: 383, desc: '标准鹿弹', reason: '日常使用' },
-                { name: '7鹿弹', type: 'hp', price: 28, desc: '小号鹿弹', reason: '最便宜' },
-            ],
-            '9×39mm': [
-                { name: 'SP-6', type: 'ap', price: 800, desc: '穿甲弹', reason: 'VSS/AS Val穿甲' },
-                { name: 'PAB-9', type: 'hp', price: 200, desc: '空尖弹', reason: '便宜' },
-            ],
-        };
-        
-        // 场景推荐
-        const sceneRec = {
-            pve: { type: 'ap', name: 'AP穿甲弹' },
-            pvp: { type: 'balanced', name: '平衡型子弹' },
-            budget: { type: 'fm', name: '便宜子弹' },
-        };
+        "M4A1突击步枪": {
+                "caliber": "5.56×45mm",
+                "weapons": [
+                        "M4A1突击步枪",
+                        "K416突击步枪",
+                        "M16A4突击步枪",
+                        "AUG突击步枪",
+                        "SG552突击步枪",
+                        "CAR-15突击步枪",
+                        "M249轻机枪",
+                        "Mini-14射手步枪"
+                ]
+        },
+        "K416突击步枪": {
+                "caliber": "5.56×45mm",
+                "weapons": [
+                        "M4A1突击步枪",
+                        "K416突击步枪",
+                        "M16A4突击步枪",
+                        "AUG突击步枪",
+                        "SG552突击步枪",
+                        "CAR-15突击步枪",
+                        "M249轻机枪",
+                        "Mini-14射手步枪"
+                ]
+        },
+        "M16A4突击步枪": {
+                "caliber": "5.56×45mm",
+                "weapons": [
+                        "M4A1突击步枪",
+                        "K416突击步枪",
+                        "M16A4突击步枪",
+                        "AUG突击步枪",
+                        "SG552突击步枪",
+                        "CAR-15突击步枪",
+                        "M249轻机枪",
+                        "Mini-14射手步枪"
+                ]
+        },
+        "AUG突击步枪": {
+                "caliber": "5.56×45mm",
+                "weapons": [
+                        "M4A1突击步枪",
+                        "K416突击步枪",
+                        "M16A4突击步枪",
+                        "AUG突击步枪",
+                        "SG552突击步枪",
+                        "CAR-15突击步枪",
+                        "M249轻机枪",
+                        "Mini-14射手步枪"
+                ]
+        },
+        "SG552突击步枪": {
+                "caliber": "5.56×45mm",
+                "weapons": [
+                        "M4A1突击步枪",
+                        "K416突击步枪",
+                        "M16A4突击步枪",
+                        "AUG突击步枪",
+                        "SG552突击步枪",
+                        "CAR-15突击步枪",
+                        "M249轻机枪",
+                        "Mini-14射手步枪"
+                ]
+        },
+        "CAR-15突击步枪": {
+                "caliber": "5.56×45mm",
+                "weapons": [
+                        "M4A1突击步枪",
+                        "K416突击步枪",
+                        "M16A4突击步枪",
+                        "AUG突击步枪",
+                        "SG552突击步枪",
+                        "CAR-15突击步枪",
+                        "M249轻机枪",
+                        "Mini-14射手步枪"
+                ]
+        },
+        "M249轻机枪": {
+                "caliber": "5.56×45mm",
+                "weapons": [
+                        "M4A1突击步枪",
+                        "K416突击步枪",
+                        "M16A4突击步枪",
+                        "AUG突击步枪",
+                        "SG552突击步枪",
+                        "CAR-15突击步枪",
+                        "M249轻机枪",
+                        "Mini-14射手步枪"
+                ]
+        },
+        "Mini-14射手步枪": {
+                "caliber": "5.56×45mm",
+                "weapons": [
+                        "M4A1突击步枪",
+                        "K416突击步枪",
+                        "M16A4突击步枪",
+                        "AUG突击步枪",
+                        "SG552突击步枪",
+                        "CAR-15突击步枪",
+                        "M249轻机枪",
+                        "Mini-14射手步枪"
+                ]
+        },
+        "AKM突击步枪": {
+                "caliber": "7.62×39mm",
+                "weapons": [
+                        "AKM突击步枪",
+                        "PTR-32突击步枪",
+                        "SKS射手步枪"
+                ]
+        },
+        "PTR-32突击步枪": {
+                "caliber": "7.62×39mm",
+                "weapons": [
+                        "AKM突击步枪",
+                        "PTR-32突击步枪",
+                        "SKS射手步枪"
+                ]
+        },
+        "SKS射手步枪": {
+                "caliber": "7.62×39mm",
+                "weapons": [
+                        "AKM突击步枪",
+                        "PTR-32突击步枪",
+                        "SKS射手步枪"
+                ]
+        },
+        "QBZ95-1突击步枪": {
+                "caliber": "5.8×42mm",
+                "weapons": [
+                        "QBZ95-1突击步枪"
+                ]
+        },
+        "AKS-74U突击步枪": {
+                "caliber": "5.45×39mm",
+                "weapons": [
+                        "AKS-74U突击步枪",
+                        "AK-12突击步枪"
+                ]
+        },
+        "AK-12突击步枪": {
+                "caliber": "5.45×39mm",
+                "weapons": [
+                        "AKS-74U突击步枪",
+                        "AK-12突击步枪"
+                ]
+        },
+        "ASh-12战斗步枪": {
+                "caliber": "12.7×55mm",
+                "weapons": [
+                        "ASh-12战斗步枪"
+                ]
+        },
+        "M7战斗步枪": {
+                "caliber": "6.8×51mm",
+                "weapons": [
+                        "M7战斗步枪"
+                ]
+        },
+        "SCAR-H战斗步枪": {
+                "caliber": "7.62×51mm",
+                "weapons": [
+                        "SCAR-H战斗步枪",
+                        "M14射手步枪",
+                        "SR-25射手步枪",
+                        "PSG-1射手步枪",
+                        "R93狙击步枪",
+                        "M700狙击步枪"
+                ]
+        },
+        "M14射手步枪": {
+                "caliber": "7.62×51mm",
+                "weapons": [
+                        "SCAR-H战斗步枪",
+                        "M14射手步枪",
+                        "SR-25射手步枪",
+                        "PSG-1射手步枪",
+                        "R93狙击步枪",
+                        "M700狙击步枪"
+                ]
+        },
+        "SR-25射手步枪": {
+                "caliber": "7.62×51mm",
+                "weapons": [
+                        "SCAR-H战斗步枪",
+                        "M14射手步枪",
+                        "SR-25射手步枪",
+                        "PSG-1射手步枪",
+                        "R93狙击步枪",
+                        "M700狙击步枪"
+                ]
+        },
+        "PSG-1射手步枪": {
+                "caliber": "7.62×51mm",
+                "weapons": [
+                        "SCAR-H战斗步枪",
+                        "M14射手步枪",
+                        "SR-25射手步枪",
+                        "PSG-1射手步枪",
+                        "R93狙击步枪",
+                        "M700狙击步枪"
+                ]
+        },
+        "R93狙击步枪": {
+                "caliber": "7.62×51mm",
+                "weapons": [
+                        "SCAR-H战斗步枪",
+                        "M14射手步枪",
+                        "SR-25射手步枪",
+                        "PSG-1射手步枪",
+                        "R93狙击步枪",
+                        "M700狙击步枪"
+                ]
+        },
+        "M700狙击步枪": {
+                "caliber": "7.62×51mm",
+                "weapons": [
+                        "SCAR-H战斗步枪",
+                        "M14射手步枪",
+                        "SR-25射手步枪",
+                        "PSG-1射手步枪",
+                        "R93狙击步枪",
+                        "M700狙击步枪"
+                ]
+        },
+        "G3战斗步枪": {
+                "caliber": "mmo7.62x51",
+                "weapons": [
+                        "G3战斗步枪"
+                ]
+        },
+        "AS Val突击步枪": {
+                "caliber": "9×39mm",
+                "weapons": [
+                        "AS Val突击步枪",
+                        "SR-3M紧凑突击步枪",
+                        "VSS射手步枪"
+                ]
+        },
+        "SR-3M紧凑突击步枪": {
+                "caliber": "9×39mm",
+                "weapons": [
+                        "AS Val突击步枪",
+                        "SR-3M紧凑突击步枪",
+                        "VSS射手步枪"
+                ]
+        },
+        "VSS射手步枪": {
+                "caliber": "9×39mm",
+                "weapons": [
+                        "AS Val突击步枪",
+                        "SR-3M紧凑突击步枪",
+                        "VSS射手步枪"
+                ]
+        },
+        "MP5冲锋枪": {
+                "caliber": "9×19mm",
+                "weapons": [
+                        "MP5冲锋枪",
+                        "UZI冲锋枪",
+                        "野牛冲锋枪",
+                        "勇士冲锋枪",
+                        "QSZ92G",
+                        "G18",
+                        "93R",
+                        "G17"
+                ]
+        },
+        "UZI冲锋枪": {
+                "caliber": "9×19mm",
+                "weapons": [
+                        "MP5冲锋枪",
+                        "UZI冲锋枪",
+                        "野牛冲锋枪",
+                        "勇士冲锋枪",
+                        "QSZ92G",
+                        "G18",
+                        "93R",
+                        "G17"
+                ]
+        },
+        "野牛冲锋枪": {
+                "caliber": "9×19mm",
+                "weapons": [
+                        "MP5冲锋枪",
+                        "UZI冲锋枪",
+                        "野牛冲锋枪",
+                        "勇士冲锋枪",
+                        "QSZ92G",
+                        "G18",
+                        "93R",
+                        "G17"
+                ]
+        },
+        "勇士冲锋枪": {
+                "caliber": "9×19mm",
+                "weapons": [
+                        "MP5冲锋枪",
+                        "UZI冲锋枪",
+                        "野牛冲锋枪",
+                        "勇士冲锋枪",
+                        "QSZ92G",
+                        "G18",
+                        "93R",
+                        "G17"
+                ]
+        },
+        "QSZ92G": {
+                "caliber": "9×19mm",
+                "weapons": [
+                        "MP5冲锋枪",
+                        "UZI冲锋枪",
+                        "野牛冲锋枪",
+                        "勇士冲锋枪",
+                        "QSZ92G",
+                        "G18",
+                        "93R",
+                        "G17"
+                ]
+        },
+        "G18": {
+                "caliber": "9×19mm",
+                "weapons": [
+                        "MP5冲锋枪",
+                        "UZI冲锋枪",
+                        "野牛冲锋枪",
+                        "勇士冲锋枪",
+                        "QSZ92G",
+                        "G18",
+                        "93R",
+                        "G17"
+                ]
+        },
+        "93R": {
+                "caliber": "9×19mm",
+                "weapons": [
+                        "MP5冲锋枪",
+                        "UZI冲锋枪",
+                        "野牛冲锋枪",
+                        "勇士冲锋枪",
+                        "QSZ92G",
+                        "G18",
+                        "93R",
+                        "G17"
+                ]
+        },
+        "G17": {
+                "caliber": "9×19mm",
+                "weapons": [
+                        "MP5冲锋枪",
+                        "UZI冲锋枪",
+                        "野牛冲锋枪",
+                        "勇士冲锋枪",
+                        "QSZ92G",
+                        "G18",
+                        "93R",
+                        "G17"
+                ]
+        },
+        "P90冲锋枪": {
+                "caliber": "5.7×28mm",
+                "weapons": [
+                        "P90冲锋枪"
+                ]
+        },
+        "Vector冲锋枪": {
+                "caliber": ".45 ACP",
+                "weapons": [
+                        "Vector冲锋枪",
+                        "SMG-45冲锋枪"
+                ]
+        },
+        "SMG-45冲锋枪": {
+                "caliber": ".45 ACP",
+                "weapons": [
+                        "Vector冲锋枪",
+                        "SMG-45冲锋枪"
+                ]
+        },
+        "MP7": {
+                "caliber": "4.6×30mm",
+                "weapons": [
+                        "MP7"
+                ]
+        },
+        "M1014霰弹枪": {
+                "caliber": "12 Gauge",
+                "weapons": [
+                        "M1014霰弹枪",
+                        "S12K霰弹枪",
+                        "M870霰弹枪"
+                ]
+        },
+        "S12K霰弹枪": {
+                "caliber": "12 Gauge",
+                "weapons": [
+                        "M1014霰弹枪",
+                        "S12K霰弹枪",
+                        "M870霰弹枪"
+                ]
+        },
+        "M870霰弹枪": {
+                "caliber": "12 Gauge",
+                "weapons": [
+                        "M1014霰弹枪",
+                        "S12K霰弹枪",
+                        "M870霰弹枪"
+                ]
+        },
+        "PKM通用机枪": {
+                "caliber": "7.62×54mmR",
+                "weapons": [
+                        "PKM通用机枪",
+                        "SVD狙击步枪",
+                        "SV-98狙击步枪"
+                ]
+        },
+        "SVD狙击步枪": {
+                "caliber": "7.62×54mmR",
+                "weapons": [
+                        "PKM通用机枪",
+                        "SVD狙击步枪",
+                        "SV-98狙击步枪"
+                ]
+        },
+        "SV-98狙击步枪": {
+                "caliber": "7.62×54mmR",
+                "weapons": [
+                        "PKM通用机枪",
+                        "SVD狙击步枪",
+                        "SV-98狙击步枪"
+                ]
+        },
+        "AWM狙击步枪": {
+                "caliber": ".338 Lapua",
+                "weapons": [
+                        "AWM狙击步枪"
+                ]
+        },
+        ".357左轮": {
+                "caliber": ".357",
+                "weapons": [
+                        ".357左轮"
+                ]
+        },
+        "沙漠之鹰": {
+                "caliber": ".50 AE",
+                "weapons": [
+                        "沙漠之鹰"
+                ]
+        }
+};
         
         let selectedWeapon = null;
         let selectedScene = 'pvp';
@@ -557,8 +917,10 @@
         // 更新推荐
         function updateRecommendation() {
             if (!selectedWeapon) return;
-            
-            const caliber = selectedWeapon.caliber;
+
+            const rawCaliber = selectedWeapon.caliber;
+            // 口径归一化：把 × 换成 x，方便匹配 bulletDB key
+            const caliber = (rawCaliber || '').replace(/×/g, 'x').replace(/\s+/g, '');
             const bullets = bulletDB[caliber] || [];
             if (bullets.length === 0) return;
             
