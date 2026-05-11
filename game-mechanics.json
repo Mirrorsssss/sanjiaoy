@@ -1,0 +1,844 @@
+{
+  "meta": {
+    "game": "三角洲行动 (Delta Force: Hawk Ops)",
+    "version": "S9赛季",
+    "lastUpdated": "2026-05-09",
+    "source": "官方Wiki、社区攻略、实战经验",
+    "dataQuality": "已验证"
+  },
+  
+  "gameModes": {
+    "firefall": {
+      "name": "烽火地带",
+      "nameEn": "Firefall / Raid Mode",
+      "description": "融合战术生存、资源管理与撤离玩法的PvPvE模式",
+      "coreGoal": "搜索物资并成功撤离，带出的资源可用于局外经济系统",
+      "features": [
+        "战备值系统：携带装备进入地图",
+        "撤离机制：标准撤离/钥匙卡撤离/启动设备撤离/隐藏撤离",
+        "物资搜索：装备、子弹、消耗品、钥匙卡、收藏品",
+        "PvPvE：对抗AI和真人玩家"
+      ]
+    },
+    "battle": {
+      "name": "全面战场",
+      "nameEn": "Full Scale War",
+      "description": "大规模多人载具战斗模式"
+    },
+    "ranked": {
+      "name": "竞技排位",
+      "nameEn": "Ranked",
+      "description": "公平竞技排位赛，需要行动等级8级解锁"
+    }
+  },
+
+  "combatReadinessSystem": {
+    "name": "战备系统",
+    "description": "进入烽火地带地图前需要满足的战备值门槛",
+    
+    "calculation": {
+      "rule": "战备值=身上装备的军需处价值或市场价值之和",
+      "included": [
+        "头盔（防弹头盔）",
+        "防弹衣（护甲背心）",
+        "背包",
+        "胸挂（战术背心）",
+        "武器（主武器+副武器）",
+        "武器配件（瞄具、枪管、握把、枪托、弹匣、枪口）"
+      ],
+      "notIncluded": [
+        "子弹/弹药",
+        "药品/消耗品（医疗包、能量饮料等）",
+        "手雷/投掷物",
+        "钥匙卡"
+      ],
+      "note": "配件的战备值会叠加到武器上，因此高配武器战备值更高"
+    },
+    
+    "keyConcept": {
+      "name": "假账",
+      "description": "使用战备值高但价格相对低的装备组合，用较低成本达到战备门槛"
+    },
+    
+    "thresholds": {
+      "unit": "万哈夫币",
+      "maps": {
+        "zeroDam": {
+          "name": "零号大坝",
+          "classified": {
+            "threshold": 13,
+            "note": "机密地图中最容易的"
+          },
+          "topSecret": null
+        },
+        "longbowValley": {
+          "name": "长弓溪谷",
+          "classified": {
+            "threshold": 13,
+            "note": "地形开阔，适合狙击"
+          },
+          "topSecret": null
+        },
+        "spacePort": {
+          "name": "航天基地",
+          "classified": {
+            "threshold": 18.7,
+            "note": "资源丰富但竞争激烈"
+          },
+          "topSecret": {
+            "threshold": 45,
+            "note": "高风险高回报"
+          }
+        },
+        "buckish": {
+          "name": "巴克什",
+          "classified": {
+            "threshold": 18.7,
+            "note": "城市巷战为主"
+          },
+          "topSecret": {
+            "threshold": 55,
+            "note": "需要高级装备"
+          }
+        },
+        "tidalPrison": {
+          "name": "潮汐监狱",
+          "classified": {
+            "threshold": 24,
+            "note": "限时模式特殊门槛"
+          },
+          "topSecret": {
+            "threshold": 69,
+            "note": "最难地图之一，78万战备可拿满收益"
+          }
+        }
+      }
+    }
+  },
+
+  "rankedSystem": {
+    "name": "排位系统",
+    "unlockRequirement": "行动等级8级",
+    
+    "segments": {
+      "total": 7,
+      "list": ["青铜", "白银", "黄金", "铂金", "钻石", "王牌", "三角洲巅峰"],
+      "note": "每个段位都有对应的分数区间"
+    },
+    
+    "scoreGain": {
+      "bronzeToGold": {
+        "range": "30-50分/局",
+        "note": "最容易上分的段位"
+      },
+      "blackEagleAndAbove": {
+        "range": "约10分/局",
+        "note": "高端局加分较少"
+      }
+    },
+    
+    "scoreFactors": {
+      "winLose": {
+        "name": "胜负判定",
+        "win": "团队胜利时全员获得基础分",
+        "lose": "败方完成15次以上击杀，扣分减半，甚至可能逆袭获得5分"
+      },
+      "combatPerformance": {
+        "name": "战斗表现",
+        "survival": "存活时间每多30秒，分均得分增长0.8~1.2分",
+        "tasks": "完成拆除炸弹、占领区域等关键任务对排名帮助更大"
+      },
+      "teamwork": {
+        "name": "团队配合",
+        "note": "王牌段位单人灭队成功率不到12%",
+        "assistBonus": "每次助攻稳定+3分"
+      }
+    },
+    
+    "hiddenMechanics": {
+      "streakProtection": {
+        "name": "连胜保底",
+        "trigger": "3连胜后第4局触发",
+        "effect": {
+          "win": "有额外加分",
+          "lose": "扣分减少"
+        }
+      },
+      "mmrBalancing": {
+        "name": "隐藏匹配机制",
+        "trigger": "当真实实力超过当前段位300分时",
+        "effect": "系统会自动匹配稍弱的对手"
+      },
+      "opponentBonus": {
+        "name": "对手加成",
+        "condition": "当对手平均段位比你高1.5个大段时",
+        "effect": "胜利加成直接提升40%"
+      }
+    }
+  },
+
+  "extractionSystem": {
+    "name": "撤离系统",
+    "types": [
+      {
+        "type": "标准撤离",
+        "description": "地图固定位置，通常需要等待倒计时",
+        "risk": "低"
+      },
+      {
+        "type": "钥匙卡撤离",
+        "description": "需要对应钥匙卡，撤离点价值更高",
+        "risk": "中",
+        "note": "钥匙卡有耐久限制"
+      },
+      {
+        "type": "启动设备撤离",
+        "description": "需要先激活特定设备",
+        "risk": "中-高"
+      },
+      {
+        "type": "隐藏撤离",
+        "description": "需要特殊条件触发",
+        "risk": "高",
+        "note": "通常是稀有撤离点"
+      }
+    ]
+  },
+
+  "loadoutOptimization": {
+    "name": "战备配置优化原则",
+    
+    "coreRule": "战备值刚好达到门槛即可，多一分都是浪费",
+    
+    "gearStrategy": {
+      "helmet": {
+        "budget": "优先选择T0-T1基础头盔，降低成本",
+        "mid": "选择T3-T4有防护的头盔",
+        "high": "选择T5-T6高级头盔"
+      },
+      "armor": {
+        "budget": "选择T2-T3防弹衣",
+        "mid": "选择T4防弹衣",
+        "high": "破损的高级防弹衣性价比最高"
+      },
+      "backpack": {
+        "budget": "选择基础背包，格子够用即可",
+        "mid": "选择中等容量背包",
+        "high": "雨林猎手背包(21格)是性价比之选"
+      },
+      "chestRig": {
+        "budget": "G01战术弹挂",
+        "mid": "GIR野战胸挂",
+        "high": "DRC先进侦察胸挂"
+      }
+    },
+    
+    "weaponStrategy": {
+      "budget": {
+        "primary": ["MP5冲锋枪", "CAR-15突击步枪"],
+        "reason": "裸枪便宜，配件战备值适中"
+      },
+      "mid": {
+        "primary": ["AKM突击步枪", "M870霰弹枪", "K416突击步枪"],
+        "reason": "7.62弹药伤害高，近战神器"
+      },
+      "high": {
+        "primary": ["PKM通用机枪", "M7战斗步枪", "R93狙击步枪"],
+        "reason": "战备值高，适合绝密地图"
+      }
+    },
+    
+    "attachmentPriority": {
+      "highCombatValue": [
+        "弹鼓（60发/75发）",
+        "重型枪管",
+        "战术枪托"
+      ],
+      "lowCombatValue": [
+        "轻型瞄具",
+        "阻手器"
+      ],
+      "note": "相同武器配不同配件，战备值差异很大"
+    }
+  },
+
+  "tips": {
+    "purchaseTiming": {
+      "general": "中午12点前后装备价格通常较低",
+      "specific": {
+        "DICH训练头盔": "中午价格最低",
+        "GIR野战胸挂": "建议提前购买"
+      }
+    },
+    "gearSelection": {
+      "brokenGear": "破损装备耐久低但战备值不缩水，性价比极高",
+      "expensiveGear": "高级装备的战备值/价格比往往更高"
+    },
+    "extraction": {
+      "planAhead": "进入地图前规划好撤离路线",
+      "keycardValue": "钥匙卡撤离点价值更高，但需要携带钥匙卡",
+      "hiddenExit": "隐藏撤离点通常在地图边缘，需要仔细探索"
+    }
+  },
+
+  "workshopRecipes": {
+    "description": "工坊所有配方及材料成本",
+    "taxRate": 0.08,
+    "recipes": [
+      {
+        "name": "急造子弹 M995",
+        "type": "弹药",
+        "sellPrice": 4.212,
+        "materials": [
+          {"name": "5.56×45mm 空弹壳", "cost": 0.8},
+          {"name": "火药", "cost": 0.5}
+        ],
+        "totalCost": 1.3,
+        "profit": 2.674,
+        "profitAfterTax": 2.46,
+        "roi": 189
+      },
+      {
+        "name": "急造子弹 M855A1",
+        "type": "弹药",
+        "sellPrice": 1.671,
+        "materials": [
+          {"name": "5.56×45mm 空弹壳", "cost": 0.4},
+          {"name": "火药", "cost": 0.3}
+        ],
+        "totalCost": 0.7,
+        "profit": 0.837,
+        "profitAfterTax": 0.77,
+        "roi": 110
+      },
+      {
+        "name": "急造 9×19mm PBP",
+        "type": "弹药",
+        "sellPrice": 1.096,
+        "materials": [
+          {"name": "9×19mm 空弹壳", "cost": 0.2},
+          {"name": "火药", "cost": 0.15}
+        ],
+        "totalCost": 0.35,
+        "profit": 0.671,
+        "profitAfterTax": 0.617,
+        "roi": 176
+      },
+      {
+        "name": "破片手雷",
+        "type": "投掷物",
+        "sellPrice": 3.5,
+        "materials": [
+          {"name": "火药", "cost": 1.0},
+          {"name": "破片", "cost": 0.8}
+        ],
+        "totalCost": 1.8,
+        "profit": 1.42,
+        "profitAfterTax": 1.306,
+        "roi": 73
+      },
+      {
+        "name": "烟雾弹",
+        "type": "投掷物",
+        "sellPrice": 1.2,
+        "materials": [
+          {"name": "火药", "cost": 0.3},
+          {"name": "化学剂", "cost": 0.2}
+        ],
+        "totalCost": 0.5,
+        "profit": 0.604,
+        "profitAfterTax": 0.556,
+        "roi": 111
+      }
+    ],
+    "note": "利润 = 售价 - 材料成本 - 制造税(8%)；ROI = 利润 / 材料成本 × 100%"
+  },
+
+  "mapLoot": {
+    "description": "各地图物资分布与刷新率",
+    "maps": {
+      "zeroDam": {
+        "name": "零号大坝",
+        "difficulty": "简单",
+        "keyAreas": [
+          {
+            "name": "行政楼",
+            "lootTier": "S级",
+            "commonItems": ["电子元件", "显卡", "CPU", "黄金"],
+            "钥匙需求": ["admin-office-key", "admin-storage-key"],
+            "note": "地图上最有价值的建筑，建议优先清理"
+          },
+          {
+            "name": "变电站",
+            "lootTier": "A级",
+            "commonItems": ["电缆", "变压器", "电子元件"],
+            "钥匙需求": [],
+            "note": "电力相关物资丰富"
+          },
+          {
+            "name": "宿舍区",
+            "lootTier": "B级",
+            "commonItems": ["食品", "药品", "衣物"],
+            "钥匙需求": ["dorm-key"],
+            "note": "基础物资，适合跑刀"
+          }
+        ]
+      },
+      "spacePort": {
+        "name": "航天基地",
+        "difficulty": "困难",
+        "keyAreas": [
+          {
+            "name": "主控中心",
+            "lootTier": "S级",
+            "commonItems": ["航空电子", "稀有金属", "科研数据"],
+            "钥匙需求": ["main-control-key", "server-room-key"],
+            "note": "需要高级钥匙卡，但收益极高"
+          },
+          {
+            "name": "仓库区",
+            "lootTier": "A级",
+            "commonItems": ["精密仪器", "电子元件"],
+            "钥匙需求": ["warehouse-key"],
+            "note": "物资密集，竞争激烈"
+          }
+        ]
+      },
+      "buckish": {
+        "name": "巴克什",
+        "difficulty": "中等",
+        "keyAreas": [
+          {
+            "name": "商业中心",
+            "lootTier": "S级",
+            "commonItems": ["奢侈品", "现金", "珠宝"],
+            "钥匙需求": ["mall-office-key", "jewelry-store-key"],
+            "note": "城市中心，钥匙房最多"
+          },
+          {
+            "name": "住宅区",
+            "lootTier": "A级",
+            "commonItems": ["食品", "药品", "日用品"],
+            "钥匙需求": ["residential-key"],
+            "note": "适合跑刀积累基础物资"
+          }
+        ]
+      },
+      "tidalPrison": {
+        "name": "潮汐监狱",
+        "difficulty": "极难",
+        "keyAreas": [
+          {
+            "name": "监狱长办公室",
+            "lootTier": "S级",
+            "commonItems": ["机密文件", "稀有收藏品", "黄金"],
+            "钥匙需求": ["warden-office-key", "evidence-room-key"],
+            "note": "地图上最危险的地区，收益也最高"
+          },
+          {
+            "name": "牢房区",
+            "lootTier": "A级",
+            "commonItems": ["日用品", "食品"],
+            "钥匙需求": ["cell-block-key"],
+            "note": "需要拉双闸撤离"
+          }
+        ]
+      }
+    }
+  },
+
+  "evacuationPoints": {
+    "description": "各地图撤离点位置与触发条件",
+    "maps": {
+      "zeroDam": {
+        "name": "零号大坝",
+        "points": [
+          {
+            "name": "大坝顶部撤离点",
+            "type": "标准撤离",
+            "location": "地图西北，大坝顶部",
+            "condition": "等待30秒",
+            "risk": "低",
+            "note": "最安全的撤离点"
+          },
+          {
+            "name": "地下通道撤离点",
+            "type": "隐藏撤离",
+            "location": "地图东南，地下通道",
+            "condition": "需要启动3个发电机",
+            "risk": "中",
+            "note": "适合从行政楼撤离"
+          }
+        ]
+      },
+      "spacePort": {
+        "name": "航天基地",
+        "points": [
+          {
+            "name": "主门撤离点",
+            "type": "标准撤离",
+            "location": "地图正门",
+            "condition": "等待45秒",
+            "risk": "中",
+            "note": "需要拉双闸才能激活"
+          },
+          {
+            "name": "后勤通道撤离点",
+            "type": "钥匙卡撤离",
+            "location": "地图北侧",
+            "condition": "需要后勤通道钥匙卡",
+            "risk": "低",
+            "note": "钥匙卡耐久消耗1点"
+          }
+        ]
+      },
+      "buckish": {
+        "name": "巴克什",
+        "points": [
+          {
+            "name": "地铁站撤离点",
+            "type": "标准撤离",
+            "location": "地图中心地铁站",
+            "condition": "等待30秒",
+            "risk": "高",
+            "note": "人员密集，容易被偷袭"
+          },
+          {
+            "name": "地下停车场撤离点",
+            "type": "隐藏撤离",
+            "location": "地图西南，地下停车场",
+            "condition": "需要启动备用电源",
+            "risk": "中",
+            "note": "适合从商业中心撤离"
+          }
+        ]
+      },
+      "tidalPrison": {
+        "name": "潮汐监狱",
+        "points": [
+          {
+            "name": "监狱正门撤离点",
+            "type": "标准撤离",
+            "location": "监狱正门",
+            "condition": "等待60秒 + 拉双闸",
+            "risk": "极高",
+            "note": "最难撤离点，收益最高"
+          },
+          {
+            "name": "海岸警卫队撤离点",
+            "type": "钥匙卡撤离",
+            "location": "地图东侧海岸",
+            "condition": "需要海岸警卫队钥匙卡",
+            "risk": "中",
+            "note": "相对安全的撤离点"
+          }
+        ]
+      }
+    }
+  },
+  
+  "bulletPenetration": {
+    "description": "子弹穿透力对比表",
+    "units": "毫米穿透深度",
+    "levels": {
+      "T0": {"name": "无防护", "penetration": 0, "description": "裸装"},
+      "T1": {"name": "轻度防护", "penetration": 5, "description": "基础防弹衣"},
+      "T2": {"name": "低度防护", "penetration": 10, "description": "尼龙防弹衣"},
+      "T3": {"name": "中度防护", "penetration": 15, "description": "常规防弹衣"},
+      "T4": {"name": "高度防护", "penetration": 20, "description": "军用防弹衣"},
+      "T5": {"name": "重度防护", "penetration": 25, "description": "高级防弹衣"},
+      "T6": {"name": "完全防护", "penetration": 30, "description": "顶级防弹衣"}
+    },
+    "bullets": [
+      {"name": "FMJ", "type": "全金属被甲弹", "penetration": 5, "effectiveAgainst": ["T0", "T1"]},
+      {"name": "HP", "type": "空尖弹", "penetration": 3, "effectiveAgainst": ["T0"], "note": "高停止力，低穿透"},
+      {"name": "M855", "type": "穿甲弹", "penetration": 15, "effectiveAgainst": ["T0", "T1", "T2", "T3"]},
+      {"name": "M855A1", "type": "增强型穿甲弹", "penetration": 18, "effectiveAgainst": ["T0", "T1", "T2", "T3", "T4"]},
+      {"name": "M995", "type": "高穿透穿甲弹", "penetration": 25, "effectiveAgainst": ["T0", "T1", "T2", "T3", "T4", "T5"]},
+      {"name": "AP", "type": "穿甲弹", "penetration": 20, "effectiveAgainst": ["T0", "T1", "T2", "T3", "T4"]},
+      {"name": "BP", "type": "穿甲弹", "penetration": 16, "effectiveAgainst": ["T0", "T1", "T2", "T3", "T4"]},
+      {"name": "BS", "type": "高穿透穿甲弹", "penetration": 28, "effectiveAgainst": ["T0", "T1", "T2", "T3", "T4", "T5", "T6"]}
+    ]
+  },
+
+  "weaponTierList": {
+    "description": "当前版本武器强度榜（S9赛季）",
+    "tiers": {
+      "S级": {
+        "description": "版本最强，推荐使用",
+        "weapons": [
+          {"name": "M7战斗步枪", "reason": "战备值高，伤害可观，适合绝密地图"},
+          {"name": "PKM通用机枪", "reason": "100发弹链，火力压制能力强"},
+          {"name": "R93狙击步枪", "reason": "一枪秒杀，狙击手首选"}
+        ]
+      },
+      "A级": {
+        "description": "性能优秀，性价比高",
+        "weapons": [
+          {"name": "AKM突击步枪", "reason": "7.62伤害高，近距离神器"},
+          {"name": "K416突击步枪", "reason": "均衡型武器，配件丰富"},
+          {"name": "M870霰弹枪", "reason": "近距离一枪制停，适合巴克什巷战"}
+        ]
+      },
+      "B级": {
+        "description": "可用，适合预算有限",
+        "weapons": [
+          {"name": "MP5冲锋枪", "reason": "射速快，适合室内近战"},
+          {"name": "CAR-15突击步枪", "reason": "裸枪便宜，配件战备值适中"},
+          {"name": "M16A4突击步枪", "reason": "三连发模式，中远距离稳定"}
+        ]
+      }
+    }
+  },
+
+  "advancedTactics": {
+    "description": "高级战术与技巧",
+    "sections": {
+      "soundSystem": {
+        "title": "声音系统",
+        "tips": [
+          "脚步声：不同地面材质声音不同（金属、木材、泥土）",
+          "枪声：可判断敌人位置和武器类型",
+          "脚步声传播距离约40米，跑步声约60米",
+          "蹲走几乎无声，建议重要区域使用"
+        ]
+      },
+      "healthSystem": {
+        "title": "生命值系统",
+        "details": [
+          "黑肢系统：四肢独立生命值，被打黑后无法使用",
+          "头盔耐久：归零后失去防护能力",
+          "防弹衣耐久：归零后防弹能力大幅下降",
+          "手术包可修复黑肢，但需要时间且期间无法奔跑"
+        ]
+      },
+      "economyGuide": {
+        "title": "经济系统指南",
+        "tips": [
+          "优先带出高价值物品：显卡、CPU、黄金、珠宝",
+          "工坊急造子弹是最快赚钱方式（ROI 110-189%）",
+          "跑刀：只带刀和背包，快速搜索物资并撤离",
+          "假账技巧：用高战备值低价格装备达到门槛"
+        ]
+      },
+      "mapSpecific": {
+        "title": "地图专用战术",
+        "maps": {
+          "zeroDam": ["利用大坝顶部高点狙击", "行政楼楼梯间是伏击热点", "地下通道适合快速撤离"],
+          "spacePort": ["主控中心楼顶可狙击整个地图", "仓库区集装箱密集，适合近战", "拉闸后快速撤离，不要贪战"],
+          "buckish": ["商业中心多层结构，注意垂直方向敌人", "小巷伏击效果好，带霰弹枪", "地铁站撤离点容易被堵，提前清理"],
+          "tidalPrison": ["监狱长办公室收益最高，但风险极大", "牢房区需要拉双闸才能撤离", "海岸警卫队撤离点相对安全"]
+        }
+      }
+    }
+  },
+
+  "lootPriority": {
+    "description": "物资优先级指南",
+    "tiers": {
+      "S级（必拿）": ["显卡", "CPU", "黄金", "珠宝", "科研数据", "机密文件"],
+      "A级（高价值）": ["电子元件", "精密仪器", "航空电子", "稀有金属", "奢侈品"],
+      "B级（中等价值）": ["电缆", "变压器", "食品", "药品", "日用品"],
+      "C级（低价值）": ["衣物", "普通金属", "塑料", "玻璃"]
+    },
+    "tips": [
+      "背包空间有限，优先拿S级和A级物资",
+      "钥匙房物资质量更高，优先开启",
+      "注意重量限制，超重会影响移动速度",
+      "药品和能量饮料建议自带，不要占用背包空间"
+    ]
+  },
+
+  "teamStrategies": {
+    "description": "团队配合策略",
+    "formations": {
+      "楔型阵": {
+        "description": "尖兵在前，队友呈V型跟进",
+        "适用": "开阔地带推进"
+      },
+      "箱型阵": {
+        "description": "四人各守一个方向",
+        "适用": "防守或被困时"
+      },
+      "双组战术": {
+        "description": "2人一组，相互策应",
+        "适用": "搜索物资时提高效率"
+      }
+    },
+    "roles": {
+      "队长": "指挥、决策、标记敌人",
+      "突击手": "开路、近战、清除威胁",
+      "支援手": "火力压制、携带额外弹药",
+      "医疗兵": "治疗队友、携带手术包"
+    },
+    "communication": [
+      "使用标记系统快速传达信息",
+      "报告敌人位置时要说方向和距离",
+      "听到脚步声立即报点",
+      "撤离前确认所有队员位置和状态"
+    ]
+  },
+
+  "keycardData": {
+    "description": "钥匙卡详细数据（按地图分类）",
+    "maps": {
+      "zeroDam": {
+        "name": "零号大坝",
+        "keycards": [
+          {"name": "大坝正门钥匙卡", "rarity": "绿色", "durability": 3, "location": "大坝正门", "lootTier": "B", "note": "最基础的钥匙卡"},
+          {"name": "控制室钥匙卡", "rarity": "蓝色", "durability": 2, "location": "行政楼二楼", "lootTier": "A", "note": "可开启控制室，物资较好"},
+          {"name": "发电机房钥匙卡", "rarity": "绿色", "durability": 3, "location": "变电站", "lootTier": "B", "note": "开启发电机房"},
+          {"name": "行政楼钥匙卡", "rarity": "蓝色", "durability": 2, "location": "行政楼", "lootTier": "A", "note": "可开启多个办公室"}
+        ]
+      },
+      "longbowValley": {
+        "name": "长弓溪谷",
+        "keycards": [
+          {"name": "溪谷正门钥匙卡", "rarity": "绿色", "durability": 3, "location": "地图正门", "lootTier": "B", "note": "基础钥匙卡"},
+          {"name": "雷达站钥匙卡", "rarity": "紫色", "durability": 1, "location": "雷达站", "lootTier": "S", "note": "高价值区域，稀有钥匙卡"},
+          {"name": "通讯塔钥匙卡", "rarity": "蓝色", "durability": 2, "location": "通讯塔", "lootTier": "A", "note": "可开启通讯塔控制室"},
+          {"name": "铁脊车站售票处", "rarity": "蓝色", "durability": 2, "location": "车站", "lootTier": "A", "note": "售票处内有高价物资"}
+        ]
+      },
+      "spacePort": {
+        "name": "航天基地",
+        "keycards": [
+          {"name": "基地正门钥匙卡", "rarity": "绿色", "durability": 3, "location": "正门", "lootTier": "B", "note": "基础钥匙卡"},
+          {"name": "发射台钥匙卡", "rarity": "紫色", "durability": 1, "location": "发射台", "lootTier": "S", "note": "最高价值区域"},
+          {"name": "控制中心钥匙卡", "rarity": "蓝色", "durability": 2, "location": "主控中心", "lootTier": "A", "note": "可开启控制中心房间"},
+          {"name": "后勤通道钥匙卡", "rarity": "紫色", "durability": 1, "location": "撤离点", "lootTier": "S", "note": "用于后勤通道撤离"}
+        ]
+      },
+      "buckish": {
+        "name": "巴克什",
+        "keycards": [
+          {"name": "行政楼钥匙卡", "rarity": "蓝色", "durability": 2, "location": "行政楼", "lootTier": "A", "note": "开启行政楼多个房间"},
+          {"name": "商业区钥匙卡", "rarity": "紫色", "durability": 1, "location": "商业中心", "lootTier": "S", "note": "商业中心高价值房间"},
+          {"name": "地下车库钥匙卡", "rarity": "绿色", "durability": 3, "location": "地下停车场", "lootTier": "B", "note": "开启地下车库房间"}
+        ]
+      },
+      "tidalPrison": {
+        "name": "潮汐监狱",
+        "keycards": [
+          {"name": "监狱正门钥匙卡", "rarity": "蓝色", "durability": 2, "location": "监狱正门", "lootTier": "A", "note": "开启正门区域房间"},
+          {"name": "监狱侧门钥匙卡", "rarity": "绿色", "durability": 3, "location": "监狱侧门", "lootTier": "B", "note": "侧门区域房间"},
+          {"name": "监狱顶部钥匙卡", "rarity": "紫色", "durability": 1, "location": "监狱顶部", "lootTier": "S", "note": "顶部区域，视野开阔"},
+          {"name": "监狱地下通道钥匙卡", "rarity": "蓝色", "durability": 2, "location": "地下", "lootTier": "A", "note": "地下通道区域"},
+          {"name": "监狱长办公室钥匙", "rarity": "金色", "durability": 1, "location": "监狱长办公室", "lootTier": "S+", "note": "最高价值，必拿！"}
+        ]
+      }
+    }
+  },
+
+  "collectibleRarity": {
+    "description": "收藏品稀有度数据修复",
+    "raritySystem": {
+      "白色（普通）": {"valueRange": "100-500", "examples": ["旧报纸", "空罐头", "破旧玩具"]},
+      "绿色（优秀）": {"valueRange": "500-2000", "examples": ["军用徽章", "老照片", "损坏的怀表"]},
+      "蓝色（稀有）": {"valueRange": "2000-8000", "examples": ["古董首饰", "稀有邮票", "精密仪器零件"]},
+      "紫色（史诗）": {"valueRange": "8000-30000", "examples": ["黄金雕像", "钻石项链", "远古化石"]},
+      "金色（传说）": {"valueRange": "30000-100000", "examples": ["非洲之心", "ECMO", "远古文明遗物"]}
+    },
+    "tradingTips": [
+      "金色收藏品建议留着，不要急着卖",
+      "紫色收藏品可以出售换取游戏币",
+      "蓝色及以下建议直接出售",
+      "部分收藏品可以触发隐藏任务或成就"
+    ]
+  },
+
+  "bossGuide": {
+    "description": "BOSS位置与击杀策略",
+    "bosses": [
+      {
+        "name": "大坝守卫队长",
+        "location": "零号大坝 - 行政楼顶楼",
+        "difficulty": "中等",
+        "loot": "高级防具、金色钥匙卡、稀有收藏品",
+        "strategy": "建议从楼梯间推进，利用掩体躲避射击，优先击杀其随从"
+      },
+      {
+        "name": "航天基地指挥官",
+        "location": "航天基地 - 主控中心",
+        "difficulty": "困难",
+        "loot": "紫色钥匙卡、科研数据、航空电子",
+        "strategy": "需要团队协作，一人吸引火力，其他人侧翼包抄"
+      },
+      {
+        "name": "巴克什黑帮头目",
+        "location": "巴克什 - 商业中心顶层",
+        "difficulty": "中等",
+        "loot": "奢侈品、现金、珠宝",
+        "strategy": "利用多层结构简单伏击，注意他从楼梯间逃跑"
+      },
+      {
+        "name": "潮汐监狱长",
+        "location": "潮汐监狱 - 监狱长办公室",
+        "difficulty": "极难",
+        "loot": "金色钥匙卡、机密文件、非洲之心（极低概率）",
+        "strategy": "建议满编队挑战，携带大量药品和穿甲弹，利用门框卡视角"
+      }
+    ]
+  },
+
+  "advancedTechniques": {
+    "description": "高级技巧与实战技术",
+    "techniques": [
+      {
+        "name": "提前枪（Pre-fire）",
+        "description": "在看到敌人之前就开始射击，适用于拐角和常用通道",
+        "difficulty": "中等",
+        "applicability": "所有武器"
+      },
+      {
+        "name": "Peeker's Advantage（ peek优势）",
+        "description": "利用网络延迟，peek时先手优势明显",
+        "difficulty": "简单",
+        "applicability": "所有枪战"
+      },
+      {
+        "name": "黑肢战术",
+        "description": "专门射击敌人四肢，使其失去行动能力而无法反击",
+        "difficulty": "困难",
+        "applicability": "精准射手、狙击手"
+      },
+      {
+        "name": "快速切换（Quickscope）",
+        "description": "瞬间隔开瞄准镜并射击，适用于狙击步枪",
+        "difficulty": "极难",
+        "applicability": "栓动狙击步枪"
+      },
+      {
+        "name": "投掷物预判",
+        "description": "根据声音和习惯预判敌人位置，提前投掷手雷",
+        "difficulty": "中等",
+        "applicability": "进攻、清房"
+      }
+    ]
+  },
+
+  "metaAnalysis": {
+    "description": "S9赛季Meta分析",
+    "currentMeta": {
+      "weaponMeta": "M7战斗步枪和PKM通用机枪主导Meta，高战备值武器更有优势",
+      "ammoMeta": "M995和BS子弹是高端局标配，M855A1是性价比之选",
+      "armorMeta": "T5防弹衣成为绝密地图标准配置，T4仅适合机密地图",
+      "playstyleMeta": "团队配合 > 个人技术，假账流 > 全装流"
+    },
+    "tierList": {
+      "S级武器": ["M7战斗步枪", "PKM通用机枪", "R93狙击步枪"],
+      "A级武器": ["AKM突击步枪", "K416突击步枪", "M870霰弹枪"],
+      "B级武器": ["MP5冲锋枪", "CAR-15突击步枪", "M16A4突击步枪"],
+      "不推荐": ["M1911手枪", "VSS狙击步枪（近距离）"]
+    },
+    "patchNotes": {
+      "S9赛季更新": [
+        "新增潮汐监狱地图",
+        "新增M7战斗步枪和PKM通用机枪",
+        "调整战备值计算公式，配件战备值略微下调",
+        "工坊新增配方：急造BS子弹",
+        "修复了部分配件属性计算错误"
+      ]
+    }
+  }
+}

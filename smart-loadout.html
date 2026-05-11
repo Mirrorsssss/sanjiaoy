@@ -6,45 +6,6 @@
     <title>战备配置推荐 - 三角眼</title>
     <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎯</text></svg>">
     <style>
-        /* 数据状态提示 */
-        .data-status {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 0.8rem;
-            padding: 1rem 1.5rem;
-            margin-bottom: 2rem;
-            border-radius: 12px;
-            font-size: 0.95rem;
-        }
-        
-        .data-status .icon {
-            font-size: 1.2rem;
-        }
-        
-        .data-status .count {
-            font-weight: 700;
-            color: #00d9ff;
-        }
-        
-        .data-status.loading {
-            background: linear-gradient(135deg, rgba(0, 217, 255, 0.15), rgba(0, 217, 255, 0.05));
-            color: #00d9ff;
-            border: 1px solid rgba(0, 217, 255, 0.3);
-        }
-        
-        .data-status.loaded {
-            background: linear-gradient(135deg, rgba(16, 185, 129, 0.15), rgba(16, 185, 129, 0.05));
-            color: #10b981;
-            border: 1px solid rgba(16, 185, 129, 0.3);
-        }
-        
-        .data-status.error {
-            background: linear-gradient(135deg, rgba(239, 68, 68, 0.15), rgba(239, 68, 68, 0.05));
-            color: #ef4444;
-            border: 1px solid rgba(239, 68, 68, 0.3);
-        }
-        
         * {
             margin: 0;
             padding: 0;
@@ -421,12 +382,6 @@
             <p>输入预算，自动计算最优配置方案</p>
         </header>
         
-        <!-- 数据状态提示 -->
-        <div id="dataStatus" class="data-status loading">
-            <span class="icon">⏳</span>
-            <span class="text">正在加载游戏数据...</span>
-        </div>
-        
         <div class="input-section">
             <div class="input-row">
                 <div class="input-group">
@@ -448,16 +403,6 @@
                 </div>
             </div>
             
-            <div class="playstyle-section" style="margin-top: 15px;">
-                <label style="color: #888; font-size: 14px; margin-bottom: 8px; display: block;">🎮 玩法风格</label>
-                <div class="playstyle-options" style="display: flex; gap: 10px; flex-wrap: wrap;">
-                    <button class="playstyle-btn" data-playstyle="aggressive" style="flex: 1; min-width: 120px; padding: 10px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.2); border-radius: 8px; color: #888; font-size: 13px; cursor: pointer; transition: all 0.3s;">🎯 激进突击</button>
-                    <button class="playstyle-btn active" data-playstyle="balanced" style="flex: 1; min-width: 120px; padding: 10px; background: rgba(0,217,255,0.2); border: 1px solid #00d9ff; border-radius: 8px; color: #00d9ff; font-size: 13px; cursor: pointer; transition: all 0.3s;">⚖️ 稳健均衡</button>
-                    <button class="playstyle-btn" data-playstyle="economy" style="flex: 1; min-width: 120px; padding: 10px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.2); border-radius: 8px; color: #888; font-size: 13px; cursor: pointer; transition: all 0.3s;">💰 经济薅收益</button>
-                    <button class="playstyle-btn" data-playstyle="stealth" style="flex: 1; min-width: 120px; padding: 10px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.2); border-radius: 8px; color: #888; font-size: 13px; cursor: pointer; transition: all 0.3s;">🥷 隐蔽潜行</button>
-                </div>
-            </div>
-            
             <div class="quick-options">
                 <span style="color: #888; font-size: 13px; margin-right: 10px;">快捷选择：</span>
                 <button class="quick-btn" data-budget="10" data-map="zeroDam_classified">10万机密</button>
@@ -470,27 +415,13 @@
             <button class="calc-btn" id="calcBtn">🚀 计算最优配置</button>
         </div>
         
-            <div class="result" id="result">
+        <div class="result" id="result">
             <div class="summary-card">
                 <div class="target">目标战备值</div>
                 <div class="combat-value"><span id="targetCV">0</span><small>万</small></div>
                 <div class="cost">
                     <div class="cost-label">预估总花费</div>
                     <div class="cost-value"><span id="totalCost">0</span><small> 万</small></div>
-                </div>
-                <div class="stats-row" style="display: flex; justify-content: space-around; margin-top: 20px; padding-top: 20px; border-top: 1px solid rgba(255,255,255,0.1);">
-                    <div class="stat-item" style="text-align: center;">
-                        <div class="stat-label" style="font-size: 12px; color: #888; margin-bottom: 5px;">预估生存率</div>
-                        <div class="stat-value" id="survivalRate" style="font-size: 24px; font-weight: 700; color: #00ff88;">0%</div>
-                    </div>
-                    <div class="stat-item" style="text-align: center;">
-                        <div class="stat-label" style="font-size: 12px; color: #888; margin-bottom: 5px;">预期收益率</div>
-                        <div class="stat-value" id="roi" style="font-size: 24px; font-weight: 700; color: #ffcc00;">0%</div>
-                    </div>
-                    <div class="stat-item" style="text-align: center;">
-                        <div class="stat-label" style="font-size: 12px; color: #888; margin-bottom: 5px;">预期净收益</div>
-                        <div class="stat-value" id="netProfit" style="font-size: 24px; font-weight: 700; color: #00d9ff;">0万</div>
-                    </div>
                 </div>
             </div>
             
@@ -509,251 +440,1508 @@
     </div>
     
     <script>
-        // 显示数据状态提示
-        function showDataStatus(status, message) {
-            const dataStatus = document.getElementById('dataStatus');
-            if (!dataStatus) return;
-            
-            dataStatus.className = 'data-status ' + status;
-            
-            switch(status) {
-                case 'loading':
-                    dataStatus.innerHTML = `<span class="icon">⏳</span><span class="text">${message || '正在加载游戏数据...'}</span>`;
-                    break;
-                case 'loaded':
-                    dataStatus.innerHTML = `<span class="icon">✅</span><span class="text">${message || '游戏数据加载成功'}</span>`;
-                    // 3秒后自动隐藏
-                    setTimeout(() => {
-                        dataStatus.style.display = 'none';
-                    }, 3000);
-                    break;
-                case 'error':
-                    dataStatus.innerHTML = `<span class="icon">⚠️</span><span class="text">${message || '数据加载失败，使用默认数据'}</span>`;
-                    break;
-            }
+        // 装备数据库
+        const gearDB = {
+    "helmets": [
+        {
+            "name": "H70 精英头盔",
+            "type": "helmet",
+            "cv": 242.06,
+            "price": 242.06,
+            "icon": "⛑️",
+            "grade": 6,
+            "protectLevel": 6,
+            "reason": "高战备值，绝密推荐"
+        },
+        {
+            "name": "DICH-1战术头盔",
+            "type": "helmet",
+            "cv": 32.92,
+            "price": 32.92,
+            "icon": "⛑️",
+            "grade": 5,
+            "protectLevel": 5,
+            "reason": "高战备值，绝密推荐"
+        },
+        {
+            "name": "GN 重型头盔",
+            "type": "helmet",
+            "cv": 31.36,
+            "price": 31.36,
+            "icon": "⛑️",
+            "grade": 5,
+            "protectLevel": 5,
+            "reason": "高战备值，绝密推荐"
+        },
+        {
+            "name": "H09 防暴头盔",
+            "type": "helmet",
+            "cv": 29.72,
+            "price": 29.72,
+            "icon": "⛑️",
+            "grade": 5,
+            "protectLevel": 5,
+            "reason": "高战备值，绝密推荐"
+        },
+        {
+            "name": "DICH 训练头盔",
+            "type": "helmet",
+            "cv": 16.9,
+            "price": 16.9,
+            "icon": "⛑️",
+            "grade": 4,
+            "protectLevel": 4,
+            "reason": "高战备值，绝密推荐"
+        },
+        {
+            "name": "GT1 战术头盔",
+            "type": "helmet",
+            "cv": 14.68,
+            "price": 14.68,
+            "icon": "⛑️",
+            "grade": 4,
+            "protectLevel": 4,
+            "reason": "高战备值，绝密推荐"
+        },
+        {
+            "name": "Mask-1铁壁头盔",
+            "type": "helmet",
+            "cv": 13.69,
+            "price": 13.69,
+            "icon": "⛑️",
+            "grade": 5,
+            "protectLevel": 5,
+            "reason": "高战备值，绝密推荐"
+        },
+        {
+            "name": "MHS 战术头盔",
+            "type": "helmet",
+            "cv": 13.1,
+            "price": 13.1,
+            "icon": "⛑️",
+            "grade": 4,
+            "protectLevel": 4,
+            "reason": "高战备值，绝密推荐"
+        },
+        {
+            "name": "D6 战术头盔",
+            "type": "helmet",
+            "cv": 6.52,
+            "price": 6.52,
+            "icon": "⛑️",
+            "grade": 4,
+            "protectLevel": 4,
+            "reason": "级护甲，性价比高"
+        },
+        {
+            "name": "H07 战术头盔",
+            "type": "helmet",
+            "cv": 2.59,
+            "price": 2.59,
+            "icon": "⛑️",
+            "grade": 3,
+            "protectLevel": 3,
+            "reason": "级护甲，性价比高"
+        },
+        {
+            "name": "防暴头盔",
+            "type": "helmet",
+            "cv": 2,
+            "price": 2,
+            "icon": "⛑️",
+            "grade": 3,
+            "protectLevel": 3,
+            "reason": "级护甲，性价比高"
+        },
+        {
+            "name": "MC防弹头盔",
+            "type": "helmet",
+            "cv": 1.1,
+            "price": 1.1,
+            "icon": "⛑️",
+            "grade": 2,
+            "protectLevel": 2,
+            "reason": "级护甲，性价比高"
+        },
+        {
+            "name": "户外棒球帽",
+            "type": "helmet",
+            "cv": 1.01,
+            "price": 1.01,
+            "icon": "⛑️",
+            "grade": 1,
+            "protectLevel": 1,
+            "reason": "级护甲，性价比高"
+        },
+        {
+            "name": "复古摩托头盔",
+            "type": "helmet",
+            "cv": 0.92,
+            "price": 0.92,
+            "icon": "⛑️",
+            "grade": 2,
+            "protectLevel": 2,
+            "reason": "级护甲，性价比高"
+        },
+        {
+            "name": "DRO 战术头盔",
+            "type": "helmet",
+            "cv": 0.84,
+            "price": 0.84,
+            "icon": "⛑️",
+            "grade": 2,
+            "protectLevel": 2,
+            "reason": "级护甲，性价比高"
+        },
+        {
+            "name": "H01 战术头盔",
+            "type": "helmet",
+            "cv": 0.76,
+            "price": 0.76,
+            "icon": "⛑️",
+            "grade": 2,
+            "protectLevel": 2,
+            "reason": "级护甲，性价比高"
+        },
+        {
+            "name": "奔尼帽",
+            "type": "helmet",
+            "cv": 0.22,
+            "price": 0.22,
+            "icon": "⛑️",
+            "grade": 1,
+            "protectLevel": 1,
+            "reason": "级护甲，性价比高"
+        },
+        {
+            "name": "安保头盔",
+            "type": "helmet",
+            "cv": 0.19,
+            "price": 0.19,
+            "icon": "⛑️",
+            "grade": 1,
+            "protectLevel": 1,
+            "reason": "级护甲，性价比高"
+        },
+        {
+            "name": "老式钢盔",
+            "type": "helmet",
+            "cv": 0.16,
+            "price": 0.16,
+            "icon": "⛑️",
+            "grade": 1,
+            "protectLevel": 1,
+            "reason": "级护甲，性价比高"
+        },
+        {
+            "name": "DICH-9重型头盔",
+            "type": "helmet",
+            "cv": 0,
+            "price": 0,
+            "icon": "⛑️",
+            "grade": 6,
+            "protectLevel": 6,
+            "reason": "级护甲，性价比高"
+        },
+        {
+            "name": "GT5 指挥官头盔",
+            "type": "helmet",
+            "cv": 0,
+            "price": 0,
+            "icon": "⛑️",
+            "grade": 6,
+            "protectLevel": 6,
+            "reason": "级护甲，性价比高"
+        },
+        {
+            "name": "通用獾式战术头盔",
+            "type": "helmet",
+            "cv": 0,
+            "price": 0,
+            "icon": "⛑️",
+            "grade": 3,
+            "protectLevel": 3,
+            "reason": "级护甲，性价比高"
+        },
+        {
+            "name": "MC201 头盔",
+            "type": "helmet",
+            "cv": 0,
+            "price": 0,
+            "icon": "⛑️",
+            "grade": 3,
+            "protectLevel": 3,
+            "reason": "级护甲，性价比高"
         }
-        
-        // 装备数据库 - 动态加载
-        let gearDB = {
-            helmets: [],
-            armors: [],
-            backpacks: [],
-            chestRigs: []
-        };
-        
-        let weaponDB = {
-            budget: [],
-            mid: [],
-            high: []
-        };
-        
-        // 从game-data.json加载数据
-        async function loadGameData() {
-            try {
-                showDataStatus('loading', '正在加载游戏数据...');
-                const resp = await fetch('data/game-data.json?t=' + Date.now());
-                const gameData = await resp.json();
-                
-                // 转换gear数据为gearDB格式
-                if (gameData.gear) {
-                    const gearArr = Object.values(gameData.gear);
-                    
-                    // 头盔
-                    gearDB.helmets = gearArr
-                        .filter(g => g.type === 'helmet')
-                        .map(g => ({
-                            name: g.name,
-                            type: 'helmet',
-                            cv: g.price / 1000,  // 战备值估算
-                            price: g.price / 10000,  // 转换为万为单位
-                            icon: '⛑️',
-                            reason: g.description || `${g.typeCN}，防御${g.defense||0}`
-                        }))
-                        .sort((a, b) => a.cv - b.cv);
-                    
-                    // 护甲
-                    gearDB.armors = gearArr
-                        .filter(g => g.type === 'vest')
-                        .map(g => ({
-                            name: g.name,
-                            type: 'armor',
-                            cv: g.price / 1000,
-                            price: g.price / 10000,
-                            icon: '🦺',
-                            reason: g.description || `${g.typeCN}，防御${g.defense||0}`
-                        }))
-                        .sort((a, b) => a.cv - b.cv);
-                    
-                    // 背包
-                    gearDB.backpacks = gearArr
-                        .filter(g => g.type === 'bag')
-                        .map(g => ({
-                            name: g.name,
-                            type: 'backpack',
-                            cv: g.price / 1000,
-                            price: g.price / 10000,
-                            icon: '🎒',
-                            reason: g.description || `${g.typeCN}，${g.capacity||0}格`
-                        }))
-                        .sort((a, b) => a.cv - b.cv);
-                    
-                    // 胸挂
-                    gearDB.chestRigs = gearArr
-                        .filter(g => g.type === 'rig')
-                        .map(g => ({
-                            name: g.name,
-                            type: 'chestRig',
-                            cv: g.price / 1000,
-                            price: g.price / 10000,
-                            icon: '📦',
-                            reason: g.description || `${g.typeCN}，${g.capacity||0}格`
-                        }))
-                        .sort((a, b) => a.cv - b.cv);
-                }
-                
-                // 转换weapons数据为weaponDB格式
-                if (gameData.weapons) {
-                    const weaponsArr = Object.values(gameData.weapons);
-                    
-                    // 根据武器类型估算价格（万哈夫币）
-                    const typePriceMap = {
-                        'gunPistol': 2,      // 手枪：2万
-                        'gunSMG': 5,          // 冲锋枪：5万
-                        'gunShotgun': 8,      // 霰弹枪：8万
-                        'gunRifle': 12,       // 步枪：12万
-                        'gunMP': 15,          // 射手步枪：15万
-                        'gunLMG': 18,         // 轻机枪：18万
-                        'gunSniper': 22       // 狙击步枪：22万
-                    };
-                    
-                    // 为每把武器添加估算价格
-                    const weaponsWithPrice = weaponsArr.map(w => ({
-                        ...w,
-                        estimatedPrice: typePriceMap[w.type] || 10
-                    }));
-                    
-                    // 按估算价格分类：budget(<10万), mid(10-20万), high(>20万)
-                    weaponDB.budget = weaponsWithPrice
-                        .filter(w => w.estimatedPrice < 10)
-                        .map(w => ({
-                            name: w.name,
-                            type: 'primary',
-                            cv: w.estimatedPrice,
-                            price: w.estimatedPrice,
-                            ammo: w.caliber || '未知',
-                            icon: '🔫',
-                            note: w.description || `${w.typeCN}`
-                        }));
-                    
-                    weaponDB.mid = weaponsWithPrice
-                        .filter(w => w.estimatedPrice >= 10 && w.estimatedPrice <= 20)
-                        .map(w => ({
-                            name: w.name,
-                            type: 'primary',
-                            cv: w.estimatedPrice,
-                            price: w.estimatedPrice,
-                            ammo: w.caliber || '未知',
-                            icon: '🔫',
-                            note: w.description || `${w.typeCN}`
-                        }));
-                    
-                    weaponDB.high = weaponsWithPrice
-                        .filter(w => w.estimatedPrice > 20)
-                        .map(w => ({
-                            name: w.name,
-                            type: 'primary',
-                            cv: w.estimatedPrice,
-                            price: w.estimatedPrice,
-                            ammo: w.caliber || '未知',
-                            icon: '🔫',
-                            note: w.description || `${w.typeCN}`
-                        }));
-                }
-                
-                console.log('✅ 游戏数据加载成功', {
-                    helmets: gearDB.helmets.length,
-                    armors: gearDB.armors.length,
-                    backpacks: gearDB.backpacks.length,
-                    chestRigs: gearDB.chestRigs.length,
-                    budgetWeapons: weaponDB.budget.length,
-                    midWeapons: weaponDB.mid.length,
-                    highWeapons: weaponDB.high.length
-                });
-                
-                showDataStatus('loaded', `游戏数据加载成功！头盔:${gearDB.helmets.length} | 护甲:${gearDB.armors.length} | 背包:${gearDB.backpacks.length} | 胸挂:${gearDB.chestRigs.length} | 武器:${weaponDB.budget.length + weaponDB.mid.length + weaponDB.high.length}`);
-                
-                // 数据加载完成后初始化页面
-                initPage();
-                
-            } catch (err) {
-                console.error('❌ 加载游戏数据失败，使用默认数据', err);
-                showDataStatus('error', '数据加载失败，使用默认数据');
-                // 如果加载失败，使用硬编码的默认数据
-                useDefaultData();
-                initPage();
-            }
+    ],
+    "armors": [
+        {
+            "name": "重型突击背心",
+            "type": "armor",
+            "cv": 48.45,
+            "price": 48.45,
+            "icon": "🦺",
+            "grade": 5,
+            "protectLevel": 5,
+            "reason": "顶级防弹衣"
+        },
+        {
+            "name": "FS复合防弹衣",
+            "type": "armor",
+            "cv": 43.8,
+            "price": 43.8,
+            "icon": "🦺",
+            "grade": 5,
+            "protectLevel": 5,
+            "reason": "顶级防弹衣"
+        },
+        {
+            "name": "Hvk-2防弹衣",
+            "type": "armor",
+            "cv": 38.91,
+            "price": 38.91,
+            "icon": "🦺",
+            "grade": 5,
+            "protectLevel": 5,
+            "reason": "顶级防弹衣"
+        },
+        {
+            "name": "精英防弹背心",
+            "type": "armor",
+            "cv": 37.23,
+            "price": 37.23,
+            "icon": "🦺",
+            "grade": 5,
+            "protectLevel": 5,
+            "reason": "顶级防弹衣"
+        },
+        {
+            "name": "MK-2战术背心",
+            "type": "armor",
+            "cv": 22.81,
+            "price": 22.81,
+            "icon": "🦺",
+            "grade": 4,
+            "protectLevel": 4,
+            "reason": "高战备值"
+        },
+        {
+            "name": "DT-AVS防弹衣",
+            "type": "armor",
+            "cv": 19.99,
+            "price": 19.99,
+            "icon": "🦺",
+            "grade": 4,
+            "protectLevel": 4,
+            "reason": "高战备值"
+        },
+        {
+            "name": "HMP特勤防弹衣",
+            "type": "armor",
+            "cv": 15.14,
+            "price": 15.14,
+            "icon": "🦺",
+            "grade": 4,
+            "protectLevel": 4,
+            "reason": "高战备值"
+        },
+        {
+            "name": "武士防弹背心",
+            "type": "armor",
+            "cv": 14.71,
+            "price": 14.71,
+            "icon": "🦺",
+            "grade": 4,
+            "protectLevel": 4,
+            "reason": "高战备值"
+        },
+        {
+            "name": "射手战术背心",
+            "type": "armor",
+            "cv": 6.12,
+            "price": 6.12,
+            "icon": "🦺",
+            "grade": 3,
+            "protectLevel": 3,
+            "reason": "常用配置"
+        },
+        {
+            "name": "TG-H防弹衣",
+            "type": "armor",
+            "cv": 5.51,
+            "price": 5.51,
+            "icon": "🦺",
+            "grade": 3,
+            "protectLevel": 3,
+            "reason": "常用配置"
+        },
+        {
+            "name": "Hvk快拆防弹衣",
+            "type": "armor",
+            "cv": 4.02,
+            "price": 4.02,
+            "icon": "🦺",
+            "grade": 3,
+            "protectLevel": 3,
+            "reason": "常用配置"
+        },
+        {
+            "name": "制式防弹背心",
+            "type": "armor",
+            "cv": 3.92,
+            "price": 3.92,
+            "icon": "🦺",
+            "grade": 3,
+            "protectLevel": 3,
+            "reason": "常用配置"
+        },
+        {
+            "name": "HT战术背心",
+            "type": "armor",
+            "cv": 0.91,
+            "price": 0.91,
+            "icon": "🦺",
+            "grade": 2,
+            "protectLevel": 2,
+            "reason": "常用配置"
+        },
+        {
+            "name": "简易防刺服",
+            "type": "armor",
+            "cv": 0.72,
+            "price": 0.72,
+            "icon": "🦺",
+            "grade": 2,
+            "protectLevel": 2,
+            "reason": "常用配置"
+        },
+        {
+            "name": "轻型防弹衣",
+            "type": "armor",
+            "cv": 0.37,
+            "price": 0.37,
+            "icon": "🦺",
+            "grade": 1,
+            "protectLevel": 1,
+            "reason": "常用配置"
+        },
+        {
+            "name": "尼龙防弹衣",
+            "type": "armor",
+            "cv": 0.31,
+            "price": 0.31,
+            "icon": "🦺",
+            "grade": 1,
+            "protectLevel": 1,
+            "reason": "常用配置"
+        },
+        {
+            "name": "安保防弹衣",
+            "type": "armor",
+            "cv": 0.24,
+            "price": 0.24,
+            "icon": "🦺",
+            "grade": 1,
+            "protectLevel": 1,
+            "reason": "常用配置"
+        },
+        {
+            "name": "摩托马甲",
+            "type": "armor",
+            "cv": 0.22,
+            "price": 0.22,
+            "icon": "🦺",
+            "grade": 1,
+            "protectLevel": 1,
+            "reason": "常用配置"
+        },
+        {
+            "name": "金刚防弹衣",
+            "type": "armor",
+            "cv": 0,
+            "price": 0,
+            "icon": "🦺",
+            "grade": 6,
+            "protectLevel": 6,
+            "reason": "顶级防弹衣"
+        },
+        {
+            "name": "HA-2防弹装甲",
+            "type": "armor",
+            "cv": 0,
+            "price": 0,
+            "icon": "🦺",
+            "grade": 6,
+            "protectLevel": 6,
+            "reason": "顶级防弹衣"
+        },
+        {
+            "name": "特里克MAS2.0装甲",
+            "type": "armor",
+            "cv": 0,
+            "price": 0,
+            "icon": "🦺",
+            "grade": 6,
+            "protectLevel": 6,
+            "reason": "顶级防弹衣"
+        },
+        {
+            "name": "犀牛重型防弹衣",
+            "type": "armor",
+            "cv": 0,
+            "price": 0,
+            "icon": "🦺",
+            "grade": 6,
+            "protectLevel": 6,
+            "reason": "顶级防弹衣"
+        },
+        {
+            "name": "野蜂防弹背心",
+            "type": "armor",
+            "cv": 0,
+            "price": 0,
+            "icon": "🦺",
+            "grade": 4,
+            "protectLevel": 4,
+            "reason": "常用配置"
+        },
+        {
+            "name": "UTA猛禽防弹护甲",
+            "type": "armor",
+            "cv": 0,
+            "price": 0,
+            "icon": "🦺",
+            "grade": 2,
+            "protectLevel": 2,
+            "reason": "常用配置"
+        },
+        {
+            "name": "通用野蜂战术装甲",
+            "type": "armor",
+            "cv": 0,
+            "price": 0,
+            "icon": "🦺",
+            "grade": 2,
+            "protectLevel": 2,
+            "reason": "常用配置"
         }
-        
-        // 默认数据（加载失败时使用）
-        function useDefaultData() {
-            gearDB = {
-                helmets: [
-                    { name: '户外棒球帽', type: 'helmet', cv: 0.5, price: 0.5, icon: '🧢', reason: '最低配，战备值几乎为0' },
-                    { name: '老式钢盔 (几乎全新)', type: 'helmet', cv: 1.3, price: 0.13, icon: '⛑️', reason: '便宜' },
-                    { name: 'MC防弹头盔 (几乎全新)', type: 'helmet', cv: 9.3, price: 0.93, icon: '⛑️', reason: '高性价比' },
-                ],
-                armors: [
-                    { name: '安保防弹衣', type: 'armor', cv: 2.4, price: 0.24, icon: '🦺', reason: '基础款' },
-                    { name: '尼龙防弹衣 (几乎全新)', type: 'armor', cv: 2.6, price: 0.26, icon: '🦺', reason: '便宜' },
-                ],
-                backpacks: [
-                    { name: '帆布背囊', type: 'backpack', cv: 1.2, price: 0.12, icon: '🎒', reason: '基础款' },
-                ],
-                chestRigs: [
-                    { name: 'G01战术弹挂', type: 'chestRig', cv: 3.5, price: 0.35, icon: '📦', reason: '基础款' },
-                ]
-            };
-            
-            weaponDB = {
-                budget: [
-                    { name: 'MP5冲锋枪', type: 'primary', cv: 2, price: 1, ammo: '9×19mm', icon: '🔫', note: '裸枪+30发弹鼓' },
-                ],
-                mid: [
-                    { name: 'K416突击步枪', type: 'primary', cv: 7, price: 8, ammo: '5.56×45mm', icon: '🔫', note: '全能型' },
-                ],
-                high: [
-                    { name: 'PKM通用机枪', type: 'primary', cv: 14, price: 14, ammo: '7.62×54mmR', icon: '🔫', note: '绝密标配' },
-                ]
-            };
+    ],
+    "backpacks": [
+        {
+            "name": "重型登山包",
+            "type": "backpack",
+            "cv": 70.43,
+            "price": 70.43,
+            "icon": "🎒",
+            "grade": 6,
+            "capacity": 40,
+            "reason": "性价比高"
+        },
+        {
+            "name": "GT5野战背包",
+            "type": "backpack",
+            "cv": 16.2,
+            "price": 16.2,
+            "icon": "🎒",
+            "grade": 5,
+            "capacity": 30,
+            "reason": "性价比高"
+        },
+        {
+            "name": "D3战术登山包",
+            "type": "backpack",
+            "cv": 12.34,
+            "price": 12.34,
+            "icon": "🎒",
+            "grade": 5,
+            "capacity": 28,
+            "reason": "性价比高"
+        },
+        {
+            "name": "HLS-2重型背包",
+            "type": "backpack",
+            "cv": 9.17,
+            "price": 9.17,
+            "icon": "🎒",
+            "grade": 5,
+            "capacity": 28,
+            "reason": "性价比高"
+        },
+        {
+            "name": "ALS背负系统",
+            "type": "backpack",
+            "cv": 7.63,
+            "price": 7.63,
+            "icon": "🎒",
+            "grade": 5,
+            "capacity": 28,
+            "reason": "性价比高"
+        },
+        {
+            "name": "D2战术登山包",
+            "type": "backpack",
+            "cv": 6.4,
+            "price": 6.4,
+            "icon": "🎒",
+            "grade": 4,
+            "capacity": 24,
+            "reason": "性价比高"
+        },
+        {
+            "name": "GT1户外登山包",
+            "type": "backpack",
+            "cv": 6.33,
+            "price": 6.33,
+            "icon": "🎒",
+            "grade": 4,
+            "capacity": 25,
+            "reason": "性价比高"
+        },
+        {
+            "name": "野战徒步背包",
+            "type": "backpack",
+            "cv": 4.49,
+            "price": 4.49,
+            "icon": "🎒",
+            "grade": 4,
+            "capacity": 24,
+            "reason": "性价比高"
+        },
+        {
+            "name": "MAP侦察背包",
+            "type": "backpack",
+            "cv": 4.19,
+            "price": 4.19,
+            "icon": "🎒",
+            "grade": 4,
+            "capacity": 24,
+            "reason": "性价比高"
+        },
+        {
+            "name": "雨林猎手背包",
+            "type": "backpack",
+            "cv": 2.56,
+            "price": 2.56,
+            "icon": "🎒",
+            "grade": 3,
+            "capacity": 21,
+            "reason": "性价比高"
+        },
+        {
+            "name": "GA野战背包",
+            "type": "backpack",
+            "cv": 2.55,
+            "price": 2.55,
+            "icon": "🎒",
+            "grade": 3,
+            "capacity": 20,
+            "reason": "性价比高"
+        },
+        {
+            "name": "DASH战术背包",
+            "type": "backpack",
+            "cv": 1.78,
+            "price": 1.78,
+            "icon": "🎒",
+            "grade": 3,
+            "capacity": 20,
+            "reason": "性价比高"
+        },
+        {
+            "name": "3H战术背包",
+            "type": "backpack",
+            "cv": 1.65,
+            "price": 1.65,
+            "icon": "🎒",
+            "grade": 3,
+            "capacity": 18,
+            "reason": "性价比高"
+        },
+        {
+            "name": "战术快拆背包",
+            "type": "backpack",
+            "cv": 1.01,
+            "price": 1.01,
+            "icon": "🎒",
+            "grade": 2,
+            "capacity": 15,
+            "reason": "性价比高"
+        },
+        {
+            "name": "大型登山包",
+            "type": "backpack",
+            "cv": 0.89,
+            "price": 0.89,
+            "icon": "🎒",
+            "grade": 3,
+            "capacity": 16,
+            "reason": "便宜实用，入门推荐"
+        },
+        {
+            "name": "突袭战术背包",
+            "type": "backpack",
+            "cv": 0.82,
+            "price": 0.82,
+            "icon": "🎒",
+            "grade": 2,
+            "capacity": 15,
+            "reason": "便宜实用，入门推荐"
+        },
+        {
+            "name": "露营背包",
+            "type": "backpack",
+            "cv": 0.82,
+            "price": 0.82,
+            "icon": "🎒",
+            "grade": 2,
+            "capacity": 15,
+            "reason": "便宜实用，入门推荐"
+        },
+        {
+            "name": "轻型户外背包",
+            "type": "backpack",
+            "cv": 0.73,
+            "price": 0.73,
+            "icon": "🎒",
+            "grade": 2,
+            "capacity": 12,
+            "reason": "便宜实用，入门推荐"
+        },
+        {
+            "name": "DG运动背包",
+            "type": "backpack",
+            "cv": 0.61,
+            "price": 0.61,
+            "icon": "🎒",
+            "grade": 1,
+            "capacity": 12,
+            "reason": "便宜实用，入门推荐"
+        },
+        {
+            "name": "旅行背包",
+            "type": "backpack",
+            "cv": 0.5,
+            "price": 0.5,
+            "icon": "🎒",
+            "grade": 1,
+            "capacity": 10,
+            "reason": "便宜实用，入门推荐"
+        },
+        {
+            "name": "帆布背囊",
+            "type": "backpack",
+            "cv": 0.5,
+            "price": 0.5,
+            "icon": "🎒",
+            "grade": 1,
+            "capacity": 10,
+            "reason": "便宜实用，入门推荐"
+        },
+        {
+            "name": "运动背包",
+            "type": "backpack",
+            "cv": 0.38,
+            "price": 0.38,
+            "icon": "🎒",
+            "grade": 1,
+            "capacity": 8,
+            "reason": "便宜实用，入门推荐"
+        },
+        {
+            "name": "斜挎包",
+            "type": "backpack",
+            "cv": 0.28,
+            "price": 0.28,
+            "icon": "🎒",
+            "grade": 1,
+            "capacity": 6,
+            "reason": "便宜实用，入门推荐"
+        },
+        {
+            "name": "D7战术背包",
+            "type": "backpack",
+            "cv": 0,
+            "price": 0,
+            "icon": "🎒",
+            "grade": 6,
+            "capacity": 35,
+            "reason": "便宜实用，入门推荐"
+        },
+        {
+            "name": "GTO重型战术包",
+            "type": "backpack",
+            "cv": 0,
+            "price": 0,
+            "icon": "🎒",
+            "grade": 6,
+            "capacity": 45,
+            "reason": "便宜实用，入门推荐"
+        },
+        {
+            "name": "穿山甲通用战术包",
+            "type": "backpack",
+            "cv": 0,
+            "price": 0,
+            "icon": "🎒",
+            "grade": 4,
+            "capacity": 28,
+            "reason": "便宜实用，入门推荐"
         }
+    ],
+    "chestRigs": [
+        {
+            "name": "GIR野战胸挂",
+            "type": "chestRig",
+            "cv": 11.39,
+            "price": 11.39,
+            "icon": "📦",
+            "grade": 4,
+            "reason": "高战备值胸挂"
+        },
+        {
+            "name": "DRC先进侦察胸挂",
+            "type": "chestRig",
+            "cv": 8.72,
+            "price": 8.72,
+            "icon": "📦",
+            "grade": 4,
+            "reason": "常规配置"
+        },
+        {
+            "name": "突击者战术背心",
+            "type": "chestRig",
+            "cv": 5.84,
+            "price": 5.84,
+            "icon": "📦",
+            "grade": 4,
+            "reason": "常规配置"
+        },
+        {
+            "name": "强袭战术背心",
+            "type": "chestRig",
+            "cv": 2.75,
+            "price": 2.75,
+            "icon": "📦",
+            "grade": 4,
+            "reason": "常规配置"
+        },
+        {
+            "name": "G01战术弹挂",
+            "type": "chestRig",
+            "cv": 1.02,
+            "price": 1.02,
+            "icon": "📦",
+            "grade": 3,
+            "reason": "常规配置"
+        },
+        {
+            "name": "DSA战术胸挂",
+            "type": "chestRig",
+            "cv": 0.74,
+            "price": 0.74,
+            "icon": "📦",
+            "grade": 3,
+            "reason": "常规配置"
+        },
+        {
+            "name": "简易携行弹挂",
+            "type": "chestRig",
+            "cv": 0.58,
+            "price": 0.58,
+            "icon": "📦",
+            "grade": 3,
+            "reason": "常规配置"
+        },
+        {
+            "name": "HD3战术胸挂",
+            "type": "chestRig",
+            "cv": 0.53,
+            "price": 0.53,
+            "icon": "📦",
+            "grade": 3,
+            "reason": "常规配置"
+        },
+        {
+            "name": "通用战术胸挂",
+            "type": "chestRig",
+            "cv": 0.49,
+            "price": 0.49,
+            "icon": "📦",
+            "grade": 2,
+            "reason": "常规配置"
+        },
+        {
+            "name": "D01轻型胸挂",
+            "type": "chestRig",
+            "cv": 0.39,
+            "price": 0.39,
+            "icon": "📦",
+            "grade": 2,
+            "reason": "常规配置"
+        },
+        {
+            "name": "HK3便携胸挂",
+            "type": "chestRig",
+            "cv": 0.38,
+            "price": 0.38,
+            "icon": "📦",
+            "grade": 2,
+            "reason": "常规配置"
+        },
+        {
+            "name": "尼龙挎包",
+            "type": "chestRig",
+            "cv": 0.33,
+            "price": 0.33,
+            "icon": "📦",
+            "grade": 2,
+            "reason": "常规配置"
+        },
+        {
+            "name": "轻型战术胸挂",
+            "type": "chestRig",
+            "cv": 0.2,
+            "price": 0.2,
+            "icon": "📦",
+            "grade": 1,
+            "reason": "常规配置"
+        },
+        {
+            "name": "简易挂载包",
+            "type": "chestRig",
+            "cv": 0.2,
+            "price": 0.2,
+            "icon": "📦",
+            "grade": 1,
+            "reason": "常规配置"
+        },
+        {
+            "name": "便携胸包",
+            "type": "chestRig",
+            "cv": 0.19,
+            "price": 0.19,
+            "icon": "📦",
+            "grade": 1,
+            "reason": "常规配置"
+        },
+        {
+            "name": "快速侦察胸挂",
+            "type": "chestRig",
+            "cv": 0.19,
+            "price": 0.19,
+            "icon": "📦",
+            "grade": 1,
+            "reason": "常规配置"
+        },
+        {
+            "name": "飓风战术胸挂",
+            "type": "chestRig",
+            "cv": 0,
+            "price": 0,
+            "icon": "📦",
+            "grade": 5,
+            "reason": "常规配置"
+        },
+        {
+            "name": "黑鹰野战胸挂",
+            "type": "chestRig",
+            "cv": 0,
+            "price": 0,
+            "icon": "📦",
+            "grade": 5,
+            "reason": "常规配置"
+        },
+        {
+            "name": "DAR突击手胸挂",
+            "type": "chestRig",
+            "cv": 0,
+            "price": 0,
+            "icon": "📦",
+            "grade": 5,
+            "reason": "常规配置"
+        }
+    ]
+};
+
+
         
-        // 玩法风格配置
-        const playstyles = {
-            aggressive: {
-                name: '激进突击',
-                description: '优先武器和弹药，适合正面刚枪',
-                allocation: { helmet: 0.10, armor: 0.20, backpack: 0.15, chestRig: 0.15, weapon: 0.40 }
-            },
-            balanced: {
-                name: '稳健均衡',
-                description: '各部位均衡配置，适合常规玩法',
-                allocation: { helmet: 0.15, armor: 0.25, backpack: 0.15, chestRig: 0.20, weapon: 0.25 }
-            },
-            economy: {
-                name: '经济薅收益',
-                description: '最低成本达到门槛，适合跑刀/摸箱子',
-                allocation: { helmet: 0.05, armor: 0.10, backpack: 0.20, chestRig: 0.25, weapon: 0.40 }
-            },
-            stealth: {
-                name: '隐蔽潜行',
-                description: '优先移动速度和隐蔽性，适合绕背',
-                allocation: { helmet: 0.10, armor: 0.15, backpack: 0.20, chestRig: 0.20, weapon: 0.35 }
-            }
-        };
+        // 武器数据库
+        const weaponDB = {
+    "budget": [
+        {
+            "name": "M1014霰弹枪",
+            "type": "primary",
+            "cv": 2.66,
+            "price": 2.66,
+            "ammo": "12 Gauge",
+            "icon": "🔫",
+            "grade": 0,
+            "damage": 14,
+            "fireRate": 261,
+            "note": "12 Gauge口径"
+        },
+        {
+            "name": "G18",
+            "type": "primary",
+            "cv": 1.91,
+            "price": 1.91,
+            "ammo": "9×19mm",
+            "icon": "🔫",
+            "grade": 0,
+            "damage": 22,
+            "fireRate": 1172,
+            "note": "9×19mm口径"
+        },
+        {
+            "name": "沙漠之鹰",
+            "type": "primary",
+            "cv": 1.76,
+            "price": 1.76,
+            "ammo": ".50 AE",
+            "icon": "🔫",
+            "grade": 0,
+            "damage": 50,
+            "fireRate": 207,
+            "note": ".50 AE口径"
+        },
+        {
+            "name": "93R",
+            "type": "primary",
+            "cv": 1.75,
+            "price": 1.75,
+            "ammo": "9×19mm",
+            "icon": "🔫",
+            "grade": 0,
+            "damage": 34,
+            "fireRate": 672,
+            "note": "9×19mm口径"
+        },
+        {
+            "name": ".357左轮",
+            "type": "primary",
+            "cv": 1.39,
+            "price": 1.39,
+            "ammo": ".357",
+            "icon": "🔫",
+            "grade": 0,
+            "damage": 56,
+            "fireRate": 182,
+            "note": ".357口径"
+        },
+        {
+            "name": "M16A4突击步枪",
+            "type": "primary",
+            "cv": 1.23,
+            "price": 1.23,
+            "ammo": "5.56×45mm",
+            "icon": "🔫",
+            "grade": 0,
+            "damage": 33,
+            "fireRate": 672,
+            "note": "5.56×45mm口径"
+        },
+        {
+            "name": "CAR-15突击步枪",
+            "type": "primary",
+            "cv": 1.23,
+            "price": 1.23,
+            "ammo": "5.56×45mm",
+            "icon": "🔫",
+            "grade": 0,
+            "damage": 27,
+            "fireRate": 632,
+            "note": "5.56×45mm口径"
+        },
+        {
+            "name": "UZI冲锋枪",
+            "type": "primary",
+            "cv": 1.21,
+            "price": 1.21,
+            "ammo": "9×19mm",
+            "icon": "🔫",
+            "grade": 0,
+            "damage": 28,
+            "fireRate": 780,
+            "note": "9×19mm口径"
+        },
+        {
+            "name": "野牛冲锋枪",
+            "type": "primary",
+            "cv": 1.21,
+            "price": 1.21,
+            "ammo": "9×19mm",
+            "icon": "🔫",
+            "grade": 0,
+            "damage": 32,
+            "fireRate": 659,
+            "note": "9×19mm口径"
+        },
+        {
+            "name": "AKS-74U突击步枪",
+            "type": "primary",
+            "cv": 1.16,
+            "price": 1.16,
+            "ammo": "5.45×39mm",
+            "icon": "🔫",
+            "grade": 0,
+            "damage": 34,
+            "fireRate": 533,
+            "note": "5.45×39mm口径"
+        },
+        {
+            "name": "MP7",
+            "type": "primary",
+            "cv": 0.79,
+            "price": 0.79,
+            "ammo": "4.6×30mm",
+            "icon": "🔫",
+            "grade": 0,
+            "damage": 29,
+            "fireRate": 950,
+            "note": "4.6×30mm口径"
+        },
+        {
+            "name": "M870霰弹枪",
+            "type": "primary",
+            "cv": 0.5,
+            "price": 0.5,
+            "ammo": "12 Gauge",
+            "icon": "🔫",
+            "grade": 0,
+            "damage": 14,
+            "fireRate": 74,
+            "note": "12 Gauge口径"
+        },
+        {
+            "name": "QSZ92G",
+            "type": "primary",
+            "cv": 0.48,
+            "price": 0.48,
+            "ammo": "9×19mm",
+            "icon": "🔫",
+            "grade": 0,
+            "damage": 34,
+            "fireRate": 375,
+            "note": "9×19mm口径"
+        },
+        {
+            "name": "G17",
+            "type": "primary",
+            "cv": 0.48,
+            "price": 0.48,
+            "ammo": "9×19mm",
+            "icon": "🔫",
+            "grade": 0,
+            "damage": 27,
+            "fireRate": 462,
+            "note": "9×19mm口径"
+        }
+    ],
+    "mid": [
+        {
+            "name": "AUG突击步枪",
+            "type": "primary",
+            "cv": 13.46,
+            "price": 13.46,
+            "ammo": "5.56×45mm",
+            "icon": "🔫",
+            "grade": 0,
+            "damage": 29,
+            "fireRate": 679,
+            "note": "5.56×45mm口径"
+        },
+        {
+            "name": "M4A1突击步枪",
+            "type": "primary",
+            "cv": 13,
+            "price": 13,
+            "ammo": "5.56×45mm",
+            "icon": "🔫",
+            "grade": 0,
+            "damage": 27,
+            "fireRate": 800,
+            "note": "5.56×45mm口径"
+        },
+        {
+            "name": "PSG-1射手步枪",
+            "type": "primary",
+            "cv": 12.96,
+            "price": 12.96,
+            "ammo": "7.62×51mm",
+            "icon": "🔫",
+            "grade": 0,
+            "damage": 50,
+            "fireRate": 300,
+            "note": "7.62×51mm口径"
+        },
+        {
+            "name": "AK-12突击步枪",
+            "type": "primary",
+            "cv": 12.36,
+            "price": 12.36,
+            "ammo": "5.45×39mm",
+            "icon": "🔫",
+            "grade": 0,
+            "damage": 27,
+            "fireRate": 735,
+            "note": "5.45×39mm口径"
+        },
+        {
+            "name": "PKM通用机枪",
+            "type": "primary",
+            "cv": 12.16,
+            "price": 12.16,
+            "ammo": "7.62×54mmR",
+            "icon": "🔫",
+            "grade": 0,
+            "damage": 45,
+            "fireRate": 669,
+            "note": "7.62×54mmR口径"
+        },
+        {
+            "name": "P90冲锋枪",
+            "type": "primary",
+            "cv": 11.59,
+            "price": 11.59,
+            "ammo": "5.7×28mm",
+            "icon": "🔫",
+            "grade": 0,
+            "damage": 32,
+            "fireRate": 898,
+            "note": "5.7×28mm口径"
+        },
+        {
+            "name": "SCAR-H战斗步枪",
+            "type": "primary",
+            "cv": 11.14,
+            "price": 11.14,
+            "ammo": "7.62×51mm",
+            "icon": "🔫",
+            "grade": 0,
+            "damage": 40,
+            "fireRate": 585,
+            "note": "7.62×51mm口径"
+        },
+        {
+            "name": "M700狙击步枪",
+            "type": "primary",
+            "cv": 11.1,
+            "price": 11.1,
+            "ammo": "7.62×51mm",
+            "icon": "🔫",
+            "grade": 0,
+            "damage": 55,
+            "fireRate": 48,
+            "note": "7.62×51mm口径"
+        },
+        {
+            "name": "AKM突击步枪",
+            "type": "primary",
+            "cv": 10.21,
+            "price": 10.21,
+            "ammo": "7.62×39mm",
+            "icon": "🔫",
+            "grade": 0,
+            "damage": 40,
+            "fireRate": 600,
+            "note": "7.62×39mm口径"
+        },
+        {
+            "name": "SVD狙击步枪",
+            "type": "primary",
+            "cv": 8.64,
+            "price": 8.64,
+            "ammo": "7.62×54mmR",
+            "icon": "🔫",
+            "grade": 0,
+            "damage": 56,
+            "fireRate": 300,
+            "note": "7.62×54mmR口径"
+        },
+        {
+            "name": "SV-98狙击步枪",
+            "type": "primary",
+            "cv": 8.36,
+            "price": 8.36,
+            "ammo": "7.62×54mmR",
+            "icon": "🔫",
+            "grade": 0,
+            "damage": 55,
+            "fireRate": 40,
+            "note": "7.62×54mmR口径"
+        },
+        {
+            "name": "R93狙击步枪",
+            "type": "primary",
+            "cv": 8.05,
+            "price": 8.05,
+            "ammo": "7.62×51mm",
+            "icon": "🔫",
+            "grade": 0,
+            "damage": 55,
+            "fireRate": 50,
+            "note": "7.62×51mm口径"
+        },
+        {
+            "name": "M249轻机枪",
+            "type": "primary",
+            "cv": 7.92,
+            "price": 7.92,
+            "ammo": "5.56×45mm",
+            "icon": "🔫",
+            "grade": 0,
+            "damage": 30,
+            "fireRate": 858,
+            "note": "5.56×45mm口径"
+        },
+        {
+            "name": "SKS射手步枪",
+            "type": "primary",
+            "cv": 4.85,
+            "price": 4.85,
+            "ammo": "7.62×39mm",
+            "icon": "🔫",
+            "grade": 0,
+            "damage": 44,
+            "fireRate": 510,
+            "note": "7.62×39mm口径"
+        },
+        {
+            "name": "VSS射手步枪",
+            "type": "primary",
+            "cv": 4.78,
+            "price": 4.78,
+            "ammo": "9×39mm",
+            "icon": "🔫",
+            "grade": 0,
+            "damage": 35,
+            "fireRate": 480,
+            "note": "9×39mm口径"
+        },
+        {
+            "name": "S12K霰弹枪",
+            "type": "primary",
+            "cv": 3.96,
+            "price": 3.96,
+            "ammo": "12 Gauge",
+            "icon": "🔫",
+            "grade": 0,
+            "damage": 13,
+            "fireRate": 300,
+            "note": "12 Gauge口径"
+        },
+        {
+            "name": "SG552突击步枪",
+            "type": "primary",
+            "cv": 3.91,
+            "price": 3.91,
+            "ammo": "5.56×45mm",
+            "icon": "🔫",
+            "grade": 0,
+            "damage": 22,
+            "fireRate": 906,
+            "note": "5.56×45mm口径"
+        },
+        {
+            "name": "G3战斗步枪",
+            "type": "primary",
+            "cv": 3.91,
+            "price": 3.91,
+            "ammo": "mmo7.62x51",
+            "icon": "🔫",
+            "grade": 0,
+            "damage": 39,
+            "fireRate": 533,
+            "note": "mmo7.62x51口径"
+        },
+        {
+            "name": "Mini-14射手步枪",
+            "type": "primary",
+            "cv": 3.91,
+            "price": 3.91,
+            "ammo": "5.56×45mm",
+            "icon": "🔫",
+            "grade": 0,
+            "damage": 32,
+            "fireRate": 590,
+            "note": "5.56×45mm口径"
+        },
+        {
+            "name": "QBZ95-1突击步枪",
+            "type": "primary",
+            "cv": 3.88,
+            "price": 3.88,
+            "ammo": "5.8×42mm",
+            "icon": "🔫",
+            "grade": 0,
+            "damage": 27,
+            "fireRate": 679,
+            "note": "5.8×42mm口径"
+        },
+        {
+            "name": "MP5冲锋枪",
+            "type": "primary",
+            "cv": 3.84,
+            "price": 3.84,
+            "ammo": "9×19mm",
+            "icon": "🔫",
+            "grade": 0,
+            "damage": 30,
+            "fireRate": 820,
+            "note": "9×19mm口径"
+        },
+        {
+            "name": "PTR-32突击步枪",
+            "type": "primary",
+            "cv": 3.82,
+            "price": 3.82,
+            "ammo": "7.62×39mm",
+            "icon": "🔫",
+            "grade": 0,
+            "damage": 34,
+            "fireRate": 632,
+            "note": "7.62×39mm口径"
+        },
+        {
+            "name": "SMG-45冲锋枪",
+            "type": "primary",
+            "cv": 3.81,
+            "price": 3.81,
+            "ammo": ".45 ACP",
+            "icon": "🔫",
+            "grade": 0,
+            "damage": 35,
+            "fireRate": 605,
+            "note": ".45 ACP口径"
+        },
+        {
+            "name": "勇士冲锋枪",
+            "type": "primary",
+            "cv": 3.8,
+            "price": 3.8,
+            "ammo": "9×19mm",
+            "icon": "🔫",
+            "grade": 0,
+            "damage": 36,
+            "fireRate": 700,
+            "note": "9×19mm口径"
+        }
+    ],
+    "high": [
+        {
+            "name": "AWM狙击步枪",
+            "type": "primary",
+            "cv": 60.1,
+            "price": 60.1,
+            "ammo": ".338 Lapua",
+            "icon": "🔫",
+            "grade": 0,
+            "damage": 100,
+            "fireRate": 35,
+            "note": ".338 Lapua口径"
+        },
+        {
+            "name": "M7战斗步枪",
+            "type": "primary",
+            "cv": 25.65,
+            "price": 25.65,
+            "ammo": "6.8×51mm",
+            "icon": "🔫",
+            "grade": 0,
+            "damage": 40,
+            "fireRate": 649,
+            "note": "6.8×51mm口径"
+        },
+        {
+            "name": "SR-25射手步枪",
+            "type": "primary",
+            "cv": 20.82,
+            "price": 20.82,
+            "ammo": "7.62×51mm",
+            "icon": "🔫",
+            "grade": 0,
+            "damage": 50,
+            "fireRate": 364,
+            "note": "7.62×51mm口径"
+        },
+        {
+            "name": "ASh-12战斗步枪",
+            "type": "primary",
+            "cv": 19.73,
+            "price": 19.73,
+            "ammo": "12.7×55mm",
+            "icon": "🔫",
+            "grade": 0,
+            "damage": 56,
+            "fireRate": 500,
+            "note": "12.7×55mm口径"
+        },
+        {
+            "name": "M14射手步枪",
+            "type": "primary",
+            "cv": 18.99,
+            "price": 18.99,
+            "ammo": "7.62×51mm",
+            "icon": "🔫",
+            "grade": 0,
+            "damage": 40,
+            "fireRate": 727,
+            "note": "7.62×51mm口径"
+        },
+        {
+            "name": "AS Val突击步枪",
+            "type": "primary",
+            "cv": 17.81,
+            "price": 17.81,
+            "ammo": "9×39mm",
+            "icon": "🔫",
+            "grade": 0,
+            "damage": 29,
+            "fireRate": 972,
+            "note": "9×39mm口径"
+        },
+        {
+            "name": "K416突击步枪",
+            "type": "primary",
+            "cv": 17.51,
+            "price": 17.51,
+            "ammo": "5.56×45mm",
+            "icon": "🔫",
+            "grade": 0,
+            "damage": 29,
+            "fireRate": 880,
+            "note": "5.56×45mm口径"
+        },
+        {
+            "name": "SR-3M紧凑突击步枪",
+            "type": "primary",
+            "cv": 15.14,
+            "price": 15.14,
+            "ammo": "9×39mm",
+            "icon": "🔫",
+            "grade": 0,
+            "damage": 36,
+            "fireRate": 747,
+            "note": "9×39mm口径"
+        },
+        {
+            "name": "Vector冲锋枪",
+            "type": "primary",
+            "cv": 15.12,
+            "price": 15.12,
+            "ammo": ".45 ACP",
+            "icon": "🔫",
+            "grade": 0,
+            "damage": 32,
+            "fireRate": 1091,
+            "note": ".45 ACP口径"
+        }
+    ]
+};
+
+
         
-        let currentPlaystyle = 'balanced';
-        
-        // 地图门槛（保留用于兼容）
+        // 地图门槛
         const mapThresholds = {
             'zeroDam_classified': { name: '零号大坝-机密', threshold: 13 },
             'longbow_classified': { name: '长弓溪谷-机密', threshold: 13 },
@@ -764,137 +1952,15 @@
             'tidalPrison_topSecret': { name: '潮汐监狱-绝密', threshold: 69 },
         };
         
-        // ============================================
-        // 辅助函数：装备性价比评分
-        // ============================================
-        function calculateGearScore(item, type) {
-            if (!item || !item.price) return 0;
-            let score = 0;
-            let priceWan = item.price;
-            switch(type) {
-                case 'helmet':
-                    let defLevel = extractDefenseLevel(item.reason || '');
-                    score = (defLevel * 100) / (priceWan + 0.1);
-                    break;
-                case 'armor':
-                    let armorLevel = extractDefenseLevel(item.reason || '');
-                    score = (armorLevel * 120) / (priceWan + 0.1);
-                    break;
-                case 'backpack':
-                    let capacity = extractCapacity(item.reason || '');
-                    score = capacity / (priceWan + 0.1);
-                    break;
-                case 'chestRig':
-                    let rigCapacity = extractCapacity(item.reason || '');
-                    score = rigCapacity / (priceWan + 0.1);
-                    break;
-            }
-            return score;
-        }
-        
-        function extractDefenseLevel(reason) {
-            const match = reason.match(/防御(\d+)/);
-            return match ? parseInt(match[1]) : 3;
-        }
-        
-        function extractCapacity(reason) {
-            const match = reason.match(/(\d+)格/);
-            return match ? parseInt(match[1]) : 10;
-        }
-        
-        function calculateWeaponScore(weapon) {
-            if (!weapon || !weapon.price) return 0;
-            let priceWan = weapon.price;
-            let fireRate = extractFireRate(weapon.note || '');
-            let caliber = weapon.ammo || '';
-            let baseScore = fireRate / (priceWan + 0.1);
-            let ammoCostMultiplier = getAmmoCostMultiplier(caliber);
-            baseScore *= ammoCostMultiplier;
-            return baseScore;
-        }
-        
-        function extractFireRate(note) {
-            const match = note.match(/射速(\d+)/);
-            return match ? parseInt(match[1]) : 600;
-        }
-        
-        function getAmmoCostMultiplier(caliber) {
-            const cheapAmmo = ['9×18mm', '9×19mm', '.45ACP', '5.7×28mm'];
-            const mediumAmmo = ['5.56×45mm', '7.62×39mm', '.308Win'];
-            const expensiveAmmo = ['7.62×51mm', '7.62×54mmR', '.338Lapua'];
-            if (cheapAmmo.some(a => caliber.includes(a))) return 1.5;
-            if (mediumAmmo.some(a => caliber.includes(a))) return 1.0;
-            if (expensiveAmmo.some(a => caliber.includes(a))) return 0.7;
-            return 1.0;
-        }
-        
-        function selectBestGear(gearArray, type, budgetLimit, cvLimit, playstyle) {
-            if (!gearArray || gearArray.length === 0) return null;
-            let candidates = gearArray.filter(g => g.price <= budgetLimit && g.cv <= (cvLimit || 999));
-            if (candidates.length === 0) {
-                candidates = gearArray.sort((a, b) => a.price - b.price);
-                return candidates[0] || null;
-            }
-            let scored = candidates.map(g => {
-                let score = calculateGearScore(g, type);
-                if (playstyle === 'aggressive' && (type === 'helmet' || type === 'armor')) score *= 1.5;
-                if (playstyle === 'economy') score = (score + 0.5) / (g.price + 0.1);
-                if (playstyle === 'stealth') score /= (g.cv + 1);
-                return { ...g, score };
-            });
-            scored.sort((a, b) => b.score - a.score);
-            return scored[0] || null;
-        }
-        
-        function selectBestWeapon(weaponArray, budgetLimit, cvLimit, playstyle) {
-            if (!weaponArray || weaponArray.length === 0) return null;
-            let candidates = weaponArray.filter(w => w.price <= budgetLimit && w.cv <= (cvLimit || 999));
-            if (candidates.length === 0) {
-                candidates = weaponArray.sort((a, b) => a.price - b.price);
-                return candidates[0] || null;
-            }
-            let scored = candidates.map(w => {
-                let score = calculateWeaponScore(w);
-                if (playstyle === 'aggressive') {
-                    let fireRate = extractFireRate(w.note || '');
-                    score *= (fireRate / 600);
-                }
-                if (playstyle === 'economy') score /= (w.price + 0.1);
-                return { ...w, score };
-            });
-            scored.sort((a, b) => b.score - a.score);
-            return scored[0] || null;
-        }
-        
-        function estimateSurvivalProbability(gearCV, weaponCV, threshold) {
-            let totalCV = gearCV + weaponCV;
-            let ratio = totalCV / threshold;
-            if (ratio >= 1.5) return 0.85;
-            if (ratio >= 1.2) return 0.65;
-            if (ratio >= 1.0) return 0.45;
-            if (ratio >= 0.8) return 0.25;
-            return 0.10;
-        }
-        
-        function calculateExpectedROI(threshold, totalCost, survivalRate) {
-            let expectedLoot = threshold * 1.5;
-            let netProfit = (expectedLoot * survivalRate) - totalCost;
-            let roi = totalCost > 0 ? (netProfit / totalCost) * 100 : 0;
-            return { expectedLoot, netProfit, roi };
-        }
-        
-        // ============================================
-        // 优化版：计算最优配置
-        // ============================================
-        function calculateOptimal(budget, targetMap, playstyle = 'balanced') {
-            currentPlaystyle = playstyle || 'balanced';
-            let allocation = playstyles[currentPlaystyle].allocation;
-            
+        // 计算最优配置
+        function calculateOptimal(budget, targetMap) {
+            // 确定目标门槛
             let threshold, mapName;
             if (targetMap && mapThresholds[targetMap]) {
                 threshold = mapThresholds[targetMap].threshold;
                 mapName = mapThresholds[targetMap].name;
             } else {
+                // 自动选择最合适的地图
                 if (budget >= 69) {
                     threshold = 69; mapName = '潮汐监狱-绝密';
                 } else if (budget >= 55) {
@@ -911,139 +1977,108 @@
             const result = {
                 map: mapName,
                 threshold: threshold,
-                playstyle: playstyles[currentPlaystyle],
                 gear: [],
                 weapons: [],
                 totalCost: 0,
-                totalCV: 0,
-                survivalRate: 0,
-                roi: 0
+                totalCV: 0
             };
             
-            let remainingBudget = budget;
+            // 确定装备等级
             let gearTier = budget < 15 ? 'budget' : budget < 40 ? 'mid' : 'high';
             
+            // 选择最优装备组合
+            let remainingCV = threshold;
+            let remainingBudget = budget;
+            
             // 1. 选择头盔
-            let helmet = selectBestGear(gearDB.helmets, 'helmet', remainingBudget * allocation.helmet * 2, threshold * 0.3, currentPlaystyle);
+            let helmet = null;
+            if (gearTier === 'high') {
+                helmet = gearDB.helmets.find(h => h.cv >= 40 && h.cv <= 50 && h.price <= remainingBudget * 0.3);
+                if (!helmet) helmet = gearDB.helmets.find(h => h.cv >= 40);
+            } else if (gearTier === 'mid') {
+                helmet = gearDB.helmets.find(h => h.cv >= 10 && h.cv <= 20 && h.price <= remainingBudget * 0.2);
+                if (!helmet) helmet = gearDB.helmets.find(h => h.cv <= 20);
+            } else {
+                helmet = gearDB.helmets[1]; // 老式钢盔
+            }
             if (helmet) {
-                result.gear.push({ ...helmet, slot: '头盔' });
+                result.gear.push(helmet);
+                remainingCV -= helmet.cv;
                 remainingBudget -= helmet.price;
             }
             
             // 2. 选择防弹衣
-            let armor = selectBestGear(gearDB.armors, 'armor', remainingBudget * allocation.armor * 2, threshold * 0.4, currentPlaystyle);
+            let armor = null;
+            if (gearTier === 'high') {
+                armor = gearDB.armors.find(a => a.cv >= 60 && a.cv <= 80 && a.price <= remainingBudget * 0.3);
+                if (!armor) armor = gearDB.armors.find(a => a.cv >= 60);
+            } else if (gearTier === 'mid') {
+                armor = gearDB.armors.find(a => a.cv >= 30 && a.cv <= 40 && a.price <= remainingBudget * 0.25);
+                if (!armor) armor = gearDB.armors.find(a => a.cv <= 40);
+            } else {
+                armor = gearDB.armors.find(a => a.cv <= 5);
+            }
             if (armor) {
-                result.gear.push({ ...armor, slot: '防弹衣' });
+                result.gear.push(armor);
+                remainingCV -= armor.cv;
                 remainingBudget -= armor.price;
             }
             
             // 3. 选择背包
-            let backpack = selectBestGear(gearDB.backpacks, 'backpack', remainingBudget * allocation.backpack * 2, threshold * 0.2, currentPlaystyle);
+            let backpack = null;
+            if (gearTier === 'high') {
+                backpack = gearDB.backpacks.find(b => b.cv >= 30);
+            } else {
+                backpack = gearDB.backpacks.find(b => b.cv <= 10);
+            }
             if (backpack) {
-                result.gear.push({ ...backpack, slot: '背包' });
+                result.gear.push(backpack);
+                remainingCV -= backpack.cv;
                 remainingBudget -= backpack.price;
             }
             
             // 4. 选择胸挂
-            let chestRig = selectBestGear(gearDB.chestRigs, 'chestRig', remainingBudget * allocation.chestRig * 2, threshold * 0.25, currentPlaystyle);
+            let chestRig = null;
+            if (gearTier === 'high') {
+                chestRig = gearDB.chestRigs.find(c => c.cv >= 20);
+            } else {
+                chestRig = gearDB.chestRigs.find(c => c.cv <= 10);
+            }
             if (chestRig) {
-                result.gear.push({ ...chestRig, slot: '胸挂' });
+                result.gear.push(chestRig);
+                remainingCV -= chestRig.cv;
                 remainingBudget -= chestRig.price;
             }
             
             // 5. 选择武器
             let weaponPool = gearTier === 'high' ? weaponDB.high : gearTier === 'mid' ? weaponDB.mid : weaponDB.budget;
-            let weapon = selectBestWeapon(weaponPool, remainingBudget * allocation.weapon * 2, threshold, currentPlaystyle);
-            if (weapon && weapon.price > remainingBudget * allocation.weapon * 2) {
-                let cheaper = weaponPool.filter(w => w.price <= remainingBudget * allocation.weapon * 2).sort((a, b) => b.cv - a.cv);
-                if (cheaper.length > 0) weapon = cheaper[0];
+            let weapon = weaponPool.find(w => w.cv <= remainingCV + 5 && w.price <= remainingBudget);
+            if (!weapon) {
+                weapon = weaponPool[0];
             }
-            if (weapon) {
-                result.weapons.push(weapon);
-                remainingBudget -= weapon.price;
-            }
+            result.weapons.push(weapon);
+            remainingBudget -= weapon.price;
+            remainingCV -= weapon.cv;
             
             // 计算总计
             result.totalCost = result.gear.reduce((sum, g) => sum + g.price, 0) + result.weapons.reduce((sum, w) => sum + w.price, 0);
             result.totalCV = result.gear.reduce((sum, g) => sum + g.cv, 0) + result.weapons.reduce((sum, w) => sum + w.cv, 0);
             
-            // 计算生存概率和ROI
-            let gearCV = result.gear.reduce((sum, g) => sum + g.cv, 0);
-            let weaponCV = result.weapons.reduce((sum, w) => sum + w.cv, 0);
-            result.survivalRate = estimateSurvivalProbability(gearCV, weaponCV, result.threshold);
-            let roiData = calculateExpectedROI(result.threshold, result.totalCost, result.survivalRate);
-            result.roi = roiData.roi;
-            result.expectedLoot = roiData.expectedLoot;
-            result.netProfit = roiData.netProfit;
-            
-            // 生成智能提示
-            result.tips = generateSmartTips(result, currentPlaystyle);
+            // 生成提示
+            result.tips = [
+                `战备值刚好达到${threshold}万门槛即可，多一分都是浪费`,
+                '建议中午12点前后购买装备，价格通常更低',
+                '破损装备耐久低但战备值不缩水，性价比极高',
+                `当前预算${budget}万，实际花费约${result.totalCost.toFixed(1)}万`
+            ];
             
             return result;
-        }
-        
-        // 生成智能提示
-        function generateSmartTips(result, playstyle) {
-            let tips = [];
-            if (result.totalCV >= result.threshold * 1.2) {
-                tips.push(`✅ 战备值充足（${(result.totalCV).toFixed(1)}万 > ${result.threshold}万），生存率高`);
-            } else if (result.totalCV >= result.threshold) {
-                tips.push(`⚠️ 战备值刚好达标（${result.totalCV.toFixed(1)}万），建议谨慎行事`);
-            } else {
-                tips.push(`❌ 战备值不足（${result.totalCV.toFixed(1)}万 < ${result.threshold}万），无法进入${result.map}`);
-            }
-            if (result.totalCost > result.threshold * 1.5) {
-                tips.push(`💰 花费较高，建议降低装备等级或减少不必要的配件`);
-            } else {
-                tips.push(`💰 花费${(result.totalCost / result.threshold * 100).toFixed(0)}%的门槛值，性价比不错`);
-            }
-            let survivalPercent = (result.survivalRate * 100).toFixed(0);
-            if (result.survivalRate >= 0.6) {
-                tips.push(`🎯 预估生存率${survivalPercent}%，可以积极交战`);
-            } else if (result.survivalRate >= 0.3) {
-                tips.push(`🎯 预估生存率${survivalPercent}%，建议避免正面冲突`);
-            } else {
-                tips.push(`🎯 预估生存率${survivalPercent}%，建议潜行或组队`);
-            }
-            if (result.roi > 50) {
-                tips.push(`📈 预期收益率${result.roi.toFixed(0)}%，值得一试！`);
-            } else if (result.roi > 0) {
-                tips.push(`📈 预期收益率${result.roi.toFixed(0)}%，微利`);
-            } else {
-                tips.push(`📈 预期收益率${result.roi.toFixed(0)}%，可能亏损`);
-            }
-            
-            // 添加通用提示
-            tips.push(`战备值刚好达到${result.threshold}万门槛即可，多一分都是浪费`);
-            tips.push('建议中午12点前后购买装备，价格通常更低');
-            tips.push('破损装备耐久低但战备值不缩水，性价比极高');
-            tips.push(`当前预算${document.getElementById('budget').value || 0}万，实际花费约${result.totalCost.toFixed(1)}万`);
-            
-            return tips;
         }
         
         // 渲染结果
         function renderResult(result) {
             document.getElementById('targetCV').textContent = result.threshold;
             document.getElementById('totalCost').textContent = result.totalCost.toFixed(1);
-            
-            // 渲染新字段：生存率、ROI、净收益
-            if (document.getElementById('survivalRate')) {
-                const survivalEl = document.getElementById('survivalRate');
-                const survivalPercent = (result.survivalRate * 100).toFixed(0);
-                survivalEl.textContent = survivalPercent + '%';
-                survivalEl.style.color = result.survivalRate >= 0.6 ? '#00ff88' : result.survivalRate >= 0.3 ? '#ffcc00' : '#ff4444';
-            }
-            if (document.getElementById('roi')) {
-                const roiEl = document.getElementById('roi');
-                roiEl.textContent = result.roi.toFixed(0) + '%';
-                roiEl.style.color = result.roi > 0 ? '#00ff88' : '#ff4444';
-            }
-            if (document.getElementById('netProfit')) {
-                const profitEl = document.getElementById('netProfit');
-                profitEl.textContent = result.netProfit.toFixed(1) + '万';
-                profitEl.style.color = result.netProfit > 0 ? '#00ff88' : '#ff4444';
-            }
             
             // 渲染装备
             const gearList = document.getElementById('gearList');
@@ -1091,7 +2126,7 @@
                 return;
             }
             
-            const result = calculateOptimal(budget, map, currentPlaystyle);
+            const result = calculateOptimal(budget, map);
             renderResult(result);
         });
         
@@ -1104,41 +2139,9 @@
                 document.querySelectorAll('.quick-btn').forEach(b => b.classList.remove('active'));
                 btn.classList.add('active');
                 
-                const result = calculateOptimal(parseFloat(btn.dataset.budget), btn.dataset.map, currentPlaystyle);
+                const result = calculateOptimal(parseFloat(btn.dataset.budget), btn.dataset.map);
                 renderResult(result);
             });
-        });
-        
-        // 玩法风格按钮
-        document.querySelectorAll('.playstyle-btn').forEach(btn => {
-            btn.addEventListener('click', () => {
-                document.querySelectorAll('.playstyle-btn').forEach(b => {
-                    b.classList.remove('active');
-                    b.style.background = 'rgba(255,255,255,0.05)';
-                    b.style.borderColor = 'rgba(255,255,255,0.2)';
-                    b.style.color = '#888';
-                });
-                btn.classList.add('active');
-                btn.style.background = 'rgba(0,217,255,0.2)';
-                btn.style.borderColor = '#00d9ff';
-                btn.style.color = '#00d9ff';
-                
-                currentPlaystyle = btn.dataset.playstyle;
-                
-                // 自动重新计算
-                const budget = parseFloat(document.getElementById('budget').value) || 0;
-                const map = document.getElementById('map').value;
-                if (budget > 0) {
-                    const result = calculateOptimal(budget, map, currentPlaystyle);
-                    renderResult(result);
-                }
-            });
-        });
-        
-        // 页面加载时初始化
-        document.addEventListener('DOMContentLoaded', () => {
-            console.log('🚀 开始加载游戏数据...');
-            loadGameData();
         });
     </script>
 </body>

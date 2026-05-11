@@ -3,435 +3,561 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>地图物资 - 三角眼</title>
+    <title>物资分布图 - 三角眼</title>
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700;900&display=swap" rel="stylesheet">
     <style>
-        :root {
-            --bg: #0a0e17; --bg2: #111827; --card: #1a2235; --border: #2a3654;
-            --text: #f0f4ff; --muted: #8896b3; --accent: #ff6b35;
-            --green: #22c55e; --blue: #3b82f6; --red: #ef4444;
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
         }
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: 'Noto Sans SC', sans-serif; background: var(--bg); color: var(--text); height: 100vh; display: flex; flex-direction: column; }
-        a { color: var(--accent); text-decoration: none; }
-
-        header {
-            background: var(--bg2); border-bottom: 1px solid var(--border);
-            padding: 12px 20px; display: flex; align-items: center; gap: 20px;
-            flex-shrink: 0; z-index: 1000;
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #0a0e1a;
+            color: #fff;
+            min-height: 100vh;
         }
-        header .logo { font-size: 18px; font-weight: 700; color: var(--accent); }
-        header .logo span { color: var(--text); }
-        header .back { font-size: 13px; color: var(--muted); }
-        header .back:hover { color: var(--text); }
-
-        .controls {
-            display: flex; gap: 12px; align-items: center; flex-wrap: wrap; margin-left: auto;
+        
+        .header {
+            background: linear-gradient(135deg, rgba(255, 107, 0, 0.2) 0%, rgba(255, 107, 0, 0.05) 100%);
+            border-bottom: 3px solid #ff6b00;
+            padding: 20px;
+            text-align: center;
         }
-        .ctrl-group { display: flex; gap: 6px; align-items: center; }
-        .ctrl-label { font-size: 12px; color: var(--muted); }
-        select, button {
-            background: var(--card); border: 1px solid var(--border); color: var(--text);
-            padding: 5px 10px; border-radius: 6px; font-family: inherit; font-size: 13px;
+        
+        .header h1 {
+            color: #ff6b00;
+            font-size: 2em;
+            margin-bottom: 10px;
+        }
+        
+        .header p {
+            color: #888;
+            font-size: 0.9em;
+        }
+        
+        .toolbar {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            padding: 15px;
+            background: rgba(255, 255, 255, 0.05);
+            border-bottom: 1px solid #333;
+        }
+        
+        .toolbar-section {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+        }
+        
+        .toolbar-label {
+            color: #888;
+            font-size: 0.85em;
+            margin-right: 5px;
+        }
+        
+        .btn {
+            padding: 8px 16px;
+            background: rgba(255, 107, 0, 0.2);
+            border: 2px solid #ff6b00;
+            border-radius: 6px;
+            color: #ff6b00;
             cursor: pointer;
+            transition: all 0.3s;
+            font-size: 0.9em;
         }
-        select:hover, button:hover { border-color: var(--accent); }
-        button.active { background: var(--accent); border-color: var(--accent); color: #fff; }
-
-        .main { flex: 1; display: flex; overflow: hidden; }
-
-        #map { flex: 1; background: #0d1520; }
-
+        
+        .btn:hover, .btn.active {
+            background: #ff6b00;
+            color: #000;
+        }
+        
+        .btn-small {
+            padding: 5px 10px;
+            font-size: 0.8em;
+        }
+        
+        .main-container {
+            display: flex;
+            height: calc(100vh - 140px);
+        }
+        
+        #map {
+            flex: 1;
+            background: #1a1f3a;
+        }
+        
         .sidebar {
-            width: 280px; background: var(--bg2); border-left: 1px solid var(--border);
-            overflow-y: auto; flex-shrink: 0; display: flex; flex-direction: column;
+            width: 320px;
+            background: rgba(26, 31, 58, 0.95);
+            border-left: 1px solid #333;
+            overflow-y: auto;
+            padding: 15px;
         }
-        .sidebar-header {
-            padding: 12px; border-bottom: 1px solid var(--border); font-size: 13px;
-            color: var(--muted); display: flex; justify-content: space-between;
+        
+        .sidebar-title {
+            color: #ff6b00;
+            font-size: 1.1em;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #333;
         }
-        .legend { padding: 10px 12px; border-bottom: 1px solid var(--border); }
-        .legend-item { display: flex; align-items: center; gap: 8px; padding: 4px 0; font-size: 12px; cursor: pointer; }
-        .legend-item input[type=checkbox] { accent-color: var(--accent); }
-        .legend-dot { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; }
-
-        .item-list { flex: 1; overflow-y: auto; padding: 8px; }
+        
+        .item-list {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+        
         .item-card {
-            background: var(--card); border: 1px solid var(--border); border-radius: 8px;
-            padding: 10px; margin-bottom: 6px; cursor: pointer; transition: all 0.15s;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid #333;
+            border-radius: 8px;
+            padding: 12px;
+            cursor: pointer;
+            transition: all 0.3s;
         }
-        .item-card:hover { border-color: var(--accent); transform: translateX(2px); }
-        .item-card .item-name { font-size: 13px; font-weight: 600; margin-bottom: 4px; }
-        .item-card .item-meta { font-size: 11px; color: var(--muted); }
-        .item-card .item-area { font-size: 11px; color: var(--accent); margin-top: 2px; }
-        .item-card.random { border-color: rgba(245, 158, 11, 0.3); }
-
-        .loading { display: flex; align-items: center; justify-content: center; height: 100%; color: var(--muted); }
-        .spinner { width: 24px; height: 24px; border: 2px solid var(--border); border-top-color: var(--accent); border-radius: 50%; animation: spin 0.8s linear infinite; }
-        @keyframes spin { to { transform: rotate(360deg); } }
-
-        .stats { padding: 10px 12px; border-top: 1px solid var(--border); font-size: 12px; color: var(--muted); }
-        .stats strong { color: var(--accent); }
-
-        .leaflet-popup-content-wrapper { background: var(--bg2); border: 1px solid var(--border); border-radius: 8px; color: var(--text); }
-        .leaflet-popup-tip { background: var(--bg2); }
-        .leaflet-popup-content { margin: 10px 12px; font-size: 12px; }
-        .popup-name { font-weight: 700; font-size: 13px; margin-bottom: 4px; }
-        .popup-meta { color: var(--muted); }
+        
+        .item-card:hover {
+            border-color: #ff6b00;
+            background: rgba(255, 107, 0, 0.1);
+        }
+        
+        .item-card .name {
+            color: #fff;
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+        
+        .item-card .info {
+            color: #888;
+            font-size: 0.85em;
+        }
+        
+        .item-card .floor {
+            display: inline-block;
+            background: rgba(255, 107, 0, 0.2);
+            color: #ff6b00;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 0.75em;
+            margin-top: 5px;
+        }
+        
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+        
+        .stat-card {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 8px;
+            padding: 12px;
+            text-align: center;
+        }
+        
+        .stat-card .value {
+            color: #ff6b00;
+            font-size: 1.5em;
+            font-weight: bold;
+        }
+        
+        .stat-card .label {
+            color: #888;
+            font-size: 0.8em;
+        }
+        
+        .leaflet-popup-content {
+            background: #1a1f3a;
+            color: #fff;
+            border: 1px solid #ff6b00;
+            border-radius: 8px;
+            padding: 15px;
+            min-width: 180px;
+        }
+        
+        .leaflet-popup-tip {
+            background: #1a1f3a;
+        }
+        
+        .popup-title {
+            color: #ff6b00;
+            font-weight: bold;
+            margin-bottom: 8px;
+            font-size: 1.1em;
+        }
+        
+        .popup-info {
+            color: #ccc;
+            font-size: 0.9em;
+            line-height: 1.5;
+        }
+        
+        .popup-floor {
+            display: inline-block;
+            background: rgba(255, 107, 0, 0.2);
+            color: #ff6b00;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 0.8em;
+            margin-top: 5px;
+        }
+        
+        .loading {
+            text-align: center;
+            padding: 40px;
+            color: #888;
+        }
+        
+        @media (max-width: 768px) {
+            .main-container {
+                flex-direction: column;
+                height: auto;
+            }
+            
+            #map {
+                height: 50vh;
+            }
+            
+            .sidebar {
+                width: 100%;
+                height: auto;
+                max-height: 50vh;
+            }
+            
+            .toolbar {
+                flex-direction: column;
+            }
+        }
     </style>
 </head>
 <body>
-<header>
-    <a href="index.html" class="back">← 回到三角眼</a>
-    <div class="logo">🛡 三角眼 <span>· 地图物资</span></div>
-    <div class="controls">
-        <div class="ctrl-group">
-            <span class="ctrl-label">地图</span>
-            <select id="map-select">
-                <option value="0haoDaba">零号大坝</option>
-                <option value="longbow">长弓溪谷</option>
-                <option value="hangtian">航天基地</option>
-                <option value="bakeshi">巴克什</option>
-            </select>
-        </div>
-        <div class="ctrl-group">
-            <span class="ctrl-label">难度</span>
-            <select id="diff-select">
-                <option value="normal">普通</option>
-                <option value="classified">机密</option>
-                <option value="top_secret">绝密</option>
-                <option value="unknown">机密+</option>
-            </select>
-        </div>
-        <div class="ctrl-group">
-            <span class="ctrl-label">搜索</span>
-            <input type="text" id="search-input" placeholder="搜索物资名称..." style="background:var(--card);border:1px solid var(--border);color:var(--text);padding:5px 10px;border-radius:6px;font-size:13px;width:150px;">
-        </div>
-        <button id="toggle-sidebar">📋 侧边栏</button>
+    <div class="header">
+        <h1>📍 物资分布图</h1>
+        <p>点击地图上的物资点位查看详情 | 使用滚轮缩放地图</p>
     </div>
-</header>
-
-<div class="main">
-    <div id="map"></div>
-    <div class="sidebar" id="sidebar">
-        <div class="sidebar-header">
-            <span>物资列表</span>
-            <span id="item-count">--</span>
+    
+    <div class="toolbar">
+        <div class="toolbar-section">
+            <span class="toolbar-label">地图:</span>
+            <button class="btn active" data-map="零号大坝">零号大坝</button>
+            <button class="btn" data-map="长弓溪谷">长弓溪谷</button>
+            <button class="btn" data-map="航天基地">航天基地</button>
+            <button class="btn" data-map="巴克什">巴克什</button>
         </div>
-        <div class="legend" id="legend"></div>
-        <div id="area-filter" style="padding:8px 12px;max-height:150px;overflow-y:auto;border-bottom:1px solid var(--border);"></div>
-        <div class="item-list" id="item-list">
-            <div class="loading"><div class="spinner"></div></div>
-        </div>
-        <div class="stats" id="stats"></div>
-        <div style="padding:8px 12px;border-top:1px solid var(--border);">
-            <button onclick="exportCSV()" style="width:100%;padding:6px;background:var(--accent);border:none;color:#fff;border-radius:6px;cursor:pointer;font-size:12px;">📥 导出当前列表 (CSV)</button>
+        <div class="toolbar-section">
+            <span class="toolbar-label">难度:</span>
+            <button class="btn btn-small active" data-diff="普通">普通</button>
+            <button class="btn btn-small" data-diff="机密">机密</button>
+            <button class="btn btn-small" data-diff="绝密">绝密</button>
         </div>
     </div>
-</div>
-
-<script src="leaflet.js"></script>
-<script>
-const MAP_FILES = {
-    '0haoDaba':  'map_零hao大坝.json',
-    'longbow':   'map_长gongxigu.json',
-    'hangtian':  'map_hang天jidi.json',
-    'bakeshi':   'map_bakeshi.json',
-};
-
-const CATEGORY_COLORS = {
-    '保险柜':   '#f59e0b',
-    '小保险箱': '#f97316',
-    '服务器':   '#3b82f6',
-    '电脑':     '#22c55e',
-    '电脑机箱': '#16a34a',
-    '武器箱':   '#ef4444',
-    '大武器箱': '#dc2626',
-    '弹药箱':   '#f59e0b',
-    '工具柜':   '#6b7280',
-    '大工具盒': '#4b5563',
-    '实验服':   '#a78bfa',
-    '衣服':     '#c084fc',
-    '医疗包':   '#22c55e',
-    '医疗物资堆':'#16a34a',
-    '旅行袋':   '#0ea5e9',
-    '手提箱':   '#06b6d4',
-    '储物柜':   '#64748b',
-    '高级储物箱':'#8b5cf6',
-    '抽屉柜':   '#6366f1',
-    '登山包':   '#14b8a6',
-    '快递箱':   '#84cc16',
-    '航空储物箱':'#a3e635',
-    '垃圾箱':   '#78716c',
-    '水泥车':   '#57534e',
-    '野外物资箱':'#eab308',
-    '鸟窝':     '#92400e',
-    '藏匿物':   '#fbbf24',
-    '高级旅行箱':'#f59e0b',
-    '撤离点':   '#ff6b35',
-    '首领':     '#dc2626',
-    '出生点':   '#3b82f6',
-    '其他':     '#6b7280',
-};
-
-const CATEGORY_ICONS = {
-    '撤离点': '🚪',
-    '首领': '⚠️',
-    '出生点': '🏠',
-    '保险柜': '🔐',
-    '小保险箱': '🗄️',
-    '服务器': '🖥️',
-    '电脑': '💻',
-    '电脑机箱': '🖥️',
-    '武器箱': '📦',
-    '大武器箱': '📦',
-    '弹药箱': '💣',
-    '医疗包': '🏥',
-    '医疗物资堆': '🏥',
-    '工具柜': '🧰',
-    '大工具盒': '🧰',
-    '衣服': '👕',
-    '实验服': '🥼',
-    '旅行袋': '🎒',
-    '手提箱': '🧳',
-    '储物柜': '🗃️',
-    '高级储物箱': '🗃️',
-    '抽屉柜': '🗄️',
-    '登山包': '🎒',
-    '快递箱': '📮',
-    '航空储物箱': '✈️',
-    '垃圾箱': '🗑️',
-    '水泥车': '🚛',
-    '野外物资箱': '📦',
-    '鸟窝': '🪹',
-    '藏匿物': '💰',
-    '高级旅行箱': '🧳',
-    '其他': '📍',
-};
-
-let map, markers = [];
-let currentData = null;
-let activeCategories = new Set(Object.keys(CATEGORY_COLORS));
-let searchKeyword = '';
-let selectedAreas = new Set();
-
-function getFilteredItems(items) {
-    return items.filter(i => {
-        const matchCategory = activeCategories.has(item.c);
-        const matchSearch = !searchKeyword || item.n.toLowerCase().includes(searchKeyword.toLowerCase());
-        const matchArea = selectedAreas.size === 0 || selectedAreas.has(item.area);
-        return matchCategory && matchSearch && matchArea;
-    });
-}
-
-function init() {
-    map = L.map('map', { crs: L.CRS.Simple, minZoom: -2, maxZoom: 5 });
-    loadMap();
-}
-
-async function loadMap() {
-    const mapKey = document.getElementById('map-select').value;
-    const diffKey = document.getElementById('diff-select').value;
-    const file = MAP_FILES[mapKey];
-    const loading = document.querySelector('.loading') || document.getElementById('item-list').querySelector('.loading');
-
-    document.getElementById('item-list').innerHTML = '<div class="loading"><div class="spinner"></div></div>';
-
-    try {
-        const res = await fetch(file);
-        const mapData = await res.json();
-
-        // Find the matching difficulty
-        const diff = mapData.difficulties[diffKey] || mapData.difficulties.normal;
-        if (!diff) {
-            document.getElementById('item-list').innerHTML = '<div style="padding:20px;color:var(--muted)">该难度暂无数据</div>';
-            return;
-        }
-
-        currentData = { map: mapData, diff: diff };
-
-        // 计算边界：用数据里所有点位的 x/y 极值
-        const items = diff.items || [];
-        let minX=Infinity, maxX=-Infinity, minY=Infinity, maxY=-Infinity;
-        for (const it of items) {
-            const x = parseFloat(it.x) || 0, y = parseFloat(it.y) || 0;
-            if (x < minX) minX = x; if (x > maxX) maxX = x;
-            if (y < minY) minY = y; if (y > maxY) maxY = y;
-        }
-        // 若没有数据则用 map_info 里的宽高
-        const w = mapData.width / 128, h = mapData.height / 128;
-        if (!isFinite(minX)) { minX = 0; minY = -h; maxX = w; maxY = 0; }
-        const padX = (maxX - minX) * 0.05 || 1;
-        const padY = (maxY - minY) * 0.05 || 1;
-        const bounds = [[minY - padY, minX - padX], [maxY + padY, maxX + padX]];
-
-        // 移除旧图层
-        if (map._layers) {
-            Object.values(map._layers).forEach(l => map.removeLayer(l));
-        }
-
-        // 无底图：用半透明矩形表示地图区域 + 坐标网格
+    
+    <div class="main-container">
+        <div id="map"></div>
+        <div class="sidebar">
+            <div class="sidebar-title">📋 物资列表</div>
+            <div class="stats">
+                <div class="stat-card">
+                    <div class="value" id="totalCount">0</div>
+                    <div class="label">物资总数</div>
+                </div>
+                <div class="stat-card">
+                    <div class="value" id="categoryCount">0</div>
+                    <div class="label">物资类型</div>
+                </div>
+            </div>
+            <div id="itemList" class="item-list">
+                <div class="loading">加载中...</div>
+            </div>
+        </div>
+    </div>
+    
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script src="map_data_all.json"></script>
+    <script>
+        // 数据映射
+        const mapKeyMap = {
+            '零号大坝': '零号大坝',
+            '长弓溪谷': '长弓溪谷',
+            '航天基地': '航天基地',
+            '巴克什': '巴克什'
+        };
+        
+        // 难度后缀
+        const diffSuffix = {
+            '普通': '',
+            '机密': '2',
+            '绝密': '3'
+        };
+        
+        // 当前状态
+        let currentMap = '零号大坝';
+        let currentDiff = '普通';
+        let mapData = null;
+        let markers = [];
+        let stats = {};
+        
+        // 初始化地图
+        const map = L.map('map', {
+            crs: L.CRS.Simple,
+            minZoom: -3,
+            maxZoom: 2,
+            zoomControl: true
+        });
+        
+        // 设置地图边界（无底图，使用半透明背景）
+        const bounds = [[-500, -500], [500, 500]];
         L.rectangle(bounds, {
-            color: '#475569', fillColor: '#1e293b', fillOpacity: 0.4,
-            weight: 1, dashArray: '6 4'
+            color: '#ff6b00',
+            weight: 2,
+            fillColor: '#1a1f3a',
+            fillOpacity: 0.3
         }).addTo(map);
-
-        // 画坐标网格（每 100 单位一格）
-        const gridStep = 100;
-        for (let gx = Math.floor(minX / gridStep) * gridStep; gx <= maxX; gx += gridStep) {
-            L.polyline([[minY, gx], [maxY, gx]], { color: '#334155', weight: 0.5, opacity: 0.4 }).addTo(map);
-        }
-        for (let gy = Math.floor(minY / gridStep) * gridStep; gy <= maxY; gy += gridStep) {
-            L.polyline([[gy, minX], [gy, maxX]], { color: '#334155', weight: 0.5, opacity: 0.4 }).addTo(map);
-        }
-
         map.fitBounds(bounds);
-
-        renderMarkers(diff.items);
-        renderSidebar(mapData, diff);
-        // 渲染区域筛选
-        const areas = [...new Set(diff.items.map(i => item.area))].sort();
-        renderAreaFilter(areas);
-
-    } catch(e) {
-        console.error('Load error:', e);
-        document.getElementById('item-list').innerHTML = '<div style="padding:20px;color:var(--red)">加载失败: ' + e.message + '</div>';
-    }
-}
-
-function renderMarkers(items) {
-    markers.forEach(m => map.removeLayer(m));
-    markers = [];
-
-    const filtered = getFilteredItems(items);
-
-    for (const item of filtered) {
-        const color = CATEGORY_COLORS[item.c] || '#6b7280';
-        const icon = L.divIcon({
-            html: `<div style="width:12px;height:12px;border-radius:50%;background:${color};border:2px solid rgba(255,255,255,0.5);box-shadow:0 0 6px ${color}"></div>`,
-            className: '', iconSize: [12, 12], iconAnchor: [6, 6]
+        map.setMaxBounds([[-600, -600], [600, 600]]);
+        
+        // 坐标转换函数
+        function worldToLatLng(x, y, mapInfo) {
+            // 根据地图的实际宽高和中心点进行转换
+            const scale = 0.01; // 缩放因子
+            const lat = (mapInfo.centerY - y) * scale;
+            const lng = (x - mapInfo.centerX) * scale;
+            return [lat, lng];
+        }
+        
+        // 分类图标颜色
+        const categoryColors = {
+            '保险柜': '#FFD700',
+            '小保险箱': '#FFA500',
+            '武器箱': '#FF4444',
+            '医疗箱': '#44FF44',
+            '弹药箱': '#44AAFF',
+            '装备箱': '#AA44FF',
+            '特殊': '#FF44AA',
+            '钥匙卡': '#44FFAA',
+            'default': '#FF6B00'
+        };
+        
+        // 创建自定义图标
+        function createMarkerIcon(color) {
+            return L.divIcon({
+                className: 'custom-marker',
+                html: `<div style="
+                    width: 12px;
+                    height: 12px;
+                    background: ${color};
+                    border: 2px solid #fff;
+                    border-radius: 50%;
+                    box-shadow: 0 0 10px ${color};
+                "></div>`,
+                iconSize: [12, 12],
+                iconAnchor: [6, 6]
+            });
+        }
+        
+        // 获取物资图标颜色
+        function getCategoryColor(name) {
+            for (const [cat, color] of Object.entries(categoryColors)) {
+                if (name.includes(cat)) return color;
+            }
+            return categoryColors.default;
+        }
+        
+        // 加载地图数据
+        function loadMapData(mapName) {
+            mapData = window.mapDataAll[mapName];
+            if (!mapData) {
+                console.error('未找到地图数据:', mapName);
+                return;
+            }
+            
+            // 更新地图范围
+            const mapInfo = mapData.map_info;
+            const newBounds = [
+                [-mapInfo.height / 2000, -mapInfo.width / 2000],
+                [mapInfo.height / 2000, mapInfo.width / 2000]
+            ];
+            map.fitBounds(newBounds);
+            
+            // 显示物资点
+            displayItems();
+        }
+        
+        // 获取当前难度的物资数据
+        function getCurrentItems() {
+            if (!mapData) return [];
+            
+            const suffix = diffSuffix[currentDiff];
+            const navKey = 'navList' + suffix;
+            const articleKey = 'mapArticle' + suffix;
+            
+            const navData = mapData[navKey] || [];
+            const articleData = mapData[articleKey] || {};
+            
+            // 收集所有物资点位
+            const items = [];
+            
+            // 遍历导航分类
+            navData.forEach(nav => {
+                if (!nav.typeList) return;
+                
+                nav.typeList.forEach(type => {
+                    const typeArticles = articleData[type.idType] || [];
+                    
+                    typeArticles.forEach(article => {
+                        // 获取楼层信息
+                        let floor = '1F';
+                        if (article.floor && mapData.map_info.floor) {
+                            const floorInfo = mapData.map_info.floor.find(f => f.floor_f === article.floor);
+                            if (floorInfo) {
+                                floor = floorInfo.floor_name || article.floor;
+                            }
+                        }
+                        
+                        items.push({
+                            name: type.name,
+                            x: article.x,
+                            y: article.y,
+                            floor: floor || article.floor || '1F',
+                            typeId: type.idType
+                        });
+                    });
+                });
+            });
+            
+            return items;
+        }
+        
+        // 显示物资点
+        function displayItems() {
+            // 清除旧标记
+            markers.forEach(m => map.removeLayer(m));
+            markers = [];
+            stats = {};
+            
+            const items = getCurrentItems();
+            const mapInfo = mapData.map_info;
+            
+            items.forEach(item => {
+                const color = getCategoryColor(item.name);
+                
+                // 统计
+                if (!stats[item.name]) {
+                    stats[item.name] = { count: 0, items: [] };
+                }
+                stats[item.name].count++;
+                stats[item.name].items.push(item);
+                
+                // 坐标转换
+                const scale = 0.002;
+                const lat = (mapInfo.centerY - item.y) * scale;
+                const lng = (item.x - mapInfo.centerX) * scale;
+                
+                const marker = L.marker([lat, lng], {
+                    icon: createMarkerIcon(color)
+                }).addTo(map);
+                
+                marker.bindPopup(`
+                    <div class="popup-title">${item.name}</div>
+                    <div class="popup-info">
+                        坐标: (${Math.round(item.x)}, ${Math.round(item.y)})
+                        <span class="popup-floor">${item.floor}</span>
+                    </div>
+                `, {
+                    closeButton: false
+                });
+                
+                marker.on('mouseover', function() {
+                    this.openPopup();
+                });
+                
+                markers.push(marker);
+            });
+            
+            // 更新统计
+            updateStats();
+            updateItemList();
+        }
+        
+        // 更新统计
+        function updateStats() {
+            const totalCount = Object.values(stats).reduce((sum, s) => sum + s.count, 0);
+            const categoryCount = Object.keys(stats).length;
+            
+            document.getElementById('totalCount').textContent = totalCount;
+            document.getElementById('categoryCount').textContent = categoryCount;
+        }
+        
+        // 更新物资列表
+        function updateItemList() {
+            const itemList = document.getElementById('itemList');
+            const sortedStats = Object.entries(stats)
+                .sort((a, b) => b[1].count - a[1].count);
+            
+            if (sortedStats.length === 0) {
+                itemList.innerHTML = '<div class="loading">暂无数据</div>';
+                return;
+            }
+            
+            itemList.innerHTML = sortedStats.map(([name, data]) => {
+                const color = getCategoryColor(name);
+                const sample = data.items[0];
+                
+                return `
+                    <div class="item-card" onclick="focusItem('${name}')">
+                        <div class="name" style="color: ${color}">
+                            <span style="display:inline-block;width:8px;height:8px;background:${color};border-radius:50%;margin-right:6px;"></span>
+                            ${name}
+                        </div>
+                        <div class="info">数量: ${data.count}</div>
+                        <div class="floor">${sample.floor}</div>
+                    </div>
+                `;
+            }).join('');
+        }
+        
+        // 定位到物资
+        function focusItem(name) {
+            const item = stats[name];
+            if (!item || !item.items[0]) return;
+            
+            const mapInfo = mapData.map_info;
+            const first = item.items[0];
+            const scale = 0.002;
+            const lat = (mapInfo.centerY - first.y) * scale;
+            const lng = (first.x - mapInfo.centerX) * scale;
+            
+            map.setView([lat, lng], 1);
+        }
+        
+        // 事件绑定
+        document.querySelectorAll('[data-map]').forEach(btn => {
+            btn.addEventListener('click', () => {
+                document.querySelectorAll('[data-map]').forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                currentMap = btn.dataset.map;
+                loadMapData(currentMap);
+            });
         });
-
-        const m = L.marker([item.y, item.x], { icon }).addTo(map);
-        const catIcon = CATEGORY_ICONS[item.c] || '📍';
-        m.bindPopup(`
-            <div class="popup-name">${catIcon} ${item.n}</div>
-            <div class="popup-meta">
-                <div>分类: ${item.c}</div>
-                <div>区域: ${item.area}</div>
-                <div>刷新: ${item.sc || '固定'}</div>
-                ${item.isR ? '<div style="color:#f59e0b">⚡ 随机位置</div>' : ''}
-            </div>
-        `);
-
-        // Click marker → scroll to item in sidebar
-        m.on('click', () => {
-            const el = document.querySelector(`[data-item-name="${item.n}_${item.area}"]`);
-            if (el) { el.scrollIntoView({ behavior: 'smooth', block: 'center' }); el.style.borderColor = 'var(--accent)'; setTimeout(() => el.style.borderColor = '', 1500); }
+        
+        document.querySelectorAll('[data-diff]').forEach(btn => {
+            btn.addEventListener('click', () => {
+                document.querySelectorAll('[data-diff]').forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                currentDiff = btn.dataset.diff;
+                displayItems();
+            });
         });
-
-        markers.push(m);
-    }
-
-    document.getElementById('item-count').textContent = `${filtered.length} / ${items.length} 点位`;
-    document.getElementById('stats').innerHTML = `显示 <strong>${filtered.length}</strong> / ${items.length} 点位`;
-}
-
-function renderSidebar(mapData, diff) {
-    // Legend
-    const cats = [...new Set(diff.items.map(i => item.c))].sort();
-    document.getElementById('legend').innerHTML = cats.map(c => `
-        <label class="legend-item">
-            <input type="checkbox" checked onchange="toggleCategory('${c}', this.checked)">
-            <span class="legend-dot" style="background:${CATEGORY_COLORS[c]||'#6b7280'}"></span>
-            ${CATEGORY_ICONS[c]||''} ${c}
-        </label>
-    `).join('');
-
-    // Item list (filtered)
-    const filteredItems = getFilteredItems(diff.items);
-    document.getElementById('item-list').innerHTML = filteredItems.map(item => {
-        const color = CATEGORY_COLORS[item.c] || '#6b7280';
-        const isR = item.isR;
-        return `
-            <div class="item-card ${isR ? 'random' : ''}"
-                 data-item-name="${item.n}_${item.area}"
-                 onclick="panTo(${item.y}, ${item.x})"
-                 style="border-left: 3px solid ${color}">
-                <div class="item-name">${CATEGORY_ICONS[item.c]||'📍'} ${item.n}</div>
-                <div class="item-meta">${item.c} ${isR ? '⚡' : ''}</div>
-                <div class="item-area">${item.area}</div>
-            </div>
-        `;
-    }).join('');
-}
-
-function panTo(y, x) {
-    map.flyTo([y, x], Math.max(map.getZoom(), 2), { duration: 0.5 });
-}
-
-function toggleCategory(cat, checked) {
-    if (checked) activeCategories.add(cat);
-    else activeCategories.delete(cat);
-    if (currentData) { renderMarkers(currentData.diff.items); renderSidebar(currentData.map, currentData.diff); }
-}
-
-function toggleArea(area, checked) {
-    if (checked) selectedAreas.add(area);
-    else selectedAreas.delete(area);
-    if (currentData) { renderMarkers(currentData.diff.items); renderSidebar(currentData.map, currentData.diff); }
-}
-
-function clearAreaFilter() {
-    selectedAreas.clear();
-    document.querySelectorAll('#area-filter input[type=checkbox]').forEach(cb => cb.checked = true);
-    if (currentData) { renderMarkers(currentData.diff.items); renderSidebar(currentData.map, currentData.diff); }
-}
-
-function renderAreaFilter(areas) {
-    const container = document.getElementById('area-filter');
-    container.innerHTML = areas.map(a => `
-        <label style="display:flex;align-items:center;gap:6px;padding:3px 0;font-size:11px;cursor:pointer;">
-            <input type="checkbox" checked onchange="toggleArea('${a}', this.checked)">
-            ${a}
-        </label>
-    `).join('');
-}
-
-function exportCSV() {
-    if (!currentData) return;
-    const items = getFilteredItems(currentData.diff.items);
-    if (items.length === 0) { alert('没有可导出的数据'); return; }
-    
-    const headers = ['名称', '分类', '区域', 'X', 'Y', '刷新', '随机位置'];
-    const rows = items.map(i => [item.n, item.c, item.area, i.x, i.y, item.sc || '固定', item.isR ? '是' : '否']);
-    
-    const csv = [headers.join(','), ...rows.map(r => r.map(c => `"${c}"`).join(','))].join('\n');
-    const bom = '\uFEFF';
-    const blob = new Blob([bom + csv], { type: 'text/csv;charset=utf-8;' });
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement('a');
-    a.href = url;
-    a.download = `三角眼_物资列表_${currentData.map.name}_${currentData.diff.label}.csv`;
-    a.click();
-    URL.revokeObjectURL(url);
-}
-
-// Event listeners
-document.getElementById('map-select').addEventListener('change', loadMap);
-document.getElementById('diff-select').addEventListener('change', loadMap);
-document.getElementById('toggle-sidebar').addEventListener('click', () => {
-    document.getElementById('sidebar').style.display =
-        document.getElementById('sidebar').style.display === 'none' ? 'flex' : 'none';
-});
-
-document.getElementById('search-input').addEventListener('input', (e) => {
-    searchKeyword = e.target.value;
-    if (currentData) { renderMarkers(currentData.diff.items); renderSidebar(currentData.map, currentData.diff); }
-});
-
-init();
-</script>
+        
+        // 初始化
+        window.addEventListener('load', () => {
+            loadMapData(currentMap);
+        });
+    </script>
 </body>
 </html>

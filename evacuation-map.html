@@ -3,57 +3,328 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>撤离路线图 - 三角洲行动攻略 | 三角眼</title>
+    <title>撤离路线图 - 三角洲行动攻略</title>
     <style>
-        * { margin:0; padding:0; box-sizing: border-box; }
-        body { font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif; background:linear-gradient(135deg,#0a0e1a 0%,#1a1f3a 100%); color:#e0e0e0; min-height:100vh; padding:20px; }
-        .container { max-width:1400px; margin:0 auto; }
-        .header { text-align:center; margin-bottom:40px; padding:30px; background:rgba(255,107,0,0.1); border:2px solid #ff6b00; border-radius:15px; }
-        .header h1 { color:#ff6b00; font-size:2.5em; margin-bottom:10px; }
-        .header p { color:#888; font-size:1.1em; }
-        .map-selector { display:flex; gap:15px; margin-bottom:30px; flex-wrap:wrap; justify-content:center; }
-        .map-btn { padding:12px 24px; background:rgba(255,107,0,0.2); border:2px solid #ff6b00; border-radius:8px; color:#ff6b00; cursor:pointer; transition:all 0.3s; font-size:1em; font-weight:bold; }
-        .map-btn:hover, .map-btn.active { background:#ff6b00; color:#000; }
-        .map-content { display:none; }
-        .map-content.active { display:block; animation:fadeIn 0.5s; }
-        @keyframes fadeIn { from{opacity:0;transform:translateY(20px)} to{opacity:1;transform:translateY(0)} }
-        .map-header { background:rgba(255,107,0,0.15); border:2px solid #ff6b00; border-radius:12px; padding:25px; margin-bottom:30px; }
-        .map-header h2 { color:#ff6b00; font-size:2em; margin-bottom:10px; }
-        .map-meta { display:flex; gap:30px; margin-top:15px; flex-wrap:wrap; }
-        .meta-item { display:flex; align-items:center; gap:8px; }
-        .meta-item .label { color:#888; }
-        .meta-item .value { color:#ff6b00; font-weight:bold; }
-        .evacuation-points { display:grid; gap:25px; margin-bottom:30px; }
-        .evacuation-card { background:rgba(255,255,255,0.05); border:2px solid #333; border-radius:12px; padding:25px; transition:all 0.3s; }
-        .evacuation-card:hover { border-color:#ff6b00; transform:translateY(-3px); box-shadow:0 6px 20px rgba(255,107,0,0.3); }
-        .evacuation-header { display:flex; justify-content:space-between; align-items:center; margin-bottom:20px; padding-bottom:15px; border-bottom:2px solid #333; }
-        .evacuation-name { font-size:1.5em; color:#ff6b00; font-weight:bold; }
-        .evacuation-type { padding:6px 15px; border-radius:20px; font-size:0.85em; font-weight:bold; }
-        .type-standard { background:rgba(76,175,80,0.3); color:#4CAF50; border:1px solid #4CAF50; }
-        .type-keycard { background:rgba(255,193,7,0.3); color:#FFC107; border:1px solid #FFC107; }
-        .type-hidden { background:rgba(156,39,176,0.3); color:#9C27B0; border:1px solid #9C27B0; }
-        .type-device { background:rgba(255,87,34,0.3); color:#FF5722; border:1px solid #FF5722; }
-        .evacuation-details { display:grid; grid-template-columns:repeat(auto-fit,minmax(250px,1fr)); gap:15px; margin-bottom:20px; }
-        .detail-item { padding:12px; background:rgba(255,255,255,0.03); border-radius:8px; }
-        .detail-label { color:#888; font-size:0.9em; margin-bottom:5px; }
-        .detail-value { color:#fff; font-weight:bold; font-size:1.05em; }
-        .risk-low { color:#4CAF50; }
-        .risk-medium { color:#FFC107; }
-        .risk-high { color:#FF5722; }
-        .risk-extreme { color:#f44336; }
-        .evacuation-route { background:rgba(255,107,0,0.1); border-left:4px solid #ff6b00; padding:20px; border-radius:8px; margin-top:15px; }
-        .route-title { color:#ff6b00; font-size:1.2em; font-weight:bold; margin-bottom:15px; }
-        .route-steps { list-style:none; padding:0; counter-reset:step; }
-        .route-steps li { padding:10px 0 10px 30px; position:relative; color:#ccc; line-height:1.6; }
-        .route-steps li:before { content:counter(step); counter-increment:step; position:absolute; left:0; top:10px; width:22px; height:22px; background:#ff6b00; color:#000; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:0.85em; font-weight:bold; }
-        .tips-section { background:rgba(255,255,255,0.05); border-radius:12px; padding:25px; margin-top:30px; }
-        .tips-title { color:#ff6b00; font-size:1.5em; margin-bottom:20px; font-weight:bold; }
-        .tips-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:15px; }
-        .tip-card { padding:15px; background:rgba(255,107,0,0.1); border-radius:8px; border-left:3px solid #ff6b00; }
-        .tip-card h4 { color:#ff6b00; margin-bottom:8px; }
-        .tip-card p { color:#ccc; font-size:0.95em; line-height:1.5; }
-        .loading { text-align:center; padding:60px; color:#888; font-size:1.2em; }
-        @media(max-width:768px) { .header h1{font-size:1.8em;} .map-meta{flex-direction:column;} .evacuation-details{grid-template-columns:1fr;} }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #0a0e1a 0%, #1a1f3a 100%);
+            color: #e0e0e0;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding: 30px;
+            background: rgba(255, 107, 0, 0.1);
+            border: 2px solid #ff6b00;
+            border-radius: 15px;
+        }
+
+        .header h1 {
+            color: #ff6b00;
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+
+        .header p {
+            color: #888;
+            font-size: 1.1em;
+        }
+
+        .map-selector {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .map-btn {
+            padding: 12px 24px;
+            background: rgba(255, 107, 0, 0.2);
+            border: 2px solid #ff6b00;
+            border-radius: 8px;
+            color: #ff6b00;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 1em;
+            font-weight: bold;
+        }
+
+        .map-btn:hover,
+        .map-btn.active {
+            background: #ff6b00;
+            color: #000;
+        }
+
+        .map-content {
+            display: none;
+        }
+
+        .map-content.active {
+            display: block;
+            animation: fadeIn 0.5s;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .map-header {
+            background: rgba(255, 107, 0, 0.15);
+            border: 2px solid #ff6b00;
+            border-radius: 12px;
+            padding: 25px;
+            margin-bottom: 30px;
+        }
+
+        .map-header h2 {
+            color: #ff6b00;
+            font-size: 2em;
+            margin-bottom: 10px;
+        }
+
+        .map-meta {
+            display: flex;
+            gap: 30px;
+            margin-top: 15px;
+            flex-wrap: wrap;
+        }
+
+        .meta-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .meta-item .label {
+            color: #888;
+        }
+
+        .meta-item .value {
+            color: #ff6b00;
+            font-weight: bold;
+        }
+
+        .evacuation-points {
+            display: grid;
+            gap: 25px;
+            margin-bottom: 30px;
+        }
+
+        .evacuation-card {
+            background: rgba(255, 255, 255, 0.05);
+            border: 2px solid #333;
+            border-radius: 12px;
+            padding: 25px;
+            transition: all 0.3s;
+        }
+
+        .evacuation-card:hover {
+            border-color: #ff6b00;
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(255, 107, 0, 0.3);
+        }
+
+        .evacuation-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #333;
+        }
+
+        .evacuation-name {
+            font-size: 1.5em;
+            color: #ff6b00;
+            font-weight: bold;
+        }
+
+        .evacuation-type {
+            padding: 6px 15px;
+            border-radius: 20px;
+            font-size: 0.85em;
+            font-weight: bold;
+        }
+
+        .type-standard {
+            background: rgba(76, 175, 80, 0.3);
+            color: #4CAF50;
+            border: 1px solid #4CAF50;
+        }
+
+        .type-keycard {
+            background: rgba(255, 193, 7, 0.3);
+            color: #FFC107;
+            border: 1px solid #FFC107;
+        }
+
+        .type-hidden {
+            background: rgba(156, 39, 176, 0.3);
+            color: #9C27B0;
+            border: 1px solid #9C27B0;
+        }
+
+        .type-device {
+            background: rgba(255, 87, 34, 0.3);
+            color: #FF5722;
+            border: 1px solid #FF5722;
+        }
+
+        .evacuation-details {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .detail-item {
+            padding: 12px;
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 8px;
+        }
+
+        .detail-label {
+            color: #888;
+            font-size: 0.9em;
+            margin-bottom: 5px;
+        }
+
+        .detail-value {
+            color: #fff;
+            font-weight: bold;
+            font-size: 1.05em;
+        }
+
+        .risk-low { color: #4CAF50; }
+        .risk-medium { color: #FFC107; }
+        .risk-high { color: #FF5722; }
+        .risk-extreme { color: #f44336; }
+
+        .evacuation-route {
+            background: rgba(255, 107, 0, 0.1);
+            border-left: 4px solid #ff6b00;
+            padding: 20px;
+            border-radius: 8px;
+            margin-top: 15px;
+        }
+
+        .route-title {
+            color: #ff6b00;
+            font-size: 1.2em;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+
+        .route-steps {
+            list-style: none;
+            padding: 0;
+        }
+
+        .route-steps li {
+            padding: 10px 0;
+            padding-left: 30px;
+            position: relative;
+            color: #ccc;
+            line-height: 1.6;
+        }
+
+        .route-steps li:before {
+            content: counter(step);
+            counter-increment: step;
+            position: absolute;
+            left: 0;
+            top: 10px;
+            width: 22px;
+            height: 22px;
+            background: #ff6b00;
+            color: #000;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.85em;
+            font-weight: bold;
+        }
+
+        .route-steps {
+            counter-reset: step;
+        }
+
+        .tips-section {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 12px;
+            padding: 25px;
+            margin-top: 30px;
+        }
+
+        .tips-title {
+            color: #ff6b00;
+            font-size: 1.5em;
+            margin-bottom: 20px;
+            font-weight: bold;
+        }
+
+        .tips-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 15px;
+        }
+
+        .tip-card {
+            padding: 15px;
+            background: rgba(255, 107, 0, 0.1);
+            border-radius: 8px;
+            border-left: 3px solid #ff6b00;
+        }
+
+        .tip-card h4 {
+            color: #ff6b00;
+            margin-bottom: 8px;
+        }
+
+        .tip-card p {
+            color: #ccc;
+            font-size: 0.95em;
+            line-height: 1.5;
+        }
+
+        .loading {
+            text-align: center;
+            padding: 60px;
+            color: #888;
+            font-size: 1.2em;
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 1.8em;
+            }
+
+            .map-meta {
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            .evacuation-details {
+                grid-template-columns: 1fr;
+            }
+        }
     </style>
 </head>
 <body>
@@ -62,182 +333,245 @@
             <h1>🗺️ 撤离路线图</h1>
             <p>详细的撤离点信息与路线规划 - 确保成功撤离</p>
         </div>
+
         <div class="map-selector">
             <button class="map-btn active" data-map="zeroDam">零号大坝</button>
             <button class="map-btn" data-map="spacePort">航天基地</button>
             <button class="map-btn" data-map="buckish">巴克什</button>
             <button class="map-btn" data-map="tidalPrison">潮汐监狱</button>
         </div>
+
         <div id="map-container"></div>
     </div>
 
     <script>
-        // 内嵌撤离数据 - 来源：多数据源交叉验证（oppozhijia/9game/ali213/17173/news.qq/sohu）
-        const EVAC_DATA = {
-            "maps": {
-                "zeroDam": {
-                    "name": "零号大坝",
-                    "points": [
-                        {"name":"东侧固定撤离点","type":"标准撤离","location":"地图东侧","condition":"免费，等待30秒","risk":"中","note":"固定刷新，视野开阔，易被蹲守"},
-                        {"name":"西侧固定撤离点","type":"标准撤离","location":"地图西侧","condition":"免费，等待30秒","risk":"中","note":"固定刷新，视野开阔，易被蹲守"},
-                        {"name":"水泥厂南侧撤离点","type":"概率撤离","location":"水泥厂南侧","condition":"随机开放，无条件","risk":"低","note":"随机开放，无需额外条件"},
-                        {"name":"游客中心南侧撤离点","type":"概率撤离","location":"游客中心南侧","condition":"随机开放，无条件","risk":"低","note":"随机开放，无需额外条件"},
-                        {"name":"中央山体南侧撤离点","type":"付费撤离","location":"中央山体南侧","condition":"支付哈夫币开启","risk":"低","note":"位置偏僻，被伏击概率低"},
-                        {"name":"军营北侧维修隧道","type":"条件撤离","location":"军营北侧","condition":"需丢弃背包","risk":"中","note":"可保留胸挂内物品"},
-                        {"name":"东北方山顶高点","type":"条件撤离","location":"东北方山顶","condition":"限制负重，超重无法使用","risk":"中","note":"适合轻装撤离"},
-                        {"name":"工业电梯撤离点","type":"拉闸撤离","location":"工业区","condition":"需拉下闸门，等待3分钟","risk":"高","note":"拉闸触发全图警报，易被蹲守"}
-                    ]
-                },
-                "spacePort": {
-                    "name": "航天基地",
-                    "points": [
-                        {"name":"丢包撤离点","type":"丢包撤离","location":"东南侧水平试车间","condition":"游戏开始9分钟后开放，需丢弃背包","risk":"低","note":"最稳妥，机密3人/绝密1人"},
-                        {"name":"拉闸撤离点（直升机）","type":"拉闸撤离","location":"地图右下方桥下","condition":"需拉蓝室+离心机室双闸，等待5分钟","risk":"中","note":"适合携带物资的小队"},
-                        {"name":"飞升撤离点","type":"任务撤离","location":"火箭平台","condition":"14分40秒后接取任务，坚守270秒","risk":"高","note":"全图通知，收益最高，风险最大"}
-                    ]
-                },
-                "buckish": {
-                    "name": "巴克什",
-                    "points": [
-                        {"name":"丢包撤离点","type":"丢包撤离","location":"地图北侧","condition":"16分钟后开放，需丢弃背包","risk":"低","note":"机密模式可撤3人，绝密仅1人"},
-                        {"name":"塔前集装箱撤离点","type":"拉闸撤离","location":"塔前集装箱","condition":"需前往博物馆地下或巴比塔中控拉闸，等待4分钟","risk":"中","note":"无人数限制，拉闸后4分钟可撤"},
-                        {"name":"博士任务撤离点","type":"任务撤离","location":"旅馆西侧","condition":"完成护送博士任务","risk":"中","note":"机密非固定刷新，绝密固定刷新"},
-                        {"name":"塔顶飞鼠撤离点","type":"条件撤离","location":"巴别塔顶南侧","condition":"上交两个身份牌，等待10秒","risk":"高","note":"仅可撤离一人"},
-                        {"name":"浴场撤离点","type":"拉闸撤离","location":"浴场东北角","condition":"需前往博物馆东楼二层拉闸，等待5分钟","risk":"中","note":"仅机密模式，每局限用1次"}
-                    ]
-                },
-                "tidalPrison": {
-                    "name": "潮汐监狱",
-                    "points": [
-                        {"name":"丢包撤离点","type":"丢包撤离","location":"西北角施工区","condition":"15分钟后开放，需丢弃背包，等待10秒","risk":"低","note":"每局限1人使用"},
-                        {"name":"拉闸撤离点（随机）","type":"拉闸撤离","location":"水动力渠/潮汐控制室/牢房东北侧（随机开启一个）","condition":"需医疗区电脑解密+行政区拉闸，等待5分钟","risk":"中","note":"每局限拉2次，需团队合作"},
-                        {"name":"延迟撤离点（水上平台）","type":"固定撤离","location":"南边水上平台","condition":"20分钟后自动开放，等待4分钟","risk":"高","note":"视野开阔，易被狙击，建议组队"}
-                    ]
-                }
+        let gameMechanicsData = null;
+
+        // 加载数据
+        async function loadData() {
+            try {
+                const response = await fetch('game-mechanics.json');
+                gameMechanicsData = await response.json();
+                initMapSelector();
+                showMap('zeroDam');
+            } catch (error) {
+                console.error('加载数据失败:', error);
+                document.getElementById('map-container').innerHTML = 
+                    '<div class="loading">❌ 加载数据失败，请确保 game-mechanics.json 存在</div>';
             }
-        };
+        }
 
-        // 路线规划
-        const ROUTES = {
-            zeroDam: [
-                ["从出生点向地图东侧移动","找好掩体，等待30秒","确认周围安全再撤离","适合轻装快速撤离"],
-                ["从出生点向地图西侧移动","找好掩体，等待30秒","确认周围安全再撤离","适合轻装快速撤离"],
-                ["向水泥厂/游客中心南侧移动","确认撤离点是否随机开放","开放则停留等待，未开放转其他点","概率点建议提前确认"],
-                ["向中央山体南侧移动","准备足够哈夫币支付费用","支付后等待撤离","位置偏僻，被伏击概率低"],
-                ["向军营北侧维修隧道移动","提前将重要物品转入胸挂","丢弃背包后进入隧道","可保留胸挂内所有物品"],
-                ["向工业区移动","找到闸门并拉下","等待3分钟倒计时","拉闸会触发全图警报，易被蹲守"]
-            ],
-            spacePort: [
-                ["向东南侧水平试车间移动","等待9分钟撤离点开放","丢弃背包（保留胸挂物品）","等待10秒快速撤离，机密3人/绝密1人"],
-                ["找到蓝室闸门（负一楼工厂区）","拉下蓝室闸门，再拉离心机室闸门","双闸激活后前往桥下直升机点","等待5分钟，建议小队协作"],
-                ["14分40秒后到发射区桥上接取任务","破译电脑后坚守270秒","抵御AI攻击并注意其他玩家偷袭","任务完成前往火箭平台撤离"]
-            ],
-            buckish: [
-                ["向地图北侧移动","等待16分钟撤离点开放","丢弃背包（保留胸挂物品）","等待10秒撤离，机密3人/绝密1人"],
-                ["找到拉闸点（博物馆地下或巴比塔中控）","拉闸后等待4分钟","前往塔前集装箱撤离点","无人数限制，适合小队"],
-                ["接取护送博士任务并完成任务","前往旅馆西侧撤离点","机密非固定刷新，绝密固定刷新","完成任务才能使用此点"],
-                ["获取两个身份牌","前往巴别塔顶南侧","上交身份牌后等待10秒","仅可撤离一人，需提前规划"],
-                ["找到博物馆东楼二层拉闸点","拉闸后等待5分钟","前往浴场东北角撤离点","仅机密模式可用，每局限1次"]
-            ],
-            tidalPrison: [
-                ["向西北角施工区移动","等待15分钟撤离点开放","丢弃背包（保留胸挂物品）","等待10秒撤离，每局限1人"],
-                ["前往医疗实验区破解绿色电脑","到行政区拉下闸门","等待5分钟，三个管道随机开一个","每局限拉2次，需团队合作"],
-                ["等待20分钟水上平台自动开放","前往南边水上平台","视野开阔易被狙击，建议组队掩护","等待4分钟撤离"]
-            ]
-        };
-
-        // 技巧（数据来源：多社区攻略交叉验证，需游戏内实测确认）
-        const TIPS = {
-            zeroDam: [
-                {title:"🎯 固定撤离点选择",content:"东西固定点易被蹲守，建议选择与出生点相反方向的撤离点，减少路上遇敌。"},
-                {title:"🎲 概率撤离点",content:"水泥厂/游客中心南侧为随机开放，出发前先确认是否亮灯，未开放立即转点。"},
-                {title:"💰 付费撤离点",content:"中央山体南侧需支付哈夫币，位置偏僻被伏击概率低，适合满载撤离。"},
-                {title:"🎒 丢包撤离（维修隧道）",content:"重要物品转入胸挂再丢弃背包，可保留高价值小件，适合紧急避险。"},
-                {title:"⚠️ 拉闸撤离（工业电梯）",content:"拉闸会触发全图警报，位置直接暴露，建议小队协作，一人拉闸其他人掩护。"}
-            ],
-            spacePort: [
-                {title:"🎒 丢包撤离最稳妥",content:"东南侧水平试车间9分钟后开放，适合新手保底或紧急避险，但无法携带大件物资。"},
-                {title:"🔧 拉闸撤离需双闸",content:"需拉蓝室+离心机室两道闸，建议小队分工同时前往，拉闸后5分钟倒计时注意敌人埋伏。"},
-                {title:"🚀 飞升撤离收益最高",content:"14分40秒后接取任务，需坚守270秒，全图通知易被偷袭，仅推荐满编队尝试。"}
-            ],
-            buckish: [
-                {title:"🎒 丢包撤离（16分钟）",content:"地图北侧丢包点16分钟后开放，机密可撤3人、绝密仅1人，胸挂物品可保留。"},
-                {title:"🔧 塔前集装箱（拉闸）",content:"需博物馆地下或巴比塔中控拉闸，拉闸后4分钟可撤，无人数限制，拉闸后冷却5秒。"},
-                {title:"📋 博士任务撤离",content:"需完成护送博士任务才能使用，机密模式非固定刷新、绝密模式固定刷新，20分钟开放。"},
-                {title:"🏗️ 塔顶飞鼠（身份牌）",content:"需上交两个身份牌，仅可撤离一人，21分钟开放，适合单人带高价值物资撤离。"},
-                {title:"🛀 浴场撤离（仅机密）",content:"需博物馆东楼二层拉闸，仅机密模式可用，每局限用1次，拉闸后5分钟可撤。"}
-            ],
-            tidalPrison: [
-                {title:"🎒 丢包撤离（15分钟）",content:"西北角施工区15分钟后开放，需丢弃背包，每局限1人使用，竞争激烈需抢先到达。"},
-                {title:"🔧 拉闸撤离（随机）",content:"需医疗区电脑解密+行政区拉闸，三个管道随机开启一个，每局限拉2次，需团队合作。"},
-                {title:"⏰ 延迟撤离（20分钟）",content:"南边水上平台20分钟后自动开放，无人数限制但视野开阔，易被狙击，建议组队掩护撤离。"}
-            ]
-        };
-
-        // 初始化
-        document.addEventListener('DOMContentLoaded', () => {
-            initMapSelector();
-            showMap('zeroDam');
-        });
-
+        // 初始化地图选择器
         function initMapSelector() {
-            document.querySelectorAll('.map-btn').forEach(btn => {
+            const buttons = document.querySelectorAll('.map-btn');
+            buttons.forEach(btn => {
                 btn.addEventListener('click', () => {
-                    document.querySelectorAll('.map-btn').forEach(b => b.classList.remove('active'));
+                    buttons.forEach(b => b.classList.remove('active'));
                     btn.classList.add('active');
                     showMap(btn.dataset.map);
                 });
             });
         }
 
+        // 显示地图详情
         function showMap(mapKey) {
             const container = document.getElementById('map-container');
-            const mapData = EVAC_DATA.maps[mapKey];
+            const mapData = gameMechanicsData.evacuationPoints.maps[mapKey];
+            
             if (!mapData) {
                 container.innerHTML = '<div class="loading">❌ 未找到地图数据</div>';
                 return;
             }
 
             const difficultyMap = {
-                zeroDam: {text:'简单',color:'#4CAF50'},
-                spacePort: {text:'困难',color:'#FF5722'},
-                buckish: {text:'中等',color:'#FFC107'},
-                tidalPrison: {text:'极难',color:'#f44336'}
+                'zeroDam': { text: '简单', color: '#4CAF50' },
+                'spacePort': { text: '困难', color: '#FF5722' },
+                'buckish': { text: '中等', color: '#FFC107' },
+                'tidalPrison': { text: '极难', color: '#f44336' }
             };
-            const difficulty = difficultyMap[mapKey] || {text:'未知',color:'#888'};
 
-            let html = `<div class="map-content active">
-                <div class="map-header">
-                    <h2>${mapData.name}</h2>
-                    <div class="map-meta">
-                        <div class="meta-item"><span class="label">难度：</span><span class="value" style="color:${difficulty.color}">${difficulty.text}</span></div>
-                        <div class="meta-item"><span class="label">撤离点数量：</span><span class="value">${mapData.points.length}个</span></div>
+            const difficulty = difficultyMap[mapKey] || { text: '未知', color: '#888' };
+
+            let html = `
+                <div class="map-content active">
+                    <div class="map-header">
+                        <h2>${mapData.name}</h2>
+                        <div class="map-meta">
+                            <div class="meta-item">
+                                <span class="label">难度：</span>
+                                <span class="value" style="color: ${difficulty.color}">${difficulty.text}</span>
+                            </div>
+                            <div class="meta-item">
+                                <span class="label">撤离点数量：</span>
+                                <span class="value">${mapData.points.length}个</span>
+                            </div>
+                        </div>
                     </div>
-                </div>
-                <div class="evacuation-points">`;
+
+                    <div class="evacuation-points">
+            `;
 
             mapData.points.forEach((point, index) => {
-                const typeClass = point.type==='标准撤离'?'type-standard':point.type==='钥匙卡撤离'?'type-keycard':point.type==='隐藏撤离'?'type-hidden':'type-device';
-                const riskClass = point.risk==='低'?'risk-low':point.risk==='中'?'risk-medium':point.risk==='高'?'risk-high':'risk-extreme';
-                const route = ROUTES[mapKey]?ROUTES[mapKey][index]||[]:[];
-                html += `<div class="evacuation-card">
-                    <div class="evacuation-header">
-                        <div class="evacuation-name">${point.name}</div>
-                        <div class="evacuation-type ${typeClass}">${point.type}</div>
+                const typeClass = `type-${point.type === '标准撤离' ? 'standard' : 
+                                                  point.type === '钥匙卡撤离' ? 'keycard' : 
+                                                  point.type === '隐藏撤离' ? 'hidden' : 'device'}`;
+                
+                const riskClass = `risk-${point.risk === '低' ? 'low' : 
+                                            point.risk === '中' ? 'medium' : 
+                                            point.risk === '高' ? 'high' : 'extreme'}`;
+
+                const route = getEvacuationRoute(mapKey, index);
+
+                html += `
+                    <div class="evacuation-card">
+                        <div class="evacuation-header">
+                            <div class="evacuation-name">${point.name}</div>
+                            <div class="evacuation-type ${typeClass}">${point.type}</div>
+                        </div>
+
+                        <div class="evacuation-details">
+                            <div class="detail-item">
+                                <div class="detail-label">📍 位置</div>
+                                <div class="detail-value">${point.location}</div>
+                            </div>
+                            <div class="detail-item">
+                                <div class="detail-label">⏱️ 撤离条件</div>
+                                <div class="detail-value">${point.condition}</div>
+                            </div>
+                            <div class="detail-item">
+                                <div class="detail-label">⚠️ 风险等级</div>
+                                <div class="detail-value ${riskClass}">${point.risk}</div>
+                            </div>
+                            <div class="detail-item">
+                                <div class="detail-label">💡 提示</div>
+                                <div class="detail-value">${point.note}</div>
+                            </div>
+                        </div>
+
+                        <div class="evacuation-route">
+                            <div class="route-title">📍 推荐撤离路线</div>
+                            <ul class="route-steps">
+                                ${route.map(step => `<li>${step}</li>`).join('')}
+                            </ul>
+                        </div>
                     </div>
-                    <div class="evacuation-details">
-                        <div class="detail-item"><div class="detail-label">📍 位置</div><div class="detail-value">${point.location}</div></div>
-                        <div class="detail-item"><div class="detail-label">⏱️ 撤离条件</div><div class="detail-value">${point.condition}</div></div>
-                        <div class="detail-item"><div class="detail-label">⚠️ 风险等级</div><div class="detail-value ${riskClass}">${point.risk}</div></div>
-                        <div class="detail-item"><div class="detail-label">💡 提示</div><div class="detail-value">${point.note}</div></div>
-                    </div>
-                    <div class="evacuation-route"><div class="route-title">📍 推荐撤离路线</div><ul class="route-steps">${route.map(s=>`<li>${s}</li>`).join('')}</ul></div>
-                </div>`;
+                `;
             });
 
-            html += `</div><div class="tips-section"><div class="tips-title">💡 ${mapData.name} 撤离技巧</div><div class="tips-grid">${(TIPS[mapKey]||[]).map(t=>`<div class="tip-card"><h4>${t.title}</h4><p>${t.content}</p></div>`).join('')}</div></div></div>`;
+            html += `
+                    </div>
+
+                    <div class="tips-section">
+                        <div class="tips-title">💡 ${mapData.name} 撤离技巧</div>
+                        <div class="tips-grid">
+                            ${getMapTips(mapKey).map(tip => `
+                                <div class="tip-card">
+                                    <h4>${tip.title}</h4>
+                                    <p>${tip.content}</p>
+                                </div>
+                            `).join('')}
+                        </div>
+                    </div>
+                </div>
+            `;
+
             container.innerHTML = html;
         }
+
+        // 获取撤离路线
+        function getEvacuationRoute(mapKey, pointIndex) {
+            const routes = {
+                'zeroDam': [
+                    [
+                        '从行政楼出发，沿左侧小路向西北方向移动',
+                        '经过变电站时注意右侧高地可能有狙击手',
+                        '到达大坝顶部撤离点，找好掩体等待30秒',
+                        '撤离时保持警惕，确认周围安全再进出撤离区'
+                    ],
+                    [
+                        '从宿舍区或行政楼出发，向东南方向移动到地下通道入口',
+                        '启动3个发电机（位置：通道入口、中间平台、出口附近）',
+                        '启动后等待10秒，撤离门打开',
+                        '快速撤离，注意通道内可能有埋伏'
+                    ]
+                ],
+                'spacePort': [
+                    [
+                        '需要先拉下两个闸门（主控中心和仓库区各一个）',
+                        '闸门启动后，前往正门撤离点',
+                        '等待45秒，期间找好掩体防御',
+                        '建议携带烟雾弹，遮挡敌方视线'
+                    ],
+                    [
+                        '获取后勤通道钥匙卡（击杀BOSS或搜索钥匙房）',
+                        '从地图北侧进入后勤通道',
+                        '直接使用钥匙卡开启撤离门，等待15秒',
+                        '最安全的撤离方式，推荐优先使用'
+                    ]
+                ],
+                'buckish': [
+                    [
+                        '从商业中心或住宅区向地铁站移动',
+                        '地铁站人员密集，建议从侧门进入',
+                        '等待30秒，期间注意四周',
+                        '高风险撤离点，建议快速清理周围敌人'
+                    ],
+                    [
+                        '找到地下停车场入口（地图西南）',
+                        '启动备用电源（通常在一楼控制室）',
+                        '电源启动后，撤离门打开',
+                        '适合从商业中心带物资撤离'
+                    ]
+                ],
+                'tidalPrison': [
+                    [
+                        '最难撤离点，需要拉下两个闸门',
+                        '从监狱内部向正门移动，路线开阔易被狙击',
+                        '等待60秒，建议带满药品和烟雾弹',
+                        '如果失败，立即转往海岸警卫队撤离点'
+                    ],
+                    [
+                        '获取海岸警卫队钥匙卡（监狱长办公室或BOSS掉落）',
+                        '从监狱向东侧海岸移动，路线相对安全',
+                        '使用钥匙卡开启撤离门，等待20秒',
+                        '相对安全的撤离点，推荐作为备用方案'
+                    ]
+                ]
+            };
+
+            return routes[mapKey] ? routes[mapKey][pointIndex] || ['路线规划开发中...'] : ['路线规划开发中...'];
+        }
+
+        // 获取地图技巧
+        function getMapTips(mapKey) {
+            const tips = {
+                'zeroDam': [
+                    { title: '🎯 首选撤离点', content: '大坝顶部撤离点最安全，适合新手。地下通道适合快速撤离，但需要提前启动发电机。' },
+                    { title: '⚠️ 注意事项', content: '地下通道撤退时要注意噪音，发电机启动声音会暴露位置。' },
+                    { title: '💼 物资建议', content: '零号大坝物资价值中等，建议携带中等容量背包（15-18格）。' }
+                ],
+                'spacePort': [
+                    { title: '🎯 拉闸顺序', content: '建议先拉主控中心闸门，再拉仓库区闸门。拉闸后快速移动到正门撤离点。' },
+                    { title: '🔑 钥匙卡优先', content: '后勤通道钥匙卡是航天基地最安全的撤离方式，优先获取。' },
+                    { title: '⚠️ 高风险提醒', content: '航天基地竞争激烈，撤离时至少有1人放哨，防止被偷袭。' }
+                ],
+                'buckish': [
+                    { title: '🎯 避开地铁站', content: '地铁站撤离点风险过高，建议优先使用地下停车场撤离点。' },
+                    { title: '💡 隐蔽路线', content: '从住宅区沿小巷移动到地下停车场，避开商业中心主路。' },
+                    { title: '🛡️ 防御准备', content: '巴克什巷战居多，建议携带霰弹枪或冲锋枪，近战优势明显。' }
+                ],
+                'tidalPrison': [
+                    { title: '🎯 双撤离点策略', content: '优先尝试海岸警卫队撤离点，如果被封锁再转正面撤离点。' },
+                    { title: '⏰ 时间管理', content: '潮汐监狱撤离时间最长（60秒），建议提前规划路线，留出充足时间。' },
+                    { title: '💪 装备建议', content: '绝密地图建议战备值达到69万以上，确保装备足够应对高强度战斗。' }
+                ]
+            };
+
+            return tips[mapKey] || [];
+        }
+
+        // 页面加载时初始化
+        window.addEventListener('DOMContentLoaded', loadData);
     </script>
 </body>
 </html>

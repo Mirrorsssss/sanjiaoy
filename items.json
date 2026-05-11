@@ -1,0 +1,127 @@
+{
+  "meta": {
+    "game": "三角洲行动 (Delta Force: Hawk Ops)",
+    "version": "2024-2026",
+    "lastUpdated": "2026-05-09",
+    "source": "github.com/jiansenc/DeltaForceData, game-data.json",
+    "totalItems": 876
+  },
+  "raritySystem": {
+    "note": "物品稀有度等级系统",
+    "gradeSystem": [
+      {"grade": 0, "name": "白色", "color": "white", "description": "普通物品"},
+      {"grade": 1, "name": "绿色", "color": "green", "description": "优秀物品"},
+      {"grade": 2, "name": "蓝色", "color": "blue", "description": "稀有物品"},
+      {"grade": 3, "name": "紫色", "color": "purple", "description": "史诗物品"},
+      {"grade": 4, "name": "金色", "color": "gold", "description": "传说物品"},
+      {"grade": 5, "name": "红色", "color": "red", "description": "神话物品"}
+    ],
+    "alternativeSystem": [
+      {"level": "S", "name": "最高稀有", "color": "红色/金色"},
+      {"level": "A", "name": "高稀有", "color": "紫色"},
+      {"level": "B", "name": "中稀有", "color": "蓝色"},
+      {"level": "C", "name": "低稀有", "color": "绿色"},
+      {"level": "D", "name": "普通", "color": "白色"}
+    ]
+  },
+  "itemCategories": [
+    {
+      "id": "weapons",
+      "name": "武器",
+      "count": 47,
+      "description": "各种火器，包括步枪、冲锋枪、狙击枪等"
+    },
+    {
+      "id": "attachments",
+      "name": "配件",
+      "count": 392,
+      "description": "武器配件，包括瞄具、握把、枪口、弹匣等"
+    },
+    {
+      "id": "armor",
+      "name": "防具",
+      "count": 93,
+      "description": "防弹衣、防弹头盔、战术背包"
+    },
+    {
+      "id": "consumables",
+      "name": "消耗品",
+      "count": 30,
+      "description": "使用后消耗的物品，如医疗包、能量饮料等"
+    },
+    {
+      "id": "keys",
+      "name": "钥匙卡",
+      "count": 58,
+      "description": "用于解锁特定区域的卡片"
+    },
+    {
+      "id": "collectibles",
+      "name": "收藏品",
+      "count": 253,
+      "description": "用于收藏和交易的物品"
+    }
+  ],
+  "highValueItems": {
+    "note": "高价值物品列表（售价万）",
+    "S": [
+      {"name": "非洲之心", "value": 1000, "description": "稀有神装，价值千万"},
+      {"name": "ECMO", "value": 600, "description": "医疗类设备中的第二稀有品"}
+    ],
+    "A": [
+      {"name": "高级属性石", "value": 149, "unit": "万/格"},
+      {"name": "A级宠物", "value": 50, "unit": "万/格"},
+      {"name": "鱗龙的头", "value": 30, "unit": "万/格"}
+    ],
+    "B": [
+      {"name": "大储存", "value": 27, "unit": "万/格"},
+      {"name": "实用资料", "value": 24, "unit": "万/格"},
+      {"name": "全新护魂石", "value": 21, "unit": "万/格"}
+    ]
+  },
+  "consumablesDetail": {
+    "note": "消耗品详细说明",
+    "categories": [
+      {
+        "type": "医疗类",
+        "items": ["T1医疗包", "T2医疗包", "T3医疗包", "T4医疗包", "绷带", "消毒剂"]
+      },
+      {
+        "type": "能量类",
+        "items": ["T1能量饮料", "T2能量饮料", "T3能量饮料", "T1肾上腺素", "T2肾上腺素", "T3肾上腺素"]
+      },
+      {
+        "type": "战术类",
+        "items": ["T1烟雾弹", "T2烟雾弹", "T1破片手雷", "T2破片手雷", "闪光弹", "震爆弹"]
+      }
+    ]
+  },
+  "keysDetail": {
+    "note": "钥匙卡按地图分类",
+    "byMap": {
+      "零号大坝": ["大坝正门钥匙卡", "控制室钥匙卡", "发电机房钥匙卡"],
+      "长弓溪谷": ["溪谷正门钥匙卡", "雷达站钥匙卡", "通讯塔钥匙卡", "铁脊车站售票处"],
+      "巴克什": ["行政楼钥匙卡", "商业区钥匙卡", "地下车库钥匙卡"],
+      "航天基地": ["基地正门钥匙卡", "发射台钥匙卡", "控制中心钥匙卡"],
+      "潮汐监狱": ["监狱正门钥匙卡", "监狱侧门钥匙卡", "监狱顶部钥匙卡", "监狱地下通道钥匙卡", "监狱长办公室钥匙"]
+    }
+  },
+  "itemTips": {
+    "general": [
+      "优先搜索高价值物品区域",
+      "钥匙卡可以开启宝箱房，获得更好装备",
+      "消耗品及时使用，不要囤积",
+      "防具等级很重要，至少T4才能有效防御"
+    ],
+    "collectibles": [
+      "收藏品可以出售给商人换取游戏币",
+      "稀有度越高的收藏品价值越高",
+      "部分收藏品可以触发隐藏任务"
+    ],
+    "keys": [
+      "钥匙卡有耐久度，使用后减少",
+      "紫色和金色钥匙卡开启的房间物品更好",
+      "可以提前购买钥匙卡，提高搜索效率"
+    ]
+  }
+}
