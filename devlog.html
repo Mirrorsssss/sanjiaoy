@@ -1,0 +1,793 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>开发日志 - 三角眼 三角洲行动攻略站</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Segoe UI', Tahoma, sans-serif; background: linear-gradient(135deg, #0a0e1a 0%, #1a1f3a 100%); color: #e0e0e0; min-height: 100vh; }
+
+        /* ── Header ── */
+        .header { background: linear-gradient(135deg, rgba(255,107,0,0.2), rgba(255,107,0,0.05)); border-bottom: 3px solid #ff6b00; padding: 24px 20px; }
+        .header h1 { color: #ff6b00; font-size: 1.8em; margin-bottom: 4px; }
+        .header p { color: #888; font-size: 13px; }
+        .header .links { margin-top: 10px; }
+        .header .links a { color: #ff6b00; text-decoration: none; font-size: 13px; margin-right: 16px; }
+        .header .links a:hover { text-decoration: underline; }
+        .header .season-tag { display: inline-block; background: #ff6b00; color: white; padding: 3px 10px; border-radius: 12px; font-size: 11px; margin-left: 12px; }
+
+        /* ── Container ── */
+        .container { max-width: 1100px; margin: 0 auto; padding: 28px 20px; }
+
+        /* ── Stats Row ── */
+        .stats-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 12px; margin-bottom: 28px; }
+        .stat-card { background: rgba(255,255,255,0.05); border-radius: 10px; padding: 16px; text-align: center; border: 1px solid rgba(255,107,0,0.2); }
+        .stat-card .num { font-size: 2em; font-weight: bold; color: #ff6b00; }
+        .stat-card .label { font-size: 12px; color: #888; margin-top: 4px; }
+
+        /* ── Filter Bar ── */
+        .filter-bar { background: rgba(0,0,0,0.25); border-radius: 10px; padding: 14px 18px; margin-bottom: 24px; display: flex; gap: 10px; flex-wrap: wrap; align-items: center; }
+        .filter-bar label { color: #888; font-size: 13px; }
+        .filter-bar input { background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.15); border-radius: 6px; color: #e0e0e0; padding: 6px 12px; font-size: 13px; outline: none; }
+        .filter-bar input:focus { border-color: #ff6b00; }
+        .filter-bar .tag-btn { background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.12); border-radius: 20px; color: #aaa; padding: 5px 12px; font-size: 12px; cursor: pointer; transition: all 0.2s; }
+        .filter-bar .tag-btn:hover, .filter-bar .tag-btn.active { background: rgba(255,107,0,0.2); border-color: #ff6b00; color: #ff6b00; }
+
+        /* ── Section Title ── */
+        .section-title { color: #ff6b00; font-size: 1.1em; border-left: 4px solid #ff6b00; padding-left: 12px; margin: 32px 0 16px; }
+        .section-title .subtitle { font-size: 12px; color: #666; font-weight: normal; margin-left: 8px; }
+
+        /* ── Day Group ── */
+        .day-group { margin-bottom: 28px; }
+        .day-header { background: rgba(0,0,0,0.3); border-radius: 8px; padding: 10px 16px; margin-bottom: 12px; display: flex; justify-content: space-between; align-items: center; cursor: pointer; }
+        .day-header h3 { color: #fff; font-size: 14px; }
+        .day-header .date { color: #888; font-size: 12px; }
+        .day-header .count { background: rgba(255,107,0,0.2); color: #ff6b00; padding: 2px 8px; border-radius: 10px; font-size: 11px; }
+        .day-entries { display: flex; flex-direction: column; gap: 10px; padding-left: 4px; }
+
+        /* ── Commit Entry ── */
+        .commit-entry { background: rgba(255,255,255,0.03); border-radius: 10px; border: 1px solid rgba(255,255,255,0.07); overflow: hidden; transition: all 0.2s; }
+        .commit-entry:hover { border-color: rgba(255,107,0,0.3); }
+        .commit-entry.hidden { display: none; }
+
+        .commit-head { padding: 12px 16px; display: flex; align-items: flex-start; gap: 12px; cursor: pointer; }
+        .commit-icon { width: 32px; height: 32px; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 14px; flex-shrink: 0; margin-top: 2px; }
+        .icon-feat { background: rgba(126,211,33,0.2); color: #7ed321; }
+        .icon-fix { background: rgba(74,144,217,0.2); color: #4a90d9; }
+        .icon-refactor { background: rgba(245,166,35,0.2); color: #f5a623; }
+        .icon-docs { background: rgba(155,89,182,0.2); color: #b37dd4; }
+
+        .commit-info { flex: 1; min-width: 0; }
+        .commit-msg { font-size: 13px; color: #e0e0e0; line-height: 1.4; word-wrap: break-word; }
+        .commit-meta { margin-top: 6px; display: flex; gap: 12px; flex-wrap: wrap; align-items: center; }
+        .commit-hash { font-family: 'Courier New', monospace; font-size: 11px; color: #4a90d9; background: rgba(74,144,217,0.1); padding: 2px 6px; border-radius: 4px; }
+        .commit-author { font-size: 11px; color: #888; }
+        .commit-time { font-size: 11px; color: #666; }
+        .commit-tags { display: flex; gap: 6px; flex-wrap: wrap; }
+        .commit-tag { font-size: 10px; padding: 2px 7px; border-radius: 10px; }
+        .tag-feat { background: rgba(126,211,33,0.2); color: #7ed321; }
+        .tag-fix { background: rgba(74,144,217,0.2); color: #4a90d9; }
+        .tag-new { background: rgba(255,107,0,0.2); color: #ff6b00; }
+        .tag-s9 { background: rgba(255,59,48,0.2); color: #ff6b6b; }
+        .tag-ui { background: rgba(155,89,182,0.2); color: #b37dd4; }
+        .tag-data { background: rgba(52,152,219,0.2); color: #5dade2; }
+
+        .commit-files { padding: 0 16px 14px; }
+        .commit-files-toggle { font-size: 12px; color: #666; cursor: pointer; margin-bottom: 8px; display: flex; align-items: center; gap: 4px; }
+        .commit-files-toggle:hover { color: #ff6b00; }
+        .files-list { display: flex; flex-wrap: wrap; gap: 6px; list-style: none; }
+        .files-list li { font-family: 'Courier New', monospace; font-size: 11px; background: rgba(0,0,0,0.3); padding: 3px 8px; border-radius: 4px; color: #888; border: 1px solid rgba(255,255,255,0.08); }
+        .files-list li.new { border-color: rgba(126,211,33,0.4); color: #7ed321; }
+        .files-list li.modified { border-color: rgba(245,166,35,0.3); color: #f5a623; }
+
+        /* ── File Reference Table ── */
+        .file-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+        .file-table th { text-align: left; padding: 10px 14px; background: rgba(0,0,0,0.3); color: #ff6b00; font-size: 12px; border-bottom: 1px solid rgba(255,107,0,0.2); }
+        .file-table td { padding: 9px 14px; border-bottom: 1px solid rgba(255,255,255,0.05); color: #aaa; vertical-align: top; }
+        .file-table tr:hover td { background: rgba(255,255,255,0.02); }
+        .file-table .fname { font-family: 'Courier New', monospace; font-size: 12px; color: #e0e0e0; }
+        .file-table .flines { color: #888; font-size: 11px; }
+        .file-table .fdesc { color: #888; font-size: 12px; }
+        .file-table .frole { font-size: 11px; padding: 2px 7px; border-radius: 10px; display: inline-block; }
+        .role-core { background: rgba(255,59,48,0.2); color: #ff6b6b; }
+        .role-data { background: rgba(126,211,33,0.2); color: #7ed321; }
+        .role-ui { background: rgba(74,144,217,0.2); color: #4a90d9; }
+        .role-ref { background: rgba(155,89,182,0.2); color: #b37dd4; }
+
+        /* ── Maintenance Guide ── */
+        .guide-box { background: rgba(255,107,0,0.07); border: 1px solid rgba(255,107,0,0.2); border-radius: 12px; padding: 20px; margin-top: 8px; }
+        .guide-box h4 { color: #ff6b00; margin-bottom: 12px; font-size: 14px; }
+        .guide-box ol { padding-left: 20px; color: #aaa; font-size: 13px; line-height: 2; }
+        .guide-box code { background: rgba(0,0,0,0.4); padding: 2px 6px; border-radius: 4px; font-family: 'Courier New', monospace; font-size: 12px; color: #4a90d9; }
+        .guide-box li { margin-bottom: 4px; }
+
+        /* ── Work Tips ── */
+        .tips-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 12px; margin-top: 12px; }
+        .tip-box { background: rgba(0,0,0,0.2); border-radius: 8px; padding: 14px; border: 1px solid rgba(255,255,255,0.07); }
+        .tip-box h5 { color: #fff; font-size: 13px; margin-bottom: 6px; }
+        .tip-box p { color: #888; font-size: 12px; line-height: 1.6; }
+
+        /* ── Footer ── */
+        .back-link { display: inline-block; margin-top: 32px; color: #ff6b00; text-decoration: none; font-size: 13px; padding: 8px 0; }
+        .back-link:hover { text-decoration: underline; }
+
+        /* ── Responsive ── */
+        @media (max-width: 600px) {
+            .stats-row { grid-template-columns: repeat(2, 1fr); }
+            .commit-head { flex-direction: column; }
+            .filter-bar { flex-direction: column; align-items: stretch; }
+        }
+    </style>
+</head>
+<body>
+<div class="header">
+    <h1>📋 开发日志 <span class="season-tag">S9 赛季</span></h1>
+    <p>三角眼攻略站 · 开发工作记录 · 用于团队交接</p>
+    <div class="links">
+        <a href="index.html">← 返回首页</a>
+        <a href="changelog.html">用户更新日志</a>
+    </div>
+</div>
+
+<div class="container">
+
+    <!-- Stats -->
+    <div class="stats-row">
+        <div class="stat-card">
+            <div class="num">10</div>
+            <div class="label">总提交数</div>
+        </div>
+        <div class="stat-card">
+            <div class="num">3</div>
+            <div class="label">工作会话</div>
+        </div>
+        <div class="stat-card">
+            <div class="num">19</div>
+            <div class="label">涉及文件</div>
+        </div>
+        <div class="stat-card">
+            <div class="num">36</div>
+            <div class="label">审计问题总数</div>
+        </div>
+        <div class="stat-card">
+            <div class="num">26</div>
+            <div class="label">已修复问题</div>
+        </div>
+        <div class="stat-card">
+            <div class="num">2</div>
+            <div class="label">新增页面</div>
+        </div>
+    </div>
+
+    <!-- Filter -->
+    <div class="filter-bar">
+        <label>🔍 筛选：</label>
+        <input type="text" id="searchInput" placeholder="搜索提交信息或文件名..." oninput="filterEntries()">
+        <button class="tag-btn active" onclick="filterTag(this, 'all')">全部</button>
+        <button class="tag-btn" onclick="filterTag(this, 'feat')">✨ 新功能</button>
+        <button class="tag-btn" onclick="filterTag(this, 'fix')">🐛 Bug修复</button>
+        <button class="tag-btn" onclick="filterTag(this, 's9')">🎮 S9相关</button>
+        <button class="tag-btn" onclick="filterTag(this, 'data')">📊 数据类</button>
+    </div>
+
+    <!-- Commit Log -->
+    <h2 class="section-title">提交历史 <span class="subtitle">按会话日期分组</span></h2>
+
+    <!-- Day: 2026-05-12 (Session 3) -->
+    <div class="day-group" data-date="2026-05-12">
+        <div class="day-header" onclick="toggleDay(this)">
+            <div>
+                <h3>📅 2026-05-12 · 第三会话（S9全站审计收尾）</h3>
+            </div>
+            <div style="display:flex;gap:8px;align-items:center;">
+                <span class="count">5条提交</span>
+                <span class="date">本次会话</span>
+            </div>
+        </div>
+        <div class="day-entries">
+
+            <!-- d0935d1 -->
+            <div class="commit-entry" data-tags="feat s9">
+                <div class="commit-head">
+                    <div class="commit-icon icon-feat">✨</div>
+                    <div class="commit-info">
+                        <div class="commit-msg">feat: 新增版本更新日志页面（changelog），记录S9全量变更</div>
+                        <div class="commit-meta">
+                            <span class="commit-hash">d0935d1</span>
+                            <span class="commit-author">01-Assistant</span>
+                            <span class="commit-time">14:34</span>
+                            <div class="commit-tags">
+                                <span class="commit-tag tag-feat">新功能</span>
+                                <span class="commit-tag tag-s9">S9</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="commit-files">
+                    <div class="commit-files-toggle" onclick="toggleFiles(this)">📁 改动文件 ▾</div>
+                    <ul class="files-list">
+                        <li class="modified">changelog.html</li>
+                        <li class="modified">index.html</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- fe0c3a3 -->
+            <div class="commit-entry" data-tags="feat">
+                <div class="commit-head">
+                    <div class="commit-icon icon-feat">✨</div>
+                    <div class="commit-info">
+                        <div class="commit-msg">feat: 新增省钱通道路页面（陪玩/租号/手续费/返佣说明）</div>
+                        <div class="commit-meta">
+                            <span class="commit-hash">fe0c3a3</span>
+                            <span class="commit-author">01-Assistant</span>
+                            <span class="commit-time">14:33</span>
+                            <div class="commit-tags">
+                                <span class="commit-tag tag-feat">新功能</span>
+                                <span class="commit-tag tag-new">新页面</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="commit-files">
+                    <div class="commit-files-toggle" onclick="toggleFiles(this)">📁 改动文件 ▾</div>
+                    <ul class="files-list">
+                        <li class="new">money-saving.html</li>
+                        <li class="modified">index.html</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- 67f8fc4 -->
+            <div class="commit-entry" data-tags="fix s9">
+                <div class="commit-head">
+                    <div class="commit-icon icon-fix">🐛</div>
+                    <div class="commit-info">
+                        <div class="commit-msg">fix: 完成Section3一般优化项27-31（价格数据标注、S9赛季标识、外链修正）</div>
+                        <div class="commit-meta">
+                            <span class="commit-hash">67f8fc4</span>
+                            <span class="commit-author">01-Assistant</span>
+                            <span class="commit-time">14:30</span>
+                            <div class="commit-tags">
+                                <span class="commit-tag tag-fix">Bug修复</span>
+                                <span class="commit-tag tag-s9">S9</span>
+                                <span class="commit-tag tag-data">数据</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="commit-files">
+                    <div class="commit-files-toggle" onclick="toggleFiles(this)">📁 改动文件 ▾</div>
+                    <ul class="files-list">
+                        <li class="modified">bullet-economics-v2.html</li>
+                        <li class="modified">index.html</li>
+                        <li class="modified">price-realtime.json</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- be5b083 -->
+            <div class="commit-entry" data-tags="fix s9">
+                <div class="commit-head">
+                    <div class="commit-icon icon-fix">🐛</div>
+                    <div class="commit-info">
+                        <div class="commit-msg">fix: 补充9x19mm RIP弹药兑换比例（后勤1:8，战术1:12）</div>
+                        <div class="commit-meta">
+                            <span class="commit-hash">be5b083</span>
+                            <span class="commit-author">01-Assistant</span>
+                            <span class="commit-time">14:20</span>
+                            <div class="commit-tags">
+                                <span class="commit-tag tag-fix">Bug修复</span>
+                                <span class="commit-tag tag-s9">S9</span>
+                                <span class="commit-tag tag-data">数据</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="commit-files">
+                    <div class="commit-files-toggle" onclick="toggleFiles(this)">📁 改动文件 ▾</div>
+                    <ul class="files-list">
+                        <li class="modified">bullet-economics-v2.html</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- e0940f5 -->
+            <div class="commit-entry" data-tags="feat s9">
+                <div class="commit-head">
+                    <div class="commit-icon icon-feat">✨</div>
+                    <div class="commit-info">
+                        <div class="commit-msg">feat: 完成第二阶段18项重大错误修复</div>
+                        <div class="commit-meta">
+                            <span class="commit-hash">e0940f5</span>
+                            <span class="commit-author">01-Assistant</span>
+                            <span class="commit-time">11:13</span>
+                            <div class="commit-tags">
+                                <span class="commit-tag tag-feat">新功能</span>
+                                <span class="commit-tag tag-s9">S9</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="commit-files">
+                    <div class="commit-files-toggle" onclick="toggleFiles(this)">📁 改动文件 ▾</div>
+                    <ul class="files-list">
+                        <li class="modified">ammunition.json</li>
+                        <li class="modified">evacuation-map.html</li>
+                        <li class="modified">game-mechanics.json</li>
+                        <li class="modified">items.json</li>
+                        <li class="modified">smart-bullet.html</li>
+                        <li class="modified">smart-loadout.html</li>
+                        <li class="modified">weapons.json</li>
+                        <li class="modified">workshop.json</li>
+                        <li class="modified">S9_FULL_AUDIT_REPORT.md</li>
+                    </ul>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Day: 2026-05-11 (Session 2) -->
+    <div class="day-group" data-date="2026-05-11">
+        <div class="day-header" onclick="toggleDay(this)">
+            <div>
+                <h3>📅 2026-05-11 · 第二会话（S9赛季重大更新）</h3>
+            </div>
+            <div style="display:flex;gap:8px;align-items:center;">
+                <span class="count">4条提交</span>
+                <span class="date">核电站/干员/工坊</span>
+            </div>
+        </div>
+        <div class="day-entries">
+
+            <!-- c1b14cd -->
+            <div class="commit-entry" data-tags="feat s9">
+                <div class="commit-head">
+                    <div class="commit-icon icon-feat">✨</div>
+                    <div class="commit-info">
+                        <div class="commit-msg">feat: S9赛季'回声'数据全面修正 - 24处更新完成</div>
+                        <div class="commit-meta">
+                            <span class="commit-hash">c1b14cd</span>
+                            <span class="commit-author">01-Assistant</span>
+                            <span class="commit-time">20:48</span>
+                            <div class="commit-tags">
+                                <span class="commit-tag tag-feat">新功能</span>
+                                <span class="commit-tag tag-s9">S9</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="commit-files">
+                    <div class="commit-files-toggle" onclick="toggleFiles(this)">📁 改动文件 ▾</div>
+                    <ul class="files-list">
+                        <li class="modified">S9_CORRECTION_CHECKLIST.md</li>
+                        <li class="modified">evacuation-map.html</li>
+                        <li class="modified">game-mechanics.json</li>
+                        <li class="modified">items.json</li>
+                        <li class="modified">smart-bullet.html</li>
+                        <li class="modified">smart-loadout.html</li>
+                        <li class="modified">workshop.json</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- b1a2b14 -->
+            <div class="commit-entry" data-tags="fix s9">
+                <div class="commit-head">
+                    <div class="commit-icon icon-fix">🐛</div>
+                    <div class="commit-info">
+                        <div class="commit-msg">fix: 修复子弹推荐和战备配置数据错误</div>
+                        <div class="commit-meta">
+                            <span class="commit-hash">b1a2b14</span>
+                            <span class="commit-author">01-Assistant</span>
+                            <span class="commit-time">14:39</span>
+                            <div class="commit-tags">
+                                <span class="commit-tag tag-fix">Bug修复</span>
+                                <span class="commit-tag tag-s9">S9</span>
+                                <span class="commit-tag tag-data">数据</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="commit-files">
+                    <div class="commit-files-toggle" onclick="toggleFiles(this)">📁 改动文件 ▾</div>
+                    <ul class="files-list">
+                        <li class="modified">smart-bullet.html</li>
+                        <li class="modified">smart-loadout.html</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- 361b2d5 -->
+            <div class="commit-entry" data-tags="feat">
+                <div class="commit-head">
+                    <div class="commit-icon icon-feat">✨</div>
+                    <div class="commit-info">
+                        <div class="commit-msg">feat: 新增物资分布图工具，优化首页链接</div>
+                        <div class="commit-meta">
+                            <span class="commit-hash">361b2d5</span>
+                            <span class="commit-author">01-Assistant</span>
+                            <span class="commit-time">11:25</span>
+                            <div class="commit-tags">
+                                <span class="commit-tag tag-feat">新功能</span>
+                                <span class="commit-tag tag-ui">界面</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="commit-files">
+                    <div class="commit-files-toggle" onclick="toggleFiles(this)">📁 改动文件 ▾</div>
+                    <ul class="files-list">
+                        <li class="modified">index.html</li>
+                        <li class="modified">map.html</li>
+                        <li class="modified">map_data_all.json</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- 1125f47 -->
+            <div class="commit-entry" data-tags="feat data">
+                <div class="commit-head">
+                    <div class="commit-icon icon-data">📊</div>
+                    <div class="commit-info">
+                        <div class="commit-msg">feat: 注入真实数据 - 战备配置(装备/武器)/子弹兑换器/价格走势</div>
+                        <div class="commit-meta">
+                            <span class="commit-hash">1125f47</span>
+                            <span class="commit-author">01-Assistant</span>
+                            <span class="commit-time">10:54</span>
+                            <div class="commit-tags">
+                                <span class="commit-tag tag-feat">新功能</span>
+                                <span class="commit-tag tag-data">数据</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="commit-files">
+                    <div class="commit-files-toggle" onclick="toggleFiles(this)">📁 改动文件 ▾</div>
+                    <ul class="files-list">
+                        <li class="modified">bullet-economics-v2.html</li>
+                        <li class="modified">smart-bullet.html</li>
+                        <li class="modified">smart-loadout.html</li>
+                    </ul>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Day: 2026-05-10 (Session 1) -->
+    <div class="day-group" data-date="2026-05-10">
+        <div class="day-header" onclick="toggleDay(this)">
+            <div>
+                <h3>📅 2026-05-10 · 第一会话（网站初始化）</h3>
+            </div>
+            <div style="display:flex;gap:8px;align-items:center;">
+                <span class="count">1条提交</span>
+                <span class="date">初始构建</span>
+            </div>
+        </div>
+        <div class="day-entries">
+
+            <!-- 523dd8a -->
+            <div class="commit-entry" data-tags="feat">
+                <div class="commit-head">
+                    <div class="commit-icon icon-feat">✨</div>
+                    <div class="commit-info">
+                        <div class="commit-msg">feat: 添加首页、撤离路线图，补充游戏机制数据</div>
+                        <div class="commit-meta">
+                            <span class="commit-hash">523dd8a</span>
+                            <span class="commit-author">01-Assistant</span>
+                            <span class="commit-time">00:34</span>
+                            <div class="commit-tags">
+                                <span class="commit-tag tag-feat">新功能</span>
+                                <span class="commit-tag tag-new">初始构建</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="commit-files">
+                    <div class="commit-files-toggle" onclick="toggleFiles(this)">📁 改动文件 ▾</div>
+                    <ul class="files-list">
+                        <li class="new">ammunition.json</li>
+                        <li class="new">bullet-economics-v2.html</li>
+                        <li class="new">card-combat-calculator-v2.html</li>
+                        <li class="new">evacuation-map.html</li>
+                        <li class="new">game-mechanics.json</li>
+                        <li class="new">gear.json</li>
+                        <li class="new">index.html</li>
+                        <li class="new">index.json</li>
+                        <li class="new">items.json</li>
+                        <li class="new">loadout.json</li>
+                        <li class="new">maps.json</li>
+                        <li class="new">price-realtime.json</li>
+                        <li class="new">smart-bullet.html</li>
+                        <li class="new">smart-loadout.html</li>
+                        <li class="new">weapons.json</li>
+                        <li class="new">workshop.json</li>
+                    </ul>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- File Reference Table -->
+    <h2 class="section-title">文件索引 <span class="subtitle">所有源文件及用途说明</span></h2>
+
+    <table class="file-table">
+        <thead>
+            <tr>
+                <th>文件名</th>
+                <th>行数</th>
+                <th>角色</th>
+                <th>说明</th>
+                <th>最后修改</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td class="fname">index.html</td>
+                <td class="flines">~445</td>
+                <td><span class="frole role-core">核心</span></td>
+                <td class="fdesc">网站首页，导航入口，SEO标题/S9赛季标识</td>
+                <td class="flines">05-12</td>
+            </tr>
+            <tr>
+                <td class="fname">changelog.html</td>
+                <td class="flines">~165</td>
+                <td><span class="frole role-ref">参考</span></td>
+                <td class="fdesc">用户可见更新日志，展示S9变更内容</td>
+                <td class="flines">05-12 🆕</td>
+            </tr>
+            <tr>
+                <td class="fname">money-saving.html</td>
+                <td class="flines">~140</td>
+                <td><span class="frole role-ref">参考</span></td>
+                <td class="fdesc">省钱通道路，陪玩/租号/手续费/返佣攻略</td>
+                <td class="flines">05-12 🆕</td>
+            </tr>
+            <tr>
+                <td class="fname">devlog.html</td>
+                <td class="flines">~500</td>
+                <td><span class="frole role-ref">参考</span></td>
+                <td class="fdesc">开发日志，提交历史，团队交接文档</td>
+                <td class="flines">05-12 🆕</td>
+            </tr>
+            <tr>
+                <td class="fname">smart-bullet.html</td>
+                <td class="flines">~1072</td>
+                <td><span class="frole role-core">核心</span></td>
+                <td class="fdesc">子弹兑换计算器，含9×19mm/5.56/7.62/12号霰弹所有弹种数据、兑换比例、穿深等级、PAB9、7N39新增弹</td>
+                <td class="flines">05-11</td>
+            </tr>
+            <tr>
+                <td class="fname">bullet-economics-v2.html</td>
+                <td class="flines">~7177</td>
+                <td><span class="frole role-core">核心</span></td>
+                <td class="fdesc">子弹经济学对比卡片，含所有弹种价格卡片、穿深热力图、推荐理由，是价格数据的主要展示页</td>
+                <td class="flines">05-12</td>
+            </tr>
+            <tr>
+                <td class="fname">price-realtime.json</td>
+                <td class="flines">~8730</td>
+                <td><span class="frole role-data">数据</span></td>
+                <td class="fdesc">全站物品实时价格数据库（is_get_time: 2026-01-10，注意：数据较旧需定期更新）</td>
+                <td class="flines">05-12</td>
+            </tr>
+            <tr>
+                <td class="fname">smart-loadout.html</td>
+                <td class="flines">~2178</td>
+                <td><span class="frole role-core">核心</span></td>
+                <td class="fdesc">战备配置推荐，含入门/进阶/毕业/10万+/20万档位，支持单排/双排/四排区分，含动力外骨骼推荐</td>
+                <td class="flines">05-11</td>
+            </tr>
+            <tr>
+                <td class="fname">workshop.json</td>
+                <td class="flines">~222</td>
+                <td><span class="frole role-data">数据</span></td>
+                <td class="fdesc">工坊利润计算器数据，含S9物品（XCOG/钛合金板/外骨骼组件）、税率13%、高级工作台+15%、绑定/可交易材料区分</td>
+                <td class="flines">05-11</td>
+            </tr>
+            <tr>
+                <td class="fname">evacuation-map.html</td>
+                <td class="flines">~696</td>
+                <td><span class="frole role-core">核心</span></td>
+                <td class="fdesc">撤离路线图，含航天基地/长弓溪谷/零号大坝/核电站地图选择器，含丢包撤离点、第二拉闸点</td>
+                <td class="flines">05-11</td>
+            </tr>
+            <tr>
+                <td class="fname">map.html</td>
+                <td class="flines">~563</td>
+                <td><span class="frole role-core">核心</span></td>
+                <td class="fdesc">地图物资点位工具（航天基地核心舱降级标注、跑刀路线：出生点→卫星控制中心）</td>
+                <td class="flines">05-11</td>
+            </tr>
+            <tr>
+                <td class="fname">map_data_all.json</td>
+                <td class="flines">~76094</td>
+                <td><span class="frole role-data">数据</span></td>
+                <td class="fdesc">全地图物资点位数据（超长JSON，包含各地图物资坐标和说明）</td>
+                <td class="flines">05-11</td>
+            </tr>
+            <tr>
+                <td class="fname">game-mechanics.json</td>
+                <td class="flines">~1182</td>
+                <td><span class="frole role-data">数据</span></td>
+                <td class="fdesc">游戏机制数据，含航天基地核心舱降级、零号大坝多拉闸点、核电站BOSS/撤离/辐射、干员推荐（蜂医/银翼/回响）</td>
+                <td class="flines">05-11</td>
+            </tr>
+            <tr>
+                <td class="fname">items.json</td>
+                <td class="flines">~206</td>
+                <td><span class="frole role-data">数据</span></td>
+                <td class="fdesc">S9新增物品数据，含钛合金板（2100）、XCOG、外骨骼组件、PAB9、7N39、绑定/可交易标注</td>
+                <td class="flines">05-11</td>
+            </tr>
+            <tr>
+                <td class="fname">weapons.json</td>
+                <td class="flines">~641</td>
+                <td><span class="frole role-data">数据</span></td>
+                <td class="fdesc">武器数据，含S9新增12款配件（XCOG 3.5倍镜、重型枪管Mk-II等）</td>
+                <td class="flines">05-11</td>
+            </tr>
+            <tr>
+                <td class="fname">ammunition.json</td>
+                <td class="flines">—</td>
+                <td><span class="frole role-data">数据</span></td>
+                <td class="fdesc">弹药口径数据，含各口径穿深等级说明（5.56 M855穿深2级等）</td>
+                <td class="flines">05-11</td>
+            </tr>
+            <tr>
+                <td class="fname">gear.json</td>
+                <td class="flines">~254</td>
+                <td><span class="frole role-data">数据</span></td>
+                <td class="fdesc">装备推荐数据，含烽火地带4级甲+3级头入门推荐、防具逻辑优化</td>
+                <td class="flines">05-11</td>
+            </tr>
+            <tr>
+                <td class="fname">maps.json</td>
+                <td class="flines">—</td>
+                <td><span class="frole role-data">数据</span></td>
+                <td class="fdesc">地图列表元数据，含S9新地图核电站</td>
+                <td class="flines">05-10</td>
+            </tr>
+            <tr>
+                <td class="fname">card-combat-calculator-v2.html</td>
+                <td class="flines">~751</td>
+                <td><span class="frole role-ui">工具</span></td>
+                <td class="fdesc">卡牌战斗力计算器</td>
+                <td class="flines">05-10</td>
+            </tr>
+            <tr>
+                <td class="fname">loadout.json</td>
+                <td class="flines">—</td>
+                <td><span class="frole role-data">数据</span></td>
+                <td class="fdesc">配装数据</td>
+                <td class="flines">05-10</td>
+            </tr>
+            <tr>
+                <td class="fname">index.json</td>
+                <td class="flines">—</td>
+                <td><span class="frole role-ref">参考</span></td>
+                <td class="fdesc">首页索引/站点地图数据</td>
+                <td class="flines">05-10</td>
+            </tr>
+            <tr>
+                <td class="fname">S9_CORRECTION_CHECKLIST.md</td>
+                <td class="flines">—</td>
+                <td><span class="frole role-ref">文档</span></td>
+                <td class="fdesc">S9数据修正清单（24项已全部完成）</td>
+                <td class="flines">05-11</td>
+            </tr>
+            <tr>
+                <td class="fname">S9_FULL_AUDIT_REPORT.md</td>
+                <td class="flines">—</td>
+                <td><span class="frole role-ref">文档</span></td>
+                <td class="fdesc">S9全站审计报告（36项问题，含10项待后续跟进的一般优化）</td>
+                <td class="flines">05-12</td>
+            </tr>
+            <tr>
+                <td class="fname">CNAME</td>
+                <td class="flines">1</td>
+                <td><span class="frole role-ref">配置</span></td>
+                <td class="fdesc">GitHub Pages 自定义域名配置</td>
+                <td class="flines">05-10</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <!-- Maintenance Guide -->
+    <h2 class="section-title">交接指南 <span class="subtitle">新开发者必读</span></h2>
+
+    <div class="guide-box">
+        <h4>🔧 日常维护流程</h4>
+        <ol>
+            <li>修改数据 → 直接编辑对应 JSON 文件（<code>workshop.json</code> / <code>price-realtime.json</code> 等）</li>
+            <li>修改 UI → 编辑对应 <code>.html</code> 文件，保持与现有 CSS 变量一致（主色 <code>#ff6b00</code>、背景 <code>#0a0e1a</code>）</li>
+            <li>提交时请使用规范 commit message：<code>fix:</code> 修复 / <code>feat:</code> 新功能 / <code>docs:</code> 文档</li>
+            <li>提交后<strong>必须更新 devlog.html</strong>：在对应日期分组下新增一条 commit entry（参考上方格式）</li>
+            <li>同步更新 changelog.html 的用户公告区（添加新日期条目）</li>
+            <li>推送到 GitHub：<code>git push</code>（自动触发 GitHub Pages 部署）</li>
+        </ol>
+    </div>
+
+    <div class="tips-grid">
+        <div class="tip-box">
+            <h5>📌 Commit Message 规范</h5>
+            <p>
+                <code>fix:</code> 修复数据错误（如价格、兑换比例）<br>
+                <code>feat:</code> 新增功能/页面/数据<br>
+                <code>docs:</code> 文档更新（changelog/devlog）<br>
+                <code>refactor:</code> 代码重构（不影响数据）
+            </p>
+        </div>
+        <div class="tip-box">
+            <h5>⚠️ 数据更新注意</h5>
+            <p>
+                <code>price-realtime.json</code> 的 <code>is_get_time</code> 字段需同步更新为最新日期。<br>
+                工坊税率如有变动，修改 <code>workshop.json</code> 中的税率公式（当前为 13% = 10% + 3%）。<br>
+                S9 赛季标识为 <code>ff6b00</code> 橙色主题。
+            </p>
+        </div>
+        <div class="tip-box">
+            <h5>📁 Devlog 更新步骤</h5>
+            <p>
+                每次 commit 后，在 <code>devlog.html</code> 的顶部当天日期分组下添加新条目：<br>
+                ① 复制 commit hash<br>
+                ② 填写 commit message<br>
+                ③ 列出所有改动的文件（标 new/modified）<br>
+                ④ 添加标签（feat/fix/s9/data/ui）<br>
+                ⑤ 更新页面顶部统计数字
+            </p>
+        </div>
+        <div class="tip-box">
+            <h5>🔗 相关链接</h5>
+            <p>
+                GitHub 仓库：<code>https://github.com/Mirrorsssss/sanjiaoyan</code><br>
+                GitHub Pages：<code>sanjiaoy.vercel.app</code>（或自定义域名）<br>
+                数据来源：游戏内实测、米游社、NGA、TapTap
+            </p>
+        </div>
+    </div>
+
+    <a class="back-link" href="index.html">← 返回首页</a>
+</div>
+
+<script>
+    // Toggle day group expand/collapse
+    function toggleDay(el) {
+        const entries = el.nextElementSibling;
+        entries.style.display = entries.style.display === 'none' ? 'flex' : 'none';
+    }
+
+    // Toggle file list
+    function toggleFiles(el) {
+        const list = el.nextElementSibling;
+        list.style.display = list.style.display === 'none' ? 'flex' : 'none';
+    }
+
+    // Filter by search text
+    function filterEntries() {
+        const query = document.getElementById('searchInput').value.toLowerCase();
+        const entries = document.querySelectorAll('.commit-entry');
+        entries.forEach(function(entry) {
+            const text = entry.textContent.toLowerCase();
+            entry.classList.toggle('hidden', query.length > 0 && !text.includes(query));
+        });
+    }
+
+    // Filter by tag buttons
+    function filterTag(btn, tag) {
+        document.querySelectorAll('.tag-btn').forEach(function(b) { b.classList.remove('active'); });
+        btn.classList.add('active');
+        const entries = document.querySelectorAll('.commit-entry');
+        entries.forEach(function(entry) {
+            const tags = entry.getAttribute('data-tags') || '';
+            entry.classList.toggle('hidden', tag !== 'all' && !tags.includes(tag));
+        });
+    }
+</script>
+</body>
+</html>
