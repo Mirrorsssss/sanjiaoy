@@ -192,6 +192,31 @@
             font-size: 0.85em;
         }
 
+        .section-card {
+            background: rgba(255, 255, 255, 0.05);
+            border: 2px solid #333;
+            border-radius: 12px;
+            padding: 25px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .section-card:hover {
+            border-color: #ff6b00;
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(255, 107, 0, 0.3);
+        }
+
+        .section-card .badge {
+            background: #ff3b30;
+            color: white;
+            font-size: 10px;
+            padding: 2px 6px;
+            border-radius: 4px;
+            margin-left: 8px;
+            vertical-align: middle;
+        }
+
         .footer {
             background: rgba(255, 255, 255, 0.02);
             border-top: 2px solid #333;
@@ -332,6 +357,19 @@
                         <span class="tag">TTK</span>
                         <span class="tag">DPS</span>
                         <span class="tag">穿甲</span>
+                    </div>
+                </div>
+
+                <div class="section-card" onclick="location.href='money-saving.html'">
+                    <div class="tool-icon">💰</div>
+                    <div class="tool-title">省钱通道<span class="badge">NEW</span></div>
+                    <div class="tool-desc">
+                        陪玩/租号/手续费全攻略，省钱必看。
+                    </div>
+                    <div class="tool-tags">
+                        <span class="tag">陪玩</span>
+                        <span class="tag">租号</span>
+                        <span class="tag">手续费</span>
                     </div>
                 </div>
             </div>
