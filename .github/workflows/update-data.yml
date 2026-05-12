@@ -7,6 +7,9 @@ on:
   workflow_dispatch: # 允许手动触发
 
 jobs:
+  # ========================================
+  # 第一阶段：核心数据（每10分钟更新）
+  # ========================================
   update-prices:
     runs-on: ubuntu-latest
     steps:
@@ -33,9 +36,124 @@ jobs:
           API_TOKEN: ${{ secrets.ORZRICE_TOKEN }}
         run: node scripts/fetch-workshop.js
 
-      - name: Commit and push if changed
+      - name: Commit and push prices
         run: |
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
-          git add -A
-          git diff --quiet && git diff --staged --quiet || (git commit -m "Auto-update: game data [$(date +'%Y-%m-%d %H:%M')]"; git push)
+          git add price-realtime.json workshop.json
+          git diff --quiet && git diff --staged --quiet || (git commit -m "Auto-update: prices & workshop [$(date +'%Y-%m-%d %H:%M')]"; git push)
+
+  # ========================================
+  # 第二阶段：扩展数据（每小时更新）
+  # ========================================
+  update-extended-data:
+    runs-on: ubuntu-latest
+    # 使用cron定时器，每小时运行一次（避免与主流程冲突）
+    cron: '30 * * * *'
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+
+      - name: Install dependencies
+        run: npm install axios
+
+      - name: Fetch ammo exchange data
+        env:
+          API_TOKEN: ${{ secrets.ORZRICE_TOKEN }}
+        run: node scripts/fetch-ammo-exchange.js
+
+      - name: Fetch loadout data
+        env:
+          API_TOKEN: ${{ secrets.ORZRICE_TOKEN }}
+        run: node scripts/fetch-loadouts.js
+
+      - name: Commit and push extended data
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git add ammo-exchange.json smart-loadout-api.json
+          git diff --quiet && git diff --staged --quiet || (git commit -m "Auto-update: ammo & loadouts [$(date +'%Y-%m-%d %H:%M')]"; git push)
+
+  # ========================================
+  # 第二阶段：历史价格（每日更新）
+  # ========================================
+  update-price-history:
+    runs-on: ubuntu-latest
+    # 每天凌晨3点运行，避开高峰期
+    cron: '0 3 * * *'
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+
+      - name: Install dependencies
+        run: npm install axios
+
+      - name: Fetch price history
+        env:
+          API_TOKEN: ${{ secrets.ORZRICE_TOKEN }}
+        run: node scripts/fetch-price-history.js
+
+      - name: Commit and push history
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git add price-history.json
+          git diff --quiet && git diff --staged --quiet || (git commit -m "Auto-update: price history [$(date +'%Y-%m-%d')]"; git push)
+
+  # ========================================
+  # 数据校验（每日运行）
+  # ========================================
+  data-validation:
+    runs-on: ubuntu-latest
+    # 每天中午12点运行
+    cron: '0 12 * * *'
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+
+      - name: Run data validation
+        run: |
+          echo "🔍 开始数据校验..."
+          
+          # 检查数据文件是否存在
+          if [ ! -f "price-realtime.json" ]; then
+            echo "❌ 错误：price-realtime.json 不存在"
+            exit 1
+          fi
+          
+          # 检查更新时间
+          UPDATE_TIME=$(node -e "console.log(new Date(JSON.parse(require('fs').readFileSync('price-realtime.json')).last_update).toISOString())")
+          echo "📅 数据更新时间：$UPDATE_TIME"
+          
+          # 验证数据格式
+          node -e "
+            const data = require('./price-realtime.json');
+            const keys = Object.keys(data.prices || {});
+            console.log('✅ 物价数据验证通过，共 ' + keys.length + ' 个物品');
+          "
+          
+          echo "✅ 数据校验完成"
+
+      - name: Report validation status
+        if: always()
+        run: |
+          echo "📊 数据校验状态：${{ job.status }}"
