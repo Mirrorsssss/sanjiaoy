@@ -1,4 +1,11 @@
-[
+{
+    "metadata": {
+        "lastUpdated": "2026-05-12",
+        "season": "S9",
+        "note": "价格数据每周更新一次，建议结合市场波动参考使用",
+        "boundTradableNote": "⚠️ 部分物品为绑定属性（不可交易/不可出售），价格数据仅供参考"
+    },
+    "items": [
   {
     "id": 1,
     "is_get_time": 1768058249,
