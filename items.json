@@ -32,8 +32,8 @@
         "name": "钛合金板",
         "type": "防具材料",
         "grade": 3,
-        "price": 2100,
-        "description": "S9新增高级防具制作材料，可用于制作高级防具和动力外骨骼",
+        "price": 2280,
+        "description": "S9新增高级防具制作材料，可用于制作高级防具和动力外骨骼。2026年5月12日市价",
         "tradeable": true,
         "bindOnPickup": false,
         "source": "工坊制造/地图掉落"
@@ -43,7 +43,7 @@
         "type": "瞄具",
         "grade": 4,
         "price": 1500000,
-        "description": "S9新增高级瞄具，具有智能弹道计算功能",
+        "description": "S9新增高级瞄具，3.5倍放大，具有智能弹道计算功能，适合中远距离作战",
         "tradeable": true,
         "bindOnPickup": false,
         "source": "工坊制造/高级掉落"

@@ -483,5 +483,159 @@
     {"id": "stock", "name": "枪托", "examples": ["伸缩枪托、全稳定枪托"]},
     {"id": "laser", "name": "激光瞄具", "examples": ["战术激光"]},
     {"id": "light", "name": "战术灯", "examples": ["手电筒"]}
-  ]
+  ],
+  "s9NewAttachments": {
+    "description": "S9赛季新增配件",
+    "lastUpdated": "2026-05-12",
+    "attachments": [
+      {
+        "id": "s9_optic_01",
+        "name": "XCOG 3.5倍战术瞄准镜",
+        "type": "optic",
+        "stats": {
+          "magnification": "3.5x",
+          "precision": "+25%",
+          "aimSpeed": "-10%"
+        },
+        "compatibleWeapons": ["M4A1", "AK-12", "SCAR-H", "M7"],
+        "rarity": "传说",
+        "note": "S9新增瞄具，高端市场稀缺，提供稳定的3.5倍放大"
+      },
+      {
+        "id": "s9_barrel_01",
+        "name": "重型枪管Mk-II",
+        "type": "barrel",
+        "stats": {
+          "damage": "+8%",
+          "range": "+15%",
+          "mobility": "-5%"
+        },
+        "compatibleWeapons": ["PKM", "M249", "RPD"],
+        "rarity": "史诗",
+        "note": "S9新增重型枪管，提升伤害和射程"
+      },
+      {
+        "id": "s9_grip_01",
+        "name": "战术垂直握把Pro",
+        "type": "grip",
+        "stats": {
+          "recoilControl": "+20%",
+          "stability": "+15%"
+        },
+        "compatibleWeapons": ["M4A1", "AKM", "QBZ95-1", "K416"],
+        "rarity": "稀有",
+        "note": "S9新增握把，有效控制后坐力"
+      },
+      {
+        "id": "s9_mag_01",
+        "name": "75发弹鼓",
+        "type": "magazine",
+        "stats": {
+          "capacity": 75,
+          "reloadSpeed": "-15%"
+        },
+        "compatibleWeapons": ["PKM", "M249"],
+        "rarity": "稀有",
+        "note": "S9新增大弹鼓，持续火力压制"
+      },
+      {
+        "id": "s9_optic_02",
+        "name": "热成像瞄准镜",
+        "type": "optic",
+        "stats": {
+          "magnification": "4x",
+          "special": "热成像",
+          "detectRange": "+30%"
+        },
+        "compatibleWeapons": ["M7", "R93", "AWM"],
+        "rarity": "传说",
+        "note": "S9新增战术瞄具，可探测热源目标"
+      },
+      {
+        "id": "s9_barrel_02",
+        "name": "亚音速枪管",
+        "type": "barrel",
+        "stats": {
+          "soundRange": "-50%",
+          "damage": "-10%"
+        },
+        "compatibleWeapons": ["VSS", "AS Val", "MP5SD"],
+        "rarity": "稀有",
+        "note": "S9新增消音枪管，配合亚音速弹药使用"
+      },
+      {
+        "id": "s9_stock_01",
+        "name": "动力枪托",
+        "type": "stock",
+        "stats": {
+          "mobility": "+15%",
+          "aimSpeed": "+10%",
+          "recoilControl": "+5%"
+        },
+        "compatibleWeapons": ["M4A1", "K416", "SCAR-H"],
+        "rarity": "史诗",
+        "note": "S9新增高科技枪托，利用外骨骼技术"
+      },
+      {
+        "id": "s9_laser_01",
+        "name": "战术激光指示器",
+        "type": "laser",
+        "stats": {
+          "accuracy": "+12%",
+          "hipFire": "+20%"
+        },
+        "compatibleWeapons": ["全武器"],
+        "rarity": "普通",
+        "note": "S9新增通用激光指示器"
+      },
+      {
+        "id": "s9_light_01",
+        "name": "战术手电筒Pro",
+        "type": "light",
+        "stats": {
+          "brightness": "+40%",
+          "blindEffect": "有"
+        },
+        "compatibleWeapons": ["全武器"],
+        "rarity": "普通",
+        "note": "S9新增战术灯，可致盲近距离敌人"
+      },
+      {
+        "id": "s9_mag_02",
+        "name": "快速扩容弹匣30发",
+        "type": "magazine",
+        "stats": {
+          "capacity": 30,
+          "reloadSpeed": "+25%"
+        },
+        "compatibleWeapons": ["M4A1", "K416", "AK-12", "QBZ95-1"],
+        "rarity": "稀有",
+        "note": "S9新增快速弹匣，兼顾容量和换弹速度"
+      },
+      {
+        "id": "s9_optic_03",
+        "name": "红点瞄准镜Mini",
+        "type": "optic",
+        "stats": {
+          "aimSpeed": "+5%",
+          "precision": "+10%"
+        },
+        "compatibleWeapons": ["手枪类", "冲锋枪类"],
+        "rarity": "普通",
+        "note": "S9新增紧凑型瞄具，适合手枪"
+      },
+      {
+        "id": "s9_barrel_03",
+        "name": "消音器战术型",
+        "type": "barrel",
+        "stats": {
+          "soundRange": "-60%",
+          "precision": "+8%"
+        },
+        "compatibleWeapons": ["突击步枪类", "狙击步枪类"],
+        "rarity": "稀有",
+        "note": "S9新增战术消音器，兼顾隐蔽和精度"
+      }
+    ]
+  }
 }

@@ -6,7 +6,7 @@
     "source": "github.com/jiansenc/DeltaForceData, game-data.json"
   },
   "ammoSystem": {
-    "totalCalibers": 16,
+    "totalCalibers": 18,
     "description": "弹药系统决定武器的伤害类型和穿透力"
   },
   "calibers": [
@@ -105,6 +105,22 @@
       "penetration": "极高",
       "weapons": ["MP7"],
       "description": "HK公司小口径高速弹，穿透力强"
+    },
+    {
+      "caliber": "8.6×70mm (.338 Lapua Magnum)",
+      "category": "Sniper",
+      "typicalDamage": "65-75",
+      "penetration": "极高（等级6）",
+      "weapons": ["HDR", "AXMC"],
+      "description": "顶级狙击步枪弹，穿深等级6，远程击杀利器"
+    },
+    {
+      "caliber": "12.7×99mm (.50 BMG)",
+      "category": "Heavy Sniper",
+      "typicalDamage": "85-100",
+      "penetration": "极高（等级7）",
+      "weapons": ["M82", "HDR .50"],
+      "description": "重狙专用弹药，穿深等级7，可穿透任何护甲"
     }
   ],
   "ammoTypes": {
@@ -124,6 +140,20 @@
           {"name": "M43", "damage": 40, "penetration": 28, "note": "标准弹"},
           {"name": "M67", "damage": 42, "penetration": 30, "note": "改进弹"},
           {"name": "BP", "damage": 38, "penetration": 50, "note": "穿甲弹"}
+        ]
+      },
+      {
+        "caliber": "8.6×70mm (.338 Lapua Magnum)",
+        "types": [
+          {"name": ".338 AP", "damage": 68, "penetration": 62, "note": "穿深等级6，顶级狙击弹"},
+          {"name": ".338 标准弹", "damage": 72, "penetration": 45, "note": "标准狙击弹"}
+        ]
+      },
+      {
+        "caliber": "12.7×99mm (.50 BMG)",
+        "types": [
+          {"name": "M903", "damage": 95, "penetration": 78, "note": "穿深等级7，重狙穿甲弹"},
+          {"name": "M82 标准弹", "damage": 100, "penetration": 55, "note": "标准重狙弹"}
         ]
       }
     ]

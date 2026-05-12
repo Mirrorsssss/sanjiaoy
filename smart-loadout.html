@@ -396,9 +396,10 @@
                         <option value="longbow_classified">长弓溪谷 - 机密（13万）</option>
                         <option value="spacePort_classified">航天基地 - 机密（18.7万）</option>
                         <option value="buckish_classified">巴克什 - 机密（18.7万）</option>
-                        <option value="spacePort_topSecret">航天基地 - 绝密（45万）</option>
-                        <option value="buckish_topSecret">巴克什 - 绝密（55万）</option>
-                        <option value="tidalPrison_topSecret">潮汐监狱 - 绝密（69万）</option>
+                <option value="spacePort_topSecret">航天基地 - 绝密（45万）</option>
+                <option value="buckish_topSecret">巴克什 - 绝密（55万）</option>
+                <option value="tidalPrison_topSecret">潮汐监狱 - 绝密（69万）</option>
+                <option value="fenghuodidai_classified">烽火地带 - 机密（20万）</option>
                     </select>
                 </div>
                 <div class="input-group">
@@ -1957,6 +1958,7 @@
             'longbow_classified': { name: '长弓溪谷-机密', threshold: 13 },
             'spacePort_classified': { name: '航天基地-机密', threshold: 18.7 },
             'buckish_classified': { name: '巴克什-机密', threshold: 18.7 },
+            'fenghuodidai_classified': { name: '烽火地带-机密', threshold: 20 },
             'spacePort_topSecret': { name: '航天基地-绝密', threshold: 45 },
             'buckish_topSecret': { name: '巴克什-绝密', threshold: 55 },
             'tidalPrison_topSecret': { name: '潮汐监狱-绝密', threshold: 69 },
@@ -2094,6 +2096,11 @@
                 '破损装备耐久低但战备值不缩水，性价比极高',
                 `当前预算${budget}万，实际花费约${result.totalCost.toFixed(1)}万`
             ];
+            
+            // 烽火地带特殊提示
+            if (mapName && mapName.includes('烽火地带')) {
+                result.tips.unshift('烽火地带入门配装推荐：4级甲+3级头（烽火地带AI统一使用3级穿深弹药）');
+            }
             
             return result;
         }

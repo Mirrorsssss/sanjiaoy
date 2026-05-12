@@ -867,7 +867,8 @@
             "5.56x45mm": [
                 { name: "M995", type: "ap", price: 4212, penetration: 55, reason: "穿甲值最高，克制AI重甲，PVE必备" },
                 { name: "M855A1", type: "balanced", price: 1671, penetration: 42, reason: "平衡伤害与穿透，PVP综合表现优秀" },
-                { name: "M855", type: "fm", price: 391, penetration: 38, reason: "标准穿甲弹，日常使用足够" },
+                { name: "M855", type: "fm", price: 391, penetration: 38, reason: "标准弹，穿深等级2级，日常使用足够" },
+                { name: "M855APC", type: "ap", price: 800, penetration: 45, reason: "S9新增弹药，穿深4级，对6级护甲附带10%额外增伤" },
                 { name: "FMJ", type: "fm", price: 79, penetration: 25, reason: "最便宜的5.56子弹，近距离够用" },
                 { name: "RRLP", type: "hp", price: 35, penetration: 15, reason: "仅35发/发，最便宜的5.56子弹" }
             ],
@@ -881,7 +882,7 @@
             "9x19mm": [
                 { name: "PBP", type: "ap", price: 1096, penetration: 45, reason: "穿甲效果最好，PVE打AI" },
                 { name: "AP6.3", type: "ap", price: 276, penetration: 40, reason: "穿甲+便宜，PVP手枪战首选" },
-                { name: "RIP", type: "hp", price: 558, penetration: 20, reason: "空尖弹，高停止力，近距离一枪倒地" },
+                { name: "RIP", type: "hp", price: 558, penetration: 20, reason: "空尖弹，高停止力，近距离一枪倒地。【兑换比例】后勤1:8，战术1:12（最优）。每日可免费领取120发" },
                 { name: "Pst", type: "fm", price: 88, penetration: 18, reason: "标准弹，日常使用足够" },
                 { name: "PSO", type: "hp", price: 29, penetration: 12, reason: "最便宜的9mm子弹，冲锋枪省钱首选" }
             ],
@@ -893,6 +894,7 @@
                 { name: "PRS", type: "hp", price: 40, penetration: 12, reason: "最便宜的5.45子弹" }
             ],
             "7.62x51mm": [
+                { name: "M61", type: "ap", price: 6500, penetration: 68, reason: "高穿深穿甲弹。【兑换比例】安全1:4，后勤1:6（最优）" },
                 { name: "M62", type: "ap", price: 5567, penetration: 65, reason: "穿甲弹，狙击步枪最高穿透" },
                 { name: "M80", type: "fm", price: 1378, penetration: 48, reason: "标准全威力弹，远距离狙击" },
                 { name: "BPZ", type: "fm", price: 548, penetration: 38, reason: "低价选择，日常使用" },
@@ -932,7 +934,21 @@
                 { name: "Hybrid", type: "ap", price: 4884, penetration: 58, reason: "混合弹，M7最强穿透" },
                 { name: "FMJ", type: "fm", price: 1979, penetration: 42, reason: "标准弹" }
             ],
-            "5.8x42mm": [
+            "12gauge": [
+                { name: "12号鹿弹", type: "hp", price: 120, penetration: 18, reason: "鹿弹，散弹，近距离高伤害。【最优部门】后勤部门" },
+                { name: "12号独头弹", type: "fm", price: 180, penetration: 28, reason: "独头弹，精准度高。【最优部门】战术部门" },
+                { name: "12号破甲弹", type: "ap", price: 350, penetration: 35, reason: "破甲弹，穿甲能力强。【最优部门】安全部门" }
+            ],
+            "338lapua": [
+                { name: ".338 AP", type: "ap", price: 8500, penetration: 78, reason: "穿深7级，AWM最强穿甲弹，无视所有护甲" },
+                { name: ".338 Norma", type: "fm", price: 3200, penetration: 55, reason: "标准.338子弹，远距离狙击" },
+                { name: ".338 HP", type: "hp", price: 1800, penetration: 30, reason: "空尖弹，高停止力" }
+            ],
+            "50ae": [
+                { name: ".50 M903", type: "ap", price: 12000, penetration: 80, reason: "穿深7级，沙漠之鹰最强穿甲弹，一发入魂" },
+                { name: ".50 AE FMJ", type: "fm", price: 4500, penetration: 50, reason: "标准.50子弹" },
+                { name: ".50 AE HP", type: "hp", price: 2800, penetration: 35, reason: "空尖弹，近距离高伤害" }
+            ],
                 { name: "DVC12", type: "ap", price: 4515, penetration: 55, reason: "穿甲弹，QBZ95-1最强穿透" },
                 { name: "DBP10", type: "ap", price: 1883, penetration: 45, reason: "穿甲弹" },
                 { name: "DVP88", type: "fm", price: 388, penetration: 30, reason: "标准弹" },

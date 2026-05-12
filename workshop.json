@@ -2,13 +2,22 @@
   "meta": {
     "game": "三角洲行动 (Delta Force: Hawk Ops)",
     "version": "2024-2026",
-    "lastUpdated": "2026-05-09",
+    "lastUpdated": "2026-05-12",
     "source": "dfhub.cn, 游戏实战经验"
   },
   "workshopSystem": {
     "description": "工坊系统可以制造各种消耗品和装备",
-    "note": "S9赛季税率更新为15%（10%手续费+5%保证金）",
-    "taxRate": 0.15
+    "note": "S9赛季税率更新为13%（10%手续费+3%保证金）",
+    "taxRate": 0.13,
+    "advancedWorkbench": {
+      "productionBonus": "15%",
+      "note": "仅对非绑定制造材料生效"
+    }
+  },
+  "materials": {
+    "bound": ["绷带", "消毒剂", "T1能量饮料", "兴奋剂", "T2肾上腺素", "高级激素", "T1烟雾弹", "发烟剂", "T2破片手雷", "高性能炸药"],
+    "tradable": ["光学镜片", "精密元件", "高级合金", "稀有金属"],
+    "note": "绑定材料无法交易但成本更低（0），可交易材料需按市价计算成本"
   },
   "craftingRecipes": [
     {
@@ -16,27 +25,39 @@
       "name": "T1医疗包",
       "grade": 1,
       "materials": [
-        {"item": "绷带", "quantity": 2},
-        {"item": "消毒剂", "quantity": 1}
+        {"item": "绷带", "quantity": 2, "tradable": false, "boundCost": 0},
+        {"item": "消毒剂", "quantity": 1, "tradable": false, "boundCost": 0}
       ],
-      "craftTime": "10分钟",
-      "sellPrice": "5-8万",
-      "profitRate": "中等",
+      "craftTime": 10,
+      "sellPrice": 65000,
+      "profitRate": "65%",
+      "hourlyProfit": 390000,
+      "tradableCost": 5000,
+      "profitAnalysis": {
+        "boundProfit": 65000 * 0.87,
+        "tradableProfit": 65000 * 0.87 - 5000
+      },
       "recommendation": "新手推荐，材料易得"
     },
     {
       "id": "s9_001",
-      "name": "XCOG战术瞄准镜【S9新增】",
+      "name": "XCOG 3.5倍战术瞄准镜【S9新增】",
       "grade": 4,
       "materials": [
-        {"item": "光学镜片", "quantity": 2},
-        {"item": "精密元件", "quantity": 3},
-        {"item": "高级合金", "quantity": 2}
+        {"item": "光学镜片", "quantity": 2, "tradable": true, "marketPrice": 15000},
+        {"item": "精密元件", "quantity": 3, "tradable": true, "marketPrice": 12000},
+        {"item": "高级合金", "quantity": 2, "tradable": true, "marketPrice": 8000}
       ],
-      "craftTime": "45分钟",
-      "sellPrice": "80-120万",
+      "craftTime": 45,
+      "sellPrice": 1000000,
       "profitRate": "极高",
-      "note": "S9新增瞄具，工坊独家配方，高端市场稀缺",
+      "hourlyProfit": 1333333,
+      "tradableCost": 82000,
+      "profitAnalysis": {
+        "boundProfit": "N/A",
+        "tradableProfit": 1000000 * 0.87 - 82000
+      },
+      "note": "S9新增瞄具，3.5倍放大，工坊独家配方，高端市场稀缺",
       "recommendation": "高端玩家推荐，材料成本高但利润丰厚"
     },
     {
@@ -44,13 +65,19 @@
       "name": "钛合金板【S9新增】",
       "grade": 3,
       "materials": [
-        {"item": "高级合金", "quantity": 3},
-        {"item": "稀有金属", "quantity": 2}
+        {"item": "高级合金", "quantity": 3, "tradable": true, "marketPrice": 8000},
+        {"item": "稀有金属", "quantity": 2, "tradable": true, "marketPrice": 5000}
       ],
-      "craftTime": "30分钟",
-      "sellPrice": "15-25万",
+      "craftTime": 30,
+      "sellPrice": 200000,
       "profitRate": "高",
-      "note": "S9新增防具材料，价格2100/个（已修正）",
+      "hourlyProfit": 400000,
+      "tradableCost": 34000,
+      "profitAnalysis": {
+        "boundProfit": "N/A",
+        "tradableProfit": 200000 * 0.87 - 34000
+      },
+      "note": "S9新增防具材料，价格2280/个（2026年5月12日市价）",
       "recommendation": "中等预算玩家推荐，需求稳定"
     },
     {
@@ -58,13 +85,19 @@
       "name": "动力外骨骼Mk-II组件【S9新增】",
       "grade": 5,
       "materials": [
-        {"item": "高级合金", "quantity": 5},
-        {"item": "精密元件", "quantity": 4},
-        {"item": "稀有金属", "quantity": 3}
+        {"item": "高级合金", "quantity": 5, "tradable": true, "marketPrice": 8000},
+        {"item": "精密元件", "quantity": 4, "tradable": true, "marketPrice": 12000},
+        {"item": "稀有金属", "quantity": 3, "tradable": true, "marketPrice": 5000}
       ],
-      "craftTime": "90分钟",
-      "sellPrice": "200-300万",
+      "craftTime": 90,
+      "sellPrice": 2500000,
       "profitRate": "极高",
+      "hourlyProfit": 1666667,
+      "tradableCost": 94000,
+      "profitAnalysis": {
+        "boundProfit": "N/A",
+        "tradableProfit": 2500000 * 0.87 - 94000
+      },
       "note": "S9赛季核心装备，可提升移动速度20%和载重30%",
       "recommendation": "土豪玩家推荐，制作成本高但市场需求极大"
     },
@@ -73,12 +106,18 @@
       "name": "T2能量饮料",
       "grade": 2,
       "materials": [
-        {"item": "T1能量饮料", "quantity": 2},
-        {"item": "兴奋剂", "quantity": 1}
+        {"item": "T1能量饮料", "quantity": 2, "tradable": false, "boundCost": 0},
+        {"item": "兴奋剂", "quantity": 1, "tradable": false, "boundCost": 0}
       ],
-      "craftTime": "15分钟",
-      "sellPrice": "12-18万",
+      "craftTime": 15,
+      "sellPrice": 150000,
       "profitRate": "高",
+      "hourlyProfit": 600000,
+      "tradableCost": 3000,
+      "profitAnalysis": {
+        "boundProfit": 150000 * 0.87,
+        "tradableProfit": 150000 * 0.87 - 3000
+      },
       "recommendation": "高利润，材料较易得"
     },
     {
@@ -86,12 +125,18 @@
       "name": "T3肾上腺素",
       "grade": 3,
       "materials": [
-        {"item": "T2肾上腺素", "quantity": 2},
-        {"item": "高级激素", "quantity": 1}
+        {"item": "T2肾上腺素", "quantity": 2, "tradable": false, "boundCost": 0},
+        {"item": "高级激素", "quantity": 1, "tradable": false, "boundCost": 0}
       ],
-      "craftTime": "20分钟",
-      "sellPrice": "25-35万",
+      "craftTime": 20,
+      "sellPrice": 300000,
       "profitRate": "极高",
+      "hourlyProfit": 900000,
+      "tradableCost": 10000,
+      "profitAnalysis": {
+        "boundProfit": 300000 * 0.87,
+        "tradableProfit": 300000 * 0.87 - 10000
+      },
       "recommendation": "顶级利润，但材料稀有"
     },
     {
@@ -99,12 +144,18 @@
       "name": "T2烟雾弹",
       "grade": 2,
       "materials": [
-        {"item": "T1烟雾弹", "quantity": 2},
-        {"item": "发烟剂", "quantity": 1}
+        {"item": "T1烟雾弹", "quantity": 2, "tradable": false, "boundCost": 0},
+        {"item": "发烟剂", "quantity": 1, "tradable": false, "boundCost": 0}
       ],
-      "craftTime": "12分钟",
-      "sellPrice": "8-12万",
+      "craftTime": 12,
+      "sellPrice": 100000,
       "profitRate": "中等",
+      "hourlyProfit": 500000,
+      "tradableCost": 2000,
+      "profitAnalysis": {
+        "boundProfit": 100000 * 0.87,
+        "tradableProfit": 100000 * 0.87 - 2000
+      },
       "recommendation": "战术装备，稳定需求"
     },
     {
@@ -112,17 +163,23 @@
       "name": "T3破片手雷",
       "grade": 3,
       "materials": [
-        {"item": "T2破片手雷", "quantity": 2},
-        {"item": "高性能炸药", "quantity": 1}
+        {"item": "T2破片手雷", "quantity": 2, "tradable": false, "boundCost": 0},
+        {"item": "高性能炸药", "quantity": 1, "tradable": false, "boundCost": 0}
       ],
-      "craftTime": "18分钟",
-      "sellPrice": "20-28万",
+      "craftTime": 18,
+      "sellPrice": 240000,
       "profitRate": "高",
+      "hourlyProfit": 800000,
+      "tradableCost": 5000,
+      "profitAnalysis": {
+        "boundProfit": 240000 * 0.87,
+        "tradableProfit": 240000 * 0.87 - 5000
+      },
       "recommendation": "高需求消耗品，利润可观"
     }
   ],
   "profitAnalysis": {
-    "note": "利润分析基于当前市场价格，S9税率15%",
+    "note": "利润分析基于当前市场价格，S9税率13%。实际利润 = 售价 × 0.87 - 材料成本",
     "s9NewItems": [
       {"item": "动力外骨骼Mk-II组件", "profitRate": "200-300%", "risk": "材料稀有", "demand": "极高"},
       {"item": "XCOG战术瞄准镜", "profitRate": "150-250%", "risk": "材料难获取", "demand": "高"},
