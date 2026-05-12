@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>版本更新日志 - 三角眼 三角洲行动攻略站</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Segoe UI', Tahoma, sans-serif; background: linear-gradient(135deg, #0a0e1a 0%, #1a1f3a 100%); color: #e0e0e0; min-height: 100vh; }
+        .header { background: linear-gradient(135deg, rgba(255,107,0,0.2), rgba(255,107,0,0.05)); border-bottom: 3px solid #ff6b00; padding: 20px; text-align: center; }
+        .header h1 { color: #ff6b00; font-size: 2em; margin-bottom: 8px; }
+        .header p { color: #888; font-size: 14px; }
+        .header a { color: #888; text-decoration: none; font-size: 14px; }
+        .header a:hover { color: #ff6b00; }
+        .container { max-width: 900px; margin: 0 auto; padding: 30px 20px; }
+        .season-badge { display: inline-block; background: #ff6b00; color: white; padding: 4px 12px; border-radius: 20px; font-size: 12px; margin-bottom: 24px; }
+
+        .changelog-entry { margin-bottom: 32px; }
+        .changelog-date { color: #ff6b00; font-size: 14px; font-weight: bold; margin-bottom: 8px; }
+        .changelog-title { font-size: 1.2em; color: #fff; margin-bottom: 12px; }
+        .changelog-badge { display: inline-block; padding: 2px 8px; border-radius: 4px; font-size: 11px; font-weight: bold; margin-left: 8px; vertical-align: middle; }
+        .badge-critical { background: #ff3b30; color: white; }
+        .badge-major { background: #f5a623; color: white; }
+        .badge-feature { background: #7ed321; color: #1a1f3a; }
+        .badge-fix { background: #4a90d9; color: white; }
+
+        .changelog-list { list-style: none; padding-left: 0; }
+        .changelog-list li { padding: 6px 0; padding-left: 20px; position: relative; color: #aaa; font-size: 14px; line-height: 1.6; }
+        .changelog-list li::before { content: '•'; position: absolute; left: 4px; color: #ff6b00; font-weight: bold; }
+
+        .back-link { display: inline-block; margin-top: 30px; color: #ff6b00; text-decoration: none; font-size: 14px; }
+        .back-link:hover { text-decoration: underline; }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>📋 版本更新日志</h1>
+        <p><a href="index.html">← 返回首页</a></p>
+    </div>
+    <div class="container">
+        <span class="season-badge">S9 回声赛季</span>
+
+        <!-- S9 Season - Latest -->
+        <div class="changelog-entry">
+            <div class="changelog-date">2026-05-12</div>
+            <div class="changelog-title">
+                S9 数据全面审计修复
+                <span class="changelog-badge badge-critical">重大更新</span>
+            </div>
+            <ul class="changelog-list">
+                <li>修复9×19mm RIP弹药兑换比例（后勤1:8，战术1:12）</li>
+                <li>修复5.56×45mm M855穿深等级（3级→2级）</li>
+                <li>修复7.62×51mm M61弹药兑换比例（安全1:4，后勤1:6）</li>
+                <li>12号霰弹区分鹿弹/独头弹/破甲弹最优兑换部门</li>
+                <li>工坊税率修正为13%（10%手续费+3%保证金）</li>
+                <li>高级工作台产量加成修正为15%（非绑定材料生效）</li>
+                <li>钛合金板成本价格修正（1200→2280）</li>
+                <li>烽火地带入门配装修正（3级甲+2级头→4级甲+3级头）</li>
+            </ul>
+            <div class="changelog-title" style="margin-top:16px;">
+                新增内容
+                <span class="changelog-badge badge-feature">新功能</span>
+            </div>
+            <ul class="changelog-list">
+                <li>新增PAB9四级穿甲弹（VSS/AS Val首选）</li>
+                <li>新增7N39五级穿甲弹（T0级步枪弹）</li>
+                <li>新增穿深6级(.338 AP)、7级(.50 M903)弹药说明</li>
+                <li>新增小时利润核算功能</li>
+                <li>新增绑定/可交易材料区分标注</li>
+                <li>新增最佳出售时段提示（20-23点，周末+15~20%）</li>
+                <li>新增单排/多排配装逻辑区分</li>
+                <li>新增10万+/20万顶配预算档位</li>
+                <li>新增省钱通道路页面（陪玩/租号/手续费/返佣说明）</li>
+            </ul>
+        </div>
+
+        <div class="changelog-entry">
+            <div class="changelog-date">2026-05-11</div>
+            <div class="changelog-title">
+                S9 赛季新增地图与干员
+                <span class="changelog-badge badge-major">主要更新</span>
+            </div>
+            <ul class="changelog-list">
+                <li>新增S9新地图「核电站」完整攻略（BOSS/撤离点/辐射机制）</li>
+                <li>新增S9新干员「回响」T0级侦察干员全攻略</li>
+                <li>新增航天基地跑刀路线（出生点→卫星控制中心→后勤通道）</li>
+                <li>修正航天基地核心舱标注（已降级为普通点）</li>
+                <li>新增零号大坝第二、第三拉闸点（行政楼西楼、主变电站）</li>
+                <li>新增S9丢包撤离点机制（开局9分钟后开放）</li>
+                <li>新增S9新增12款改枪配件数据</li>
+                <li>新增S9动力外骨骼系统配装推荐</li>
+                <li>更新干员推荐（蝶→蜂医、银翼）</li>
+                <li>新增S9热门工坊物品（XCOG 3.5倍镜、钛合金板、动力外骨骼组件）</li>
+            </ul>
+        </div>
+
+        <div class="changelog-entry">
+            <div class="changelog-date">2026-05-10</div>
+            <div class="changelog-title">
+                三角眼攻略站上线
+                <span class="changelog-badge badge-feature">首次发布</span>
+            </div>
+            <ul class="changelog-list">
+                <li>三角洲行动 S9 回声赛季攻略站正式上线</li>
+                <li>子弹兑换计算器（9×19mm/5.56×45mm/7.62×51mm/12号霰弹）</li>
+                <li>工坊利润计算器（支持税率/高级工作台/绑定材料区分）</li>
+                <li>战备配置推荐（入门/进阶/毕业三档）</li>
+                <li>撤离路线图（航天基地/长弓溪谷/零号大坝/核电站）</li>
+                <li>价格实时数据与省钱通道</li>
+            </ul>
+        </div>
+
+        <a class="back-link" href="index.html">← 返回首页</a>
+    </div>
+</body>
+</html>
