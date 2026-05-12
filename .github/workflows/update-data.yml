@@ -1,0 +1,41 @@
+name: Update Game Data
+
+on:
+  schedule:
+    # 每10分钟运行一次
+    - cron: '*/10 * * * *'
+  workflow_dispatch: # 允许手动触发
+
+jobs:
+  update-prices:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+
+      - name: Install dependencies
+        run: npm install axios
+
+      - name: Fetch real-time prices
+        env:
+          API_TOKEN: ${{ secrets.ORZRICE_TOKEN }}
+        run: node scripts/fetch-prices.js
+
+      - name: Fetch workshop data
+        env:
+          API_TOKEN: ${{ secrets.ORZRICE_TOKEN }}
+        run: node scripts/fetch-workshop.js
+
+      - name: Commit and push if changed
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git add -A
+          git diff --quiet && git diff --staged --quiet || (git commit -m "Auto-update: game data [$(date +'%Y-%m-%d %H:%M')]"; git push)
