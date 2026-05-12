@@ -76091,5 +76091,193 @@
         ]
       }
     ]
+  },
+  "核电站": {
+    "map_name": "核电站",
+    "map_info": {
+      "width": 90000,
+      "height": 90000,
+      "boundsW": -250,
+      "boundsH": 300,
+      "centerX": 300000,
+      "centerY": 700000,
+      "minZoom": 3,
+      "initZoom": 3,
+      "initX": -100,
+      "initY": 100,
+      "floor": [
+        {
+          "floor_f": "B1",
+          "floor_name": "地下通道"
+        },
+        {
+          "floor_f": "1F",
+          "floor_name": "核反应堆"
+        },
+        {
+          "floor_f": "2F",
+          "floor_name": "控制室"
+        }
+      ],
+      "floorInfo": null
+    },
+    "regions": [
+      {
+        "name": "核反应堆核心区",
+        "x": "300000",
+        "y": "-700000",
+        "difficulties": [
+          {
+            "difficulty": "普通",
+            "nav": [
+              {
+                "titleType": "all",
+                "title": "全部",
+                "typeList": [
+                  {
+                    "name": "武器箱",
+                    "idType": 6,
+                    "num": 8,
+                    "icon": "nav_wqx"
+                  },
+                  {
+                    "name": "大武器箱",
+                    "idType": 7,
+                    "num": 12,
+                    "icon": "nav_dwqx"
+                  },
+                  {
+                    "name": "保险柜",
+                    "idType": 1,
+                    "num": 10,
+                    "icon": "nav_bxx"
+                  },
+                  {
+                    "name": "服务器",
+                    "idType": 3,
+                    "num": 6,
+                    "icon": "nav_fwq"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "difficulty": "机密",
+            "nav": [
+              {
+                "titleType": "all",
+                "title": "全部",
+                "typeList": [
+                  {
+                    "name": "武器箱",
+                    "idType": 6,
+                    "num": 12,
+                    "icon": "nav_wqx"
+                  },
+                  {
+                    "name": "大武器箱",
+                    "idType": 7,
+                    "num": 18,
+                    "icon": "nav_dwqx"
+                  },
+                  {
+                    "name": "保险柜",
+                    "idType": 1,
+                    "num": 15,
+                    "icon": "nav_bxx"
+                  },
+                  {
+                    "name": "服务器",
+                    "idType": 3,
+                    "num": 10,
+                    "icon": "nav_fwq"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "实验室区域",
+        "x": "320000",
+        "y": "-690000"
+      },
+      {
+        "name": "仓储区",
+        "x": "280000",
+        "y": "-710000"
+      },
+      {
+        "name": "地下通道",
+        "x": "300000",
+        "y": "-705000"
+      }
+    ],
+    "difficulties": [
+      {
+        "difficulty": "普通",
+        "nav": [
+          {
+            "titleType": "all",
+            "title": "全部",
+            "typeList": [
+              {
+                "name": "出生点",
+                "type": "revive",
+                "icon": "csd",
+                "x": "300000",
+                "y": "-700000",
+                "z": ""
+              },
+              {
+                "name": "撤离点",
+                "type": "evac",
+                "icon": "cld",
+                "x": "310000",
+                "y": "-695000",
+                "z": ""
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "difficulty": "机密",
+        "nav": [
+          {
+            "titleType": "all",
+            "title": "全部",
+            "typeList": [
+              {
+                "name": "出生点",
+                "type": "revive",
+                "icon": "csd",
+                "x": "295000",
+                "y": "-705000",
+                "z": ""
+              },
+              {
+                "name": "撤离点",
+                "type": "evac",
+                "icon": "cld",
+                "x": "315000",
+                "y": "-690000",
+                "z": ""
+              },
+              {
+                "name": "BOSS",
+                "type": "boss",
+                "icon": "boss",
+                "x": "300000",
+                "y": "-700000",
+                "z": ""
+              }
+            ]
+          }
+        ]
+      }
+    ]
   }
 }
