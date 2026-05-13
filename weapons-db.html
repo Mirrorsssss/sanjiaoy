@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>武器数据库 - 三角眼</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #0a0e1a 0%, #1a1f3a 100%);
+            color: #e0e0e0;
+            min-height: 100vh;
+        }
+        .header {
+            background: linear-gradient(135deg, rgba(255,107,0,0.2) 0%, rgba(255,107,0,0.05) 100%);
+            border-bottom: 3px solid #ff6b00;
+            padding: 18px 24px;
+            display: flex; align-items: center; gap: 18px;
+        }
+        .header a { color: #ff6b00; text-decoration: none; font-size: 1.2em; }
+        .header h1 { color: #ff6b00; font-size: 1.8em; }
+        .header p { color: #888; font-size: 0.88em; margin-top: 4px; }
+
+        .container { max-width: 1400px; margin: 0 auto; padding: 24px 20px; }
+
+        /* 标签页 */
+        .tabs { display: flex; gap: 0; margin-bottom: 24px; border-bottom: 2px solid #333; }
+        .tab {
+            padding: 10px 22px;
+            cursor: pointer;
+            color: #888;
+            font-size: 0.95em;
+            border-bottom: 3px solid transparent;
+            margin-bottom: -2px;
+            transition: all 0.2s;
+        }
+        .tab.active { color: #ff6b00; border-bottom-color: #ff6b00; font-weight: bold; }
+        .tab:hover:not(.active) { color: #ccc; }
+        .tab-content { display: none; }
+        .tab-content.active { display: block; }
+
+        /* 统计 */
+        .stats-bar {
+            display: flex; gap: 12px; flex-wrap: wrap; margin-bottom: 24px;
+        }
+        .stat-pill {
+            background: rgba(255,255,255,0.06);
+            border: 1px solid #333;
+            border-radius: 20px;
+            padding: 6px 14px;
+            font-size: 0.88em;
+            color: #bbb;
+        }
+        .stat-pill strong { color: #ff6b00; }
+
+        /* 控制区 */
+        .controls {
+            display: flex; gap: 12px; flex-wrap: wrap; margin-bottom: 20px; align-items: center;
+        }
+        .controls input, .controls select {
+            background: rgba(255,255,255,0.08);
+            border: 1px solid #444; border-radius: 8px;
+            padding: 9px 13px; color: #e0e0e0;
+            font-size: 0.9em; outline: none;
+        }
+        .controls input { width: 200px; }
+        .controls input:focus, .controls select:focus { border-color: #ff6b00; }
+
+        /* 武器卡片 */
+        .weapon-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+            gap: 18px;
+        }
+        .weapon-card {
+            background: rgba(255,255,255,0.05);
+            border: 2px solid #2a2a3a;
+            border-radius: 12px;
+            padding: 20px;
+            transition: all 0.25s;
+            cursor: pointer;
+        }
+        .weapon-card:hover { border-color: #ff6b00; transform: translateY(-2px); box-shadow: 0 6px 20px rgba(255,107,0,0.2); }
+        .weapon-card.selected { border-color: #ff6b00; background: rgba(255,107,0,0.08); }
+
+        .wcard-header { display: flex; align-items: flex-start; justify-content: space-between; margin-bottom: 14px; }
+        .wcard-name { font-size: 1.1em; font-weight: bold; color: #fff; line-height: 1.3; }
+        .wcard-category {
+            background: rgba(255,107,0,0.15);
+            border: 1px solid rgba(255,107,0,0.4);
+            color: #ff6b00; font-size: 0.75em;
+            padding: 2px 8px; border-radius: 10px; white-space: nowrap;
+        }
+        .wcard-ammo { color: #64b5f6; font-size: 0.85em; margin-bottom: 12px; }
+
+        /* 属性条 */
+        .stat-bars { display: flex; flex-direction: column; gap: 7px; }
+        .stat-row { display: flex; align-items: center; gap: 10px; }
+        .stat-name { color: #aaa; font-size: 0.8em; width: 60px; flex-shrink: 0; }
+        .stat-bar-bg { flex: 1; background: rgba(255,255,255,0.08); border-radius: 3px; height: 5px; overflow: hidden; }
+        .stat-bar-fill { height: 100%; border-radius: 3px; transition: width 0.5s; }
+        .bar-damage { background: linear-gradient(90deg, #f44336, #ff5722); }
+        .bar-rate { background: linear-gradient(90deg, #ff9800, #ffc107); }
+        .stat-num { color: #ccc; font-size: 0.8em; width: 32px; text-align: right; flex-shrink: 0; }
+
+        .wcard-desc { color: #777; font-size: 0.82em; margin-top: 12px; line-height: 1.5; }
+
+        /* 配件表格 */
+        .acc-table-wrap { overflow-x: auto; }
+        table { width: 100%; border-collapse: collapse; font-size: 0.88em; }
+        th { background: rgba(255,107,0,0.15); color: #ff6b00; padding: 10px 12px; text-align: left; white-space: nowrap; }
+        td { padding: 9px 12px; border-bottom: 1px solid rgba(255,255,255,0.05); color: #ccc; }
+        tr:hover td { background: rgba(255,255,255,0.04); }
+        .grade-badge {
+            padding: 2px 8px; border-radius: 10px; font-size: 0.8em; font-weight: bold; white-space: nowrap;
+        }
+        .grade-2 { background: rgba(100,181,246,0.2); color: #64b5f6; border: 1px solid #64b5f6; }
+        .grade-3 { background: rgba(149,117,205,0.2); color: #9575cd; border: 1px solid #9575cd; }
+        .grade-4 { background: rgba(255,215,0,0.15); color: #ffd700; border: 1px solid #ffd700; }
+        .grade-5 { background: rgba(244,67,54,0.15); color: #ef5350; border: 1px solid #ef5350; }
+
+        .eff-tag { font-size: 0.8em; padding: 1px 6px; border-radius: 8px; margin: 2px; display: inline-block; }
+        .eff-pos { background: rgba(76,175,80,0.15); color: #4caf50; }
+        .eff-neg { background: rgba(244,67,54,0.15); color: #ef5350; }
+
+        .no-data { text-align: center; padding: 60px; color: #555; }
+        .section-title { color: #ff6b00; font-size: 1.1em; font-weight: bold; margin-bottom: 16px; }
+
+        .filter-count { color: #888; font-size: 0.88em; }
+
+        @media (max-width: 600px) {
+            .weapon-grid { grid-template-columns: 1fr; }
+            .controls input { width: 100%; }
+        }
+    </style>
+</head>
+<body>
+<div class="header">
+    <a href="index.html">← 返回</a>
+    <div>
+        <h1>🔫 武器 & 配件数据库</h1>
+        <p>S9「回声」赛季 · 武器属性 · 配件效果 · 适配查询</p>
+    </div>
+</div>
+
+<div class="container">
+    <!-- 统计 -->
+    <div class="stats-bar" id="statsBar"></div>
+
+    <!-- 标签页 -->
+    <div class="tabs">
+        <div class="tab active" onclick="switchTab('weapons')">🔫 武器列表</div>
+        <div class="tab" onclick="switchTab('accessories')">🔧 配件数据库</div>
+    </div>
+
+    <!-- 武器页 -->
+    <div class="tab-content active" id="tab-weapons">
+        <div class="controls">
+            <input type="text" id="weaponSearch" placeholder="🔍 搜索武器名称…" oninput="renderWeapons()">
+            <select id="weaponCat" onchange="renderWeapons()">
+                <option value="">全部类型</option>
+            </select>
+            <select id="weaponAmmo" onchange="renderWeapons()">
+                <option value="">全部口径</option>
+            </select>
+            <span class="filter-count" id="weaponCount"></span>
+        </div>
+        <div class="weapon-grid" id="weaponGrid"></div>
+    </div>
+
+    <!-- 配件页 -->
+    <div class="tab-content" id="tab-accessories">
+        <div class="controls">
+            <input type="text" id="accSearch" placeholder="🔍 搜索配件名称…" oninput="renderAccessories()">
+            <select id="accType" onchange="renderAccessories()">
+                <option value="">全部类型</option>
+                <option value="muzzle">枪口</option>
+                <option value="barrel">枪管</option>
+                <option value="scope">瞄具</option>
+                <option value="stock">枪托</option>
+            </select>
+            <select id="accGrade" onchange="renderAccessories()">
+                <option value="">全部品质</option>
+                <option value="2">蓝色（稀有）</option>
+                <option value="3">紫色（史诗）</option>
+                <option value="4">金色（传说）</option>
+            </select>
+            <span class="filter-count" id="accCount"></span>
+        </div>
+        <div class="acc-table-wrap">
+            <table id="accTable">
+                <thead>
+                    <tr>
+                        <th>名称</th><th>类型</th><th>品质</th><th>重量</th>
+                        <th>正面效果</th><th>负面效果</th>
+                    </tr>
+                </thead>
+                <tbody id="accBody"></tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<script>
+// ===================== 数据 =====================
+const WEAPONS_DATA = null; // 从 weapons.json 加载
+const ACC_DATA = null;     // 从 game-data.json 加载
+
+let weaponsData = { weaponCategories: [] };
+let accData = { accessories: {} };
+
+// 最大伤害/射速（用于比例条）
+const MAX_DAMAGE = 100;
+const MAX_RATE = 1000;
+
+async function loadData() {
+    try {
+        const [wRes, aRes] = await Promise.all([
+            fetch('weapons.json'),
+            fetch('game-data.json')
+        ]);
+        weaponsData = await wRes.json();
+        accData = await aRes.json();
+    } catch (e) {
+        console.error('数据加载失败', e);
+    }
+    init();
+}
+
+function init() {
+    renderStats();
+    populateFilters();
+    renderWeapons();
+    renderAccessories();
+}
+
+// ===================== 统计 =====================
+function renderStats() {
+    let total = 0;
+    weaponsData.weaponCategories.forEach(c => total += c.weapons.length);
+    const totalAcc = Object.values(accData.accessories || {})
+        .reduce((s, a) => s + (Array.isArray(a) ? a.length : 0), 0);
+
+    document.getElementById('statsBar').innerHTML = `
+        <div class="stat-pill">武器 <strong>${total}</strong> 把</div>
+        <div class="stat-pill">武器类型 <strong>${weaponsData.weaponCategories.length}</strong> 种</div>
+        <div class="stat-pill">配件 <strong>${totalAcc}</strong> 件</div>
+        <div class="stat-pill" style="border-color:rgba(0,200,255,0.4);color:#00c8ff">S9「回声」赛季数据</div>
+    `;
+}
+
+// ===================== 武器 =====================
+function populateFilters() {
+    const catSel = document.getElementById('weaponCat');
+    weaponsData.weaponCategories.forEach(c => {
+        const opt = document.createElement('option');
+        opt.value = c.id; opt.textContent = c.name;
+        catSel.appendChild(opt);
+    });
+
+    // 口径
+    const ammoSet = new Set();
+    weaponsData.weaponCategories.forEach(c => c.weapons.forEach(w => ammoSet.add(w.ammo)));
+    const ammoSel = document.getElementById('weaponAmmo');
+    [...ammoSet].sort().forEach(a => {
+        const opt = document.createElement('option');
+        opt.value = a; opt.textContent = a;
+        ammoSel.appendChild(opt);
+    });
+}
+
+function renderWeapons() {
+    const search = document.getElementById('weaponSearch').value.toLowerCase();
+    const cat = document.getElementById('weaponCat').value;
+    const ammo = document.getElementById('weaponAmmo').value;
+
+    let list = [];
+    weaponsData.weaponCategories.forEach(c => {
+        if (cat && c.id !== cat) return;
+        c.weapons.forEach(w => {
+            list.push({ ...w, _catName: c.name, _catId: c.id });
+        });
+    });
+
+    if (search) list = list.filter(w => w.name.toLowerCase().includes(search));
+    if (ammo) list = list.filter(w => w.ammo === ammo);
+
+    document.getElementById('weaponCount').textContent = `共 ${list.length} 把`;
+    document.getElementById('weaponGrid').innerHTML = list.length === 0
+        ? '<div class="no-data">没有找到匹配的武器</div>'
+        : list.map(w => renderWeaponCard(w)).join('');
+}
+
+function renderWeaponCard(w) {
+    const dmgPct = ((w.damage || 0) / MAX_DAMAGE * 100).toFixed(1);
+    const ratePct = ((w.fireRate || 0) / MAX_RATE * 100).toFixed(1);
+
+    return `
+    <div class="weapon-card">
+        <div class="wcard-header">
+            <div class="wcard-name">${w.name}</div>
+            <div class="wcard-category">${w._catName}</div>
+        </div>
+        <div class="wcard-ammo">📌 ${w.ammo || '未知口径'}</div>
+        <div class="stat-bars">
+            <div class="stat-row">
+                <div class="stat-name">伤害</div>
+                <div class="stat-bar-bg"><div class="stat-bar-fill bar-damage" style="width:${dmgPct}%"></div></div>
+                <div class="stat-num">${w.damage || '-'}</div>
+            </div>
+            <div class="stat-row">
+                <div class="stat-name">射速</div>
+                <div class="stat-bar-bg"><div class="stat-bar-fill bar-rate" style="width:${ratePct}%"></div></div>
+                <div class="stat-num">${w.fireRate || '-'}</div>
+            </div>
+        </div>
+        ${w.description ? `<div class="wcard-desc">${w.description}</div>` : ''}
+    </div>`;
+}
+
+// ===================== 配件 =====================
+const ACC_TYPE_NAMES = {
+    muzzle: '枪口', barrel: '枪管', scope: '瞄具', stock: '枪托'
+};
+
+function renderAccessories() {
+    const search = document.getElementById('accSearch').value.toLowerCase();
+    const type = document.getElementById('accType').value;
+    const grade = document.getElementById('accGrade').value;
+
+    let list = [];
+    const accs = accData.accessories || {};
+    Object.entries(accs).forEach(([t, arr]) => {
+        if (!Array.isArray(arr)) return;
+        if (type && t !== type) return;
+        arr.forEach(a => list.push({ ...a, _type: t }));
+    });
+
+    if (search) list = list.filter(a => (a.objectName || '').toLowerCase().includes(search));
+    if (grade) list = list.filter(a => String(a.grade) === grade);
+
+    // 排序：品质降序，名称升序
+    list.sort((a, b) => (b.grade - a.grade) || (a.objectName || '').localeCompare(b.objectName || ''));
+
+    document.getElementById('accCount').textContent = `共 ${list.length} 件`;
+
+    const gradeLabel = { 2: '🔵稀有', 3: '🟣史诗', 4: '🟡传说', 5: '🔴神话' };
+    const gradeClass = { 2: 'grade-2', 3: 'grade-3', 4: 'grade-4', 5: 'grade-5' };
+
+    const rows = list.map(a => {
+        const detail = a.accDetail || {};
+        const pros = (detail.advantage?.effectList || []).map(e => `<span class="eff-tag eff-pos">${e.value}</span>`).join('');
+        const cons = (detail.disadvantage?.effectList || []).map(e => `<span class="eff-tag eff-neg">${e.value}</span>`).join('');
+        return `<tr>
+            <td style="font-weight:bold;color:#fff">${a.objectName || '-'}</td>
+            <td>${ACC_TYPE_NAMES[a._type] || a._type}</td>
+            <td><span class="grade-badge ${gradeClass[a.grade] || ''}">${gradeLabel[a.grade] || a.grade}</span></td>
+            <td>${a.weight ? a.weight + ' kg' : '-'}</td>
+            <td>${pros || '<span style="color:#555">-</span>'}</td>
+            <td>${cons || '<span style="color:#555">无</span>'}</td>
+        </tr>`;
+    });
+
+    document.getElementById('accBody').innerHTML = rows.length === 0
+        ? `<tr><td colspan="6" class="no-data">没有找到匹配的配件</td></tr>`
+        : rows.join('');
+}
+
+// ===================== 标签切换 =====================
+function switchTab(name) {
+    document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+    document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+    event.target.classList.add('active');
+    document.getElementById('tab-' + name).classList.add('active');
+}
+
+// 启动
+loadData();
+</script>
+</body>
+</html>
