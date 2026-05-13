@@ -35,8 +35,8 @@
       "hourlyProfit": 390000,
       "tradableCost": 5000,
       "profitAnalysis": {
-        "boundProfit": 65000 * 0.87,
-        "tradableProfit": 65000 * 0.87 - 5000
+        "boundProfit": 56550,
+        "tradableProfit": 51550
       },
       "recommendation": "新手推荐，材料易得"
     },
@@ -56,7 +56,7 @@
       "tradableCost": 82000,
       "profitAnalysis": {
         "boundProfit": "N/A",
-        "tradableProfit": 1000000 * 0.87 - 82000
+        "tradableProfit": 788000
       },
       "note": "S9新增瞄具，3.5倍放大，工坊独家配方，高端市场稀缺",
       "recommendation": "高端玩家推荐，材料成本高但利润丰厚"
@@ -76,7 +76,7 @@
       "tradableCost": 34000,
       "profitAnalysis": {
         "boundProfit": "N/A",
-        "tradableProfit": 200000 * 0.87 - 34000
+        "tradableProfit": 140000
       },
       "note": "S9新增防具材料，价格2280/个（2026年5月12日市价）",
       "recommendation": "中等预算玩家推荐，需求稳定"
@@ -97,7 +97,7 @@
       "tradableCost": 94000,
       "profitAnalysis": {
         "boundProfit": "N/A",
-        "tradableProfit": 2500000 * 0.87 - 94000
+        "tradableProfit": 2081000
       },
       "note": "S9赛季核心装备，可提升移动速度20%和载重30%",
       "recommendation": "土豪玩家推荐，制作成本高但市场需求极大"
@@ -116,8 +116,8 @@
       "hourlyProfit": 600000,
       "tradableCost": 3000,
       "profitAnalysis": {
-        "boundProfit": 150000 * 0.87,
-        "tradableProfit": 150000 * 0.87 - 3000
+        "boundProfit": 130500,
+        "tradableProfit": 127500
       },
       "recommendation": "高利润，材料较易得"
     },
@@ -135,8 +135,8 @@
       "hourlyProfit": 900000,
       "tradableCost": 10000,
       "profitAnalysis": {
-        "boundProfit": 300000 * 0.87,
-        "tradableProfit": 300000 * 0.87 - 10000
+        "boundProfit": 261000,
+        "tradableProfit": 251000
       },
       "recommendation": "顶级利润，但材料稀有"
     },
@@ -154,8 +154,8 @@
       "hourlyProfit": 500000,
       "tradableCost": 2000,
       "profitAnalysis": {
-        "boundProfit": 100000 * 0.87,
-        "tradableProfit": 100000 * 0.87 - 2000
+        "boundProfit": 87000,
+        "tradableProfit": 85000
       },
       "recommendation": "战术装备，稳定需求"
     },
@@ -173,8 +173,8 @@
       "hourlyProfit": 800000,
       "tradableCost": 5000,
       "profitAnalysis": {
-        "boundProfit": 240000 * 0.87,
-        "tradableProfit": 240000 * 0.87 - 5000
+        "boundProfit": 208800,
+        "tradableProfit": 203800
       },
       "recommendation": "高需求消耗品，利润可观"
     }
