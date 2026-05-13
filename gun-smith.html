@@ -1,0 +1,865 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>改枪模拟器 - 三角眼工具站</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #0a0e1a 0%, #1a1f3a 100%);
+            color: #e0e0e0;
+            min-height: 100vh;
+            padding: 20px;
+        }
+        .container { max-width: 1400px; margin: 0 auto; }
+
+        .header {
+            background: linear-gradient(135deg, rgba(255,107,0,0.2) 0%, rgba(255,107,0,0.05) 100%);
+            border-bottom: 3px solid #ff6b00;
+            padding: 25px 20px;
+            text-align: center;
+            margin-bottom: 25px;
+            border-radius: 15px;
+        }
+        .header h1 { color: #ff6b00; font-size: 2.2em; margin-bottom: 8px; }
+        .header p { color: #888; font-size: 0.9em; }
+
+        .main-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 25px;
+        }
+
+        .panel {
+            background: rgba(255,255,255,0.05);
+            border: 2px solid #333;
+            border-radius: 12px;
+            padding: 20px;
+        }
+        .panel-title {
+            color: #ff6b00;
+            font-size: 1.3em;
+            font-weight: bold;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        /* Weapon selector */
+        .weapon-select {
+            width: 100%;
+            padding: 12px 16px;
+            background: rgba(0,0,0,0.4);
+            border: 2px solid #555;
+            border-radius: 8px;
+            color: #e0e0e0;
+            font-size: 1em;
+            cursor: pointer;
+            outline: none;
+            appearance: none;
+            -webkit-appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23ff6b00' fill='none' stroke-width='2'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 16px center;
+        }
+        .weapon-select:focus { border-color: #ff6b00; }
+        .weapon-select option { background: #1a1f3a; color: #e0e0e0; }
+
+        /* Base stats */
+        .base-stats {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            margin-top: 15px;
+        }
+        .stat-card {
+            background: rgba(0,0,0,0.3);
+            border: 1px solid #333;
+            border-radius: 8px;
+            padding: 12px;
+            text-align: center;
+        }
+        .stat-card .label { color: #888; font-size: 0.8em; margin-bottom: 4px; }
+        .stat-card .value { color: #fff; font-size: 1.5em; font-weight: bold; }
+        .stat-card .unit { color: #666; font-size: 0.75em; }
+
+        /* Attachment slots */
+        .slots-container { margin-top: 15px; }
+        .slot-group { margin-bottom: 14px; }
+        .slot-header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 8px;
+        }
+        .slot-label {
+            background: rgba(255,107,0,0.2);
+            border: 1px solid #ff6b00;
+            border-radius: 6px;
+            padding: 5px 12px;
+            color: #ff6b00;
+            font-size: 0.85em;
+            font-weight: bold;
+            min-width: 70px;
+            text-align: center;
+        }
+        .slot-select {
+            flex: 1;
+            padding: 8px 12px;
+            background: rgba(0,0,0,0.4);
+            border: 2px solid #444;
+            border-radius: 6px;
+            color: #e0e0e0;
+            font-size: 0.9em;
+            cursor: pointer;
+            outline: none;
+            appearance: none;
+            -webkit-appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M1 1l4 4 4-4' stroke='%23ff6b00' fill='none' stroke-width='2'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 12px center;
+        }
+        .slot-select:focus { border-color: #ff6b00; }
+        .slot-select option { background: #1a1f3a; color: #e0e0e0; }
+        .slot-select option[selected] { background: rgba(255,107,0,0.2); }
+
+        /* Radar chart */
+        .radar-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px 0;
+        }
+        #radarCanvas { max-width: 100%; }
+
+        /* Stat comparison bars */
+        .stat-bars { margin-top: 20px; }
+        .stat-bar-row { margin-bottom: 14px; }
+        .stat-bar-label {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 5px;
+            font-size: 0.9em;
+        }
+        .stat-bar-label .name { color: #ccc; }
+        .stat-bar-label .delta {
+            font-weight: bold;
+            font-size: 0.85em;
+        }
+        .delta.positive { color: #4CAF50; }
+        .delta.negative { color: #f44336; }
+        .delta.neutral { color: #666; }
+        .stat-bar-track {
+            height: 10px;
+            background: rgba(255,255,255,0.08);
+            border-radius: 5px;
+            overflow: hidden;
+            position: relative;
+        }
+        .stat-bar-base {
+            height: 100%;
+            border-radius: 5px;
+            background: rgba(255,255,255,0.2);
+            transition: width 0.4s ease;
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+        .stat-bar-mod {
+            height: 100%;
+            border-radius: 5px;
+            transition: width 0.4s ease;
+            position: relative;
+        }
+
+        /* Legend */
+        .chart-legend {
+            display: flex;
+            justify-content: center;
+            gap: 25px;
+            margin-top: 15px;
+            font-size: 0.85em;
+        }
+        .legend-dot {
+            width: 12px; height: 12px;
+            border-radius: 50%;
+            display: inline-block;
+            margin-right: 6px;
+            vertical-align: middle;
+        }
+
+        /* Save / Load */
+        .save-load-section {
+            grid-column: 1 / -1;
+        }
+        .save-controls {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+            margin-bottom: 15px;
+        }
+        .btn {
+            padding: 10px 20px;
+            border-radius: 8px;
+            font-size: 0.9em;
+            cursor: pointer;
+            border: 2px solid transparent;
+            transition: all 0.3s;
+            font-weight: bold;
+        }
+        .btn-primary {
+            background: #ff6b00;
+            color: #000;
+            border-color: #ff6b00;
+        }
+        .btn-primary:hover { background: #ff8c33; }
+        .btn-secondary {
+            background: transparent;
+            color: #ff6b00;
+            border-color: #ff6b00;
+        }
+        .btn-secondary:hover { background: rgba(255,107,0,0.1); }
+        .btn-danger {
+            background: transparent;
+            color: #f44336;
+            border-color: #f44336;
+        }
+        .btn-danger:hover { background: rgba(244,67,54,0.1); }
+
+        .save-input {
+            padding: 10px 14px;
+            background: rgba(0,0,0,0.4);
+            border: 2px solid #555;
+            border-radius: 8px;
+            color: #e0e0e0;
+            font-size: 0.9em;
+            outline: none;
+            flex: 1;
+            min-width: 200px;
+        }
+        .save-input:focus { border-color: #ff6b00; }
+
+        .saved-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 12px;
+        }
+        .saved-card {
+            background: rgba(0,0,0,0.3);
+            border: 1px solid #444;
+            border-radius: 8px;
+            padding: 14px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: border-color 0.3s;
+        }
+        .saved-card:hover { border-color: #ff6b00; }
+        .saved-card-info h4 { color: #ff6b00; font-size: 1em; margin-bottom: 4px; }
+        .saved-card-info p { color: #888; font-size: 0.8em; }
+        .saved-card-actions { display: flex; gap: 8px; }
+        .btn-sm {
+            padding: 6px 12px;
+            font-size: 0.8em;
+            border-radius: 6px;
+            cursor: pointer;
+            border: 1px solid;
+        }
+
+        /* Toast notification */
+        .toast {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: rgba(0,0,0,0.9);
+            border: 2px solid #4CAF50;
+            border-radius: 8px;
+            padding: 14px 20px;
+            color: #4CAF50;
+            font-weight: bold;
+            z-index: 1000;
+            transform: translateX(120%);
+            transition: transform 0.3s ease;
+        }
+        .toast.show { transform: translateX(0); }
+        .toast.error { border-color: #f44336; color: #f44336; }
+
+        /* Tooltip for attachment */
+        .acc-tooltip {
+            background: rgba(0,0,0,0.95);
+            border: 1px solid #ff6b00;
+            border-radius: 8px;
+            padding: 12px;
+            font-size: 0.85em;
+            max-width: 300px;
+            position: absolute;
+            z-index: 100;
+            display: none;
+        }
+        .acc-tooltip h5 { color: #ff6b00; margin-bottom: 8px; }
+        .acc-tooltip .advantage { color: #4CAF50; margin-bottom: 4px; }
+        .acc-tooltip .disadvantage { color: #f44336; margin-bottom: 4px; }
+
+        @media (max-width: 900px) {
+            .main-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🔧 改枪模拟器</h1>
+            <p>实时模拟武器改装，对比属性变化</p>
+        </div>
+
+        <div class="main-grid">
+            <!-- Left: Weapon & Attachments -->
+            <div>
+                <!-- Weapon Selection -->
+                <div class="panel" style="margin-bottom: 20px;">
+                    <div class="panel-title">🔫 选择武器</div>
+                    <select class="weapon-select" id="weaponSelect">
+                        <option value="">-- 请选择武器 --</option>
+                    </select>
+                    <div class="base-stats" id="baseStats"></div>
+                </div>
+
+                <!-- Attachment Slots -->
+                <div class="panel">
+                    <div class="panel-title">🧩 配件选择</div>
+                    <div class="slots-container" id="slotsContainer"></div>
+                </div>
+            </div>
+
+            <!-- Right: Radar Chart & Stats -->
+            <div>
+                <div class="panel" style="margin-bottom: 20px;">
+                    <div class="panel-title">📊 属性对比</div>
+                    <div class="radar-container">
+                        <canvas id="radarCanvas" width="380" height="380"></canvas>
+                    </div>
+                    <div class="chart-legend">
+                        <span><span class="legend-dot" style="background:rgba(255,255,255,0.3)"></span>原属性</span>
+                        <span><span class="legend-dot" style="background:#ff6b00"></span>改装后</span>
+                    </div>
+                    <div class="stat-bars" id="statBars"></div>
+                </div>
+            </div>
+
+            <!-- Save / Load -->
+            <div class="panel save-load-section">
+                <div class="panel-title">💾 配装方案</div>
+                <div class="save-controls">
+                    <input type="text" class="save-input" id="saveNameInput" placeholder="输入配装方案名称...">
+                    <button class="btn btn-primary" onclick="saveBuild()">保存方案</button>
+                    <button class="btn btn-secondary" onclick="clearAll()">清空配件</button>
+                </div>
+                <div class="saved-list" id="savedList"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast -->
+    <div class="toast" id="toast"></div>
+
+    <script>
+        // ========== Global State ==========
+        let weaponsData = null;
+        let gameData = null;
+        let selectedWeapon = null;
+        let selectedAttachments = {
+            muzzle: null,
+            barrel: null,
+            scope: null,
+            stock: null,
+            magazine: null,
+            grip: null
+        };
+
+        // Slot definitions: key, display name, icon, data source key in game-data.json
+        const SLOT_DEFS = [
+            { key: 'muzzle', name: '枪口', icon: '🔵' },
+            { key: 'barrel', name: '枪管', icon: '🟤' },
+            { key: 'scope',  name: '瞄具', icon: '🟡' },
+            { key: 'stock',  name: '枪托', icon: '🟢' },
+            { key: 'magazine', name: '弹匣', icon: '🔴' },
+            { key: 'grip', name: '后握把', icon: '🟣' }
+        ];
+
+        // Stat definitions for radar & bars
+        const STAT_DEFS = [
+            { key: 'damage',     name: '伤害', color: '#ff5722' },
+            { key: 'fireRate',   name: '射速', color: '#ff6b00' },
+            { key: 'recoil',     name: '后坐力控制', color: '#4CAF50' },
+            { key: 'controlSpeed', name: '操控速度', color: '#2196F3' },
+            { key: 'controlStable', name: '稳定性', color: '#9C27B0' },
+            { key: 'shotDistance', name: '射程', color: '#00d9ff' }
+        ];
+
+        // Normalize fireRate to 0-100 range: max ~1200
+        function normalizeFireRate(rate) {
+            return Math.min(100, (rate / 1200) * 100);
+        }
+
+        // ========== Initialize ==========
+        async function init() {
+            try {
+                const [wRes, gRes] = await Promise.all([
+                    fetch('weapons.json'),
+                    fetch('game-data.json')
+                ]);
+                weaponsData = await wRes.json();
+                gameData = await gRes.json();
+            } catch (e) {
+                console.error('Failed to load data:', e);
+                showToast('数据加载失败，请刷新重试', true);
+                return;
+            }
+
+            populateWeaponSelect();
+            renderSlots();
+            renderStatBars();
+            renderRadar();
+            renderSavedList();
+        }
+
+        // ========== Weapon Select ==========
+        function populateWeaponSelect() {
+            const select = document.getElementById('weaponSelect');
+            weaponsData.weaponCategories.forEach(cat => {
+                const optgroup = document.createElement('optgroup');
+                optgroup.label = cat.name;
+                cat.weapons.forEach(w => {
+                    const opt = document.createElement('option');
+                    opt.value = w.id;
+                    opt.textContent = `${w.name} (${w.ammo})`;
+                    opt.dataset.damage = w.damage;
+                    opt.dataset.fireRate = w.fireRate;
+                    optgroup.appendChild(opt);
+                });
+                select.appendChild(optgroup);
+            });
+            select.addEventListener('change', onWeaponChange);
+        }
+
+        function onWeaponChange() {
+            const sel = document.getElementById('weaponSelect');
+            if (!sel.value) {
+                selectedWeapon = null;
+                document.getElementById('baseStats').innerHTML = '';
+                selectedAttachments = { muzzle: null, barrel: null, scope: null, stock: null, magazine: null, grip: null };
+                renderSlots();
+                renderStatBars();
+                renderRadar();
+                return;
+            }
+
+            const opt = sel.selectedOptions[0];
+            selectedWeapon = {
+                id: opt.value,
+                name: opt.textContent.split(' (')[0],
+                damage: parseInt(opt.dataset.damage),
+                fireRate: parseInt(opt.dataset.fireRate),
+                ammo: opt.textContent.match(/\((.+)\)/)?.[1] || ''
+            };
+
+            // Reset attachments
+            selectedAttachments = { muzzle: null, barrel: null, scope: null, stock: null, magazine: null, grip: null };
+            renderBaseStats();
+            renderSlots();
+            renderStatBars();
+            renderRadar();
+        }
+
+        function renderBaseStats() {
+            if (!selectedWeapon) return;
+            const container = document.getElementById('baseStats');
+            container.innerHTML = `
+                <div class="stat-card">
+                    <div class="label">伤害</div>
+                    <div class="value">${selectedWeapon.damage}</div>
+                </div>
+                <div class="stat-card">
+                    <div class="label">射速 (RPM)</div>
+                    <div class="value">${selectedWeapon.fireRate}</div>
+                </div>
+                <div class="stat-card">
+                    <div class="label">弹药</div>
+                    <div class="value" style="font-size:1em">${selectedWeapon.ammo}</div>
+                </div>
+                <div class="stat-card">
+                    <div class="label">后坐力控制</div>
+                    <div class="value">50</div>
+                    <div class="unit">基础值</div>
+                </div>
+            `;
+        }
+
+        // ========== Attachment Slots ==========
+        function renderSlots() {
+            const container = document.getElementById('slotsContainer');
+            container.innerHTML = SLOT_DEFS.map(slot => {
+                const items = getSlotItems(slot.key);
+                const selected = selectedAttachments[slot.key];
+                return `
+                    <div class="slot-group">
+                        <div class="slot-header">
+                            <span class="slot-label">${slot.icon} ${slot.name}</span>
+                            <select class="slot-select" data-slot="${slot.key}" onchange="onAttachmentChange('${slot.key}', this.value)">
+                                <option value="">-- 不装 --</option>
+                                ${items.map(item => `
+                                    <option value="${item.id}" ${selected && selected.id == item.id ? 'selected' : ''}>
+                                        ${item.objectName} (等级${item.grade || '?'})
+                                    </option>
+                                `).join('')}
+                            </select>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        function getSlotItems(slotKey) {
+            if (!gameData) return [];
+            const mapping = {
+                muzzle: 'muzzle',
+                barrel: 'barrel',
+                scope: 'scope',
+                stock: 'stock',
+                magazine: 'muzzle',
+                grip: 'stock'
+            };
+            const dataKey = mapping[slotKey];
+            if (!dataKey) return [];
+            let items = gameData.accessories[dataKey] || [];
+            // Filter magazine and grip from other categories
+            if (slotKey === 'magazine') {
+                items = items.filter(i => i.secondClassCN === '弹匣');
+            } else if (slotKey === 'grip') {
+                items = items.filter(i => i.secondClassCN === '后握把' || i.secondClassCN === '前握把');
+            } else {
+                // Keep only the correct type
+                const cnName = SLOT_DEFS.find(s => s.key === slotKey)?.name;
+                if (cnName) {
+                    items = items.filter(i => i.secondClassCN === cnName);
+                }
+            }
+            // Deduplicate by id
+            const seen = new Set();
+            return items.filter(i => {
+                if (seen.has(i.id)) return false;
+                seen.add(i.id);
+                return true;
+            });
+        }
+
+        function onAttachmentChange(slotKey, value) {
+            if (!value) {
+                selectedAttachments[slotKey] = null;
+            } else {
+                const items = getSlotItems(slotKey);
+                const item = items.find(i => i.id == value);
+                selectedAttachments[slotKey] = item || null;
+            }
+            renderStatBars();
+            renderRadar();
+        }
+
+        // ========== Calculate Modified Stats ==========
+        function getModifiedStats() {
+            const base = {
+                damage: selectedWeapon ? selectedWeapon.damage : 0,
+                fireRate: selectedWeapon ? selectedWeapon.fireRate : 0,
+                recoil: 50,
+                controlSpeed: 50,
+                controlStable: 50,
+                shotDistance: 50
+            };
+
+            const deltas = { damage: 0, fireRate: 0, recoil: 0, controlSpeed: 0, controlStable: 0, shotDistance: 0 };
+
+            // Apply each attachment's effects
+            Object.values(selectedAttachments).forEach(acc => {
+                if (!acc || !acc.accDetail) return;
+                const d = acc.accDetail;
+                if (d.recoil) deltas.recoil += d.recoil;
+                if (d.controlSpeed) deltas.controlSpeed += d.controlSpeed;
+                if (d.controlStable) deltas.controlStable += d.controlStable;
+                if (d.hipShot) deltas.controlSpeed += Math.round(d.hipShot * 0.5);
+                if (d.shotDistancePercent) deltas.shotDistance += Math.round(d.shotDistancePercent * 1.5);
+            });
+
+            const modified = {
+                damage: base.damage,
+                fireRate: base.fireRate,
+                recoil: Math.max(0, Math.min(100, base.recoil + deltas.recoil)),
+                controlSpeed: Math.max(0, Math.min(100, base.controlSpeed + deltas.controlSpeed)),
+                controlStable: Math.max(0, Math.min(100, base.controlStable + deltas.controlStable)),
+                shotDistance: Math.max(0, Math.min(100, base.shotDistance + deltas.shotDistance))
+            };
+
+            return { base, modified, deltas };
+        }
+
+        // ========== Stat Bars ==========
+        function renderStatBars() {
+            const container = document.getElementById('statBars');
+            if (!selectedWeapon) {
+                container.innerHTML = '<p style="color:#666;text-align:center;padding:20px">请先选择武器</p>';
+                return;
+            }
+
+            const { base, modified, deltas } = getModifiedStats();
+
+            container.innerHTML = STAT_DEFS.map(stat => {
+                const baseVal = stat.key === 'fireRate' ? normalizeFireRate(base[stat.key]) : base[stat.key];
+                const modVal = stat.key === 'fireRate' ? normalizeFireRate(modified[stat.key]) : modified[stat.key];
+                const delta = stat.key === 'fireRate' ? 0 : (modified[stat.key] - base[stat.key]);
+
+                const displayBase = stat.key === 'fireRate' ? base[stat.key] : base[stat.key];
+                const displayMod = stat.key === 'fireRate' ? modified[stat.key] : modified[stat.key];
+
+                let deltaText = '';
+                let deltaClass = 'neutral';
+                if (stat.key !== 'fireRate') {
+                    if (delta > 0) { deltaText = `+${delta}`; deltaClass = 'positive'; }
+                    else if (delta < 0) { deltaText = `${delta}`; deltaClass = 'negative'; }
+                    else { deltaText = '±0'; }
+                }
+
+                return `
+                    <div class="stat-bar-row">
+                        <div class="stat-bar-label">
+                            <span class="name">${stat.name}</span>
+                            <span class="delta ${deltaClass}">${stat.key === 'fireRate' ? displayMod + ' RPM' : displayMod + (deltaText ? ' (' + deltaText + ')' : '')}</span>
+                        </div>
+                        <div class="stat-bar-track">
+                            <div class="stat-bar-base" style="width:${baseVal}%"></div>
+                            <div class="stat-bar-mod" style="width:${modVal}%;background:${stat.color};opacity:0.8"></div>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        // ========== Radar Chart ==========
+        function renderRadar() {
+            const canvas = document.getElementById('radarCanvas');
+            const ctx = canvas.getContext('2d');
+            const w = canvas.width;
+            const h = canvas.height;
+            const cx = w / 2;
+            const cy = h / 2;
+            const maxR = 140;
+            const sides = STAT_DEFS.length;
+
+            ctx.clearRect(0, 0, w, h);
+
+            // Draw grid rings
+            for (let ring = 1; ring <= 5; ring++) {
+                const r = (maxR / 5) * ring;
+                ctx.beginPath();
+                for (let i = 0; i <= sides; i++) {
+                    const angle = (Math.PI * 2 / sides) * i - Math.PI / 2;
+                    const x = cx + r * Math.cos(angle);
+                    const y = cy + r * Math.sin(angle);
+                    if (i === 0) ctx.moveTo(x, y);
+                    else ctx.lineTo(x, y);
+                }
+                ctx.closePath();
+                ctx.strokeStyle = 'rgba(255,255,255,0.08)';
+                ctx.lineWidth = 1;
+                ctx.stroke();
+            }
+
+            // Draw axis lines
+            for (let i = 0; i < sides; i++) {
+                const angle = (Math.PI * 2 / sides) * i - Math.PI / 2;
+                ctx.beginPath();
+                ctx.moveTo(cx, cy);
+                ctx.lineTo(cx + maxR * Math.cos(angle), cy + maxR * Math.sin(angle));
+                ctx.strokeStyle = 'rgba(255,255,255,0.08)';
+                ctx.stroke();
+            }
+
+            // Draw labels
+            for (let i = 0; i < sides; i++) {
+                const angle = (Math.PI * 2 / sides) * i - Math.PI / 2;
+                const labelR = maxR + 25;
+                const x = cx + labelR * Math.cos(angle);
+                const y = cy + labelR * Math.sin(angle);
+                ctx.fillStyle = '#999';
+                ctx.font = '12px Segoe UI';
+                ctx.textAlign = 'center';
+                ctx.textBaseline = 'middle';
+                ctx.fillText(STAT_DEFS[i].name, x, y);
+            }
+
+            if (!selectedWeapon) {
+                ctx.fillStyle = '#555';
+                ctx.font = '14px Segoe UI';
+                ctx.textAlign = 'center';
+                ctx.fillText('请选择武器', cx, cy);
+                return;
+            }
+
+            const { base, modified } = getModifiedStats();
+
+            // Draw base shape
+            drawRadarShape(ctx, cx, cy, maxR, sides, base, 'rgba(255,255,255,0.15)', 'rgba(255,255,255,0.4)', 2);
+
+            // Draw modified shape
+            drawRadarShape(ctx, cx, cy, maxR, sides, modified, 'rgba(255,107,0,0.2)', '#ff6b00', 3);
+        }
+
+        function drawRadarShape(ctx, cx, cy, maxR, sides, stats, fillColor, strokeColor, lineWidth) {
+            ctx.beginPath();
+            for (let i = 0; i <= sides; i++) {
+                const idx = i % sides;
+                const angle = (Math.PI * 2 / sides) * idx - Math.PI / 2;
+                let val;
+                if (STAT_DEFS[idx].key === 'fireRate') {
+                    val = normalizeFireRate(stats.fireRate) / 100;
+                } else if (STAT_DEFS[idx].key === 'damage') {
+                    val = Math.min(100, stats.damage) / 100;
+                } else {
+                    val = stats[STAT_DEFS[idx].key] / 100;
+                }
+                const r = maxR * Math.max(0.05, val);
+                const x = cx + r * Math.cos(angle);
+                const y = cy + r * Math.sin(angle);
+                if (i === 0) ctx.moveTo(x, y);
+                else ctx.lineTo(x, y);
+            }
+            ctx.closePath();
+            ctx.fillStyle = fillColor;
+            ctx.fill();
+            ctx.strokeStyle = strokeColor;
+            ctx.lineWidth = lineWidth;
+            ctx.stroke();
+        }
+
+        // ========== Save / Load ==========
+        function saveBuild() {
+            if (!selectedWeapon) {
+                showToast('请先选择武器', true);
+                return;
+            }
+            const nameInput = document.getElementById('saveNameInput');
+            const name = nameInput.value.trim();
+            if (!name) {
+                showToast('请输入配装方案名称', true);
+                return;
+            }
+
+            const builds = getSavedBuilds();
+            const build = {
+                id: Date.now(),
+                name: name,
+                weaponId: selectedWeapon.id,
+                weaponName: selectedWeapon.name,
+                attachments: {},
+                createdAt: new Date().toISOString()
+            };
+            Object.keys(selectedAttachments).forEach(key => {
+                if (selectedAttachments[key]) {
+                    build.attachments[key] = selectedAttachments[key].id;
+                }
+            });
+
+            builds.push(build);
+            localStorage.setItem('gunsmith_builds', JSON.stringify(builds));
+            nameInput.value = '';
+            renderSavedList();
+            showToast('配装方案已保存!');
+        }
+
+        function getSavedBuilds() {
+            try {
+                return JSON.parse(localStorage.getItem('gunsmith_builds') || '[]');
+            } catch { return []; }
+        }
+
+        function loadBuild(buildId) {
+            const builds = getSavedBuilds();
+            const build = builds.find(b => b.id === buildId);
+            if (!build) return;
+
+            // Select weapon
+            const select = document.getElementById('weaponSelect');
+            select.value = build.weaponId;
+            onWeaponChange();
+
+            // Apply attachments after weapon is loaded
+            setTimeout(() => {
+                Object.entries(build.attachments).forEach(([key, accId]) => {
+                    const sel = document.querySelector(`.slot-select[data-slot="${key}"]`);
+                    if (sel) {
+                        sel.value = accId;
+                        onAttachmentChange(key, accId);
+                    }
+                });
+            }, 100);
+
+            showToast('配装方案已加载!');
+        }
+
+        function deleteBuild(buildId) {
+            let builds = getSavedBuilds();
+            builds = builds.filter(b => b.id !== buildId);
+            localStorage.setItem('gunsmith_builds', JSON.stringify(builds));
+            renderSavedList();
+            showToast('配装方案已删除');
+        }
+
+        function renderSavedList() {
+            const container = document.getElementById('savedList');
+            const builds = getSavedBuilds();
+            if (builds.length === 0) {
+                container.innerHTML = '<p style="color:#666;text-align:center;padding:15px">暂无保存的配装方案</p>';
+                return;
+            }
+
+            container.innerHTML = builds.sort((a, b) => b.id - a.id).map(build => {
+                const date = new Date(build.createdAt).toLocaleString('zh-CN');
+                const accCount = Object.keys(build.attachments).length;
+                return `
+                    <div class="saved-card">
+                        <div class="saved-card-info">
+                            <h4>${build.name}</h4>
+                            <p>${build.weaponName} | ${accCount}个配件 | ${date}</p>
+                        </div>
+                        <div class="saved-card-actions">
+                            <button class="btn-sm btn-secondary" onclick="loadBuild(${build.id})">加载</button>
+                            <button class="btn-sm btn-danger" onclick="deleteBuild(${build.id})">删除</button>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        function clearAll() {
+            selectedAttachments = { muzzle: null, barrel: null, scope: null, stock: null, magazine: null, grip: null };
+            renderSlots();
+            renderStatBars();
+            renderRadar();
+            showToast('已清空所有配件');
+        }
+
+        // ========== Toast ==========
+        function showToast(msg, isError) {
+            const toast = document.getElementById('toast');
+            toast.textContent = msg;
+            toast.className = 'toast' + (isError ? ' error' : '');
+            toast.classList.add('show');
+            setTimeout(() => toast.classList.remove('show'), 2500);
+        }
+
+        // ========== Start ==========
+        window.addEventListener('DOMContentLoaded', init);
+    </script>
+</body>
+</html>

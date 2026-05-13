@@ -397,6 +397,246 @@
                 padding: 10px 8px;
             }
         }
+
+        /* ========== Price Alert Module ========== */
+        .alert-module {
+            background: rgba(255, 255, 255, 0.05);
+            border: 2px solid #333;
+            border-radius: 12px;
+            padding: 25px;
+            margin-bottom: 30px;
+        }
+
+        .alert-module-title {
+            color: #ff6b00;
+            font-size: 1.5em;
+            font-weight: bold;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .alert-toggle {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 0.85em;
+            color: #888;
+        }
+
+        .toggle-switch {
+            position: relative;
+            width: 48px;
+            height: 26px;
+            cursor: pointer;
+        }
+        .toggle-switch input { opacity: 0; width: 0; height: 0; }
+        .toggle-slider {
+            position: absolute;
+            inset: 0;
+            background: #444;
+            border-radius: 26px;
+            transition: 0.3s;
+        }
+        .toggle-slider::before {
+            content: '';
+            position: absolute;
+            width: 20px; height: 20px;
+            left: 3px; bottom: 3px;
+            background: #fff;
+            border-radius: 50%;
+            transition: 0.3s;
+        }
+        .toggle-switch input:checked + .toggle-slider {
+            background: #ff6b00;
+        }
+        .toggle-switch input:checked + .toggle-slider::before {
+            transform: translateX(22px);
+        }
+
+        .alert-add-section {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+            align-items: flex-end;
+        }
+        .alert-field {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+        .alert-field label {
+            color: #888;
+            font-size: 0.8em;
+        }
+        .alert-field select,
+        .alert-field input {
+            padding: 10px 12px;
+            background: rgba(0,0,0,0.4);
+            border: 2px solid #555;
+            border-radius: 8px;
+            color: #e0e0e0;
+            font-size: 0.9em;
+            outline: none;
+            min-width: 140px;
+        }
+        .alert-field select:focus,
+        .alert-field input:focus {
+            border-color: #ff6b00;
+        }
+        .alert-field select option { background: #1a1f3a; }
+
+        .alert-btn {
+            padding: 10px 20px;
+            border-radius: 8px;
+            font-size: 0.9em;
+            cursor: pointer;
+            border: 2px solid transparent;
+            transition: all 0.3s;
+            font-weight: bold;
+            white-space: nowrap;
+        }
+        .alert-btn-primary {
+            background: #ff6b00;
+            color: #000;
+            border-color: #ff6b00;
+        }
+        .alert-btn-primary:hover { background: #ff8c33; }
+        .alert-btn-danger {
+            background: transparent;
+            color: #f44336;
+            border-color: #f44336;
+            padding: 6px 12px;
+            font-size: 0.8em;
+        }
+        .alert-btn-danger:hover { background: rgba(244,67,54,0.1); }
+        .alert-btn-edit {
+            background: transparent;
+            color: #00d9ff;
+            border-color: #00d9ff;
+            padding: 6px 12px;
+            font-size: 0.8em;
+        }
+        .alert-btn-edit:hover { background: rgba(0,217,255,0.1); }
+
+        .alert-list-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        .alert-list-table th {
+            text-align: left;
+            padding: 10px 12px;
+            border-bottom: 2px solid #444;
+            color: #888;
+            font-size: 0.8em;
+            text-transform: uppercase;
+        }
+        .alert-list-table td {
+            padding: 12px;
+            border-bottom: 1px solid #333;
+            vertical-align: middle;
+        }
+        .alert-list-table tr:hover {
+            background: rgba(255,107,0,0.05);
+        }
+
+        .alert-item-name {
+            color: #fff;
+            font-weight: bold;
+        }
+
+        .alert-price-current {
+            font-weight: bold;
+            color: #00d9ff;
+        }
+
+        .alert-target {
+            font-size: 0.85em;
+        }
+        .alert-target-sell { color: #ff5722; }
+        .alert-target-buy { color: #4CAF50; }
+
+        .alert-diff {
+            font-weight: bold;
+            font-size: 0.85em;
+        }
+        .alert-diff.need-up { color: #ff5722; }
+        .alert-diff.need-down { color: #4CAF50; }
+        .alert-diff.reached { color: #ff6b00; }
+
+        .alert-status-badge {
+            display: inline-block;
+            padding: 3px 10px;
+            border-radius: 12px;
+            font-size: 0.8em;
+            font-weight: bold;
+        }
+        .badge-waiting {
+            background: rgba(255,255,255,0.1);
+            color: #888;
+        }
+        .badge-sell-reached {
+            background: rgba(255,87,34,0.3);
+            color: #ff5722;
+        }
+        .badge-buy-reached {
+            background: rgba(76,175,80,0.3);
+            color: #4CAF50;
+        }
+
+        .alert-empty {
+            text-align: center;
+            color: #555;
+            padding: 30px;
+            font-size: 0.9em;
+        }
+
+        .alert-notification-badge {
+            position: relative;
+        }
+        .alert-notification-badge .badge-count {
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            background: #f44336;
+            color: #fff;
+            font-size: 0.7em;
+            padding: 2px 6px;
+            border-radius: 10px;
+            font-weight: bold;
+        }
+
+        /* Toast for notifications */
+        .notify-toast {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: rgba(0,0,0,0.95);
+            border: 2px solid #ff6b00;
+            border-radius: 12px;
+            padding: 20px;
+            color: #e0e0e0;
+            z-index: 2000;
+            transform: translateX(120%);
+            transition: transform 0.4s ease;
+            max-width: 360px;
+        }
+        .notify-toast.show { transform: translateX(0); }
+        .notify-toast h4 { color: #ff6b00; margin-bottom: 8px; font-size: 1em; }
+        .notify-toast p { font-size: 0.85em; line-height: 1.4; }
+        .notify-toast .notify-price { color: #00d9ff; font-weight: bold; font-size: 1.1em; }
+        .notify-toast .notify-close {
+            margin-top: 12px;
+            padding: 6px 16px;
+            background: rgba(255,107,0,0.2);
+            border: 1px solid #ff6b00;
+            color: #ff6b00;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.8em;
+        }
     </style>
 </head>
 <body>
@@ -471,6 +711,64 @@
                 </tbody>
             </table>
         </div>
+
+        <!-- ========== 价格提醒模块 ========== -->
+        <div class="alert-module" id="alertModule">
+            <div class="alert-module-title">
+                <span>🔔 价格提醒</span>
+                <div class="alert-toggle">
+                    <span id="alertToggleLabel">通知已关闭</span>
+                    <label class="toggle-switch">
+                        <input type="checkbox" id="alertGlobalToggle" onchange="toggleGlobalAlert(this.checked)">
+                        <span class="toggle-slider"></span>
+                    </label>
+                </div>
+            </div>
+
+            <!-- Add alert form -->
+            <div class="alert-add-section">
+                <div class="alert-field">
+                    <label>选择物品</label>
+                    <select id="alertItemSelect">
+                        <option value="">-- 选择物品 --</option>
+                    </select>
+                </div>
+                <div class="alert-field">
+                    <label>高价卖出目标</label>
+                    <input type="number" id="alertSellPrice" placeholder="价格到达卖出" min="0">
+                </div>
+                <div class="alert-field">
+                    <label>低价买入目标</label>
+                    <input type="number" id="alertBuyPrice" placeholder="价格跌到买入" min="0">
+                </div>
+                <button class="alert-btn alert-btn-primary" onclick="addPriceAlert()">添加提醒</button>
+            </div>
+
+            <!-- Alert list -->
+            <table class="alert-list-table">
+                <thead>
+                    <tr>
+                        <th>物品名称</th>
+                        <th>当前价格</th>
+                        <th>卖出目标</th>
+                        <th>买入目标</th>
+                        <th>差距</th>
+                        <th>状态</th>
+                        <th>操作</th>
+                    </tr>
+                </thead>
+                <tbody id="alertListBody">
+                    <tr><td colspan="7" class="alert-empty">暂无价格提醒，请添加关注的物品</td></tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- Notification toast -->
+    <div class="notify-toast" id="notifyToast">
+        <h4 id="notifyTitle"></h4>
+        <p id="notifyBody"></p>
+        <button class="notify-close" onclick="closeNotifyToast()">知道了</button>
     </div>
 
     <script>
@@ -515,6 +813,7 @@
             updateChart();
             renderPriceTable();
             updateAlertBanner();
+            initAlertModule();
         }
 
         // 加载数据
@@ -980,6 +1279,361 @@
 
         // 页面加载
         window.addEventListener('DOMContentLoaded', init);
+
+        // ========== Price Alert Module ==========
+
+        // Alert state
+        let priceAlerts = [];
+        let alertGlobalEnabled = false;
+        let alertCheckInterval = null;
+        const ALERT_STORAGE_KEY = 'price_alerts';
+        const ALERT_ENABLED_KEY = 'price_alert_enabled';
+        const ALERT_CHECK_MS = 30000; // Check every 30 seconds
+
+        // Initialize alert module
+        function initAlertModule() {
+            // Load saved state
+            try {
+                priceAlerts = JSON.parse(localStorage.getItem(ALERT_STORAGE_KEY) || '[]');
+                alertGlobalEnabled = localStorage.getItem(ALERT_ENABLED_KEY) === 'true';
+            } catch (e) {
+                priceAlerts = [];
+                alertGlobalEnabled = false;
+            }
+
+            // Restore toggle state
+            const toggle = document.getElementById('alertGlobalToggle');
+            toggle.checked = alertGlobalEnabled;
+            updateToggleLabel();
+
+            // Populate item dropdown from real-time data
+            populateAlertItemSelect();
+
+            // Render alert list
+            renderAlertList();
+
+            // Start periodic check if enabled
+            if (alertGlobalEnabled) {
+                startAlertCheck();
+            }
+
+            // Request notification permission
+            requestNotificationPermission();
+        }
+
+        // Request browser notification permission
+        function requestNotificationPermission() {
+            if ('Notification' in window && Notification.permission === 'default') {
+                Notification.requestPermission();
+            }
+        }
+
+        // Populate item select from price-realtime.json
+        function populateAlertItemSelect() {
+            const select = document.getElementById('alertItemSelect');
+            const items = priceData.realtime?.items || [];
+            if (items.length === 0) {
+                // Fallback: use priority items
+                priorityItems.forEach(item => {
+                    const opt = document.createElement('option');
+                    opt.value = item.name;
+                    opt.textContent = item.name;
+                    opt.dataset.price = Math.round(15000 + Math.random() * 85000);
+                    select.appendChild(opt);
+                });
+                return;
+            }
+
+            // Group items by secondClassCN
+            const grouped = {};
+            items.forEach(item => {
+                const cat = item.secondClassCN || '其他';
+                if (!grouped[cat]) grouped[cat] = [];
+                grouped[cat].push(item);
+            });
+
+            Object.keys(grouped).sort().forEach(cat => {
+                const optgroup = document.createElement('optgroup');
+                optgroup.label = cat;
+                grouped[cat].forEach(item => {
+                    const opt = document.createElement('option');
+                    opt.value = item.name;
+                    opt.textContent = `${item.name} (${formatPrice(item.price)})`;
+                    opt.dataset.price = item.price;
+                    optgroup.appendChild(opt);
+                });
+                select.appendChild(opt);
+            });
+        }
+
+        // Toggle global alert
+        function toggleGlobalAlert(enabled) {
+            alertGlobalEnabled = enabled;
+            localStorage.setItem(ALERT_ENABLED_KEY, enabled);
+            updateToggleLabel();
+
+            if (enabled) {
+                requestNotificationPermission();
+                startAlertCheck();
+                showNotifyToast('通知已开启', '将在后台检测价格变化，达到目标时推送通知。');
+            } else {
+                stopAlertCheck();
+            }
+        }
+
+        function updateToggleLabel() {
+            const label = document.getElementById('alertToggleLabel');
+            label.textContent = alertGlobalEnabled ? '通知已开启' : '通知已关闭';
+            label.style.color = alertGlobalEnabled ? '#4CAF50' : '#888';
+        }
+
+        // Start / stop alert check interval
+        function startAlertCheck() {
+            if (alertCheckInterval) return;
+            checkPriceAlerts(); // Check immediately
+            alertCheckInterval = setInterval(checkPriceAlerts, ALERT_CHECK_MS);
+        }
+
+        function stopAlertCheck() {
+            if (alertCheckInterval) {
+                clearInterval(alertCheckInterval);
+                alertCheckInterval = null;
+            }
+        }
+
+        // Add a price alert
+        function addPriceAlert() {
+            const itemSelect = document.getElementById('alertItemSelect');
+            const sellInput = document.getElementById('alertSellPrice');
+            const buyInput = document.getElementById('alertBuyPrice');
+
+            const itemName = itemSelect.value;
+            const sellPrice = parseFloat(sellInput.value) || 0;
+            const buyPrice = parseFloat(buyInput.value) || 0;
+
+            if (!itemName) {
+                showNotifyToast('提示', '请选择一个物品');
+                return;
+            }
+            if (sellPrice === 0 && buyPrice === 0) {
+                showNotifyToast('提示', '请至少设置一个目标价格（卖出或买入）');
+                return;
+            }
+
+            // Get current price
+            const selectedOpt = itemSelect.selectedOptions[0];
+            const currentPrice = parseInt(selectedOpt?.dataset?.price) || 0;
+
+            // Check for duplicate
+            if (priceAlerts.find(a => a.itemName === itemName)) {
+                showNotifyToast('提示', '该物品已有提醒，请先删除旧的');
+                return;
+            }
+
+            const alert = {
+                id: Date.now(),
+                itemName: itemName,
+                currentPrice: currentPrice,
+                sellPrice: sellPrice,
+                buyPrice: buyPrice,
+                sellTriggered: false,
+                buyTriggered: false,
+                createdAt: new Date().toISOString()
+            };
+
+            priceAlerts.push(alert);
+            saveAlerts();
+            renderAlertList();
+
+            // Clear inputs
+            itemSelect.value = '';
+            sellInput.value = '';
+            buyInput.value = '';
+
+            showNotifyToast('提醒已添加', `${itemName} 的价格提醒已设置`);
+        }
+
+        // Delete alert
+        function deleteAlert(alertId) {
+            priceAlerts = priceAlerts.filter(a => a.id !== alertId);
+            saveAlerts();
+            renderAlertList();
+        }
+
+        // Edit alert (populate fields for editing)
+        function editAlert(alertId) {
+            const alert = priceAlerts.find(a => a.id === alertId);
+            if (!alert) return;
+
+            document.getElementById('alertItemSelect').value = alert.itemName;
+            document.getElementById('alertSellPrice').value = alert.sellPrice || '';
+            document.getElementById('alertBuyPrice').value = alert.buyPrice || '';
+
+            // Delete the old one (user will re-add)
+            deleteAlert(alertId);
+        }
+
+        // Save alerts to localStorage
+        function saveAlerts() {
+            localStorage.setItem(ALERT_STORAGE_KEY, JSON.stringify(priceAlerts));
+        }
+
+        // Check price alerts against current data
+        function checkPriceAlerts() {
+            if (!alertGlobalEnabled || priceAlerts.length === 0) return;
+
+            const items = priceData.realtime?.items || [];
+            let hasTriggered = false;
+
+            priceAlerts.forEach(alert => {
+                // Find current price
+                const item = items.find(i => i.name === alert.itemName);
+                if (item) {
+                    alert.currentPrice = item.price;
+
+                    // Check sell target
+                    if (alert.sellPrice > 0 && !alert.sellTriggered && item.price >= alert.sellPrice) {
+                        alert.sellTriggered = true;
+                        hasTriggered = true;
+                        sendNotification(
+                            `${alert.itemName} 达到卖出目标!`,
+                            `当前价格 ${formatPrice(item.price)} 已达到您的卖出目标 ${formatPrice(alert.sellPrice)}，建议卖出!`
+                        );
+                    }
+
+                    // Check buy target
+                    if (alert.buyPrice > 0 && !alert.buyTriggered && item.price <= alert.buyPrice) {
+                        alert.buyTriggered = true;
+                        hasTriggered = true;
+                        sendNotification(
+                            `${alert.itemName} 达到买入目标!`,
+                            `当前价格 ${formatPrice(item.price)} 已达到您的买入目标 ${formatPrice(alert.buyPrice)}，建议买入!`
+                        );
+                    }
+                }
+            });
+
+            if (hasTriggered) {
+                saveAlerts();
+            }
+            renderAlertList();
+        }
+
+        // Send browser notification
+        function sendNotification(title, body) {
+            // In-page toast
+            showNotifyToast(title, body);
+
+            // Browser notification
+            if ('Notification' in window && Notification.permission === 'granted') {
+                try {
+                    new Notification(title, {
+                        body: body,
+                        icon: 'data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><text y=".9em" font-size="90">🔔</text></svg>',
+                        tag: 'delta-price-alert',
+                        renotify: true
+                    });
+                } catch (e) {
+                    console.log('Notification failed:', e);
+                }
+            }
+        }
+
+        // Render alert list
+        function renderAlertList() {
+            const tbody = document.getElementById('alertListBody');
+
+            if (priceAlerts.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="7" class="alert-empty">暂无价格提醒，请添加关注的物品</td></tr>';
+                return;
+            }
+
+            tbody.innerHTML = priceAlerts.map(alert => {
+                const currentPrice = alert.currentPrice || 0;
+
+                // Calculate differences
+                let sellDiff = null;
+                let buyDiff = null;
+                let sellDiffText = '--';
+                let buyDiffText = '--';
+                let sellDiffClass = '';
+                let buyDiffClass = '';
+                let overallStatus = 'waiting';
+                let statusText = '等待中';
+                let statusClass = 'badge-waiting';
+
+                if (alert.sellPrice > 0) {
+                    sellDiff = currentPrice - alert.sellPrice;
+                    if (sellDiff >= 0) {
+                        sellDiffText = '已达标!';
+                        sellDiffClass = 'reached';
+                        if (overallStatus !== 'buy-reached') overallStatus = 'sell-reached';
+                    } else {
+                        sellDiffText = `还需涨 ${formatPrice(Math.abs(sellDiff))}`;
+                        sellDiffClass = 'need-up';
+                    }
+                }
+
+                if (alert.buyPrice > 0) {
+                    buyDiff = currentPrice - alert.buyPrice;
+                    if (buyDiff <= 0) {
+                        buyDiffText = '已达标!';
+                        buyDiffClass = 'reached';
+                        overallStatus = 'buy-reached';
+                    } else {
+                        buyDiffText = `还需跌 ${formatPrice(Math.abs(buyDiff))}`;
+                        buyDiffClass = 'need-down';
+                    }
+                }
+
+                if (overallStatus === 'sell-reached') {
+                    statusText = '可卖出';
+                    statusClass = 'badge-sell-reached';
+                } else if (overallStatus === 'buy-reached') {
+                    statusText = '可买入';
+                    statusClass = 'badge-buy-reached';
+                }
+
+                // Price change indicator
+                const priceChangeColor = currentPrice > 0 ? '#00d9ff' : '#666';
+
+                return `
+                    <tr>
+                        <td><span class="alert-item-name">${alert.itemName}</span></td>
+                        <td><span class="alert-price-current">${currentPrice > 0 ? formatPrice(currentPrice) : '--'}</span></td>
+                        <td class="alert-target alert-target-sell">${alert.sellPrice > 0 ? formatPrice(alert.sellPrice) : '--'}</td>
+                        <td class="alert-target alert-target-buy">${alert.buyPrice > 0 ? formatPrice(alert.buyPrice) : '--'}</td>
+                        <td>
+                            ${alert.sellPrice > 0 ? `<div class="alert-diff ${sellDiffClass}">卖出: ${sellDiffText}</div>` : ''}
+                            ${alert.buyPrice > 0 ? `<div class="alert-diff ${buyDiffClass}">买入: ${buyDiffText}</div>` : ''}
+                        </td>
+                        <td><span class="alert-status-badge ${statusClass}">${statusText}</span></td>
+                        <td>
+                            <button class="alert-btn alert-btn-edit" onclick="editAlert(${alert.id})">编辑</button>
+                            <button class="alert-btn alert-btn-danger" onclick="deleteAlert(${alert.id})">删除</button>
+                        </td>
+                    </tr>
+                `;
+            }).join('');
+        }
+
+        // Show notification toast
+        function showNotifyToast(title, body) {
+            const toast = document.getElementById('notifyToast');
+            document.getElementById('notifyTitle').textContent = title;
+            document.getElementById('notifyBody').innerHTML = body;
+            toast.classList.add('show');
+            // Auto-hide after 8 seconds
+            clearTimeout(showNotifyToast._timer);
+            showNotifyToast._timer = setTimeout(() => {
+                toast.classList.remove('show');
+            }, 8000);
+        }
+
+        // Close notification toast
+        function closeNotifyToast() {
+            document.getElementById('notifyToast').classList.remove('show');
+        }
     </script>
 </body>
 </html>
