@@ -1,0 +1,222 @@
+{
+  "metadata": {
+    "version": "1.0",
+    "lastUpdated": "2026-05-13",
+    "note": "配装数据库，基于S9赛季数据"
+  },
+  "gear_sets": {
+    "economical": {
+      "name": "经济型配装",
+      "description": "推荐预算内，性价比最高",
+      "budget_range": "0.7-1.0",
+      "loadouts": [
+        {
+          "id": "eco_fenghuo",
+          "mode": "fenghuo",
+          "team_size": 1,
+          "name": "新手经济装",
+          "total_price": 80000,
+          "cv_value": 45,
+          "items": [
+            { "slot": "helmet", "name": "基础头盔", "price": 8000, "cv": 5, "icon": "⛑️" },
+            { "slot": "armor", "name": "3级护甲", "price": 25000, "cv": 18, "icon": "🦺" },
+            { "slot": "backpack", "name": "小型背包", "price": 12000, "cv": 8, "icon": "🎒" },
+            { "slot": "medical", "name": "基础医疗包 x2", "price": 6000, "cv": 6, "icon": "💊" },
+            { "slot": "weapon", "name": "入门武器", "price": 29000, "cv": 8, "icon": "🔫" }
+          ],
+          "tips": ["适合单排烽火地带，新手友好"]
+        },
+        {
+          "id": "eco_quanmian",
+          "mode": "quanmian",
+          "team_size": 1,
+          "name": "全面战场经济装",
+          "total_price": 65000,
+          "cv_value": 38,
+          "items": [
+            { "slot": "helmet", "name": "标准头盔", "price": 5000, "cv": 4, "icon": "⛑️" },
+            { "slot": "armor", "name": "2级护甲", "price": 18000, "cv": 14, "icon": "🦺" },
+            { "slot": "backpack", "name": "中型背包", "price": 10000, "cv": 7, "icon": "🎒" },
+            { "slot": "medical", "name": "医疗包 x3", "price": 9000, "cv": 8, "icon": "💊" },
+            { "slot": "weapon", "name": "标准步枪", "price": 23000, "cv": 5, "icon": "🔫" }
+          ],
+          "tips": ["全面战场入门配置"]
+        },
+        {
+          "id": "eco_duo",
+          "mode": "fenghuo",
+          "team_size": 2,
+          "name": "双排经济互助装",
+          "total_price": 120000,
+          "cv_value": 72,
+          "items": [
+            { "slot": "helmet", "name": "DICH战术头盔", "price": 15000, "cv": 12, "icon": "⛑️" },
+            { "slot": "armor", "name": "4级护甲", "price": 40000, "cv": 28, "icon": "🦺" },
+            { "slot": "backpack", "name": "战术背包", "price": 18000, "cv": 12, "icon": "🎒" },
+            { "slot": "medical", "name": "T1医疗包 x2", "price": 12000, "cv": 10, "icon": "💊" },
+            { "slot": "weapon", "name": "AK突击步枪", "price": 35000, "cv": 10, "icon": "🔫" }
+          ],
+          "tips": ["双排互补配置，增加医疗储备"]
+        },
+        {
+          "id": "eco_squad",
+          "mode": "fenghuo",
+          "team_size": 4,
+          "name": "四排经济配置",
+          "total_price": 200000,
+          "cv_value": 120,
+          "items": [
+            { "slot": "helmet", "name": "GN重型头盔", "price": 25000, "cv": 20, "icon": "⛑️" },
+            { "slot": "armor", "name": "5级护甲", "price": 65000, "cv": 45, "icon": "🦺" },
+            { "slot": "backpack", "name": "大型背包", "price": 28000, "cv": 18, "icon": "🎒" },
+            { "slot": "medical", "name": "T2医疗包 x4", "price": 32000, "cv": 22, "icon": "💊" },
+            { "slot": "weapon", "name": "突击步枪套件", "price": 50000, "cv": 15, "icon": "🔫" }
+          ],
+          "tips": ["四排均衡配置，攻防兼备"]
+        }
+      ]
+    },
+    "balanced": {
+      "name": "均衡型配装",
+      "description": "略超预算，体验更佳",
+      "budget_range": "1.0-1.3",
+      "loadouts": [
+        {
+          "id": "bal_fenghuo",
+          "mode": "fenghuo",
+          "team_size": 1,
+          "name": "烽火均衡装",
+          "total_price": 150000,
+          "cv_value": 85,
+          "items": [
+            { "slot": "helmet", "name": "H09防暴头盔", "price": 30000, "cv": 22, "icon": "⛑️" },
+            { "slot": "armor", "name": "5级护甲", "price": 55000, "cv": 38, "icon": "🦺" },
+            { "slot": "backpack", "name": "战术背包", "price": 22000, "cv": 14, "icon": "🎒" },
+            { "slot": "medical", "name": "T1医疗包 x3", "price": 18000, "cv": 12, "icon": "💊" },
+            { "slot": "weapon", "name": "M4卡宾枪", "price": 25000, "cv": 8, "icon": "🔫" }
+          ],
+          "tips": ["烽火地带标准配置，适合有一定经验的玩家"]
+        },
+        {
+          "id": "bal_quanmian",
+          "mode": "quanmian",
+          "team_size": 1,
+          "name": "全面战场均衡装",
+          "total_price": 180000,
+          "cv_value": 95,
+          "items": [
+            { "slot": "helmet", "name": "DICH-1战术头盔", "price": 35000, "cv": 25, "icon": "⛑️" },
+            { "slot": "armor", "name": "5级护甲(高耐久)", "price": 70000, "cv": 42, "icon": "🦺" },
+            { "slot": "backpack", "name": "战术背包", "price": 25000, "cv": 16, "icon": "🎒" },
+            { "slot": "medical", "name": "T1医疗包 x2 + 绷带", "price": 20000, "cv": 12, "icon": "💊" },
+            { "slot": "weapon", "name": "精准射手步枪", "price": 30000, "cv": 10, "icon": "🔫" }
+          ],
+          "tips": ["全面战场高配，护甲优先"]
+        },
+        {
+          "id": "bal_duo",
+          "mode": "fenghuo",
+          "team_size": 2,
+          "name": "双排均衡突进装",
+          "total_price": 280000,
+          "cv_value": 165,
+          "items": [
+            { "slot": "helmet", "name": "GN久战重型头盔", "price": 45000, "cv": 35, "icon": "⛑️" },
+            { "slot": "armor", "name": "6级护甲", "price": 95000, "cv": 62, "icon": "🦺" },
+            { "slot": "backpack", "name": "战术背包(大)", "price": 38000, "cv": 24, "icon": "🎒" },
+            { "slot": "medical", "name": "T2医疗包 x3", "price": 42000, "cv": 28, "icon": "💊" },
+            { "slot": "weapon", "name": "突击步枪+瞄具", "price": 60000, "cv": 16, "icon": "🔫" }
+          ],
+          "tips": ["双排强势配置，攻防两端都有保障"]
+        },
+        {
+          "id": "bal_squad",
+          "mode": "fenghuo",
+          "team_size": 4,
+          "name": "四排标准配置",
+          "total_price": 450000,
+          "cv_value": 280,
+          "items": [
+            { "slot": "helmet", "name": "H70精英头盔", "price": 80000, "cv": 55, "icon": "⛑️" },
+            { "slot": "armor", "name": "6级护甲套装", "price": 150000, "cv": 95, "icon": "🦺" },
+            { "slot": "backpack", "name": "战术背包(大)", "price": 55000, "cv": 38, "icon": "🎒" },
+            { "slot": "medical", "name": "T2医疗包 x6 + 兴奋剂", "price": 85000, "cv": 55, "icon": "💊" },
+            { "slot": "weapon", "name": "全配突击步枪", "price": 80000, "cv": 37, "icon": "🔫" }
+          ],
+          "tips": ["四排满配标准，决赛圈必备"]
+        }
+      ]
+    },
+    "luxury": {
+      "name": "豪华型配装",
+      "description": "预算1.5倍，极致体验",
+      "budget_range": "1.3-1.8",
+      "loadouts": [
+        {
+          "id": "lux_fenghuo",
+          "mode": "fenghuo",
+          "team_size": 1,
+          "name": "烽火豪华装",
+          "total_price": 300000,
+          "cv_value": 180,
+          "items": [
+            { "slot": "helmet", "name": "H70精英头盔", "price": 65000, "cv": 48, "icon": "⛑️" },
+            { "slot": "armor", "name": "6级护甲(满耐久)", "price": 120000, "cv": 75, "icon": "🦺" },
+            { "slot": "backpack", "name": "战术背包(大)", "price": 40000, "cv": 28, "icon": "🎒" },
+            { "slot": "medical", "name": "T2医疗包 x4 + 兴奋剂", "price": 45000, "cv": 32, "icon": "💊" },
+            { "slot": "weapon", "name": "顶级步枪+消音+瞄具", "price": 30000, "cv": 12, "icon": "🔫" }
+          ],
+          "tips": ["烽火地带顶级配置，适合高端玩家"]
+        },
+        {
+          "id": "lux_quanmian",
+          "mode": "quanmian",
+          "team_size": 1,
+          "name": "绝密豪华装",
+          "total_price": 500000,
+          "cv_value": 320,
+          "items": [
+            { "slot": "helmet", "name": "H70精英头盔(满耐久)", "price": 120000, "cv": 85, "icon": "⛑️" },
+            { "slot": "armor", "name": "6级护甲(特制)", "price": 200000, "cv": 130, "icon": "🦺" },
+            { "slot": "backpack", "name": "战术背包(超大)", "price": 65000, "cv": 45, "icon": "🎒" },
+            { "slot": "medical", "name": "T2医疗包 x6 + 稀有药品", "price": 75000, "cv": 50, "icon": "💊" },
+            { "slot": "weapon", "name": "顶级武器套装", "price": 40000, "cv": 18, "icon": "🔫" }
+          ],
+          "tips": ["绝密地图顶配，战备值拉满"]
+        },
+        {
+          "id": "lux_duo",
+          "mode": "fenghuo",
+          "team_size": 2,
+          "name": "双排豪华突进",
+          "total_price": 600000,
+          "cv_value": 380,
+          "items": [
+            { "slot": "helmet", "name": "GN久战重型夜视头盔", "price": 120000, "cv": 88, "icon": "⛑️" },
+            { "slot": "armor", "name": "6级护甲套装(特制)", "price": 220000, "cv": 145, "icon": "🦺" },
+            { "slot": "backpack", "name": "战术背包(超大)", "price": 80000, "cv": 55, "icon": "🎒" },
+            { "slot": "medical", "name": "T2医疗包 x6 + 全套药品", "price": 100000, "cv": 68, "icon": "💊" },
+            { "slot": "weapon", "name": "顶级突击套餐", "price": 80000, "cv": 32, "icon": "🔫" }
+          ],
+          "tips": ["双排无敌配置，横扫烽火地带"]
+        },
+        {
+          "id": "lux_squad",
+          "mode": "fenghuo",
+          "team_size": 4,
+          "name": "四排豪华满配",
+          "total_price": 1200000,
+          "cv_value": 780,
+          "items": [
+            { "slot": "helmet", "name": "H70精英夜视头盔", "price": 200000, "cv": 150, "icon": "⛑️" },
+            { "slot": "armor", "name": "6级护甲(传说)", "price": 450000, "cv": 300, "icon": "🦺" },
+            { "slot": "backpack", "name": "战术背包(终极)", "price": 150000, "cv": 110, "icon": "🎒" },
+            { "slot": "medical", "name": "全套顶级医疗", "price": 220000, "cv": 155, "icon": "💊" },
+            { "slot": "weapon", "name": "顶级武器全套", "price": 180000, "cv": 80, "icon": "🔫" }
+          ],
+          "tips": ["四排终极配置，氪金大佬专属"]
+        }
+      ]
+    }
+  }
+}

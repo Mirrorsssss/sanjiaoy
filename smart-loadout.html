@@ -3,113 +3,152 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>战备配置推荐 - 三角眼</title>
-    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎯</text></svg>">
+    <title>一键配装系统 - 三角眼工具站</title>
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
-        
+
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            background: linear-gradient(135deg, #0f0f23 0%, #1a1a2e 50%, #16213e 100%);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #0a0e1a 0%, #1a1f3a 100%);
+            color: #e0e0e0;
             min-height: 100vh;
-            color: #fff;
             padding: 20px;
         }
-        
+
         .container {
-            max-width: 900px;
+            max-width: 1400px;
             margin: 0 auto;
         }
-        
-        /* 头部 */
-        header {
+
+        .header {
             text-align: center;
-            padding: 40px 20px;
-            margin-bottom: 30px;
+            margin-bottom: 40px;
+            padding: 30px;
+            background: linear-gradient(135deg, rgba(255, 107, 0, 0.15) 0%, rgba(255, 107, 0, 0.05) 100%);
+            border: 2px solid #ff6b00;
+            border-radius: 15px;
         }
-        
-        header h1 {
-            font-size: 36px;
-            background: linear-gradient(135deg, #00d9ff, #00ff88);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+
+        .header h1 {
+            color: #ff6b00;
+            font-size: 2.5em;
             margin-bottom: 10px;
         }
-        
-        header p {
+
+        .header p {
             color: #888;
-            font-size: 16px;
+            font-size: 1.1em;
         }
-        
-        /* 输入区 */
+
+        /* 输入区域 */
         .input-section {
-            background: rgba(255,255,255,0.05);
-            border-radius: 20px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 2px solid #333;
+            border-radius: 12px;
             padding: 30px;
             margin-bottom: 30px;
-            border: 1px solid rgba(255,255,255,0.1);
         }
-        
+
         .input-row {
             display: flex;
             gap: 20px;
             flex-wrap: wrap;
+            margin-bottom: 20px;
         }
-        
+
         .input-group {
             flex: 1;
             min-width: 200px;
         }
-        
+
         .input-group label {
             display: block;
-            font-size: 14px;
             color: #888;
+            font-size: 0.9em;
             margin-bottom: 8px;
         }
-        
+
         .input-group input,
         .input-group select {
             width: 100%;
             padding: 14px 16px;
-            background: rgba(255,255,255,0.05);
-            border: 2px solid rgba(255,255,255,0.1);
-            border-radius: 12px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 2px solid #444;
+            border-radius: 10px;
             color: #fff;
             font-size: 16px;
             transition: all 0.3s;
         }
-        
+
         .input-group input:focus,
         .input-group select:focus {
             outline: none;
-            border-color: #00d9ff;
-            box-shadow: 0 0 20px rgba(0,217,255,0.2);
+            border-color: #ff6b00;
+            box-shadow: 0 0 15px rgba(255, 107, 0, 0.2);
         }
-        
-        .calc-btn {
-            width: 100%;
-            padding: 16px;
-            background: linear-gradient(135deg, #00d9ff, #00ff88);
-            border: none;
-            border-radius: 12px;
-            color: #1a1a2e;
-            font-size: 18px;
-            font-weight: 700;
+
+        /* 滑块样式 */
+        .slider-container {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .slider-container input[type="range"] {
+            flex: 1;
+            height: 8px;
+            -webkit-appearance: none;
+            background: #333;
+            border-radius: 4px;
+            outline: none;
+        }
+
+        .slider-container input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 20px;
+            height: 20px;
+            background: #ff6b00;
+            border-radius: 50%;
+            cursor: pointer;
+        }
+
+        .slider-container input[type="number"] {
+            width: 100px;
+        }
+
+        /* 模式选择 */
+        .mode-selector {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .mode-btn {
+            padding: 12px 20px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 2px solid #444;
+            border-radius: 10px;
+            color: #888;
             cursor: pointer;
             transition: all 0.3s;
-            margin-top: 20px;
+            font-size: 0.95em;
         }
-        
-        .calc-btn:hover {
-            transform: scale(1.02);
-            box-shadow: 0 0 30px rgba(0,217,255,0.4);
+
+        .mode-btn:hover {
+            border-color: #ff6b00;
+            color: #ff6b00;
         }
-        
+
+        .mode-btn.active {
+            background: rgba(255, 107, 0, 0.2);
+            border-color: #ff6b00;
+            color: #ff6b00;
+        }
+
         /* 快捷选项 */
         .quick-options {
             display: flex;
@@ -117,2071 +156,781 @@
             flex-wrap: wrap;
             margin-top: 15px;
         }
-        
+
         .quick-btn {
             padding: 8px 16px;
-            background: rgba(255,255,255,0.05);
-            border: 1px solid rgba(255,255,255,0.2);
-            border-radius: 8px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid #444;
+            border-radius: 6px;
             color: #888;
-            font-size: 13px;
             cursor: pointer;
             transition: all 0.3s;
+            font-size: 0.85em;
         }
-        
+
         .quick-btn:hover {
-            border-color: #00d9ff;
-            color: #00d9ff;
+            border-color: #ff6b00;
+            color: #ff6b00;
         }
-        
+
         .quick-btn.active {
-            background: rgba(0,217,255,0.2);
-            border-color: #00d9ff;
-            color: #00d9ff;
+            background: rgba(255, 107, 0, 0.2);
+            border-color: #ff6b00;
+            color: #ff6b00;
         }
-        
-        /* 结果区 */
-        .result {
+
+        /* 生成按钮 */
+        .generate-btn {
+            width: 100%;
+            padding: 18px;
+            background: linear-gradient(135deg, #ff6b00 0%, #ff8533 100%);
+            border: none;
+            border-radius: 12px;
+            color: #fff;
+            font-size: 20px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin-top: 20px;
+        }
+
+        .generate-btn:hover {
+            transform: scale(1.02);
+            box-shadow: 0 0 30px rgba(255, 107, 0, 0.5);
+        }
+
+        /* 结果区域 */
+        .result-section {
             display: none;
             animation: fadeIn 0.5s;
         }
-        
-        .result.show {
+
+        .result-section.show {
             display: block;
         }
-        
+
         @keyframes fadeIn {
             from { opacity: 0; transform: translateY(20px); }
             to { opacity: 1; transform: translateY(0); }
         }
-        
-        /* 总结卡片 */
-        .summary-card {
-            background: linear-gradient(135deg, rgba(0,255,136,0.15), rgba(0,217,255,0.15));
-            border-radius: 20px;
-            padding: 30px;
-            margin-bottom: 25px;
-            border: 1px solid rgba(0,255,136,0.3);
+
+        /* 配装档位 */
+        .tier-tabs {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+        }
+
+        .tier-tab {
+            flex: 1;
+            min-width: 150px;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 2px solid #444;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.3s;
             text-align: center;
         }
-        
-        .summary-card .target {
-            font-size: 14px;
-            color: #888;
+
+        .tier-tab:hover {
+            border-color: #ff6b00;
+        }
+
+        .tier-tab.active {
+            background: rgba(255, 107, 0, 0.15);
+            border-color: #ff6b00;
+        }
+
+        .tier-tab.economical { border-left: 4px solid #4CAF50; }
+        .tier-tab.balanced { border-left: 4px solid #FFC107; }
+        .tier-tab.luxury { border-left: 4px solid #ff6b00; }
+
+        .tier-name {
+            font-size: 1.2em;
+            font-weight: bold;
             margin-bottom: 8px;
         }
-        
-        .summary-card .combat-value {
-            font-size: 56px;
-            font-weight: 800;
-            background: linear-gradient(135deg, #00ff88, #00d9ff);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+
+        .tier-tab.economical .tier-name { color: #4CAF50; }
+        .tier-tab.balanced .tier-name { color: #FFC107; }
+        .tier-tab.luxury .tier-name { color: #ff6b00; }
+
+        .tier-desc {
+            color: #888;
+            font-size: 0.85em;
         }
-        
-        .summary-card .combat-value small {
-            font-size: 24px;
+
+        .tier-price {
+            font-size: 1.5em;
+            font-weight: bold;
+            color: #fff;
+            margin-top: 10px;
         }
-        
-        .summary-card .cost {
-            margin-top: 20px;
-            padding-top: 20px;
-            border-top: 1px solid rgba(255,255,255,0.1);
-        }
-        
-        .summary-card .cost-label {
-            font-size: 14px;
+
+        .tier-price small {
+            font-size: 0.6em;
             color: #888;
         }
-        
-        .summary-card .cost-value {
-            font-size: 32px;
-            font-weight: 700;
-            color: #ffcc00;
-            margin-top: 5px;
-        }
-        
-        .summary-card .cost-value small {
-            font-size: 16px;
-            color: #888;
-        }
-        
-        /* 装备列表 */
-        .gear-list {
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-        }
-        
-        .gear-item {
-            background: rgba(255,255,255,0.05);
+
+        /* 配装卡片 */
+        .loadout-card {
+            background: rgba(255, 255, 255, 0.05);
+            border: 2px solid #333;
             border-radius: 16px;
-            padding: 20px;
+            padding: 25px;
+            margin-bottom: 30px;
+        }
+
+        .loadout-header {
             display: flex;
+            justify-content: space-between;
             align-items: center;
-            gap: 16px;
-            border: 1px solid rgba(255,255,255,0.1);
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #333;
+        }
+
+        .loadout-title {
+            font-size: 1.5em;
+            color: #ff6b00;
+            font-weight: bold;
+        }
+
+        .loadout-meta {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .meta-tag {
+            padding: 6px 12px;
+            background: rgba(255, 107, 0, 0.2);
+            border-radius: 6px;
+            font-size: 0.85em;
+            color: #ff6b00;
+        }
+
+        /* 装备列表 */
+        .gear-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 15px;
+            margin-bottom: 25px;
+        }
+
+        .gear-card {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid #444;
+            border-radius: 10px;
+            padding: 15px;
+            cursor: pointer;
             transition: all 0.3s;
         }
-        
-        .gear-item:hover {
-            border-color: rgba(0,217,255,0.5);
-            background: rgba(0,217,255,0.05);
+
+        .gear-card:hover {
+            border-color: #ff6b00;
+            background: rgba(255, 107, 0, 0.1);
+            transform: translateY(-2px);
         }
-        
+
+        .gear-card-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 10px;
+        }
+
         .gear-icon {
-            width: 56px;
-            height: 56px;
-            background: linear-gradient(135deg, rgba(0,217,255,0.3), rgba(0,255,136,0.3));
-            border-radius: 12px;
+            width: 44px;
+            height: 44px;
+            background: linear-gradient(135deg, rgba(255, 107, 0, 0.3), rgba(255, 107, 0, 0.1));
+            border-radius: 10px;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 28px;
-            flex-shrink: 0;
+            font-size: 22px;
         }
-        
-        .gear-info {
-            flex: 1;
+
+        .gear-name {
+            font-weight: bold;
+            color: #fff;
         }
-        
-        .gear-info .type {
-            font-size: 12px;
+
+        .gear-slot {
+            font-size: 0.8em;
             color: #888;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            margin-bottom: 4px;
         }
-        
-        .gear-info .name {
-            font-size: 18px;
-            font-weight: 600;
-        }
-        
-        .gear-info .reason {
-            font-size: 13px;
-            color: #69ff94;
-            margin-top: 4px;
-        }
-        
+
         .gear-stats {
-            text-align: right;
-            flex-shrink: 0;
+            display: flex;
+            justify-content: space-between;
+            margin-top: 10px;
         }
-        
-        .gear-stats .cv {
-            font-size: 20px;
-            font-weight: 700;
-            color: #00ff88;
+
+        .gear-cv {
+            color: #4CAF50;
+            font-weight: bold;
         }
-        
-        .gear-stats .cv small {
-            font-size: 12px;
+
+        .gear-price {
+            color: #FFC107;
+        }
+
+        /* 预算对比 */
+        .budget-comparison {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 25px;
+        }
+
+        .comparison-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 0;
+            border-bottom: 1px solid #333;
+        }
+
+        .comparison-row:last-child {
+            border-bottom: none;
+        }
+
+        .comparison-label {
             color: #888;
         }
-        
-        .gear-stats .price {
-            font-size: 14px;
-            color: #ffcc00;
-            margin-top: 4px;
+
+        .comparison-value {
+            font-weight: bold;
+            font-size: 1.2em;
         }
-        
-        /* 武器推荐 */
-        .weapon-section {
-            background: rgba(255,217,0,0.1);
-            border: 1px solid rgba(255,217,0,0.3);
-            border-radius: 16px;
-            padding: 20px;
-            margin-top: 20px;
+
+        .comparison-value.saving {
+            color: #4CAF50;
         }
-        
-        .weapon-section h3 {
-            font-size: 16px;
-            color: #ffcc00;
-            margin-bottom: 12px;
+
+        .comparison-value.over {
+            color: #ff5722;
         }
-        
-        .weapon-chips {
+
+        .comparison-diff {
+            font-size: 0.9em;
+            margin-left: 10px;
+        }
+
+        /* 弹窗 */
+        .popup-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.85);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+        }
+
+        .popup-overlay.show {
             display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
         }
-        
-        .weapon-chip {
-            background: rgba(255,217,0,0.15);
-            border-radius: 8px;
-            padding: 10px 16px;
+
+        .popup {
+            background: linear-gradient(135deg, #1a1f3a 0%, #0a0e1a 100%);
+            border: 2px solid #ff6b00;
+            border-radius: 16px;
+            padding: 30px;
+            max-width: 500px;
+            width: 90%;
+            animation: popupIn 0.3s ease;
+        }
+
+        @keyframes popupIn {
+            from { opacity: 0; transform: scale(0.9); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        .popup-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .popup-title {
+            color: #ff6b00;
+            font-size: 1.5em;
+            font-weight: bold;
             display: flex;
             align-items: center;
             gap: 10px;
         }
-        
-        .weapon-chip .icon {
-            font-size: 20px;
+
+        .popup-close {
+            background: none;
+            border: none;
+            color: #888;
+            font-size: 28px;
+            cursor: pointer;
+            transition: color 0.3s;
         }
-        
-        .weapon-chip .name {
-            font-weight: 600;
+
+        .popup-close:hover {
+            color: #ff6b00;
         }
-        
-        .weapon-chip .stats {
-            font-size: 12px;
+
+        .popup-content {
+            color: #e0e0e0;
+        }
+
+        .popup-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 12px 0;
+            border-bottom: 1px solid #333;
+        }
+
+        .popup-label {
             color: #888;
         }
-        
-        /* 技巧提示 */
-        .tips-section {
-            background: rgba(0,217,255,0.1);
-            border-radius: 16px;
-            padding: 20px;
-            margin-top: 25px;
-            border: 1px solid rgba(0,217,255,0.2);
+
+        .popup-value {
+            color: #fff;
+            font-weight: bold;
         }
-        
-        .tips-section h3 {
-            font-size: 16px;
-            color: #00d9ff;
-            margin-bottom: 12px;
-        }
-        
-        .tips-section ul {
-            list-style: none;
-        }
-        
-        .tips-section li {
-            padding: 6px 0;
-            font-size: 14px;
-            color: #aaa;
-            padding-left: 20px;
-            position: relative;
-        }
-        
-        .tips-section li::before {
-            content: '💡';
-            position: absolute;
-            left: 0;
-        }
-        
-        /* 空状态 */
-        .empty-state {
+
+        .loading {
             text-align: center;
-            padding: 60px 20px;
+            padding: 60px;
             color: #888;
         }
-        
-        .empty-state .icon {
-            font-size: 64px;
-            margin-bottom: 20px;
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 1.8em;
+            }
+
+            .input-row {
+                flex-direction: column;
+            }
+
+            .gear-grid {
+                grid-template-columns: 1fr;
+            }
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <header>
-            <h1>🎯 战备配置推荐</h1>
-            <p>输入预算，自动计算最优配置方案</p>
-        </header>
-        
+        <div class="header">
+            <h1>🎯 一键配装系统</h1>
+            <p>输入预算和模式，智能生成最优配装方案</p>
+        </div>
+
+        <!-- 输入区域 -->
         <div class="input-section">
             <div class="input-row">
                 <div class="input-group">
-                    <label>🎒 预算（万哈夫币）</label>
-                    <input type="number" id="budget" placeholder="例如：10" min="1" max="100">
-                </div>
-                <div class="input-group">
-                    <label>🗺️ 目标地图</label>
-                    <select id="map">
-                        <option value="">自动选择最优地图</option>
-                        <option value="zeroDam_classified">零号大坝 - 机密（13万）</option>
-                        <option value="longbow_classified">长弓溪谷 - 机密（13万）</option>
-                        <option value="spacePort_classified">航天基地 - 机密（18.7万）</option>
-                        <option value="buckish_classified">巴克什 - 机密（18.7万）</option>
-                <option value="spacePort_topSecret">航天基地 - 绝密（45万）</option>
-                <option value="buckish_topSecret">巴克什 - 绝密（55万）</option>
-                <option value="tidalPrison_topSecret">潮汐监狱 - 绝密（69万）</option>
-                <option value="fenghuodidai_classified">烽火地带 - 机密（20万）</option>
-                    </select>
-                </div>
-                <div class="input-group">
-                    <label>👥 组队模式</label>
-                    <select id="teamMode">
-                        <option value="solo">单排（个人配置）</option>
-                        <option value="duo">双排（增加医疗包）</option>
-                        <option value="squad">四排（满编队伍）</option>
-                    </select>
+                    <label>💰 预算（万哈夫币）</label>
+                    <div class="slider-container">
+                        <input type="range" id="budgetSlider" min="1" max="50" value="15">
+                        <input type="number" id="budgetInput" min="1" max="500" value="15" style="width: 80px;">
+                    </div>
                 </div>
             </div>
-            
+
+            <div class="input-row">
+                <div class="input-group">
+                    <label>🎮 游戏模式</label>
+                    <div class="mode-selector">
+                        <button class="mode-btn active" data-mode="fenghuo">🔥 烽火地带</button>
+                        <button class="mode-btn" data-mode="quanmian">🌍 全面战场</button>
+                    </div>
+                </div>
+                <div class="input-group">
+                    <label>👥 队伍人数</label>
+                    <div class="mode-selector">
+                        <button class="mode-btn active" data-team="1">单排</button>
+                        <button class="mode-btn" data-team="2">双排</button>
+                        <button class="mode-btn" data-team="4">四排</button>
+                    </div>
+                </div>
+            </div>
+
             <div class="quick-options">
-                <span style="color: #888; font-size: 13px; margin-right: 10px;">快捷选择：</span>
-                <button class="quick-btn" data-budget="10" data-map="zeroDam_classified">10万机密</button>
-                <button class="quick-btn" data-budget="15" data-map="spacePort_classified">15万机密</button>
-                <button class="quick-btn" data-budget="25" data-map="spacePort_topSecret">25万绝密</button>
-                <button class="quick-btn" data-budget="40" data-map="buckish_topSecret">40万绝密</button>
-                <button class="quick-btn" data-budget="60" data-map="tidalPrison_topSecret">60万绝密</button>
-                <button class="quick-btn" data-budget="100" data-map="tidalPrison_topSecret">100万顶配</button>
-                <button class="quick-btn" data-budget="200" data-map="tidalPrison_topSecret">200万氪金</button>
+                <span style="color: #888; font-size: 0.9em;">快捷选择：</span>
+                <button class="quick-btn" data-budget="5">5万经济</button>
+                <button class="quick-btn" data-budget="10">10万基础</button>
+                <button class="quick-btn active" data-budget="15">15万标准</button>
+                <button class="quick-btn" data-budget="25">25万进阶</button>
+                <button class="quick-btn" data-budget="50">50万豪华</button>
+                <button class="quick-btn" data-budget="100">100万顶配</button>
             </div>
-            
-            <button class="calc-btn" id="calcBtn">🚀 计算最优配置</button>
+
+            <button class="generate-btn" id="generateBtn">🚀 一键生成配装</button>
         </div>
-        
-        <div class="result" id="result">
-            <div class="summary-card">
-                <div class="target">目标战备值</div>
-                <div class="combat-value"><span id="targetCV">0</span><small>万</small></div>
-                <div class="cost">
-                    <div class="cost-label">预估总花费</div>
-                    <div class="cost-value"><span id="totalCost">0</span><small> 万</small></div>
-                </div>
-            </div>
-            
-            <div class="gear-list" id="gearList"></div>
-            
-            <div class="weapon-section">
-                <h3>🔫 推荐武器搭配</h3>
-                <div class="weapon-chips" id="weaponList"></div>
-            </div>
-            
-            <div class="tips-section" style="background: rgba(255,107,0,0.1); border-color: rgba(255,107,0,0.3);">
-                <h3 style="color: #ff6b00;">⚠️ 护甲耐久优先级说明</h3>
-                <ul id="armorDurTip" style="list-style: none;">
-                    <li style="color: #ff9500; padding-left: 0; font-size: 14px; line-height: 1.8;">
-                        同级护甲中，<strong style="color: #ff6b00;">耐久值优先级高于护甲值</strong>：例如6级甲120耐久 &gt; 100耐久 &gt; 80耐久。优先选耐久更高的！
-                    </li>
-                </ul>
-            </div>
-            
-            <div class="tips-section">
-                <h3>💡 优化建议</h3>
-                <ul id="tipsList"></ul>
-            </div>
+
+        <!-- 结果区域 -->
+        <div class="result-section" id="resultSection">
+            <div class="tier-tabs" id="tierTabs"></div>
+            <div id="loadoutContent"></div>
         </div>
     </div>
-    
+
+    <!-- 弹窗 -->
+    <div class="popup-overlay" id="popupOverlay">
+        <div class="popup">
+            <div class="popup-header">
+                <div class="popup-title" id="popupTitle">装备详情</div>
+                <button class="popup-close" id="popupClose">&times;</button>
+            </div>
+            <div class="popup-content" id="popupContent"></div>
+        </div>
+    </div>
+
     <script>
-        // 装备数据库
-        const gearDB = {
-    "helmets": [
-        {
-            "name": "H70 精英头盔",
-            "type": "helmet",
-            "cv": 242.06,
-            "price": 242.06,
-            "icon": "⛑️",
-            "grade": 6,
-            "protectLevel": 6,
-            "reason": "高战备值，绝密推荐"
-        },
-        {
-            "name": "DICH-1战术头盔",
-            "type": "helmet",
-            "cv": 32.92,
-            "price": 32.92,
-            "icon": "⛑️",
-            "grade": 5,
-            "protectLevel": 5,
-            "reason": "高战备值，绝密推荐"
-        },
-        {
-            "name": "GN 重型头盔",
-            "type": "helmet",
-            "cv": 31.36,
-            "price": 31.36,
-            "icon": "⛑️",
-            "grade": 5,
-            "protectLevel": 5,
-            "reason": "高战备值，绝密推荐"
-        },
-        {
-            "name": "H09 防暴头盔",
-            "type": "helmet",
-            "cv": 29.72,
-            "price": 29.72,
-            "icon": "⛑️",
-            "grade": 5,
-            "protectLevel": 5,
-            "reason": "高战备值，绝密推荐"
-        },
-        {
-            "name": "DICH 训练头盔",
-            "type": "helmet",
-            "cv": 16.9,
-            "price": 16.9,
-            "icon": "⛑️",
-            "grade": 4,
-            "protectLevel": 4,
-            "reason": "高战备值，绝密推荐"
-        },
-        {
-            "name": "GT1 战术头盔",
-            "type": "helmet",
-            "cv": 14.68,
-            "price": 14.68,
-            "icon": "⛑️",
-            "grade": 4,
-            "protectLevel": 4,
-            "reason": "高战备值，绝密推荐"
-        },
-        {
-            "name": "Mask-1铁壁头盔",
-            "type": "helmet",
-            "cv": 13.69,
-            "price": 13.69,
-            "icon": "⛑️",
-            "grade": 5,
-            "protectLevel": 5,
-            "reason": "高战备值，绝密推荐"
-        },
-        {
-            "name": "MHS 战术头盔",
-            "type": "helmet",
-            "cv": 13.1,
-            "price": 13.1,
-            "icon": "⛑️",
-            "grade": 4,
-            "protectLevel": 4,
-            "reason": "高战备值，绝密推荐"
-        },
-        {
-            "name": "D6 战术头盔",
-            "type": "helmet",
-            "cv": 6.52,
-            "price": 6.52,
-            "icon": "⛑️",
-            "grade": 4,
-            "protectLevel": 4,
-            "reason": "4级护甲，性价比高"
-        },
-        {
-            "name": "H07 战术头盔",
-            "type": "helmet",
-            "cv": 2.59,
-            "price": 2.59,
-            "icon": "⛑️",
-            "grade": 3,
-            "protectLevel": 3,
-            "reason": "3级护甲，性价比高"
-        },
-        {
-            "name": "防暴头盔",
-            "type": "helmet",
-            "cv": 2,
-            "price": 2,
-            "icon": "⛑️",
-            "grade": 3,
-            "protectLevel": 3,
-            "reason": "3级护甲，性价比高"
-        },
-        {
-            "name": "MC防弹头盔",
-            "type": "helmet",
-            "cv": 1.1,
-            "price": 1.1,
-            "icon": "⛑️",
-            "grade": 2,
-            "protectLevel": 2,
-            "reason": "2级护甲，性价比高"
-        },
-        {
-            "name": "户外棒球帽",
-            "type": "helmet",
-            "cv": 1.01,
-            "price": 1.01,
-            "icon": "⛑️",
-            "grade": 1,
-            "protectLevel": 1,
-            "reason": "1级护甲，性价比高"
-        },
-        {
-            "name": "复古摩托头盔",
-            "type": "helmet",
-            "cv": 0.92,
-            "price": 0.92,
-            "icon": "⛑️",
-            "grade": 2,
-            "protectLevel": 2,
-            "reason": "2级护甲，性价比高"
-        },
-        {
-            "name": "DRO 战术头盔",
-            "type": "helmet",
-            "cv": 0.84,
-            "price": 0.84,
-            "icon": "⛑️",
-            "grade": 2,
-            "protectLevel": 2,
-            "reason": "2级护甲，性价比高"
-        },
-        {
-            "name": "H01 战术头盔",
-            "type": "helmet",
-            "cv": 0.76,
-            "price": 0.76,
-            "icon": "⛑️",
-            "grade": 2,
-            "protectLevel": 2,
-            "reason": "2级护甲，性价比高"
-        },
-        {
-            "name": "奔尼帽",
-            "type": "helmet",
-            "cv": 0.22,
-            "price": 0.22,
-            "icon": "⛑️",
-            "grade": 1,
-            "protectLevel": 1,
-            "reason": "1级护甲，性价比高"
-        },
-        {
-            "name": "安保头盔",
-            "type": "helmet",
-            "cv": 0.19,
-            "price": 0.19,
-            "icon": "⛑️",
-            "grade": 1,
-            "protectLevel": 1,
-            "reason": "1级护甲，性价比高"
-        },
-        {
-            "name": "老式钢盔",
-            "type": "helmet",
-            "cv": 0.16,
-            "price": 0.16,
-            "icon": "⛑️",
-            "grade": 1,
-            "protectLevel": 1,
-            "reason": "1级护甲，性价比高"
-        },
-        {
-            "name": "DICH-9重型头盔",
-            "type": "helmet",
-            "cv": 0,
-            "price": 0,
-            "icon": "⛑️",
-            "grade": 6,
-            "protectLevel": 6,
-            "reason": "6级护甲，极稀有"
-        },
-        {
-            "name": "GT5 指挥官头盔",
-            "type": "helmet",
-            "cv": 0,
-            "price": 0,
-            "icon": "⛑️",
-            "grade": 6,
-            "protectLevel": 6,
-            "reason": "6级护甲，极稀有"
-        },
-        {
-            "name": "通用獾式战术头盔",
-            "type": "helmet",
-            "cv": 0,
-            "price": 0,
-            "icon": "⛑️",
-            "grade": 3,
-            "protectLevel": 3,
-            "reason": "3级护甲"
-        },
-        {
-            "name": "MC201 头盔",
-            "type": "helmet",
-            "cv": 0,
-            "price": 0,
-            "icon": "⛑️",
-            "grade": 3,
-            "protectLevel": 3,
-            "reason": "3级护甲"
-        }
-    ],
-    "armors": [
-        {
-            "name": "重型突击背心",
-            "type": "armor",
-            "cv": 48.45,
-            "price": 48.45,
-            "icon": "🦺",
-            "grade": 5,
-            "protectLevel": 5,
-            "reason": "顶级防弹衣"
-        },
-        {
-            "name": "FS复合防弹衣",
-            "type": "armor",
-            "cv": 43.8,
-            "price": 43.8,
-            "icon": "🦺",
-            "grade": 5,
-            "protectLevel": 5,
-            "reason": "顶级防弹衣"
-        },
-        {
-            "name": "Hvk-2防弹衣",
-            "type": "armor",
-            "cv": 38.91,
-            "price": 38.91,
-            "icon": "🦺",
-            "grade": 5,
-            "protectLevel": 5,
-            "reason": "顶级防弹衣"
-        },
-        {
-            "name": "精英防弹背心",
-            "type": "armor",
-            "cv": 37.23,
-            "price": 37.23,
-            "icon": "🦺",
-            "grade": 5,
-            "protectLevel": 5,
-            "reason": "顶级防弹衣"
-        },
-        {
-            "name": "MK-2战术背心",
-            "type": "armor",
-            "cv": 22.81,
-            "price": 22.81,
-            "icon": "🦺",
-            "grade": 4,
-            "protectLevel": 4,
-            "reason": "高战备值"
-        },
-        {
-            "name": "DT-AVS防弹衣",
-            "type": "armor",
-            "cv": 19.99,
-            "price": 19.99,
-            "icon": "🦺",
-            "grade": 4,
-            "protectLevel": 4,
-            "reason": "高战备值"
-        },
-        {
-            "name": "HMP特勤防弹衣",
-            "type": "armor",
-            "cv": 15.14,
-            "price": 15.14,
-            "icon": "🦺",
-            "grade": 4,
-            "protectLevel": 4,
-            "reason": "高战备值"
-        },
-        {
-            "name": "武士防弹背心",
-            "type": "armor",
-            "cv": 14.71,
-            "price": 14.71,
-            "icon": "🦺",
-            "grade": 4,
-            "protectLevel": 4,
-            "reason": "高战备值"
-        },
-        {
-            "name": "射手战术背心",
-            "type": "armor",
-            "cv": 6.12,
-            "price": 6.12,
-            "icon": "🦺",
-            "grade": 3,
-            "protectLevel": 3,
-            "reason": "常用配置"
-        },
-        {
-            "name": "TG-H防弹衣",
-            "type": "armor",
-            "cv": 5.51,
-            "price": 5.51,
-            "icon": "🦺",
-            "grade": 3,
-            "protectLevel": 3,
-            "reason": "常用配置"
-        },
-        {
-            "name": "Hvk快拆防弹衣",
-            "type": "armor",
-            "cv": 4.02,
-            "price": 4.02,
-            "icon": "🦺",
-            "grade": 3,
-            "protectLevel": 3,
-            "reason": "常用配置"
-        },
-        {
-            "name": "制式防弹背心",
-            "type": "armor",
-            "cv": 3.92,
-            "price": 3.92,
-            "icon": "🦺",
-            "grade": 3,
-            "protectLevel": 3,
-            "reason": "常用配置"
-        },
-        {
-            "name": "HT战术背心",
-            "type": "armor",
-            "cv": 0.91,
-            "price": 0.91,
-            "icon": "🦺",
-            "grade": 2,
-            "protectLevel": 2,
-            "reason": "常用配置"
-        },
-        {
-            "name": "简易防刺服",
-            "type": "armor",
-            "cv": 0.72,
-            "price": 0.72,
-            "icon": "🦺",
-            "grade": 2,
-            "protectLevel": 2,
-            "reason": "常用配置"
-        },
-        {
-            "name": "轻型防弹衣",
-            "type": "armor",
-            "cv": 0.37,
-            "price": 0.37,
-            "icon": "🦺",
-            "grade": 1,
-            "protectLevel": 1,
-            "reason": "常用配置"
-        },
-        {
-            "name": "尼龙防弹衣",
-            "type": "armor",
-            "cv": 0.31,
-            "price": 0.31,
-            "icon": "🦺",
-            "grade": 1,
-            "protectLevel": 1,
-            "reason": "常用配置"
-        },
-        {
-            "name": "安保防弹衣",
-            "type": "armor",
-            "cv": 0.24,
-            "price": 0.24,
-            "icon": "🦺",
-            "grade": 1,
-            "protectLevel": 1,
-            "reason": "常用配置"
-        },
-        {
-            "name": "摩托马甲",
-            "type": "armor",
-            "cv": 0.22,
-            "price": 0.22,
-            "icon": "🦺",
-            "grade": 1,
-            "protectLevel": 1,
-            "reason": "常用配置"
-        },
-        {
-            "name": "金刚防弹衣",
-            "type": "armor",
-            "cv": 0,
-            "price": 0,
-            "icon": "🦺",
-            "grade": 6,
-            "protectLevel": 6,
-            "reason": "顶级防弹衣"
-        },
-        {
-            "name": "HA-2防弹装甲",
-            "type": "armor",
-            "cv": 0,
-            "price": 0,
-            "icon": "🦺",
-            "grade": 6,
-            "protectLevel": 6,
-            "reason": "顶级防弹衣"
-        },
-        {
-            "name": "特里克MAS2.0装甲",
-            "type": "armor",
-            "cv": 0,
-            "price": 0,
-            "icon": "🦺",
-            "grade": 6,
-            "protectLevel": 6,
-            "reason": "顶级防弹衣"
-        },
-        {
-            "name": "犀牛重型防弹衣",
-            "type": "armor",
-            "cv": 0,
-            "price": 0,
-            "icon": "🦺",
-            "grade": 6,
-            "protectLevel": 6,
-            "reason": "顶级防弹衣"
-        },
-        {
-            "name": "野蜂防弹背心",
-            "type": "armor",
-            "cv": 0,
-            "price": 0,
-            "icon": "🦺",
-            "grade": 4,
-            "protectLevel": 4,
-            "reason": "常用配置"
-        },
-        {
-            "name": "UTA猛禽防弹护甲",
-            "type": "armor",
-            "cv": 0,
-            "price": 0,
-            "icon": "🦺",
-            "grade": 2,
-            "protectLevel": 2,
-            "reason": "常用配置"
-        },
-        {
-            "name": "通用野蜂战术装甲",
-            "type": "armor",
-            "cv": 0,
-            "price": 0,
-            "icon": "🦺",
-            "grade": 2,
-            "protectLevel": 2,
-            "reason": "常用配置"
-        }
-    ],
-    "backpacks": [
-        {
-            "name": "重型登山包",
-            "type": "backpack",
-            "cv": 70.43,
-            "price": 70.43,
-            "icon": "🎒",
-            "grade": 6,
-            "capacity": 40,
-            "reason": "性价比高"
-        },
-        {
-            "name": "GT5野战背包",
-            "type": "backpack",
-            "cv": 16.2,
-            "price": 16.2,
-            "icon": "🎒",
-            "grade": 5,
-            "capacity": 30,
-            "reason": "性价比高"
-        },
-        {
-            "name": "D3战术登山包",
-            "type": "backpack",
-            "cv": 12.34,
-            "price": 12.34,
-            "icon": "🎒",
-            "grade": 5,
-            "capacity": 28,
-            "reason": "性价比高"
-        },
-        {
-            "name": "HLS-2重型背包",
-            "type": "backpack",
-            "cv": 9.17,
-            "price": 9.17,
-            "icon": "🎒",
-            "grade": 5,
-            "capacity": 28,
-            "reason": "性价比高"
-        },
-        {
-            "name": "ALS背负系统",
-            "type": "backpack",
-            "cv": 7.63,
-            "price": 7.63,
-            "icon": "🎒",
-            "grade": 5,
-            "capacity": 28,
-            "reason": "性价比高"
-        },
-        {
-            "name": "D2战术登山包",
-            "type": "backpack",
-            "cv": 6.4,
-            "price": 6.4,
-            "icon": "🎒",
-            "grade": 4,
-            "capacity": 24,
-            "reason": "性价比高"
-        },
-        {
-            "name": "GT1户外登山包",
-            "type": "backpack",
-            "cv": 6.33,
-            "price": 6.33,
-            "icon": "🎒",
-            "grade": 4,
-            "capacity": 25,
-            "reason": "性价比高"
-        },
-        {
-            "name": "野战徒步背包",
-            "type": "backpack",
-            "cv": 4.49,
-            "price": 4.49,
-            "icon": "🎒",
-            "grade": 4,
-            "capacity": 24,
-            "reason": "性价比高"
-        },
-        {
-            "name": "MAP侦察背包",
-            "type": "backpack",
-            "cv": 4.19,
-            "price": 4.19,
-            "icon": "🎒",
-            "grade": 4,
-            "capacity": 24,
-            "reason": "性价比高"
-        },
-        {
-            "name": "雨林猎手背包",
-            "type": "backpack",
-            "cv": 2.56,
-            "price": 2.56,
-            "icon": "🎒",
-            "grade": 3,
-            "capacity": 21,
-            "reason": "性价比高"
-        },
-        {
-            "name": "GA野战背包",
-            "type": "backpack",
-            "cv": 2.55,
-            "price": 2.55,
-            "icon": "🎒",
-            "grade": 3,
-            "capacity": 20,
-            "reason": "性价比高"
-        },
-        {
-            "name": "DASH战术背包",
-            "type": "backpack",
-            "cv": 1.78,
-            "price": 1.78,
-            "icon": "🎒",
-            "grade": 3,
-            "capacity": 20,
-            "reason": "性价比高"
-        },
-        {
-            "name": "3H战术背包",
-            "type": "backpack",
-            "cv": 1.65,
-            "price": 1.65,
-            "icon": "🎒",
-            "grade": 3,
-            "capacity": 18,
-            "reason": "性价比高"
-        },
-        {
-            "name": "战术快拆背包",
-            "type": "backpack",
-            "cv": 1.01,
-            "price": 1.01,
-            "icon": "🎒",
-            "grade": 2,
-            "capacity": 15,
-            "reason": "性价比高"
-        },
-        {
-            "name": "大型登山包",
-            "type": "backpack",
-            "cv": 0.89,
-            "price": 0.89,
-            "icon": "🎒",
-            "grade": 3,
-            "capacity": 16,
-            "reason": "便宜实用，入门推荐"
-        },
-        {
-            "name": "突袭战术背包",
-            "type": "backpack",
-            "cv": 0.82,
-            "price": 0.82,
-            "icon": "🎒",
-            "grade": 2,
-            "capacity": 15,
-            "reason": "便宜实用，入门推荐"
-        },
-        {
-            "name": "露营背包",
-            "type": "backpack",
-            "cv": 0.82,
-            "price": 0.82,
-            "icon": "🎒",
-            "grade": 2,
-            "capacity": 15,
-            "reason": "便宜实用，入门推荐"
-        },
-        {
-            "name": "轻型户外背包",
-            "type": "backpack",
-            "cv": 0.73,
-            "price": 0.73,
-            "icon": "🎒",
-            "grade": 2,
-            "capacity": 12,
-            "reason": "便宜实用，入门推荐"
-        },
-        {
-            "name": "DG运动背包",
-            "type": "backpack",
-            "cv": 0.61,
-            "price": 0.61,
-            "icon": "🎒",
-            "grade": 1,
-            "capacity": 12,
-            "reason": "便宜实用，入门推荐"
-        },
-        {
-            "name": "旅行背包",
-            "type": "backpack",
-            "cv": 0.5,
-            "price": 0.5,
-            "icon": "🎒",
-            "grade": 1,
-            "capacity": 10,
-            "reason": "便宜实用，入门推荐"
-        },
-        {
-            "name": "帆布背囊",
-            "type": "backpack",
-            "cv": 0.5,
-            "price": 0.5,
-            "icon": "🎒",
-            "grade": 1,
-            "capacity": 10,
-            "reason": "便宜实用，入门推荐"
-        },
-        {
-            "name": "运动背包",
-            "type": "backpack",
-            "cv": 0.38,
-            "price": 0.38,
-            "icon": "🎒",
-            "grade": 1,
-            "capacity": 8,
-            "reason": "便宜实用，入门推荐"
-        },
-        {
-            "name": "斜挎包",
-            "type": "backpack",
-            "cv": 0.28,
-            "price": 0.28,
-            "icon": "🎒",
-            "grade": 1,
-            "capacity": 6,
-            "reason": "便宜实用，入门推荐"
-        },
-        {
-            "name": "D7战术背包",
-            "type": "backpack",
-            "cv": 0,
-            "price": 0,
-            "icon": "🎒",
-            "grade": 6,
-            "capacity": 35,
-            "reason": "便宜实用，入门推荐"
-        },
-        {
-            "name": "GTO重型战术包",
-            "type": "backpack",
-            "cv": 0,
-            "price": 0,
-            "icon": "🎒",
-            "grade": 6,
-            "capacity": 45,
-            "reason": "便宜实用，入门推荐"
-        },
-        {
-            "name": "穿山甲通用战术包",
-            "type": "backpack",
-            "cv": 0,
-            "price": 0,
-            "icon": "🎒",
-            "grade": 4,
-            "capacity": 28,
-            "reason": "便宜实用，入门推荐"
-        }
-    ],
-    "chestRigs": [
-        {
-            "name": "GIR野战胸挂",
-            "type": "chestRig",
-            "cv": 11.39,
-            "price": 11.39,
-            "icon": "📦",
-            "grade": 4,
-            "reason": "高战备值胸挂"
-        },
-        {
-            "name": "DRC先进侦察胸挂",
-            "type": "chestRig",
-            "cv": 8.72,
-            "price": 8.72,
-            "icon": "📦",
-            "grade": 4,
-            "reason": "常规配置"
-        },
-        {
-            "name": "突击者战术背心",
-            "type": "chestRig",
-            "cv": 5.84,
-            "price": 5.84,
-            "icon": "📦",
-            "grade": 4,
-            "reason": "常规配置"
-        },
-        {
-            "name": "强袭战术背心",
-            "type": "chestRig",
-            "cv": 2.75,
-            "price": 2.75,
-            "icon": "📦",
-            "grade": 4,
-            "reason": "常规配置"
-        },
-        {
-            "name": "G01战术弹挂",
-            "type": "chestRig",
-            "cv": 1.02,
-            "price": 1.02,
-            "icon": "📦",
-            "grade": 3,
-            "reason": "常规配置"
-        },
-        {
-            "name": "DSA战术胸挂",
-            "type": "chestRig",
-            "cv": 0.74,
-            "price": 0.74,
-            "icon": "📦",
-            "grade": 3,
-            "reason": "常规配置"
-        },
-        {
-            "name": "简易携行弹挂",
-            "type": "chestRig",
-            "cv": 0.58,
-            "price": 0.58,
-            "icon": "📦",
-            "grade": 3,
-            "reason": "常规配置"
-        },
-        {
-            "name": "HD3战术胸挂",
-            "type": "chestRig",
-            "cv": 0.53,
-            "price": 0.53,
-            "icon": "📦",
-            "grade": 3,
-            "reason": "常规配置"
-        },
-        {
-            "name": "通用战术胸挂",
-            "type": "chestRig",
-            "cv": 0.49,
-            "price": 0.49,
-            "icon": "📦",
-            "grade": 2,
-            "reason": "常规配置"
-        },
-        {
-            "name": "D01轻型胸挂",
-            "type": "chestRig",
-            "cv": 0.39,
-            "price": 0.39,
-            "icon": "📦",
-            "grade": 2,
-            "reason": "常规配置"
-        },
-        {
-            "name": "HK3便携胸挂",
-            "type": "chestRig",
-            "cv": 0.38,
-            "price": 0.38,
-            "icon": "📦",
-            "grade": 2,
-            "reason": "常规配置"
-        },
-        {
-            "name": "尼龙挎包",
-            "type": "chestRig",
-            "cv": 0.33,
-            "price": 0.33,
-            "icon": "📦",
-            "grade": 2,
-            "reason": "常规配置"
-        },
-        {
-            "name": "轻型战术胸挂",
-            "type": "chestRig",
-            "cv": 0.2,
-            "price": 0.2,
-            "icon": "📦",
-            "grade": 1,
-            "reason": "常规配置"
-        },
-        {
-            "name": "简易挂载包",
-            "type": "chestRig",
-            "cv": 0.2,
-            "price": 0.2,
-            "icon": "📦",
-            "grade": 1,
-            "reason": "常规配置"
-        },
-        {
-            "name": "便携胸包",
-            "type": "chestRig",
-            "cv": 0.19,
-            "price": 0.19,
-            "icon": "📦",
-            "grade": 1,
-            "reason": "常规配置"
-        },
-        {
-            "name": "快速侦察胸挂",
-            "type": "chestRig",
-            "cv": 0.19,
-            "price": 0.19,
-            "icon": "📦",
-            "grade": 1,
-            "reason": "常规配置"
-        },
-        {
-            "name": "飓风战术胸挂",
-            "type": "chestRig",
-            "cv": 0,
-            "price": 0,
-            "icon": "📦",
-            "grade": 5,
-            "reason": "常规配置"
-        },
-        {
-            "name": "黑鹰野战胸挂",
-            "type": "chestRig",
-            "cv": 0,
-            "price": 0,
-            "icon": "📦",
-            "grade": 5,
-            "reason": "常规配置"
-        },
-        {
-            "name": "DAR突击手胸挂",
-            "type": "chestRig",
-            "cv": 0,
-            "price": 0,
-            "icon": "📦",
-            "grade": 5,
-            "reason": "常规配置"
-        }
-    ]
-};
+        // 状态管理
+        let currentBudget = 15;
+        let currentMode = 'fenghuo';
+        let currentTeamSize = 1;
+        let loadoutData = null;
+        let selectedTier = 'economical';
 
-
-        
-        // 武器数据库
-        const weaponDB = {
-    "budget": [
-        {
-            "name": "M1014霰弹枪",
-            "type": "primary",
-            "cv": 2.66,
-            "price": 2.66,
-            "ammo": "12 Gauge",
-            "icon": "🔫",
-            "grade": 0,
-            "damage": 14,
-            "fireRate": 261,
-            "note": "12 Gauge口径"
-        },
-        {
-            "name": "G18",
-            "type": "primary",
-            "cv": 1.91,
-            "price": 1.91,
-            "ammo": "9×19mm",
-            "icon": "🔫",
-            "grade": 0,
-            "damage": 22,
-            "fireRate": 1172,
-            "note": "9×19mm口径"
-        },
-        {
-            "name": "沙漠之鹰",
-            "type": "primary",
-            "cv": 1.76,
-            "price": 1.76,
-            "ammo": ".50 AE",
-            "icon": "🔫",
-            "grade": 0,
-            "damage": 50,
-            "fireRate": 207,
-            "note": ".50 AE口径"
-        },
-        {
-            "name": "93R",
-            "type": "primary",
-            "cv": 1.75,
-            "price": 1.75,
-            "ammo": "9×19mm",
-            "icon": "🔫",
-            "grade": 0,
-            "damage": 34,
-            "fireRate": 672,
-            "note": "9×19mm口径"
-        },
-        {
-            "name": ".357左轮",
-            "type": "primary",
-            "cv": 1.39,
-            "price": 1.39,
-            "ammo": ".357",
-            "icon": "🔫",
-            "grade": 0,
-            "damage": 56,
-            "fireRate": 182,
-            "note": ".357口径"
-        },
-        {
-            "name": "M16A4突击步枪",
-            "type": "primary",
-            "cv": 1.23,
-            "price": 1.23,
-            "ammo": "5.56×45mm",
-            "icon": "🔫",
-            "grade": 0,
-            "damage": 33,
-            "fireRate": 672,
-            "note": "5.56×45mm口径"
-        },
-        {
-            "name": "CAR-15突击步枪",
-            "type": "primary",
-            "cv": 1.23,
-            "price": 1.23,
-            "ammo": "5.56×45mm",
-            "icon": "🔫",
-            "grade": 0,
-            "damage": 27,
-            "fireRate": 632,
-            "note": "5.56×45mm口径"
-        },
-        {
-            "name": "UZI冲锋枪",
-            "type": "primary",
-            "cv": 1.21,
-            "price": 1.21,
-            "ammo": "9×19mm",
-            "icon": "🔫",
-            "grade": 0,
-            "damage": 28,
-            "fireRate": 780,
-            "note": "9×19mm口径"
-        },
-        {
-            "name": "野牛冲锋枪",
-            "type": "primary",
-            "cv": 1.21,
-            "price": 1.21,
-            "ammo": "9×19mm",
-            "icon": "🔫",
-            "grade": 0,
-            "damage": 32,
-            "fireRate": 659,
-            "note": "9×19mm口径"
-        },
-        {
-            "name": "AKS-74U突击步枪",
-            "type": "primary",
-            "cv": 1.16,
-            "price": 1.16,
-            "ammo": "5.45×39mm",
-            "icon": "🔫",
-            "grade": 0,
-            "damage": 34,
-            "fireRate": 533,
-            "note": "5.45×39mm口径"
-        },
-        {
-            "name": "MP7",
-            "type": "primary",
-            "cv": 0.79,
-            "price": 0.79,
-            "ammo": "4.6×30mm",
-            "icon": "🔫",
-            "grade": 0,
-            "damage": 29,
-            "fireRate": 950,
-            "note": "4.6×30mm口径"
-        },
-        {
-            "name": "M870霰弹枪",
-            "type": "primary",
-            "cv": 0.5,
-            "price": 0.5,
-            "ammo": "12 Gauge",
-            "icon": "🔫",
-            "grade": 0,
-            "damage": 14,
-            "fireRate": 74,
-            "note": "12 Gauge口径"
-        },
-        {
-            "name": "QSZ92G",
-            "type": "primary",
-            "cv": 0.48,
-            "price": 0.48,
-            "ammo": "9×19mm",
-            "icon": "🔫",
-            "grade": 0,
-            "damage": 34,
-            "fireRate": 375,
-            "note": "9×19mm口径"
-        },
-        {
-            "name": "G17",
-            "type": "primary",
-            "cv": 0.48,
-            "price": 0.48,
-            "ammo": "9×19mm",
-            "icon": "🔫",
-            "grade": 0,
-            "damage": 27,
-            "fireRate": 462,
-            "note": "9×19mm口径"
+        // 初始化
+        async function init() {
+            await loadLoadoutData();
+            setupEventListeners();
+            updateBudgetDisplay();
         }
-    ],
-    "mid": [
-        {
-            "name": "AUG突击步枪",
-            "type": "primary",
-            "cv": 13.46,
-            "price": 13.46,
-            "ammo": "5.56×45mm",
-            "icon": "🔫",
-            "grade": 0,
-            "damage": 29,
-            "fireRate": 679,
-            "note": "5.56×45mm口径"
-        },
-        {
-            "name": "M4A1突击步枪",
-            "type": "primary",
-            "cv": 13,
-            "price": 13,
-            "ammo": "5.56×45mm",
-            "icon": "🔫",
-            "grade": 0,
-            "damage": 27,
-            "fireRate": 800,
-            "note": "5.56×45mm口径"
-        },
-        {
-            "name": "PSG-1射手步枪",
-            "type": "primary",
-            "cv": 12.96,
-            "price": 12.96,
-            "ammo": "7.62×51mm",
-            "icon": "🔫",
-            "grade": 0,
-            "damage": 50,
-            "fireRate": 300,
-            "note": "7.62×51mm口径"
-        },
-        {
-            "name": "AK-12突击步枪",
-            "type": "primary",
-            "cv": 12.36,
-            "price": 12.36,
-            "ammo": "5.45×39mm",
-            "icon": "🔫",
-            "grade": 0,
-            "damage": 27,
-            "fireRate": 735,
-            "note": "5.45×39mm口径"
-        },
-        {
-            "name": "PKM通用机枪",
-            "type": "primary",
-            "cv": 12.16,
-            "price": 12.16,
-            "ammo": "7.62×54mmR",
-            "icon": "🔫",
-            "grade": 0,
-            "damage": 45,
-            "fireRate": 669,
-            "note": "7.62×54mmR口径"
-        },
-        {
-            "name": "P90冲锋枪",
-            "type": "primary",
-            "cv": 11.59,
-            "price": 11.59,
-            "ammo": "5.7×28mm",
-            "icon": "🔫",
-            "grade": 0,
-            "damage": 32,
-            "fireRate": 898,
-            "note": "5.7×28mm口径"
-        },
-        {
-            "name": "SCAR-H战斗步枪",
-            "type": "primary",
-            "cv": 11.14,
-            "price": 11.14,
-            "ammo": "7.62×51mm",
-            "icon": "🔫",
-            "grade": 0,
-            "damage": 40,
-            "fireRate": 585,
-            "note": "7.62×51mm口径"
-        },
-        {
-            "name": "M700狙击步枪",
-            "type": "primary",
-            "cv": 11.1,
-            "price": 11.1,
-            "ammo": "7.62×51mm",
-            "icon": "🔫",
-            "grade": 0,
-            "damage": 55,
-            "fireRate": 48,
-            "note": "7.62×51mm口径"
-        },
-        {
-            "name": "AKM突击步枪",
-            "type": "primary",
-            "cv": 10.21,
-            "price": 10.21,
-            "ammo": "7.62×39mm",
-            "icon": "🔫",
-            "grade": 0,
-            "damage": 40,
-            "fireRate": 600,
-            "note": "7.62×39mm口径"
-        },
-        {
-            "name": "SVD狙击步枪",
-            "type": "primary",
-            "cv": 8.64,
-            "price": 8.64,
-            "ammo": "7.62×54mmR",
-            "icon": "🔫",
-            "grade": 0,
-            "damage": 56,
-            "fireRate": 300,
-            "note": "7.62×54mmR口径"
-        },
-        {
-            "name": "SV-98狙击步枪",
-            "type": "primary",
-            "cv": 8.36,
-            "price": 8.36,
-            "ammo": "7.62×54mmR",
-            "icon": "🔫",
-            "grade": 0,
-            "damage": 55,
-            "fireRate": 40,
-            "note": "7.62×54mmR口径"
-        },
-        {
-            "name": "R93狙击步枪",
-            "type": "primary",
-            "cv": 8.05,
-            "price": 8.05,
-            "ammo": "7.62×51mm",
-            "icon": "🔫",
-            "grade": 0,
-            "damage": 55,
-            "fireRate": 50,
-            "note": "7.62×51mm口径"
-        },
-        {
-            "name": "M249轻机枪",
-            "type": "primary",
-            "cv": 7.92,
-            "price": 7.92,
-            "ammo": "5.56×45mm",
-            "icon": "🔫",
-            "grade": 0,
-            "damage": 30,
-            "fireRate": 858,
-            "note": "5.56×45mm口径"
-        },
-        {
-            "name": "SKS射手步枪",
-            "type": "primary",
-            "cv": 4.85,
-            "price": 4.85,
-            "ammo": "7.62×39mm",
-            "icon": "🔫",
-            "grade": 0,
-            "damage": 44,
-            "fireRate": 510,
-            "note": "7.62×39mm口径"
-        },
-        {
-            "name": "VSS射手步枪",
-            "type": "primary",
-            "cv": 4.78,
-            "price": 4.78,
-            "ammo": "9×39mm",
-            "icon": "🔫",
-            "grade": 0,
-            "damage": 35,
-            "fireRate": 480,
-            "note": "9×39mm口径"
-        },
-        {
-            "name": "S12K霰弹枪",
-            "type": "primary",
-            "cv": 3.96,
-            "price": 3.96,
-            "ammo": "12 Gauge",
-            "icon": "🔫",
-            "grade": 0,
-            "damage": 13,
-            "fireRate": 300,
-            "note": "12 Gauge口径"
-        },
-        {
-            "name": "SG552突击步枪",
-            "type": "primary",
-            "cv": 3.91,
-            "price": 3.91,
-            "ammo": "5.56×45mm",
-            "icon": "🔫",
-            "grade": 0,
-            "damage": 22,
-            "fireRate": 906,
-            "note": "5.56×45mm口径"
-        },
-        {
-            "name": "G3战斗步枪",
-            "type": "primary",
-            "cv": 3.91,
-            "price": 3.91,
-            "ammo": "7.62×51mm",
-            "icon": "🔫",
-            "grade": 0,
-            "damage": 39,
-            "fireRate": 533,
-            "note": "7.62×51mm NATO口径"
-        },
-        {
-            "name": "Mini-14射手步枪",
-            "type": "primary",
-            "cv": 3.91,
-            "price": 3.91,
-            "ammo": "5.56×45mm",
-            "icon": "🔫",
-            "grade": 0,
-            "damage": 32,
-            "fireRate": 590,
-            "note": "5.56×45mm口径"
-        },
-        {
-            "name": "QBZ95-1突击步枪",
-            "type": "primary",
-            "cv": 3.88,
-            "price": 3.88,
-            "ammo": "5.8×42mm",
-            "icon": "🔫",
-            "grade": 0,
-            "damage": 27,
-            "fireRate": 679,
-            "note": "5.8×42mm口径"
-        },
-        {
-            "name": "MP5冲锋枪",
-            "type": "primary",
-            "cv": 3.84,
-            "price": 3.84,
-            "ammo": "9×19mm",
-            "icon": "🔫",
-            "grade": 0,
-            "damage": 30,
-            "fireRate": 820,
-            "note": "9×19mm口径"
-        },
-        {
-            "name": "PTR-32突击步枪",
-            "type": "primary",
-            "cv": 3.82,
-            "price": 3.82,
-            "ammo": "7.62×39mm",
-            "icon": "🔫",
-            "grade": 0,
-            "damage": 34,
-            "fireRate": 632,
-            "note": "7.62×39mm口径"
-        },
-        {
-            "name": "SMG-45冲锋枪",
-            "type": "primary",
-            "cv": 3.81,
-            "price": 3.81,
-            "ammo": ".45 ACP",
-            "icon": "🔫",
-            "grade": 0,
-            "damage": 35,
-            "fireRate": 605,
-            "note": ".45 ACP口径"
-        },
-        {
-            "name": "勇士冲锋枪",
-            "type": "primary",
-            "cv": 3.8,
-            "price": 3.8,
-            "ammo": "9×19mm",
-            "icon": "🔫",
-            "grade": 0,
-            "damage": 36,
-            "fireRate": 700,
-            "note": "9×19mm口径"
-        }
-    ],
-    "high": [
-        {
-            "name": "AWM狙击步枪",
-            "type": "primary",
-            "cv": 60.1,
-            "price": 60.1,
-            "ammo": ".338 Lapua",
-            "icon": "🔫",
-            "grade": 0,
-            "damage": 100,
-            "fireRate": 35,
-            "note": ".338 Lapua口径"
-        },
-        {
-            "name": "M7战斗步枪",
-            "type": "primary",
-            "cv": 25.65,
-            "price": 25.65,
-            "ammo": "6.8×51mm",
-            "icon": "🔫",
-            "grade": 0,
-            "damage": 40,
-            "fireRate": 649,
-            "note": "6.8×51mm口径"
-        },
-        {
-            "name": "SR-25射手步枪",
-            "type": "primary",
-            "cv": 20.82,
-            "price": 20.82,
-            "ammo": "7.62×51mm",
-            "icon": "🔫",
-            "grade": 0,
-            "damage": 50,
-            "fireRate": 364,
-            "note": "7.62×51mm口径"
-        },
-        {
-            "name": "ASh-12战斗步枪",
-            "type": "primary",
-            "cv": 19.73,
-            "price": 19.73,
-            "ammo": "12.7×55mm",
-            "icon": "🔫",
-            "grade": 0,
-            "damage": 56,
-            "fireRate": 500,
-            "note": "12.7×55mm口径"
-        },
-        {
-            "name": "M14射手步枪",
-            "type": "primary",
-            "cv": 18.99,
-            "price": 18.99,
-            "ammo": "7.62×51mm",
-            "icon": "🔫",
-            "grade": 0,
-            "damage": 40,
-            "fireRate": 727,
-            "note": "7.62×51mm口径"
-        },
-        {
-            "name": "AS Val突击步枪",
-            "type": "primary",
-            "cv": 17.81,
-            "price": 17.81,
-            "ammo": "9×39mm",
-            "icon": "🔫",
-            "grade": 0,
-            "damage": 29,
-            "fireRate": 972,
-            "note": "9×39mm口径"
-        },
-        {
-            "name": "K416突击步枪",
-            "type": "primary",
-            "cv": 17.51,
-            "price": 17.51,
-            "ammo": "5.56×45mm",
-            "icon": "🔫",
-            "grade": 0,
-            "damage": 29,
-            "fireRate": 880,
-            "note": "5.56×45mm口径"
-        },
-        {
-            "name": "SR-3M紧凑突击步枪",
-            "type": "primary",
-            "cv": 15.14,
-            "price": 15.14,
-            "ammo": "9×39mm",
-            "icon": "🔫",
-            "grade": 0,
-            "damage": 36,
-            "fireRate": 747,
-            "note": "9×39mm口径"
-        },
-        {
-            "name": "Vector冲锋枪",
-            "type": "primary",
-            "cv": 15.12,
-            "price": 15.12,
-            "ammo": ".45 ACP",
-            "icon": "🔫",
-            "grade": 0,
-            "damage": 32,
-            "fireRate": 1091,
-            "note": ".45 ACP口径"
-        }
-    ]
-};
 
+        // 加载配装数据
+        async function loadLoadoutData() {
+            try {
+                const response = await fetch('smart-loadout-api.json');
+                loadoutData = await response.json();
+            } catch (error) {
+                console.error('加载配装数据失败:', error);
+                loadoutData = getDefaultLoadoutData();
+            }
+        }
 
-        
-        // 地图门槛
-        const mapThresholds = {
-            'zeroDam_classified': { name: '零号大坝-机密', threshold: 13 },
-            'longbow_classified': { name: '长弓溪谷-机密', threshold: 13 },
-            'spacePort_classified': { name: '航天基地-机密', threshold: 18.7 },
-            'buckish_classified': { name: '巴克什-机密', threshold: 18.7 },
-            'fenghuodidai_classified': { name: '烽火地带-机密', threshold: 20 },
-            'spacePort_topSecret': { name: '航天基地-绝密', threshold: 45 },
-            'buckish_topSecret': { name: '巴克什-绝密', threshold: 55 },
-            'tidalPrison_topSecret': { name: '潮汐监狱-绝密', threshold: 69 },
-        };
-        
-        // 计算最优配置
-        function calculateOptimal(budget, targetMap) {
-            // 确定目标门槛
-            let threshold, mapName;
-            if (targetMap && mapThresholds[targetMap]) {
-                threshold = mapThresholds[targetMap].threshold;
-                mapName = mapThresholds[targetMap].name;
-            } else {
-                // 自动选择最合适的地图
-                if (budget >= 69) {
-                    threshold = 69; mapName = '潮汐监狱-绝密';
-                } else if (budget >= 55) {
-                    threshold = 55; mapName = '巴克什-绝密';
-                } else if (budget >= 45) {
-                    threshold = 45; mapName = '航天基地-绝密';
-                } else if (budget >= 18.7) {
-                    threshold = 18.7; mapName = '航天基地-机密';
-                } else {
-                    threshold = 13; mapName = '零号大坝-机密';
+        // 默认配装数据
+        function getDefaultLoadoutData() {
+            return {
+                gear_sets: {
+                    economical: {
+                        name: '经济型配装',
+                        description: '推荐预算内，性价比最高',
+                        loadouts: []
+                    },
+                    balanced: {
+                        name: '均衡型配装',
+                        description: '略超预算，体验更佳',
+                        loadouts: []
+                    },
+                    luxury: {
+                        name: '豪华型配装',
+                        description: '预算1.5倍，极致体验',
+                        loadouts: []
+                    }
                 }
-            }
-            
-            const result = {
-                map: mapName,
-                threshold: threshold,
-                gear: [],
-                weapons: [],
-                totalCost: 0,
-                totalCV: 0
             };
-            
-            // 确定装备等级
-            let gearTier = budget < 15 ? 'budget' : budget < 40 ? 'mid' : 'high';
-            
-            // 选择最优装备组合
-            let remainingCV = threshold;
-            let remainingBudget = budget;
-            
-            // 1. 选择头盔
-            let helmet = null;
-            if (gearTier === 'high') {
-                helmet = gearDB.helmets.find(h => h.cv >= 40 && h.cv <= 50 && h.price <= remainingBudget * 0.3);
-                if (!helmet) helmet = gearDB.helmets.find(h => h.cv >= 40);
-            } else if (gearTier === 'mid') {
-                helmet = gearDB.helmets.find(h => h.cv >= 10 && h.cv <= 20 && h.price <= remainingBudget * 0.2);
-                if (!helmet) helmet = gearDB.helmets.find(h => h.cv <= 20);
-            } else {
-                helmet = gearDB.helmets[1]; // 老式钢盔
-            }
-            if (helmet) {
-                result.gear.push(helmet);
-                remainingCV -= helmet.cv;
-                remainingBudget -= helmet.price;
-            }
-            
-            // 2. 选择防弹衣
-            let armor = null;
-            if (gearTier === 'high') {
-                armor = gearDB.armors.find(a => a.cv >= 60 && a.cv <= 80 && a.price <= remainingBudget * 0.3);
-                if (!armor) armor = gearDB.armors.find(a => a.cv >= 60);
-            } else if (gearTier === 'mid') {
-                armor = gearDB.armors.find(a => a.cv >= 30 && a.cv <= 40 && a.price <= remainingBudget * 0.25);
-                if (!armor) armor = gearDB.armors.find(a => a.cv <= 40);
-            } else {
-                armor = gearDB.armors.find(a => a.cv <= 5);
-            }
-            if (armor) {
-                result.gear.push(armor);
-                remainingCV -= armor.cv;
-                remainingBudget -= armor.price;
-            }
-            
-            // 3. 选择背包
-            let backpack = null;
-            if (gearTier === 'high') {
-                backpack = gearDB.backpacks.find(b => b.cv >= 30);
-            } else {
-                backpack = gearDB.backpacks.find(b => b.cv <= 10);
-            }
-            if (backpack) {
-                result.gear.push(backpack);
-                remainingCV -= backpack.cv;
-                remainingBudget -= backpack.price;
-            }
-            
-            // 4. 选择胸挂
-            let chestRig = null;
-            if (gearTier === 'high') {
-                chestRig = gearDB.chestRigs.find(c => c.cv >= 20);
-            } else {
-                chestRig = gearDB.chestRigs.find(c => c.cv <= 10);
-            }
-            if (chestRig) {
-                result.gear.push(chestRig);
-                remainingCV -= chestRig.cv;
-                remainingBudget -= chestRig.price;
-            }
-            
-            // 5. 选择武器
-            let weaponPool = gearTier === 'high' ? weaponDB.high : gearTier === 'mid' ? weaponDB.mid : weaponDB.budget;
-            let weapon = weaponPool.find(w => w.cv <= remainingCV + 5 && w.price <= remainingBudget);
-            if (!weapon) {
-                weapon = weaponPool[0];
-            }
-            result.weapons.push(weapon);
-            remainingBudget -= weapon.price;
-            remainingCV -= weapon.cv;
-            
-            // 计算总计
-            result.totalCost = result.gear.reduce((sum, g) => sum + g.price, 0) + result.weapons.reduce((sum, w) => sum + w.price, 0);
-            result.totalCV = result.gear.reduce((sum, g) => sum + g.cv, 0) + result.weapons.reduce((sum, w) => sum + w.cv, 0);
-            
-            // S9新系统：动力外骨骼
-            if (budget >= 50) {
-                result.exoskeleton = {
-                    name: '动力外骨骼Mk-II',
-                    cv: 15,
-                    price: 50,
-                    icon: '🦾',
-                    reason: 'S9赛季新系统，移动速度+20%，载重+30%'
-                };
-                result.totalCost += result.exoskeleton.price;
-                result.totalCV += result.exoskeleton.cv;
-            }
-            
-            // 生成提示
-            result.tips = [
-                `战备值刚好达到${threshold}万门槛即可，多一分都是浪费`,
-                '建议中午12点前后购买装备，价格通常更低',
-                '破损装备耐久低但战备值不缩水，性价比极高',
-                `当前预算${budget}万，实际花费约${result.totalCost.toFixed(1)}万`
-            ];
-            
-            // 烽火地带特殊提示
-            if (mapName && mapName.includes('烽火地带')) {
-                result.tips.unshift('烽火地带入门配装推荐：4级甲+3级头（烽火地带AI统一使用3级穿深弹药）');
-            }
-            
-            return result;
         }
-        
-        // 渲染结果
-        function renderResult(result) {
-            document.getElementById('targetCV').textContent = result.threshold;
-            document.getElementById('totalCost').textContent = result.totalCost.toFixed(1);
+
+        // 设置事件监听
+        function setupEventListeners() {
+            // 预算滑块
+            const slider = document.getElementById('budgetSlider');
+            const input = document.getElementById('budgetInput');
             
-            // 渲染装备
-            const gearList = document.getElementById('gearList');
-            gearList.innerHTML = result.gear.map(g => `
-                <div class="gear-item">
-                    <div class="gear-icon">${g.icon}</div>
-                    <div class="gear-info">
-                        <div class="type">${g.type === 'helmet' ? '头盔' : g.type === 'armor' ? '防弹衣' : g.type === 'backpack' ? '背包' : '胸挂'}</div>
-                        <div class="name">${g.name}</div>
-                        <div class="reason">${g.reason}</div>
-                    </div>
-                    <div class="gear-stats">
-                        <div class="cv">${g.cv}<small>万</small></div>
-                        <div class="price">${g.price.toFixed(2)}万</div>
-                    </div>
-                </div>
-            `).join('');
-            
-            // 渲染武器
-            const weaponList = document.getElementById('weaponList');
-            weaponList.innerHTML = result.weapons.map(w => `
-                <div class="weapon-chip">
-                    <span class="icon">${w.icon}</span>
-                    <div>
-                        <div class="name">${w.name}</div>
-                        <div class="stats">${w.ammo} · 战备${w.cv}万 · ${w.note}</div>
-                    </div>
-                </div>
-            `).join('');
-            
-            // 渲染提示
-            const tipsList = document.getElementById('tipsList');
-            tipsList.innerHTML = result.tips.map(t => `<li>${t}</li>`).join('');
-            
-            document.getElementById('result').classList.add('show');
+            slider.addEventListener('input', (e) => {
+                currentBudget = parseInt(e.target.value);
+                input.value = currentBudget;
+                updateBudgetDisplay();
+            });
+
+            input.addEventListener('input', (e) => {
+                currentBudget = parseInt(e.target.value) || 1;
+                slider.value = Math.min(Math.max(currentBudget, 1), 50);
+                updateBudgetDisplay();
+            });
+
+            // 模式选择
+            document.querySelectorAll('.mode-selector').forEach(group => {
+                group.querySelectorAll('.mode-btn').forEach(btn => {
+                    btn.addEventListener('click', () => {
+                        group.querySelectorAll('.mode-btn').forEach(b => b.classList.remove('active'));
+                        btn.classList.add('active');
+                        
+                        if (btn.dataset.mode) {
+                            currentMode = btn.dataset.mode;
+                        } else if (btn.dataset.team) {
+                            currentTeamSize = parseInt(btn.dataset.team);
+                        }
+                    });
+                });
+            });
+
+            // 快捷选项
+            document.querySelectorAll('.quick-btn').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    document.querySelectorAll('.quick-btn').forEach(b => b.classList.remove('active'));
+                    btn.classList.add('active');
+                    
+                    currentBudget = parseInt(btn.dataset.budget);
+                    slider.value = Math.min(currentBudget, 50);
+                    input.value = currentBudget;
+                    updateBudgetDisplay();
+                });
+            });
+
+            // 生成按钮
+            document.getElementById('generateBtn').addEventListener('click', generateLoadouts);
+
+            // 弹窗关闭
+            document.getElementById('popupClose').addEventListener('click', closePopup);
+            document.getElementById('popupOverlay').addEventListener('click', (e) => {
+                if (e.target === e.currentTarget) {
+                    closePopup();
+                }
+            });
         }
-        
-        // 事件绑定
-        document.getElementById('calcBtn').addEventListener('click', () => {
-            const budget = parseFloat(document.getElementById('budget').value) || 0;
-            const map = document.getElementById('map').value;
+
+        // 更新预算显示
+        function updateBudgetDisplay() {
+            // 可以添加其他实时更新逻辑
+        }
+
+        // 生成配装
+        function generateLoadouts() {
+            const resultSection = document.getElementById('resultSection');
+            const tierTabs = document.getElementById('tierTabs');
+            const content = document.getElementById('loadoutContent');
+
+            // 显示结果区域
+            resultSection.classList.add('show');
+
+            // 渲染档位选择
+            tierTabs.innerHTML = `
+                <div class="tier-tab economical active" data-tier="economical">
+                    <div class="tier-name">💰 经济型</div>
+                    <div class="tier-desc">预算内最优选择</div>
+                    <div class="tier-price" id="ecoPrice">-</div>
+                </div>
+                <div class="tier-tab balanced" data-tier="balanced">
+                    <div class="tier-name">⚖️ 均衡型</div>
+                    <div class="tier-desc">略超但体验更佳</div>
+                    <div class="tier-price" id="balPrice">-</div>
+                </div>
+                <div class="tier-tab luxury" data-tier="luxury">
+                    <div class="tier-name">💎 豪华型</div>
+                    <div class="tier-desc">预算1.5倍的极致</div>
+                    <div class="tier-price" id="luxPrice">-</div>
+                </div>
+            `;
+
+            // 档位切换
+            tierTabs.querySelectorAll('.tier-tab').forEach(tab => {
+                tab.addEventListener('click', () => {
+                    tierTabs.querySelectorAll('.tier-tab').forEach(t => t.classList.remove('active'));
+                    tab.classList.add('active');
+                    selectedTier = tab.dataset.tier;
+                    renderLoadout();
+                });
+            });
+
+            // 查找匹配的配装
+            const ecoLoadout = findMatchingLoadout('economical');
+            const balLoadout = findMatchingLoadout('balanced');
+            const luxLoadout = findMatchingLoadout('luxury');
+
+            // 更新价格显示
+            document.getElementById('ecoPrice').innerHTML = ecoLoadout 
+                ? `${formatPrice(ecoLoadout.total_price)}<small>万</small>`
+                : '-';
+            document.getElementById('balPrice').innerHTML = balLoadout 
+                ? `${formatPrice(balLoadout.total_price)}<small>万</small>`
+                : '-';
+            document.getElementById('luxPrice').innerHTML = luxLoadout 
+                ? `${formatPrice(luxLoadout.total_price)}<small>万</small>`
+                : '-';
+
+            // 渲染默认选中的配装
+            renderLoadout();
+        }
+
+        // 查找匹配的配装
+        function findMatchingLoadout(tier) {
+            const sets = loadoutData?.gear_sets;
+            if (!sets || !sets[tier]) return null;
+
+            const loadouts = sets[tier].loadouts;
             
-            if (budget <= 0) {
-                alert('请输入有效预算');
+            // 筛选匹配模式和队伍人数
+            const matching = loadouts.filter(l => 
+                (l.mode === currentMode || l.mode === 'both') &&
+                (l.team_size === currentTeamSize || l.team_size === 1)
+            );
+
+            if (matching.length === 0) {
+                // 返回通用配装
+                return loadouts[0] || null;
+            }
+
+            // 根据预算选择最合适的
+            return matching[0];
+        }
+
+        // 渲染配装
+        function renderLoadout() {
+            const content = document.getElementById('loadoutContent');
+            const loadout = findMatchingLoadout(selectedTier);
+
+            if (!loadout) {
+                content.innerHTML = '<div class="loading">暂无匹配的配装方案</div>';
                 return;
             }
-            
-            const result = calculateOptimal(budget, map);
-            renderResult(result);
-        });
-        
-        // 快捷按钮
-        document.querySelectorAll('.quick-btn').forEach(btn => {
-            btn.addEventListener('click', () => {
-                document.getElementById('budget').value = btn.dataset.budget;
-                document.getElementById('map').value = btn.dataset.map;
-                
-                document.querySelectorAll('.quick-btn').forEach(b => b.classList.remove('active'));
-                btn.classList.add('active');
-                
-                const result = calculateOptimal(parseFloat(btn.dataset.budget), btn.dataset.map);
-                renderResult(result);
+
+            const tierName = {
+                'economical': '💰 经济型配装',
+                'balanced': '⚖️ 均衡型配装',
+                'luxury': '💎 豪华型配装'
+            }[selectedTier];
+
+            // 计算与预算的差异
+            const diff = currentBudget * 10000 - loadout.total_price;
+            const diffClass = diff >= 0 ? 'saving' : 'over';
+            const diffText = diff >= 0 
+                ? `节省 ${formatPrice(Math.abs(diff))} 万` 
+                : `超支 ${formatPrice(Math.abs(diff))} 万`;
+
+            content.innerHTML = `
+                <div class="loadout-card">
+                    <div class="loadout-header">
+                        <div class="loadout-title">${loadout.name || tierName}</div>
+                        <div class="loadout-meta">
+                            <span class="meta-tag">🎮 ${currentMode === 'fenghuo' ? '烽火地带' : '全面战场'}</span>
+                            <span class="meta-tag">👥 ${currentTeamSize}人队伍</span>
+                            <span class="meta-tag">⚔️ ${loadout.cv_value || 0}万战备值</span>
+                        </div>
+                    </div>
+
+                    <div class="budget-comparison">
+                        <div class="comparison-row">
+                            <span class="comparison-label">💰 您的预算</span>
+                            <span class="comparison-value">${formatPrice(currentBudget)} 万</span>
+                        </div>
+                        <div class="comparison-row">
+                            <span class="comparison-label">📦 配装总价</span>
+                            <span class="comparison-value">${formatPrice(loadout.total_price / 10000)} 万</span>
+                        </div>
+                        <div class="comparison-row">
+                            <span class="comparison-label">📊 预算对比</span>
+                            <span class="comparison-value ${diffClass}">
+                                ${diffText}
+                                <span class="comparison-diff">(${diff >= 0 ? '节省' : '超出'} ${Math.abs((diff / (currentBudget * 10000) * 100)).toFixed(0)}%)</span>
+                            </span>
+                        </div>
+                    </div>
+
+                    <div class="gear-grid">
+                        ${loadout.items.map((item, index) => `
+                            <div class="gear-card" data-index="${index}">
+                                <div class="gear-card-header">
+                                    <div class="gear-icon">${item.icon}</div>
+                                    <div>
+                                        <div class="gear-name">${item.name}</div>
+                                        <div class="gear-slot">${getSlotName(item.slot)}</div>
+                                    </div>
+                                </div>
+                                <div class="gear-stats">
+                                    <span class="gear-cv">⚔️ ${item.cv} 战备</span>
+                                    <span class="gear-price">💰 ${formatPrice(item.price / 10000)}万</span>
+                                </div>
+                            </div>
+                        `).join('')}
+                    </div>
+
+                    ${loadout.tips && loadout.tips.length > 0 ? `
+                        <div style="background: rgba(0,217,255,0.1); border-radius: 10px; padding: 15px; margin-top: 15px;">
+                            <div style="color: #00d9ff; font-weight: bold; margin-bottom: 10px;">💡 配装建议</div>
+                            ${loadout.tips.map(tip => `<p style="color: #888; font-size: 0.9em; margin: 5px 0;">• ${tip}</p>`).join('')}
+                        </div>
+                    ` : ''}
+                </div>
+            `;
+
+            // 添加装备卡片点击事件
+            content.querySelectorAll('.gear-card').forEach(card => {
+                card.addEventListener('click', () => {
+                    const index = parseInt(card.dataset.index);
+                    showItemPopup(loadout.items[index]);
+                });
             });
-        });
+        }
+
+        // 获取槽位名称
+        function getSlotName(slot) {
+            const names = {
+                helmet: '头盔',
+                armor: '护甲',
+                backpack: '背包',
+                medical: '医疗',
+                weapon: '武器',
+                accessory: '配件',
+                chestRig: '胸挂'
+            };
+            return names[slot] || slot;
+        }
+
+        // 显示物品弹窗
+        function showItemPopup(item) {
+            const overlay = document.getElementById('popupOverlay');
+            const title = document.getElementById('popupTitle');
+            const content = document.getElementById('popupContent');
+
+            title.innerHTML = `${item.icon} ${item.name}`;
+
+            content.innerHTML = `
+                <div class="popup-item">
+                    <span class="popup-label">槽位</span>
+                    <span class="popup-value">${getSlotName(item.slot)}</span>
+                </div>
+                <div class="popup-item">
+                    <span class="popup-label">战备值</span>
+                    <span class="popup-value" style="color: #4CAF50;">⚔️ ${item.cv} 万</span>
+                </div>
+                <div class="popup-item">
+                    <span class="popup-label">价格</span>
+                    <span class="popup-value" style="color: #FFC107;">💰 ${formatPrice(item.price / 10000)} 万</span>
+                </div>
+                <div class="popup-item">
+                    <span class="popup-label">性价比</span>
+                    <span class="popup-value">${(item.cv / (item.price / 10000)).toFixed(2)} 战备/万</span>
+                </div>
+            `;
+
+            overlay.classList.add('show');
+        }
+
+        // 关闭弹窗
+        function closePopup() {
+            document.getElementById('popupOverlay').classList.remove('show');
+        }
+
+        // 格式化价格
+        function formatPrice(price) {
+            if (typeof price === 'number') {
+                return price.toLocaleString('zh-CN', { maximumFractionDigits: 1 });
+            }
+            return price;
+        }
+
+        // 页面加载
+        window.addEventListener('DOMContentLoaded', init);
     </script>
 </body>
 </html>

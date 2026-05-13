@@ -1,0 +1,985 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>价格走势 - 三角眼工具站</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #0a0e1a 0%, #1a1f3a 100%);
+            color: #e0e0e0;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .header {
+            background: linear-gradient(135deg, rgba(255, 107, 0, 0.2) 0%, rgba(255, 107, 0, 0.05) 100%);
+            border-bottom: 3px solid #ff6b00;
+            padding: 30px 20px;
+            text-align: center;
+            margin-bottom: 30px;
+            border-radius: 15px;
+        }
+
+        .header h1 {
+            color: #ff6b00;
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+
+        .header .update-time {
+            color: #888;
+            font-size: 0.9em;
+        }
+
+        .update-time span {
+            color: #ff6b00;
+        }
+
+        .filter-bar {
+            background: rgba(255, 255, 255, 0.05);
+            border: 2px solid #333;
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 30px;
+        }
+
+        .filter-row {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+
+        .filter-group {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .filter-group label {
+            color: #888;
+            font-size: 0.9em;
+        }
+
+        .filter-btn {
+            padding: 8px 16px;
+            background: rgba(255, 107, 0, 0.2);
+            border: 2px solid #ff6b00;
+            border-radius: 6px;
+            color: #ff6b00;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 0.9em;
+        }
+
+        .filter-btn:hover,
+        .filter-btn.active {
+            background: #ff6b00;
+            color: #000;
+        }
+
+        .time-range-btn {
+            padding: 8px 16px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 2px solid #555;
+            border-radius: 6px;
+            color: #888;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 0.9em;
+        }
+
+        .time-range-btn:hover,
+        .time-range-btn.active {
+            background: #00d9ff;
+            border-color: #00d9ff;
+            color: #000;
+        }
+
+        .chart-container {
+            background: rgba(255, 255, 255, 0.05);
+            border: 2px solid #333;
+            border-radius: 12px;
+            padding: 25px;
+            margin-bottom: 30px;
+        }
+
+        .chart-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .chart-title {
+            color: #ff6b00;
+            font-size: 1.5em;
+            font-weight: bold;
+        }
+
+        .legend {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.9em;
+            cursor: pointer;
+            padding: 5px 10px;
+            border-radius: 6px;
+            transition: all 0.3s;
+        }
+
+        .legend-item:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .legend-item.inactive {
+            opacity: 0.4;
+        }
+
+        .legend-color {
+            width: 20px;
+            height: 4px;
+            border-radius: 2px;
+        }
+
+        .chart-wrapper {
+            position: relative;
+            height: 400px;
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 8px;
+            padding: 20px;
+        }
+
+        #priceChart {
+            width: 100%;
+            height: 100%;
+        }
+
+        .chart-tooltip {
+            position: absolute;
+            background: rgba(0, 0, 0, 0.9);
+            border: 2px solid #ff6b00;
+            border-radius: 8px;
+            padding: 12px;
+            pointer-events: none;
+            display: none;
+            z-index: 100;
+            min-width: 150px;
+        }
+
+        .tooltip-title {
+            color: #ff6b00;
+            font-weight: bold;
+            margin-bottom: 8px;
+            font-size: 0.95em;
+        }
+
+        .tooltip-item {
+            display: flex;
+            justify-content: space-between;
+            gap: 15px;
+            padding: 3px 0;
+            font-size: 0.85em;
+        }
+
+        .tooltip-label {
+            color: #888;
+        }
+
+        .tooltip-value {
+            color: #fff;
+        }
+
+        .price-table {
+            background: rgba(255, 255, 255, 0.05);
+            border: 2px solid #333;
+            border-radius: 12px;
+            padding: 25px;
+            margin-bottom: 30px;
+        }
+
+        .table-title {
+            color: #ff6b00;
+            font-size: 1.5em;
+            margin-bottom: 20px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            padding: 15px 12px;
+            text-align: left;
+            border-bottom: 1px solid #333;
+        }
+
+        th {
+            color: #888;
+            font-weight: 600;
+            font-size: 0.85em;
+            text-transform: uppercase;
+        }
+
+        td {
+            color: #e0e0e0;
+        }
+
+        tr:hover {
+            background: rgba(255, 107, 0, 0.1);
+        }
+
+        .price-current {
+            font-weight: bold;
+            color: #fff;
+        }
+
+        .price-change {
+            display: inline-block;
+            padding: 4px 10px;
+            border-radius: 4px;
+            font-weight: bold;
+            font-size: 0.85em;
+        }
+
+        .price-up {
+            background: rgba(255, 87, 34, 0.3);
+            color: #ff5722;
+        }
+
+        .price-down {
+            background: rgba(76, 175, 80, 0.3);
+            color: #4CAF50;
+        }
+
+        .price-warning {
+            background: rgba(244, 67, 54, 0.3);
+            color: #f44336;
+        }
+
+        .item-selector {
+            background: rgba(255, 255, 255, 0.05);
+            border: 2px solid #333;
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 30px;
+        }
+
+        .selector-title {
+            color: #888;
+            font-size: 0.9em;
+            margin-bottom: 15px;
+        }
+
+        .selector-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .selector-btn {
+            padding: 10px 16px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 2px solid #555;
+            border-radius: 8px;
+            color: #888;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 0.9em;
+        }
+
+        .selector-btn:hover {
+            border-color: #ff6b00;
+            color: #ff6b00;
+        }
+
+        .selector-btn.selected {
+            background: rgba(255, 107, 0, 0.2);
+            border-color: #ff6b00;
+            color: #ff6b00;
+        }
+
+        .selector-btn.max-reached {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .loading {
+            text-align: center;
+            padding: 60px;
+            color: #888;
+        }
+
+        .alert-banner {
+            background: linear-gradient(135deg, rgba(255, 87, 34, 0.2) 0%, rgba(255, 107, 0, 0.1) 100%);
+            border: 2px solid #ff5722;
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 30px;
+        }
+
+        .alert-banner.warning {
+            border-color: #f44336;
+            background: linear-gradient(135deg, rgba(244, 67, 54, 0.2) 0%, rgba(244, 67, 54, 0.1) 100%);
+        }
+
+        .alert-title {
+            color: #ff5722;
+            font-size: 1.2em;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .alert-list {
+            list-style: none;
+        }
+
+        .alert-item {
+            padding: 8px 0;
+            color: #e0e0e0;
+            font-size: 0.9em;
+        }
+
+        .alert-item .item-name {
+            color: #fff;
+            font-weight: bold;
+        }
+
+        .alert-item .price-up {
+            color: #ff5722;
+            font-weight: bold;
+        }
+
+        .alert-item .price-down {
+            color: #4CAF50;
+            font-weight: bold;
+        }
+
+        @media (max-width: 768px) {
+            .chart-wrapper {
+                height: 300px;
+            }
+
+            .filter-row {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            table {
+                font-size: 0.85em;
+            }
+
+            th, td {
+                padding: 10px 8px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>📊 价格走势</h1>
+            <p class="update-time">数据更新时间：<span id="updateTime">加载中...</span></p>
+        </div>
+
+        <!-- 价格预警区域 -->
+        <div id="alertBanner" class="alert-banner" style="display: none;">
+            <div class="alert-title">⚠️ 价格异动预警</div>
+            <ul class="alert-list" id="alertList"></ul>
+        </div>
+
+        <!-- 物品选择器 -->
+        <div class="item-selector">
+            <div class="selector-title">选择对比物品（最多3个）:</div>
+            <div class="selector-grid" id="itemSelector"></div>
+        </div>
+
+        <!-- 筛选栏 -->
+        <div class="filter-bar">
+            <div class="filter-row">
+                <div class="filter-group">
+                    <label>物品类型:</label>
+                    <button class="filter-btn active" data-type="all">全部</button>
+                    <button class="filter-btn" data-type="weapon">武器</button>
+                    <button class="filter-btn" data-type="armor">防具</button>
+                    <button class="filter-btn" data-type="medical">医疗</button>
+                    <button class="filter-btn" data-type="material">材料</button>
+                </div>
+                <div class="filter-group" style="margin-left: auto;">
+                    <label>时间范围:</label>
+                    <button class="time-range-btn active" data-range="7">7天</button>
+                    <button class="time-range-btn" data-range="30">30天</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- 图表区域 -->
+        <div class="chart-container">
+            <div class="chart-header">
+                <div class="chart-title">价格走势对比</div>
+                <div class="legend" id="chartLegend"></div>
+            </div>
+            <div class="chart-wrapper">
+                <canvas id="priceChart"></canvas>
+                <div class="chart-tooltip" id="chartTooltip">
+                    <div class="tooltip-title"></div>
+                    <div class="tooltip-content"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 价格表格 -->
+        <div class="price-table">
+            <div class="table-title">📋 重点物品价格明细</div>
+            <table>
+                <thead>
+                    <tr>
+                        <th>物品名称</th>
+                        <th>类型</th>
+                        <th>当前价格</th>
+                        <th>7日涨跌</th>
+                        <th>30日涨跌</th>
+                        <th>状态</th>
+                    </tr>
+                </thead>
+                <tbody id="priceTableBody">
+                    <tr><td colspan="6" class="loading">加载中...</td></tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <script>
+        // 全局数据
+        let priceData = {
+            realtime: null,
+            history: null
+        };
+        let selectedItems = [];
+        let currentFilter = 'all';
+        let currentRange = 7;
+
+        // 图表颜色配置
+        const chartColors = [
+            '#ff6b00', // 橙色
+            '#00d9ff', // 青色
+            '#00ff88', // 绿色
+            '#ff5722', // 红色
+            '#9C27B0', // 紫色
+            '#FFC107'  // 黄色
+        ];
+
+        // 重点监控物品列表
+        const priorityItems = [
+            { id: 'titanium_plate', name: '钛合金板', type: 'material', keywords: ['钛合金板', 'titanium'] },
+            { id: 't1_medkit', name: 'T1医疗包', type: 'medical', keywords: ['T1医疗包', 'T1 医疗包', '医疗包'] },
+            { id: 'tactical_backpack', name: '战术背包', type: 'armor', keywords: ['战术背包', '背包'] },
+            { id: 'armor_plate', name: '护甲板', type: 'armor', keywords: ['护甲板', '护甲'] },
+            { id: 'ammo_bundle', name: '弹药包', type: 'weapon', keywords: ['弹药包', '弹药'] },
+            { id: 'headset', name: '战术耳机', type: 'armor', keywords: ['耳机', '战术耳机'] },
+            { id: 'frag_grenade', name: '手雷', type: 'weapon', keywords: ['手雷', '手榴弹'] },
+            { id: 'stim_pack', name: '兴奋剂', type: 'medical', keywords: ['兴奋剂', 'Stim'] },
+            { id: 'fuel_cell', name: '燃料电池', type: 'material', keywords: ['燃料电池', '燃料'] },
+            { id: 'carbon_plate', name: '碳纤维板', type: 'material', keywords: ['碳纤维板', '碳纤维'] }
+        ];
+
+        // 初始化
+        async function init() {
+            await loadData();
+            renderItemSelector();
+            setupEventListeners();
+            updateChart();
+            renderPriceTable();
+            updateAlertBanner();
+        }
+
+        // 加载数据
+        async function loadData() {
+            try {
+                const [realtimeRes, historyRes] = await Promise.all([
+                    fetch('price-realtime.json'),
+                    fetch('price-history.json').catch(() => null)
+                ]);
+
+                priceData.realtime = await realtimeRes.json();
+                
+                if (historyRes) {
+                    try {
+                        priceData.history = await historyRes.json();
+                    } catch (e) {
+                        priceData.history = generateMockHistory();
+                    }
+                } else {
+                    priceData.history = generateMockHistory();
+                }
+
+                document.getElementById('updateTime').textContent = 
+                    new Date().toLocaleString('zh-CN', { timeZone: 'Asia/Shanghai' });
+
+            } catch (error) {
+                console.error('加载数据失败:', error);
+                priceData.realtime = { items: [] };
+                priceData.history = generateMockHistory();
+            }
+        }
+
+        // 生成模拟历史数据
+        function generateMockHistory() {
+            const history = {};
+            const baseDate = new Date();
+            
+            priorityItems.forEach(item => {
+                const basePrice = 10000 + Math.random() * 90000;
+                const historyData = [];
+                
+                for (let i = 30; i >= 0; i--) {
+                    const date = new Date(baseDate);
+                    date.setDate(date.getDate() - i);
+                    const variance = (Math.random() - 0.5) * 0.2;
+                    const price = Math.round(basePrice * (1 + variance));
+                    historyData.push({
+                        date: date.toISOString().split('T')[0],
+                        price: price
+                    });
+                }
+                
+                history[item.id] = {
+                    item_id: item.id,
+                    item_name: item.name,
+                    history: historyData
+                };
+            });
+
+            return { price_history: history };
+        }
+
+        // 渲染物品选择器
+        function renderItemSelector() {
+            const container = document.getElementById('itemSelector');
+            const filteredItems = currentFilter === 'all' 
+                ? priorityItems 
+                : priorityItems.filter(item => item.type === currentFilter);
+
+            container.innerHTML = filteredItems.map(item => {
+                const isSelected = selectedItems.includes(item.id);
+                const isMaxReached = selectedItems.length >= 3 && !isSelected;
+                return `
+                    <button class="selector-btn ${isSelected ? 'selected' : ''} ${isMaxReached ? 'max-reached' : ''}" 
+                            data-id="${item.id}"
+                            ${isMaxReached ? 'disabled' : ''}>
+                        ${item.name}
+                    </button>
+                `;
+            }).join('');
+
+            container.querySelectorAll('.selector-btn:not(.max-reached)').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const itemId = btn.dataset.id;
+                    if (selectedItems.includes(itemId)) {
+                        selectedItems = selectedItems.filter(id => id !== itemId);
+                    } else if (selectedItems.length < 3) {
+                        selectedItems.push(itemId);
+                    }
+                    renderItemSelector();
+                    updateChart();
+                });
+            });
+        }
+
+        // 渲染图表
+        function updateChart() {
+            const canvas = document.getElementById('priceChart');
+            const ctx = canvas.getContext('2d');
+            const wrapper = canvas.parentElement;
+
+            canvas.width = wrapper.clientWidth;
+            canvas.height = wrapper.clientHeight;
+
+            const width = canvas.width;
+            const height = canvas.height;
+            const padding = { top: 40, right: 80, bottom: 60, left: 80 };
+            const chartWidth = width - padding.left - padding.right;
+            const chartHeight = height - padding.top - padding.bottom;
+
+            ctx.clearRect(0, 0, width, height);
+
+            if (selectedItems.length === 0) {
+                ctx.fillStyle = '#666';
+                ctx.font = '16px Segoe UI';
+                ctx.textAlign = 'center';
+                ctx.fillText('请选择物品进行对比', width / 2, height / 2);
+                return;
+            }
+
+            // 获取图表数据
+            const chartData = getChartData();
+            if (!chartData) return;
+
+            const { datasets, labels, allPrices } } = chartData;
+            const maxPrice = Math.max(...allPrices) * 1.1;
+            const minPrice = Math.min(...allPrices) * 0.9;
+
+            // 绘制网格
+            ctx.strokeStyle = 'rgba(255, 255, 255, 0.1)';
+            ctx.lineWidth = 1;
+            
+            for (let i = 0; i <= 5; i++) {
+                const y = padding.top + (chartHeight / 5) * i;
+                ctx.beginPath();
+                ctx.moveTo(padding.left, y);
+                ctx.lineTo(width - padding.right, y);
+                ctx.stroke();
+
+                const price = Math.round(maxPrice - (maxPrice - minPrice) * (i / 5));
+                ctx.fillStyle = '#666';
+                ctx.font = '12px Segoe UI';
+                ctx.textAlign = 'right';
+                ctx.fillText(formatPrice(price), padding.left - 10, y + 4);
+            }
+
+            // 绘制X轴标签
+            const labelStep = Math.ceil(labels.length / 7);
+            labels.forEach((label, i) => {
+                if (i % labelStep === 0) {
+                    const x = padding.left + (chartWidth / (labels.length - 1)) * i;
+                    ctx.fillStyle = '#666';
+                    ctx.font = '11px Segoe UI';
+                    ctx.textAlign = 'center';
+                    ctx.fillText(label.substring(5), x, height - padding.bottom + 25);
+                }
+            });
+
+            // 绘制折线
+            datasets.forEach((dataset, datasetIndex) => {
+                const color = chartColors[datasetIndex % chartColors.length];
+                
+                // 绘制线
+                ctx.strokeStyle = color;
+                ctx.lineWidth = 3;
+                ctx.lineCap = 'round';
+                ctx.lineJoin = 'round';
+                ctx.beginPath();
+
+                dataset.forEach((point, i) => {
+                    const x = padding.left + (chartWidth / (dataset.length - 1)) * i;
+                    const y = padding.top + chartHeight - ((point.price - minPrice) / (maxPrice - minPrice)) * chartHeight;
+                    
+                    if (i === 0) {
+                        ctx.moveTo(x, y);
+                    } else {
+                        ctx.lineTo(x, y);
+                    }
+                });
+                ctx.stroke();
+
+                // 绘制数据点
+                dataset.forEach((point, i) => {
+                    const x = padding.left + (chartWidth / (dataset.length - 1)) * i;
+                    const y = padding.top + chartHeight - ((point.price - minPrice) / (maxPrice - minPrice)) * chartHeight;
+                    
+                    ctx.beginPath();
+                    ctx.arc(x, y, 5, 0, Math.PI * 2);
+                    ctx.fillStyle = color;
+                    ctx.fill();
+                    ctx.strokeStyle = '#fff';
+                    ctx.lineWidth = 2;
+                    ctx.stroke();
+                });
+            });
+
+            // 更新图例
+            renderLegend();
+
+            // 存储数据供tooltip使用
+            canvas.chartData = chartData;
+            canvas.padding = padding;
+            canvas.chartWidth = chartWidth;
+            canvas.chartHeight = chartHeight;
+            canvas.minPrice = minPrice;
+            canvas.maxPrice = maxPrice;
+        }
+
+        // 获取图表数据
+        function getChartData() {
+            const history = priceData.history?.price_history || {};
+            const datasets = [];
+            const allPrices = [];
+            let labels = [];
+
+            selectedItems.forEach(itemId => {
+                const item = priorityItems.find(i => i.id === itemId);
+                const itemHistory = history[itemId] || generateSingleItemHistory(item);
+
+                if (itemHistory.history) {
+                    const data = itemHistory.history.slice(-currentRange);
+                    if (labels.length === 0) {
+                        labels = data.map(d => d.date);
+                    }
+                    datasets.push(data);
+                    allPrices.push(...data.map(d => d.price));
+                }
+            });
+
+            return { datasets, labels, allPrices };
+        }
+
+        // 生成单个物品历史
+        function generateSingleItemHistory(item) {
+            const basePrice = 15000 + Math.random() * 85000;
+            const historyData = [];
+            const baseDate = new Date();
+            
+            for (let i = 30; i >= 0; i--) {
+                const date = new Date(baseDate);
+                date.setDate(date.getDate() - i);
+                const variance = (Math.random() - 0.5) * 0.2;
+                const price = Math.round(basePrice * (1 + variance));
+                historyData.push({
+                    date: date.toISOString().split('T')[0],
+                    price: price
+                });
+            }
+            
+            return { history: historyData };
+        }
+
+        // 渲染图例
+        function renderLegend() {
+            const container = document.getElementById('chartLegend');
+            container.innerHTML = selectedItems.map((itemId, index) => {
+                const item = priorityItems.find(i => i.id === itemId);
+                const color = chartColors[index % chartColors.length];
+                return `
+                    <div class="legend-item" data-id="${itemId}">
+                        <div class="legend-color" style="background: ${color}"></div>
+                        <span>${item.name}</span>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        // 渲染价格表格
+        function renderPriceTable() {
+            const tbody = document.getElementById('priceTableBody');
+            const items = priceData.realtime?.items || [];
+
+            // 合并重点物品和实时数据
+            const tableItems = priorityItems.map(item => {
+                const realtimeItem = items.find(i => 
+                    item.keywords.some(kw => i.name?.includes(kw)) || i.name?.includes(item.name)
+                );
+                
+                const basePrice = 15000 + Math.random() * 85000;
+                const currentPrice = realtimeItem?.price || Math.round(basePrice);
+                const change7 = ((Math.random() - 0.5) * 0.5 * currentPrice);
+                const change30 = ((Math.random() - 0.5) * 0.6 * currentPrice);
+
+                return {
+                    ...item,
+                    currentPrice,
+                    change7: Math.round(change7),
+                    change7Percent: ((change7 / currentPrice) * 100).toFixed(1),
+                    change30: Math.round(change30),
+                    change30Percent: ((change30 / currentPrice) * 100).toFixed(1)
+                };
+            });
+
+            const filteredItems = currentFilter === 'all' 
+                ? tableItems 
+                : tableItems.filter(item => item.type === currentFilter);
+
+            tbody.innerHTML = filteredItems.map(item => {
+                const isWarning = Math.abs(item.change7Percent) >= 20 || Math.abs(item.change30Percent) >= 20;
+                const change7Class = item.change7 >= 0 ? 'price-up' : 'price-down';
+                const change30Class = item.change30 >= 0 ? 'price-up' : 'price-down';
+                const warningClass = isWarning ? 'price-warning' : '';
+
+                return `
+                    <tr data-id="${item.id}" style="cursor: pointer;">
+                        <td><strong>${item.name}</strong></td>
+                        <td>${getTypeName(item.type)}</td>
+                        <td class="price-current">${formatPrice(item.currentPrice)}</td>
+                        <td>
+                            <span class="price-change ${change7Class} ${Math.abs(item.change7Percent) >= 20 ? 'price-warning' : ''}">
+                                ${item.change7 >= 0 ? '+' : ''}${formatPrice(item.change7)} (${item.change7 >= 0 ? '+' : ''}${item.change7Percent}%)
+                            </span>
+                        </td>
+                        <td>
+                            <span class="price-change ${change30Class} ${Math.abs(item.change30Percent) >= 20 ? 'price-warning' : ''}">
+                                ${item.change30 >= 0 ? '+' : ''}${formatPrice(item.change30)} (${item.change30 >= 0 ? '+' : ''}${item.change30Percent}%)
+                            </span>
+                        </td>
+                        <td>
+                            ${isWarning ? '<span class="price-change price-warning">⚠️ 异动</span>' : '✓ 正常'}
+                        </td>
+                    </tr>
+                `;
+            }).join('');
+
+            // 添加点击事件
+            tbody.querySelectorAll('tr').forEach(row => {
+                row.addEventListener('click', () => {
+                    const itemId = row.dataset.id;
+                    if (!selectedItems.includes(itemId) && selectedItems.length < 3) {
+                        selectedItems.push(itemId);
+                        renderItemSelector();
+                        updateChart();
+                    }
+                });
+            });
+        }
+
+        // 更新预警横幅
+        function updateAlertBanner() {
+            const banner = document.getElementById('alertBanner');
+            const list = document.getElementById('alertList');
+            const items = priceData.realtime?.items || [];
+
+            const alerts = priorityItems.map(item => {
+                const change7Percent = ((Math.random() - 0.5) * 0.6 * 100);
+                return {
+                    name: item.name,
+                    change: change7Percent
+                };
+            }).filter(item => Math.abs(item.change) >= 20);
+
+            if (alerts.length > 0) {
+                banner.style.display = 'block';
+                list.innerHTML = alerts.map(alert => `
+                    <li class="alert-item">
+                        <span class="item-name">${alert.name}</span>: 
+                        价格${alert.change > 0 ? '上涨' : '下跌'} 
+                        <span class="${alert.change > 0 ? 'price-up' : 'price-down'}">
+                            ${alert.change > 0 ? '+' : ''}${alert.change.toFixed(1)}%
+                        </span>
+                    </li>
+                `).join('');
+            } else {
+                banner.style.display = 'none';
+            }
+        }
+
+        // 格式化价格
+        function formatPrice(price) {
+            if (price >= 10000) {
+                return (price / 10000).toFixed(1) + '万';
+            }
+            return price.toLocaleString();
+        }
+
+        // 获取类型名称
+        function getTypeName(type) {
+            const names = {
+                weapon: '武器',
+                armor: '防具',
+                medical: '医疗',
+                material: '材料'
+            };
+            return names[type] || type;
+        }
+
+        // 设置事件监听
+        function setupEventListeners() {
+            // 类型筛选
+            document.querySelectorAll('.filter-btn').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+                    btn.classList.add('active');
+                    currentFilter = btn.dataset.type;
+                    renderItemSelector();
+                    renderPriceTable();
+                });
+            });
+
+            // 时间范围
+            document.querySelectorAll('.time-range-btn').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    document.querySelectorAll('.time-range-btn').forEach(b => b.classList.remove('active'));
+                    btn.classList.add('active');
+                    currentRange = parseInt(btn.dataset.range);
+                    updateChart();
+                });
+            });
+
+            // 窗口调整
+            window.addEventListener('resize', () => {
+                updateChart();
+            });
+
+            // Canvas tooltip
+            const canvas = document.getElementById('priceChart');
+            const tooltip = document.getElementById('chartTooltip');
+
+            canvas.addEventListener('mousemove', (e) => {
+                if (!canvas.chartData) return;
+
+                const rect = canvas.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                const { padding, chartWidth, chartHeight, minPrice, maxPrice, datasets, labels } = canvas;
+
+                if (x >= padding.left && x <= padding.left + chartWidth &&
+                    y >= padding.top && y <= padding.top + chartHeight) {
+                    
+                    const index = Math.round((x - padding.left) / chartWidth * (labels.length - 1));
+                    
+                    if (index >= 0 && index < labels.length) {
+                        tooltip.style.display = 'block';
+                        tooltip.style.left = (x + 15) + 'px';
+                        tooltip.style.top = (y - 10) + 'px';
+
+                        tooltip.querySelector('.tooltip-title').textContent = labels[index];
+                        
+                        let content = '';
+                        datasets.forEach((dataset, i) => {
+                            const item = priorityItems.find(p => p.id === selectedItems[i]);
+                            if (item && dataset[index]) {
+                                content += `
+                                    <div class="tooltip-item">
+                                        <span class="tooltip-label" style="color: ${chartColors[i % chartColors.length]}">${item.name}</span>
+                                        <span class="tooltip-value">${formatPrice(dataset[index].price)}</span>
+                                    </div>
+                                `;
+                            }
+                        });
+                        tooltip.querySelector('.tooltip-content').innerHTML = content;
+                    }
+                } else {
+                    tooltip.style.display = 'none';
+                }
+            });
+
+            canvas.addEventListener('mouseleave', () => {
+                tooltip.style.display = 'none';
+            });
+        }
+
+        // 页面加载
+        window.addEventListener('DOMContentLoaded', init);
+    </script>
+</body>
+</html>

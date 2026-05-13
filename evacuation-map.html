@@ -44,6 +44,37 @@
             font-size: 1.1em;
         }
 
+        /* 模式切换 */
+        .mode-selector {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 20px;
+            justify-content: center;
+        }
+
+        .mode-btn {
+            padding: 10px 20px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 2px solid #555;
+            border-radius: 8px;
+            color: #888;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 0.95em;
+        }
+
+        .mode-btn:hover {
+            border-color: #ff6b00;
+            color: #ff6b00;
+        }
+
+        .mode-btn.active {
+            background: rgba(255, 107, 0, 0.2);
+            border-color: #ff6b00;
+            color: #ff6b00;
+        }
+
+        /* 地图容器 */
         .map-selector {
             display: flex;
             gap: 15px;
@@ -70,77 +101,196 @@
             color: #000;
         }
 
-        .map-content {
-            display: none;
-        }
-
-        .map-content.active {
-            display: block;
-            animation: fadeIn 0.5s;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        .map-header {
-            background: rgba(255, 107, 0, 0.15);
-            border: 2px solid #ff6b00;
-            border-radius: 12px;
-            padding: 25px;
-            margin-bottom: 30px;
-        }
-
-        .map-header h2 {
-            color: #ff6b00;
-            font-size: 2em;
-            margin-bottom: 10px;
-        }
-
-        .map-meta {
-            display: flex;
-            gap: 30px;
-            margin-top: 15px;
-            flex-wrap: wrap;
-        }
-
-        .meta-item {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .meta-item .label {
-            color: #888;
-        }
-
-        .meta-item .value {
-            color: #ff6b00;
-            font-weight: bold;
-        }
-
-        .evacuation-points {
-            display: grid;
-            gap: 25px;
-            margin-bottom: 30px;
-        }
-
-        .evacuation-card {
-            background: rgba(255, 255, 255, 0.05);
+        /* 互动地图区域 */
+        .interactive-map {
+            position: relative;
+            background: rgba(0, 0, 0, 0.4);
             border: 2px solid #333;
             border-radius: 12px;
-            padding: 25px;
+            overflow: hidden;
+            margin-bottom: 30px;
+            min-height: 500px;
+        }
+
+        .map-canvas-container {
+            position: relative;
+            width: 100%;
+            height: 500px;
+            cursor: grab;
+            overflow: hidden;
+        }
+
+        .map-canvas-container.dragging {
+            cursor: grabbing;
+        }
+
+        #mapCanvas {
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform-origin: center center;
+        }
+
+        /* 缩放控制 */
+        .zoom-controls {
+            position: absolute;
+            right: 20px;
+            top: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            z-index: 10;
+        }
+
+        .zoom-btn {
+            width: 44px;
+            height: 44px;
+            background: rgba(255, 107, 0, 0.8);
+            border: 2px solid #ff6b00;
+            border-radius: 8px;
+            color: #fff;
+            font-size: 24px;
+            font-weight: bold;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
             transition: all 0.3s;
         }
 
-        .evacuation-card:hover {
-            border-color: #ff6b00;
-            transform: translateY(-3px);
-            box-shadow: 0 6px 20px rgba(255, 107, 0, 0.3);
+        .zoom-btn:hover {
+            background: #ff6b00;
+            transform: scale(1.1);
         }
 
-        .evacuation-header {
+        .zoom-level {
+            text-align: center;
+            color: #ff6b00;
+            font-size: 12px;
+            background: rgba(0, 0, 0, 0.6);
+            padding: 5px;
+            border-radius: 4px;
+        }
+
+        /* 物资分类Tab */
+        .category-tabs {
+            position: absolute;
+            left: 20px;
+            top: 20px;
+            display: flex;
+            gap: 8px;
+            z-index: 10;
+            flex-wrap: wrap;
+            max-width: 300px;
+        }
+
+        .category-tab {
+            padding: 8px 14px;
+            background: rgba(0, 0, 0, 0.7);
+            border: 2px solid #555;
+            border-radius: 6px;
+            color: #888;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 0.85em;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .category-tab:hover {
+            border-color: #ff6b00;
+            color: #ff6b00;
+        }
+
+        .category-tab.active {
+            background: rgba(255, 107, 0, 0.3);
+            border-color: #ff6b00;
+            color: #ff6b00;
+        }
+
+        .category-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+        }
+
+        /* 图例 */
+        .map-legend {
+            position: absolute;
+            left: 20px;
+            bottom: 20px;
+            background: rgba(0, 0, 0, 0.8);
+            border: 1px solid #333;
+            border-radius: 8px;
+            padding: 15px;
+            z-index: 10;
+        }
+
+        .legend-title {
+            color: #888;
+            font-size: 0.85em;
+            margin-bottom: 10px;
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 4px 0;
+            font-size: 0.8em;
+        }
+
+        .legend-icon {
+            width: 16px;
+            height: 16px;
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 10px;
+        }
+
+        /* 弹窗 */
+        .popup-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.8);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+        }
+
+        .popup-overlay.show {
+            display: flex;
+        }
+
+        .popup {
+            background: linear-gradient(135deg, #1a1f3a 0%, #0a0e1a 100%);
+            border: 2px solid #ff6b00;
+            border-radius: 16px;
+            padding: 30px;
+            max-width: 500px;
+            width: 90%;
+            animation: popupIn 0.3s ease;
+        }
+
+        @keyframes popupIn {
+            from {
+                opacity: 0;
+                transform: scale(0.9);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        .popup-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -149,177 +299,137 @@
             border-bottom: 2px solid #333;
         }
 
-        .evacuation-name {
-            font-size: 1.5em;
+        .popup-title {
             color: #ff6b00;
+            font-size: 1.5em;
             font-weight: bold;
+            display: flex;
+            align-items: center;
+            gap: 10px;
         }
 
-        .evacuation-type {
-            padding: 6px 15px;
-            border-radius: 20px;
+        .popup-close {
+            background: none;
+            border: none;
+            color: #888;
+            font-size: 24px;
+            cursor: pointer;
+            transition: color 0.3s;
+        }
+
+        .popup-close:hover {
+            color: #ff6b00;
+        }
+
+        .popup-content {
+            color: #e0e0e0;
+        }
+
+        .popup-item {
+            display: flex;
+            gap: 15px;
+            padding: 12px 0;
+            border-bottom: 1px solid #333;
+        }
+
+        .popup-item:last-child {
+            border-bottom: none;
+        }
+
+        .popup-label {
+            color: #888;
+            min-width: 80px;
+        }
+
+        .popup-value {
+            color: #fff;
+            flex: 1;
+        }
+
+        .popup-tags {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+            margin-top: 15px;
+        }
+
+        .popup-tag {
+            padding: 4px 12px;
+            border-radius: 12px;
             font-size: 0.85em;
-            font-weight: bold;
         }
 
-        .type-standard {
-            background: rgba(76, 175, 80, 0.3);
-            color: #4CAF50;
-            border: 1px solid #4CAF50;
-        }
-
-        .type-keycard {
-            background: rgba(255, 193, 7, 0.3);
-            color: #FFC107;
-            border: 1px solid #FFC107;
-        }
-
-        .type-hidden {
-            background: rgba(156, 39, 176, 0.3);
-            color: #9C27B0;
-            border: 1px solid #9C27B0;
-        }
-
-        .type-device {
-            background: rgba(255, 87, 34, 0.3);
-            color: #FF5722;
-            border: 1px solid #FF5722;
-        }
-
-        .type-packdrop {
-            background: rgba(33, 150, 243, 0.3);
-            color: #2196F3;
-            border: 1px solid #2196F3;
-        }
-
-        .boss-section {
-            background: rgba(255, 23, 68, 0.15);
-            border: 2px solid #FF1744;
+        /* 撤离点信息 */
+        .evacuation-info {
+            background: rgba(255, 255, 255, 0.05);
+            border: 2px solid #333;
             border-radius: 12px;
             padding: 25px;
             margin-bottom: 30px;
         }
 
-        .boss-header {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            margin-bottom: 15px;
-        }
-
-        .boss-icon {
-            font-size: 2.5em;
-        }
-
-        .boss-title {
-            color: #FF1744;
-            font-size: 1.5em;
-            font-weight: bold;
-        }
-
-        .boss-info {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 15px;
-        }
-
-        .boss-detail {
-            padding: 12px;
-            background: rgba(255, 255, 255, 0.05);
-            border-radius: 8px;
-        }
-
-        .boss-detail-label {
-            color: #888;
-            font-size: 0.85em;
-            margin-bottom: 5px;
-        }
-
-        .boss-detail-value {
-            color: #fff;
-            font-weight: bold;
-        }
-
-        .evacuation-details {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 15px;
-            margin-bottom: 20px;
-        }
-
-        .detail-item {
-            padding: 12px;
-            background: rgba(255, 255, 255, 0.03);
-            border-radius: 8px;
-        }
-
-        .detail-label {
-            color: #888;
-            font-size: 0.9em;
-            margin-bottom: 5px;
-        }
-
-        .detail-value {
-            color: #fff;
-            font-weight: bold;
-            font-size: 1.05em;
-        }
-
-        .risk-low { color: #4CAF50; }
-        .risk-medium { color: #FFC107; }
-        .risk-high { color: #FF5722; }
-        .risk-extreme { color: #f44336; }
-
-        .evacuation-route {
-            background: rgba(255, 107, 0, 0.1);
-            border-left: 4px solid #ff6b00;
-            padding: 20px;
-            border-radius: 8px;
-            margin-top: 15px;
-        }
-
-        .route-title {
+        .evacuation-title {
             color: #ff6b00;
-            font-size: 1.2em;
+            font-size: 1.5em;
+            margin-bottom: 20px;
             font-weight: bold;
-            margin-bottom: 15px;
         }
 
-        .route-steps {
-            list-style: none;
-            padding: 0;
+        .evacuation-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 15px;
         }
 
-        .route-steps li {
-            padding: 10px 0;
-            padding-left: 30px;
-            position: relative;
-            color: #ccc;
-            line-height: 1.6;
+        .evacuation-card {
+            background: rgba(255, 255, 255, 0.03);
+            border: 2px solid #333;
+            border-radius: 10px;
+            padding: 15px;
+            cursor: pointer;
+            transition: all 0.3s;
         }
 
-        .route-steps li:before {
-            content: counter(step);
-            counter-increment: step;
-            position: absolute;
-            left: 0;
-            top: 10px;
-            width: 22px;
-            height: 22px;
-            background: #ff6b00;
-            color: #000;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+        .evacuation-card:hover {
+            border-color: #ff6b00;
+            transform: translateY(-2px);
+        }
+
+        .evacuation-name {
+            color: #fff;
+            font-weight: bold;
+            margin-bottom: 8px;
+        }
+
+        .evacuation-type {
+            display: inline-block;
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-size: 0.8em;
+            margin-bottom: 8px;
+        }
+
+        .type-standard {
+            background: rgba(76, 175, 80, 0.3);
+            color: #4CAF50;
+        }
+
+        .type-keycard {
+            background: rgba(255, 193, 7, 0.3);
+            color: #FFC107;
+        }
+
+        .type-hidden {
+            background: rgba(156, 39, 176, 0.3);
+            color: #9C27B0;
+        }
+
+        .evacuation-note {
+            color: #888;
             font-size: 0.85em;
-            font-weight: bold;
         }
 
-        .route-steps {
-            counter-reset: step;
-        }
-
+        /* 提示 */
         .tips-section {
             background: rgba(255, 255, 255, 0.05);
             border-radius: 12px;
@@ -358,11 +468,61 @@
             line-height: 1.5;
         }
 
+        /* 物资详情面板 */
+        .supply-panel {
+            background: rgba(255, 255, 255, 0.05);
+            border: 2px solid #333;
+            border-radius: 12px;
+            padding: 25px;
+            margin-bottom: 30px;
+        }
+
+        .supply-title {
+            color: #ff6b00;
+            font-size: 1.5em;
+            margin-bottom: 20px;
+        }
+
+        .supply-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+        }
+
+        .supply-item {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid #444;
+            border-radius: 8px;
+            padding: 15px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .supply-item:hover {
+            border-color: #ff6b00;
+            background: rgba(255, 107, 0, 0.1);
+        }
+
+        .supply-icon {
+            font-size: 24px;
+            margin-bottom: 10px;
+        }
+
+        .supply-name {
+            color: #fff;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        .supply-type {
+            color: #888;
+            font-size: 0.85em;
+        }
+
         .loading {
             text-align: center;
             padding: 60px;
             color: #888;
-            font-size: 1.2em;
         }
 
         @media (max-width: 768px) {
@@ -370,13 +530,21 @@
                 font-size: 1.8em;
             }
 
-            .map-meta {
-                flex-direction: column;
-                gap: 15px;
+            .map-canvas-container {
+                height: 400px;
             }
 
-            .evacuation-details {
-                grid-template-columns: 1fr;
+            .category-tabs {
+                top: auto;
+                bottom: 60px;
+                left: 10px;
+                max-width: 200px;
+            }
+
+            .zoom-controls {
+                right: 10px;
+                top: auto;
+                bottom: 10px;
             }
         }
     </style>
@@ -388,310 +556,737 @@
             <p>详细的撤离点信息与路线规划 - 确保成功撤离</p>
         </div>
 
+        <!-- 模式切换 -->
+        <div class="mode-selector">
+            <button class="mode-btn active" data-mode="all">🌍 全面战场</button>
+            <button class="mode-btn" data-mode="classified">🔥 烽火地带</button>
+        </div>
+
+        <!-- 地图选择 -->
         <div class="map-selector">
             <button class="map-btn active" data-map="zeroDam">零号大坝</button>
             <button class="map-btn" data-map="longbowValley">长弓溪谷</button>
             <button class="map-btn" data-map="spacePort">航天基地</button>
             <button class="map-btn" data-map="buckish">巴克什</button>
             <button class="map-btn" data-map="tidalPrison">潮汐监狱</button>
-            <button class="map-btn" data-map="nuclearPlant" style="background: rgba(0,255,136,0.2); border-color: #00ff88; color: #00ff88;">🆕核电站【S9新增】</button>
+            <button class="map-btn" data-map="nuclearPlant">🆕核电站</button>
         </div>
 
-        <div id="map-container"></div>
+        <!-- 互动地图 -->
+        <div class="interactive-map">
+            <div class="map-canvas-container" id="mapContainer">
+                <canvas id="mapCanvas"></canvas>
+
+                <!-- 物资分类Tab -->
+                <div class="category-tabs">
+                    <button class="category-tab active" data-category="all">
+                        <span class="category-dot" style="background: #ff6b00;"></span>
+                        全部
+                    </button>
+                    <button class="category-tab" data-category="weapon">
+                        <span class="category-dot" style="background: #f44336;"></span>
+                        🔫武器
+                    </button>
+                    <button class="category-tab" data-category="medical">
+                        <span class="category-dot" style="background: #4CAF50;"></span>
+                        💊医疗
+                    </button>
+                    <button class="category-tab" data-category="accessory">
+                        <span class="category-dot" style="background: #2196F3;"></span>
+                        🔧配件
+                    </button>
+                    <button class="category-tab" data-category="material">
+                        <span class="category-dot" style="background: #FFC107;"></span>
+                        📦材料
+                    </button>
+                </div>
+
+                <!-- 缩放控制 -->
+                <div class="zoom-controls">
+                    <button class="zoom-btn" id="zoomIn">+</button>
+                    <div class="zoom-level" id="zoomLevel">100%</div>
+                    <button class="zoom-btn" id="zoomOut">−</button>
+                </div>
+
+                <!-- 图例 -->
+                <div class="map-legend">
+                    <div class="legend-title">物资类型</div>
+                    <div class="legend-item">
+                        <div class="legend-icon" style="background: #f44336;">🔫</div>
+                        <span>武器</span>
+                    </div>
+                    <div class="legend-item">
+                        <div class="legend-icon" style="background: #4CAF50;">💊</div>
+                        <span>医疗</span>
+                    </div>
+                    <div class="legend-item">
+                        <div class="legend-icon" style="background: #2196F3;">🔧</div>
+                        <span>配件</span>
+                    </div>
+                    <div class="legend-item">
+                        <div class="legend-icon" style="background: #FFC107;">📦</div>
+                        <span>材料</span>
+                    </div>
+                    <div class="legend-item">
+                        <div class="legend-icon" style="background: #9C27B0;">💎</div>
+                        <span>撤离点</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 撤离点信息 -->
+        <div class="evacuation-info">
+            <div class="evacuation-title">📍 撤离点速览</div>
+            <div class="evacuation-list" id="evacuationList"></div>
+        </div>
+
+        <!-- 物资面板 -->
+        <div class="supply-panel">
+            <div class="supply-title">🎒 物资分布</div>
+            <div class="supply-grid" id="supplyGrid"></div>
+        </div>
+
+        <!-- 技巧 -->
+        <div class="tips-section">
+            <div class="tips-title">💡 撤离技巧</div>
+            <div class="tips-grid" id="tipsGrid"></div>
+        </div>
+    </div>
+
+    <!-- 弹窗 -->
+    <div class="popup-overlay" id="popupOverlay">
+        <div class="popup">
+            <div class="popup-header">
+                <div class="popup-title" id="popupTitle">物资详情</div>
+                <button class="popup-close" id="popupClose">&times;</button>
+            </div>
+            <div class="popup-content" id="popupContent"></div>
+        </div>
     </div>
 
     <script>
-        let gameMechanicsData = null;
+        // 状态管理
+        let currentMap = 'zeroDam';
+        let currentMode = 'all';
+        let currentCategory = 'all';
+        let zoom = 1;
+        let panX = 0;
+        let panY = 0;
+        let isDragging = false;
+        let lastMouseX = 0;
+        let lastMouseY = 0;
 
-        // 加载数据
-        async function loadData() {
-            try {
-                const response = await fetch('game-mechanics.json');
-                gameMechanicsData = await response.json();
-                initMapSelector();
-                showMap('zeroDam');
-            } catch (error) {
-                console.error('加载数据失败:', error);
-                document.getElementById('map-container').innerHTML = 
-                    '<div class="loading">❌ 加载数据失败，请确保 game-mechanics.json 存在</div>';
+        // 地图数据
+        const mapConfigs = {
+            zeroDam: {
+                name: '零号大坝',
+                centerX: 358155,
+                centerY: -750191,
+                boundsW: 81086,
+                boundsH: 80988,
+                difficulty: { text: '简单', color: '#4CAF50' }
+            },
+            longbowValley: {
+                name: '长弓溪谷',
+                centerX: 450000,
+                centerY: -650000,
+                boundsW: 90000,
+                boundsH: 85000,
+                difficulty: { text: '中等', color: '#FFC107' }
+            },
+            spacePort: {
+                name: '航天基地',
+                centerX: 350000,
+                centerY: -580000,
+                boundsW: 85000,
+                boundsH: 80000,
+                difficulty: { text: '困难', color: '#FF5722' }
+            },
+            buckish: {
+                name: '巴克什',
+                centerX: 380000,
+                centerY: -720000,
+                boundsW: 88000,
+                boundsH: 83000,
+                difficulty: { text: '中等', color: '#FFC107' }
+            },
+            tidalPrison: {
+                name: '潮汐监狱',
+                centerX: 420000,
+                centerY: -580000,
+                boundsW: 95000,
+                boundsH: 90000,
+                difficulty: { text: '极难', color: '#f44336' }
+            },
+            nuclearPlant: {
+                name: '核电站',
+                centerX: 320000,
+                centerY: -680000,
+                boundsW: 80000,
+                boundsH: 75000,
+                difficulty: { text: '极难', color: '#f44336' }
+            }
+        };
+
+        // 物资点位数据
+        const supplyPoints = {
+            zeroDam: [
+                { name: '保险柜群', type: 'weapon', x: 364598, y: -787795, icon: '🔫', loot: '武器箱、高价值物品', value: '高' },
+                { name: '医疗物资堆', type: 'medical', x: 336667, y: -793117, icon: '💊', loot: '医疗包、绷带', value: '中' },
+                { name: '武器配件箱', type: 'accessory', x: 336179, y: -776354, icon: '🔧', loot: '瞄具、弹匣', value: '中' },
+                { name: '材料仓库', type: 'material', x: 371413, y: -768131, icon: '📦', loot: '金属板、零件', value: '高' },
+                { name: '电子设备室', type: 'accessory', x: 392334, y: -750165, icon: '🔧', loot: '电池、电子元件', value: '中' },
+                { name: '野外物资箱A', type: 'material', x: 325340, y: -795599, icon: '📦', loot: '随机材料', value: '低' },
+                { name: '高级武器箱', type: 'weapon', x: 367549, y: -785405, icon: '🔫', loot: '高级武器', value: '极高' },
+                { name: '药品储存室', type: 'medical', x: 350749, y: -760869, icon: '💊', loot: 'T1/T2医疗包', value: '高' }
+            ],
+            longbowValley: [
+                { name: '酒店保险柜', type: 'weapon', x: 450000, y: -650000, icon: '🔫', loot: '武器、高价值物品', value: '高' },
+                { name: '医疗站', type: 'medical', x: 460000, y: -640000, icon: '💊', loot: '医疗物资', value: '中' },
+                { name: '武器配件店', type: 'accessory', x: 440000, y: -660000, icon: '🔧', loot: '武器配件', value: '中' },
+                { name: '材料仓库', type: 'material', x: 455000, y: -655000, icon: '📦', loot: '建筑材料', value: '中' },
+                { name: '蝰蛇BOSS房', type: 'weapon', x: 480000, y: -620000, icon: '🐍', loot: '稀有装备', value: '极高' }
+            ],
+            spacePort: [
+                { name: '仓库A区', type: 'weapon', x: 350000, y: -580000, icon: '🔫', loot: '武器箱', value: '高' },
+                { name: '医务室', type: 'medical', x: 360000, y: -575000, icon: '💊', loot: '医疗包', value: '中' },
+                { name: '配件储存室', type: 'accessory', x: 355000, y: -585000, icon: '🔧', loot: '瞄具配件', value: '高' },
+                { name: '主控中心', type: 'material', x: 345000, y: -590000, icon: '📦', loot: '电子元件', value: '极高' }
+            ],
+            buckish: [
+                { name: '商业中心保险柜', type: 'weapon', x: 380000, y: -720000, icon: '🔫', loot: '高价值物品', value: '高' },
+                { name: '药店', type: 'medical', x: 385000, y: -715000, icon: '💊', loot: '医疗物资', value: '中' },
+                { name: '汽修厂', type: 'accessory', x: 375000, y: -725000, icon: '🔧', loot: '零件工具', value: '中' },
+                { name: '住宅区', type: 'material', x: 390000, y: -720000, icon: '📦', loot: '日常材料', value: '低' }
+            ],
+            tidalPrison: [
+                { name: '监狱长办公室', type: 'weapon', x: 420000, y: -580000, icon: '🔫', loot: '高级武器', value: '极高' },
+                { name: '医疗室', type: 'medical', x: 425000, y: -575000, icon: '💊', loot: '稀有药品', value: '高' },
+                { name: '装备室', type: 'accessory', x: 415000, y: -585000, icon: '🔧', loot: '战术配件', value: '高' },
+                { name: '仓库', type: 'material', x: 430000, y: -580000, icon: '📦', loot: '杂物材料', value: '中' }
+            ],
+            nuclearPlant: [
+                { name: '核电站保险柜', type: 'weapon', x: 320000, y: -680000, icon: '🔫', loot: '高级武器', value: '极高' },
+                { name: '医务站', type: 'medical', x: 315000, y: -685000, icon: '💊', loot: '稀有药品', value: '高' },
+                { name: '设备间', type: 'accessory', x: 325000, y: -675000, icon: '🔧', loot: '电子配件', value: '高' },
+                { name: '材料堆', type: 'material', x: 330000, y: -680000, icon: '📦', loot: '稀有材料', value: '极高' }
+            ]
+        };
+
+        // 撤离点数据
+        const evacuationPoints = {
+            zeroDam: [
+                { name: '大坝顶部撤离点', type: 'standard', note: '标准撤离，无需条件', risk: '低' },
+                { name: '地下通道撤离', type: 'keycard', note: '需要启动发电机', risk: '中' },
+                { name: '备用撤离点', type: 'packdrop', note: '丢包撤离，需限时到达', risk: '中' }
+            ],
+            longbowValley: [
+                { name: '蓝港码头撤离', type: 'standard', note: '标准撤离点', risk: '低' },
+                { name: '雷达站撤离', type: 'keycard', note: '需要钥匙卡', risk: '中' },
+                { name: '检查站丢包', type: 'packdrop', note: '丢包撤离', risk: '中' }
+            ],
+            spacePort: [
+                { name: '正门撤离', type: 'device', note: '需要拉两个闸门', risk: '高' },
+                { name: '后勤通道撤离', type: 'keycard', note: '需要后勤钥匙卡', risk: '低' }
+            ],
+            buckish: [
+                { name: '地铁站撤离', type: 'standard', note: '标准撤离', risk: '高' },
+                { name: '停车场撤离', type: 'device', note: '需要启动电源', risk: '中' }
+            ],
+            tidalPrison: [
+                { name: '正门撤离', type: 'device', note: '需要拉两个闸门，等待60秒', risk: '极高' },
+                { name: '海岸警卫队撤离', type: 'keycard', note: '需要海岸警卫队钥匙卡', risk: '中' }
+            ],
+            nuclearPlant: [
+                { name: '主出口撤离', type: 'device', note: '需要完成电站任务', risk: '高' },
+                { name: '员工通道撤离', type: 'keycard', note: '需要员工钥匙卡', risk: '中' }
+            ]
+        };
+
+        // 提示数据
+        const mapTips = {
+            zeroDam: [
+                { title: '🎯 首选撤离点', content: '大坝顶部撤离点最安全，适合新手。地下通道适合快速撤离。' },
+                { title: '⚠️ 注意事项', content: '地下通道撤退时要注意噪音，发电机启动声音会暴露位置。' },
+                { title: '💼 物资建议', content: '零号大坝物资价值中等，建议携带中等容量背包（15-18格）。' }
+            ],
+            longbowValley: [
+                { title: '🐍 蝰蛇首领', content: '蝰蛇首领位于加尔比旧址附近，击败后可获得高价值掉落。' },
+                { title: '🎯 首选撤离点', content: '蓝港码头撤离点相对安全，从雷达站方向撤离可避开冲突区域。' },
+                { title: '⚠️ 地形提醒', content: '长弓溪谷地形开阔，狙击手优势明显。' }
+            ],
+            spacePort: [
+                { title: '🎯 拉闸顺序', content: '建议先拉主控中心闸门，再拉仓库区闸门。' },
+                { title: '🔑 钥匙卡优先', content: '后勤通道钥匙卡是航天基地最安全的撤离方式。' }
+            ],
+            buckish: [
+                { title: '🎯 避开地铁站', content: '地铁站撤离点风险过高，建议优先使用地下停车场撤离点。' },
+                { title: '🛡️ 防御准备', content: '巴克什巷战居多，建议携带霰弹枪或冲锋枪。' }
+            ],
+            tidalPrison: [
+                { title: '🎯 双撤离点策略', content: '优先尝试海岸警卫队撤离点，如果被封锁再转正面撤离点。' },
+                { title: '⏰ 时间管理', content: '潮汐监狱撤离时间最长（60秒），建议提前规划路线。' }
+            ],
+            nuclearPlant: [
+                { title: '⚠️ 高风险区域', content: '核电站为S9新增地图，竞争激烈，建议组队前往。' },
+                { title: '🎯 任务优先', content: '优先完成电站任务可解锁更安全的撤离路线。' }
+            ]
+        };
+
+        // Canvas引用
+        const canvas = document.getElementById('mapCanvas');
+        const ctx = canvas.getContext('2d');
+        const container = document.getElementById('mapContainer');
+
+        // 初始化
+        function init() {
+            setupCanvas();
+            setupEventListeners();
+            renderEvacuationList();
+            renderSupplyGrid();
+            renderTips();
+            drawMap();
+        }
+
+        // 设置Canvas
+        function setupCanvas() {
+            const rect = container.getBoundingClientRect();
+            canvas.width = rect.width;
+            canvas.height = rect.height;
+        }
+
+        // 绘制地图
+        function drawMap() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            
+            // 绘制背景网格
+            drawGrid();
+            
+            // 绘制地图边界
+            drawMapBounds();
+            
+            // 绘制物资点位
+            drawSupplyPoints();
+            
+            // 绘制撤离点
+            drawEvacuationMarkers();
+        }
+
+        // 绘制网格
+        function drawGrid() {
+            ctx.strokeStyle = 'rgba(255, 255, 255, 0.05)';
+            ctx.lineWidth = 1;
+            
+            const gridSize = 50 * zoom;
+            const offsetX = (canvas.width / 2 + panX) % gridSize;
+            const offsetY = (canvas.height / 2 + panY) % gridSize;
+            
+            for (let x = offsetX; x < canvas.width; x += gridSize) {
+                ctx.beginPath();
+                ctx.moveTo(x, 0);
+                ctx.lineTo(x, canvas.height);
+                ctx.stroke();
+            }
+            
+            for (let y = offsetY; y < canvas.height; y += gridSize) {
+                ctx.beginPath();
+                ctx.moveTo(0, y);
+                ctx.lineTo(canvas.width, y);
+                ctx.stroke();
             }
         }
 
-        // 初始化地图选择器
-        function initMapSelector() {
-            const buttons = document.querySelectorAll('.map-btn');
-            buttons.forEach(btn => {
+        // 绘制地图边界
+        function drawMapBounds() {
+            const config = mapConfigs[currentMap];
+            const scale = zoom * 0.002;
+            
+            ctx.save();
+            ctx.translate(canvas.width / 2 + panX, canvas.height / 2 + panY);
+            
+            // 绘制地图区域
+            ctx.fillStyle = 'rgba(255, 107, 0, 0.1)';
+            ctx.strokeStyle = 'rgba(255, 107, 0, 0.5)';
+            ctx.lineWidth = 2;
+            
+            const w = config.boundsW * scale;
+            const h = config.boundsH * scale;
+            
+            ctx.beginPath();
+            ctx.roundRect(-w / 2, -h / 2, w, h, 10);
+            ctx.fill();
+            ctx.stroke();
+            
+            // 绘制地图名称
+            ctx.fillStyle = 'rgba(255, 107, 0, 0.3)';
+            ctx.font = `${24 * zoom}px Segoe UI`;
+            ctx.textAlign = 'center';
+            ctx.fillText(config.name, 0, 0);
+            
+            ctx.restore();
+        }
+
+        // 绘制物资点位
+        function drawSupplyPoints() {
+            const points = supplyPoints[currentMap] || [];
+            const filteredPoints = currentCategory === 'all' 
+                ? points 
+                : points.filter(p => p.type === currentCategory);
+            
+            const config = mapConfigs[currentMap];
+            const scale = zoom * 0.003;
+            
+            filteredPoints.forEach(point => {
+                const x = canvas.width / 2 + panX + (point.x - config.centerX) * scale;
+                const y = canvas.height / 2 + panY + (point.y - config.centerY) * scale;
+                
+                const color = getTypeColor(point.type);
+                
+                // 绘制点位
+                ctx.beginPath();
+                ctx.arc(x, y, 12 * zoom, 0, Math.PI * 2);
+                ctx.fillStyle = color;
+                ctx.fill();
+                ctx.strokeStyle = '#fff';
+                ctx.lineWidth = 2;
+                ctx.stroke();
+                
+                // 绘制图标
+                ctx.font = `${14 * zoom}px Arial`;
+                ctx.textAlign = 'center';
+                ctx.textBaseline = 'middle';
+                ctx.fillText(point.icon, x, y);
+                
+                // 绘制标签
+                ctx.font = `${10 * zoom}px Segoe UI`;
+                ctx.fillStyle = '#fff';
+                ctx.fillText(point.name, x, y + 20 * zoom);
+            });
+        }
+
+        // 绘制撤离点标记
+        function drawEvacuationMarkers() {
+            const points = evacuationPoints[currentMap] || [];
+            const config = mapConfigs[currentMap];
+            const scale = zoom * 0.002;
+            
+            // 固定撤离点位置
+            const evacPositions = [
+                { x: config.centerX + config.boundsW * 0.3, y: config.centerY + config.boundsH * 0.4 },
+                { x: config.centerX - config.boundsW * 0.3, y: config.centerY - config.boundsH * 0.3 },
+                { x: config.centerX, y: config.centerY - config.boundsH * 0.4 }
+            ];
+            
+            points.forEach((point, i) => {
+                const pos = evacPositions[i] || evacPositions[0];
+                const x = canvas.width / 2 + panX + (pos.x - config.centerX) * scale;
+                const y = canvas.height / 2 + panY + (pos.y - config.centerY) * scale;
+                
+                // 绘制撤离点
+                ctx.beginPath();
+                ctx.arc(x, y, 16 * zoom, 0, Math.PI * 2);
+                ctx.fillStyle = '#9C27B0';
+                ctx.fill();
+                ctx.strokeStyle = '#fff';
+                ctx.lineWidth = 3;
+                ctx.stroke();
+                
+                // 绘制图标
+                ctx.font = `${16 * zoom}px Arial`;
+                ctx.textAlign = 'center';
+                ctx.textBaseline = 'middle';
+                ctx.fillText('💎', x, y);
+                
+                // 绘制标签
+                ctx.font = `${10 * zoom}px Segoe UI`;
+                ctx.fillStyle = '#9C27B0';
+                ctx.fillText(point.name, x, y + 24 * zoom);
+            });
+        }
+
+        // 获取类型颜色
+        function getTypeColor(type) {
+            const colors = {
+                weapon: '#f44336',
+                medical: '#4CAF50',
+                accessory: '#2196F3',
+                material: '#FFC107'
+            };
+            return colors[type] || '#888';
+        }
+
+        // 获取类型图标
+        function getTypeIcon(type) {
+            const icons = {
+                weapon: '🔫',
+                medical: '💊',
+                accessory: '🔧',
+                material: '📦'
+            };
+            return icons[type] || '📦';
+        }
+
+        // 获取类型名称
+        function getTypeName(type) {
+            const names = {
+                weapon: '武器',
+                medical: '医疗',
+                accessory: '配件',
+                material: '材料'
+            };
+            return names[type] || type;
+        }
+
+        // 设置事件监听
+        function setupEventListeners() {
+            // 缩放控制
+            document.getElementById('zoomIn').addEventListener('click', () => {
+                zoom = Math.min(zoom + 0.2, 3);
+                updateZoomLevel();
+                drawMap();
+            });
+
+            document.getElementById('zoomOut').addEventListener('click', () => {
+                zoom = Math.max(zoom - 0.2, 0.4);
+                updateZoomLevel();
+                drawMap();
+            });
+
+            // 鼠标滚轮缩放
+            container.addEventListener('wheel', (e) => {
+                e.preventDefault();
+                if (e.deltaY < 0) {
+                    zoom = Math.min(zoom + 0.1, 3);
+                } else {
+                    zoom = Math.max(zoom - 0.1, 0.4);
+                }
+                updateZoomLevel();
+                drawMap();
+            });
+
+            // 拖拽平移
+            container.addEventListener('mousedown', (e) => {
+                isDragging = true;
+                lastMouseX = e.clientX;
+                lastMouseY = e.clientY;
+                container.classList.add('dragging');
+            });
+
+            window.addEventListener('mousemove', (e) => {
+                if (isDragging) {
+                    const deltaX = e.clientX - lastMouseX;
+                    const deltaY = e.clientY - lastMouseY;
+                    panX += deltaX;
+                    panY += deltaY;
+                    lastMouseX = e.clientX;
+                    lastMouseY = e.clientY;
+                    drawMap();
+                }
+            });
+
+            window.addEventListener('mouseup', () => {
+                isDragging = false;
+                container.classList.remove('dragging');
+            });
+
+            // 点击物资点位
+            canvas.addEventListener('click', (e) => {
+                const rect = canvas.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                
+                const clickedPoint = findClickedPoint(x, y);
+                if (clickedPoint) {
+                    showPopup(clickedPoint);
+                }
+            });
+
+            // 模式切换
+            document.querySelectorAll('.mode-btn').forEach(btn => {
                 btn.addEventListener('click', () => {
-                    buttons.forEach(b => b.classList.remove('active'));
+                    document.querySelectorAll('.mode-btn').forEach(b => b.classList.remove('active'));
                     btn.classList.add('active');
-                    showMap(btn.dataset.map);
+                    currentMode = btn.dataset.mode;
+                    renderSupplyGrid();
+                });
+            });
+
+            // 地图切换
+            document.querySelectorAll('.map-btn').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    document.querySelectorAll('.map-btn').forEach(b => b.classList.remove('active'));
+                    btn.classList.add('active');
+                    currentMap = btn.dataset.map;
+                    zoom = 1;
+                    panX = 0;
+                    panY = 0;
+                    updateZoomLevel();
+                    renderEvacuationList();
+                    renderSupplyGrid();
+                    renderTips();
+                    drawMap();
+                });
+            });
+
+            // 分类切换
+            document.querySelectorAll('.category-tab').forEach(tab => {
+                tab.addEventListener('click', () => {
+                    document.querySelectorAll('.category-tab').forEach(t => t.classList.remove('active'));
+                    tab.classList.add('active');
+                    currentCategory = tab.dataset.category;
+                    drawMap();
+                });
+            });
+
+            // 弹窗关闭
+            document.getElementById('popupClose').addEventListener('click', closePopup);
+            document.getElementById('popupOverlay').addEventListener('click', (e) => {
+                if (e.target === e.currentTarget) {
+                    closePopup();
+                }
+            });
+
+            // 窗口大小变化
+            window.addEventListener('resize', () => {
+                setupCanvas();
+                drawMap();
+            });
+        }
+
+        // 更新缩放级别显示
+        function updateZoomLevel() {
+            document.getElementById('zoomLevel').textContent = Math.round(zoom * 100) + '%';
+        }
+
+        // 查找点击的点位
+        function findClickedPoint(x, y) {
+            const points = supplyPoints[currentMap] || [];
+            const config = mapConfigs[currentMap];
+            const scale = zoom * 0.003;
+            
+            for (const point of points) {
+                const px = canvas.width / 2 + panX + (point.x - config.centerX) * scale;
+                const py = canvas.height / 2 + panY + (point.y - config.centerY) * scale;
+                
+                const distance = Math.sqrt((x - px) ** 2 + (y - py) ** 2);
+                if (distance < 20 * zoom) {
+                    return point;
+                }
+            }
+            return null;
+        }
+
+        // 显示弹窗
+        function showPopup(point) {
+            const overlay = document.getElementById('popupOverlay');
+            const title = document.getElementById('popupTitle');
+            const content = document.getElementById('popupContent');
+            
+            title.innerHTML = `<span style="font-size: 24px;">${point.icon}</span> ${point.name}`;
+            
+            content.innerHTML = `
+                <div class="popup-item">
+                    <span class="popup-label">类型</span>
+                    <span class="popup-value">${getTypeName(point.type)}</span>
+                </div>
+                <div class="popup-item">
+                    <span class="popup-label">坐标</span>
+                    <span class="popup-value">X: ${point.x}, Y: ${point.y}</span>
+                </div>
+                <div class="popup-item">
+                    <span class="popup-label">预计掉落</span>
+                    <span class="popup-value">${point.loot}</span>
+                </div>
+                <div class="popup-item">
+                    <span class="popup-label">价值等级</span>
+                    <span class="popup-value" style="color: ${point.value === '极高' ? '#f44336' : point.value === '高' ? '#ff6b00' : '#4CAF50'}">
+                        ${point.value}
+                    </span>
+                </div>
+                <div class="popup-tags">
+                    <span class="popup-tag" style="background: ${getTypeColor(point.type)}20; color: ${getTypeColor(point.type)}; border: 1px solid ${getTypeColor(point.type)}">
+                        ${getTypeIcon(point.type)} ${getTypeName(point.type)}
+                    </span>
+                </div>
+            `;
+            
+            overlay.classList.add('show');
+        }
+
+        // 关闭弹窗
+        function closePopup() {
+            document.getElementById('popupOverlay').classList.remove('show');
+        }
+
+        // 渲染撤离点列表
+        function renderEvacuationList() {
+            const list = document.getElementById('evacuationList');
+            const points = evacuationPoints[currentMap] || [];
+            
+            list.innerHTML = points.map(point => `
+                <div class="evacuation-card">
+                    <div class="evacuation-name">${point.name}</div>
+                    <span class="evacuation-type type-${point.type}">${getEvacTypeName(point.type)}</span>
+                    <div class="evacuation-note">${point.note}</div>
+                    <div style="margin-top: 8px; font-size: 0.85em;">
+                        <span style="color: ${point.risk === '低' ? '#4CAF50' : point.risk === '中' ? '#FFC107' : '#f44336'}">
+                            ⚠️ ${point.risk}风险
+                        </span>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // 获取撤离类型名称
+        function getEvacTypeName(type) {
+            const names = {
+                standard: '标准撤离',
+                keycard: '钥匙卡撤离',
+                hidden: '隐藏撤离',
+                device: '条件撤离',
+                packdrop: '丢包撤离'
+            };
+            return names[type] || type;
+        }
+
+        // 渲染物资网格
+        function renderSupplyGrid() {
+            const grid = document.getElementById('supplyGrid');
+            const points = supplyPoints[currentMap] || [];
+            
+            grid.innerHTML = points.map(point => `
+                <div class="supply-item" data-point='${JSON.stringify(point)}'>
+                    <div class="supply-icon">${point.icon}</div>
+                    <div class="supply-name">${point.name}</div>
+                    <div class="supply-type">${getTypeName(point.type)} | ${point.value}价值</div>
+                </div>
+            `).join('');
+            
+            // 添加点击事件
+            grid.querySelectorAll('.supply-item').forEach(item => {
+                item.addEventListener('click', () => {
+                    const point = JSON.parse(item.dataset.point);
+                    showPopup(point);
                 });
             });
         }
 
-        // 显示地图详情
-        function showMap(mapKey) {
-            const container = document.getElementById('map-container');
-            const mapData = gameMechanicsData.evacuationPoints.maps[mapKey];
+        // 渲染提示
+        function renderTips() {
+            const grid = document.getElementById('tipsGrid');
+            const tips = mapTips[currentMap] || [];
             
-            if (!mapData) {
-                container.innerHTML = '<div class="loading">❌ 未找到地图数据</div>';
-                return;
-            }
-
-            const difficultyMap = {
-                'zeroDam': { text: '简单', color: '#4CAF50' },
-                'longbowValley': { text: '中等', color: '#FFC107' },
-                'spacePort': { text: '困难', color: '#FF5722' },
-                'buckish': { text: '中等', color: '#FFC107' },
-                'tidalPrison': { text: '极难', color: '#f44336' }
-            };
-
-            const difficulty = difficultyMap[mapKey] || { text: '未知', color: '#888' };
-
-            let html = `
-                <div class="map-content active">
-                    <div class="map-header">
-                        <h2>${mapData.name}</h2>
-                        <div class="map-meta">
-                            <div class="meta-item">
-                                <span class="label">难度：</span>
-                                <span class="value" style="color: ${difficulty.color}">${difficulty.text}</span>
-                            </div>
-                            <div class="meta-item">
-                                <span class="label">撤离点数量：</span>
-                                <span class="value">${mapData.points.length}个</span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="evacuation-points">
-            `;
-
-            mapData.points.forEach((point, index) => {
-                const typeClass = `type-${point.type === '标准撤离' ? 'standard' :
-                                                  point.type === '钥匙卡撤离' ? 'keycard' :
-                                                  point.type === '隐藏撤离' ? 'hidden' :
-                                                  point.type === '丢包撤离' ? 'packdrop' : 'device'}`;
-
-                const riskClass = `risk-${point.risk === '低' ? 'low' :
-                                            point.risk === '中' ? 'medium' :
-                                            point.risk === '高' ? 'high' : 'extreme'}`;
-
-                const route = getEvacuationRoute(mapKey, index);
-
-                // 检查是否有BOSS信息
-                const hasBoss = mapData.boss && index === 0;
-
-                html += `
-                    <div class="evacuation-card">
-                        ${hasBoss ? `
-                        <div class="boss-section">
-                            <div class="boss-header">
-                                <span class="boss-icon">🐍</span>
-                                <span class="boss-title">BOSS: ${mapData.boss.name}</span>
-                            </div>
-                            <div class="boss-info">
-                                <div class="boss-detail">
-                                    <div class="boss-detail-label">📍 位置</div>
-                                    <div class="boss-detail-value">${mapData.boss.location}</div>
-                                </div>
-                                <div class="boss-detail">
-                                    <div class="boss-detail-label">⚔️ 难度</div>
-                                    <div class="boss-detail-value">${mapData.boss.difficulty}</div>
-                                </div>
-                                <div class="boss-detail">
-                                    <div class="boss-detail-label">💎 掉落物</div>
-                                    <div class="boss-detail-value">${mapData.boss.loot}</div>
-                                </div>
-                                <div class="boss-detail">
-                                    <div class="boss-detail-label">🎯 攻略</div>
-                                    <div class="boss-detail-value">${mapData.boss.strategy}</div>
-                                </div>
-                            </div>
-                        </div>
-                        ` : ''}
-                        <div class="evacuation-header">
-                            <div class="evacuation-name">${point.name}</div>
-                            <div class="evacuation-type ${typeClass}">${point.type}</div>
-                        </div>
-
-                        <div class="evacuation-details">
-                            <div class="detail-item">
-                                <div class="detail-label">📍 位置</div>
-                                <div class="detail-value">${point.location}</div>
-                            </div>
-                            <div class="detail-item">
-                                <div class="detail-label">⏱️ 撤离条件</div>
-                                <div class="detail-value">${point.condition}</div>
-                            </div>
-                            <div class="detail-item">
-                                <div class="detail-label">⚠️ 风险等级</div>
-                                <div class="detail-value ${riskClass}">${point.risk}</div>
-                            </div>
-                            <div class="detail-item">
-                                <div class="detail-label">💡 提示</div>
-                                <div class="detail-value">${point.note}</div>
-                            </div>
-                        </div>
-
-                        <div class="evacuation-route">
-                            <div class="route-title">📍 推荐撤离路线</div>
-                            <ul class="route-steps">
-                                ${route.map(step => `<li>${step}</li>`).join('')}
-                            </ul>
-                        </div>
-                    </div>
-                `;
-            });
-
-            html += `
-                    </div>
-
-                    <div class="tips-section">
-                        <div class="tips-title">💡 ${mapData.name} 撤离技巧</div>
-                        <div class="tips-grid">
-                            ${getMapTips(mapKey).map(tip => `
-                                <div class="tip-card">
-                                    <h4>${tip.title}</h4>
-                                    <p>${tip.content}</p>
-                                </div>
-                            `).join('')}
-                        </div>
-                    </div>
+            grid.innerHTML = tips.map(tip => `
+                <div class="tip-card">
+                    <h4>${tip.title}</h4>
+                    <p>${tip.content}</p>
                 </div>
-            `;
-
-            container.innerHTML = html;
+            `).join('');
         }
 
-        // 获取撤离路线
-        function getEvacuationRoute(mapKey, pointIndex) {
-            const routes = {
-                'zeroDam': [
-                    [
-                        '从行政楼出发，沿左侧小路向西北方向移动',
-                        '经过变电站时注意右侧高地可能有狙击手',
-                        '到达大坝顶部撤离点，找好掩体等待30秒',
-                        '撤离时保持警惕，确认周围安全再进出撤离区'
-                    ],
-                    [
-                        '从宿舍区或行政楼出发，向东南方向移动到地下通道入口',
-                        '启动3个发电机（位置：通道入口、中间平台、出口附近）',
-                        '启动后等待10秒，撤离门打开',
-                        '快速撤离，注意通道内可能有埋伏'
-                    ],
-                    [
-                        '【S9新增】从宿舍区北侧小路前往备用撤离点',
-                        '此撤离点为丢包撤离，需要在限定时间内到达',
-                        '适合从地图北侧撤离，避免正面冲突',
-                        '注意：此撤离点需要持有足够的背包空间'
-                    ]
-                ],
-                'longbowValley': [
-                    [
-                        '【蝰蛇首领BOSS】位于地图东北区域 - 加尔比旧址附近',
-                        'BOSS难度较高，建议组队前往',
-                        '击败蝰蛇后可获得高价值掉落和雷达站钥匙卡',
-                        '从雷达站向西移动到主撤离点'
-                    ],
-                    [
-                        '从钻石皇后酒店向西北方向撤离',
-                        '经过超星车站时注意两侧建筑可能有敌人埋伏',
-                        '沿公路向西北撤离点移动，保持警戒',
-                        '撤离点位于蓝港码头附近，适合带大量物资撤离'
-                    ],
-                    [
-                        '【S9新增丢包撤离点】',
-                        '从检查站向东侧移动到指定丢包区域',
-                        '在限定时间内将背包丢到指定位置即可触发撤离',
-                        '适用于需要快速撤离但又不想丢弃背包的情况'
-                    ]
-                ],
-                'spacePort': [
-                    [
-                        '需要先拉下两个闸门（主控中心和仓库区各一个）',
-                        '闸门启动后，前往正门撤离点',
-                        '等待45秒，期间找好掩体防御',
-                        '建议携带烟雾弹，遮挡敌方视线'
-                    ],
-                    [
-                        '获取后勤通道钥匙卡（击杀BOSS或搜索钥匙房）',
-                        '从地图北侧进入后勤通道',
-                        '直接使用钥匙卡开启撤离门，等待15秒',
-                        '最安全的撤离方式，推荐优先使用'
-                    ]
-                ],
-                'buckish': [
-                    [
-                        '从商业中心或住宅区向地铁站移动',
-                        '地铁站人员密集，建议从侧门进入',
-                        '等待30秒，期间注意四周',
-                        '高风险撤离点，建议快速清理周围敌人'
-                    ],
-                    [
-                        '找到地下停车场入口（地图西南）',
-                        '启动备用电源（通常在一楼控制室）',
-                        '电源启动后，撤离门打开',
-                        '适合从商业中心带物资撤离'
-                    ]
-                ],
-                'tidalPrison': [
-                    [
-                        '最难撤离点，需要拉下两个闸门',
-                        '从监狱内部向正门移动，路线开阔易被狙击',
-                        '等待60秒，建议带满药品和烟雾弹',
-                        '如果失败，立即转往海岸警卫队撤离点'
-                    ],
-                    [
-                        '获取海岸警卫队钥匙卡（监狱长办公室或BOSS掉落）',
-                        '从监狱向东侧海岸移动，路线相对安全',
-                        '使用钥匙卡开启撤离门，等待20秒',
-                        '相对安全的撤离点，推荐作为备用方案'
-                    ]
-                ]
-            };
-
-            return routes[mapKey] ? routes[mapKey][pointIndex] || ['路线规划开发中...'] : ['路线规划开发中...'];
-        }
-
-        // 获取地图技巧
-        function getMapTips(mapKey) {
-            const tips = {
-                'zeroDam': [
-                    { title: '🎯 首选撤离点', content: '大坝顶部撤离点最安全，适合新手。地下通道适合快速撤离，但需要提前启动发电机。' },
-                    { title: '⚠️ 注意事项', content: '地下通道撤退时要注意噪音，发电机启动声音会暴露位置。' },
-                    { title: '🔧 S9新增第二拉闸点', content: 'S9赛季零号大坝新增第二拉闸点，位于宿舍区北侧，可连接备用撤离点。' },
-                    { title: '💼 物资建议', content: '零号大坝物资价值中等，建议携带中等容量背包（15-18格）。' }
-                ],
-                'longbowValley': [
-                    { title: '🐍 蝰蛇首领', content: '蝰蛇首领位于加尔比旧址附近（地图东北），击败后可获得雷达站钥匙卡和高价值掉落。' },
-                    { title: '🎯 首选撤离点', content: '蓝港码头撤离点相对安全，从雷达站方向撤离可避开主要冲突区域。' },
-                    { title: '📦 S9丢包撤离', content: 'S9新增丢包撤离机制，从检查站向东侧移动到指定区域即可触发。' },
-                    { title: '⚠️ 地形提醒', content: '长弓溪谷地形开阔，狙击手优势明显，建议携带中远距离武器。' }
-                ],
-                'spacePort': [
-                    { title: '🎯 拉闸顺序', content: '建议先拉主控中心闸门，再拉仓库区闸门。拉闸后快速移动到正门撤离点。' },
-                    { title: '🔑 钥匙卡优先', content: '后勤通道钥匙卡是航天基地最安全的撤离方式，优先获取。' },
-                    { title: '⚠️ 高风险提醒', content: '航天基地竞争激烈，撤离时至少有1人放哨，防止被偷袭。' }
-                ],
-                'buckish': [
-                    { title: '🎯 避开地铁站', content: '地铁站撤离点风险过高，建议优先使用地下停车场撤离点。' },
-                    { title: '💡 隐蔽路线', content: '从住宅区沿小巷移动到地下停车场，避开商业中心主路。' },
-                    { title: '🛡️ 防御准备', content: '巴克什巷战居多，建议携带霰弹枪或冲锋枪，近战优势明显。' }
-                ],
-                'tidalPrison': [
-                    { title: '🎯 双撤离点策略', content: '优先尝试海岸警卫队撤离点，如果被封锁再转正面撤离点。' },
-                    { title: '⏰ 时间管理', content: '潮汐监狱撤离时间最长（60秒），建议提前规划路线，留出充足时间。' },
-                    { title: '💪 装备建议', content: '绝密地图建议战备值达到69万以上，确保装备足够应对高强度战斗。' }
-                ]
-            };
-
-            return tips[mapKey] || [];
-        }
-
-        // 页面加载时初始化
-        window.addEventListener('DOMContentLoaded', loadData);
+        // 页面加载
+        window.addEventListener('DOMContentLoaded', init);
     </script>
 </body>
 </html>
